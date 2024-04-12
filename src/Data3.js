@@ -4,7 +4,7 @@ export const UserData3 = [
         year: 'FLUX',
         btcGain: '17.34',
         userLost: 545,
-    },
+    }, 
     {
         id:2,
         year:'AWS',
