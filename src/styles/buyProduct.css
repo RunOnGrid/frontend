@@ -1,0 +1,85 @@
+.buyProdContainer{
+    background-color: #F6F6F6;
+    background-size: cover;
+    height: 100vh;
+}
+.buyProdCard{
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    width: 900px;
+    background-color: #999999db;
+    margin-left: 500px;
+    margin-right: auto;
+    margin-top: 150px;
+    border-radius: 15px;
+   
+}
+
+.contenedor-cards-buyProd{
+    display: flex;
+    margin-top: 15%;
+}
+
+.contenedor-cards-buyProd div{
+    display: flex;
+    padding: 10px;
+    width: 25%;
+    height: 200px;
+    background-color: #0c1317;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    border: none;
+    opacity: 0; /* Initially set the opacity to 0 */
+    animation: fade-in-down 1s forwards; /* Apply the fade-in animation */
+}
+
+.contenedor-cards-buyProd h1{
+    color: white;
+    font-family: rouben ligth;
+    font-size: 1.7rem;
+    margin-top: 6%;
+    padding: 0px 5%;
+    width: 100%;
+}
+
+
+.contenedor-cards-buyProd span{
+    color: rgba(255, 255, 255, 0.561);
+    font-family: rouben;
+    padding: 0px 5%;
+}
+
+.titulo-buy-prod{
+
+    font-family: rouben;
+    font-size: 2rem;
+    text-align: center;
+
+}
+
+.buyProdCard button{
+    display: flex;
+    width: 150px;
+    background: #36B079;
+    margin-left: auto;
+    margin-top: 2%; 
+}
+.botonera-BuyProd{
+    display: flex;
+}
+
+.botonera-BuyProd div{
+    display: flex;
+    padding: 10px 10px;
+    background-color: #F6F6F6;
+    height: 20px;
+    border-radius: 10px;
+    margin-right: 5%;
+    margin-top: 2%; 
+    border: 0.5px solid #6d6d6d27;
+    border-radius: 5px;
+    font-family: open sans;
+    font-weight: bold;
+}

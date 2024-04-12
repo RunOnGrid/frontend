@@ -1,0 +1,77 @@
+.deployMethod-container{
+    background-color: rgba(255, 255, 255, 0.070);
+    width: 80%;
+    border-radius:15px;
+    border: 1px solid rgba(255, 255, 255, 0.068);
+    height: auto;
+    margin: 30px auto;
+    justify-content: center;
+    text-align: center;
+    
+}
+.deployMethod-container h3{
+    font-family: rouben ligth;
+    letter-spacing: 1px;
+    margin-bottom: 20px ;
+    margin-top: 30px;
+}
+.deployMethod-container span{
+  color: rgba(255, 255, 255, 0.747);
+}
+.modal-overlay {
+  position: fixed;
+  top: 10%;
+  right: 25%;
+  height: 70vh;
+  width: 700px;
+  background-color: #0c1317;
+  border-radius: 10px;
+  border: 2px solid #36B079;
+  color: white;
+  z-index: 1000;
+}
+.card {
+  position: fixed;
+  top: 82%;
+  right: 35%;
+    width: 450px;
+    height: 600px;
+    color: white;
+    padding: 20px;
+    /* background: linear-gradient(to left, rgba(0, 0, 0, 1) 10%, rgba(71, 71, 71, 0.5) 100%); */
+    background-color: #0c1317;
+    border-radius: 20px;
+    margin: auto;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+    z-index: 1000;
+    font-family: rouben;
+  }
+  .card label{
+    display: flex;
+    width: 90%;
+    margin: 20px auto;
+    font-family: rouben ligth;
+    letter-spacing: 0.2px;
+    font-size: 0.8rem;
+  
+  }
+  .card span{
+    display: flex;
+    color: rgba(255, 255, 255, 0.692);
+    font-size: 0.8rem;
+    width: 90%;
+    margin: auto;
+  }
+  .card input{
+    height: 25px;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.475);
+    width: 70%;
+    color: white;
+    padding: 5px;
+    margin-bottom: 15px;
+  }
+  .card button{
+    background-color: #36B079;
+    margin: 0;
+  }

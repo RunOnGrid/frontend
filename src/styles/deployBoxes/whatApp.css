@@ -1,0 +1,72 @@
+.whatApp-container{
+    background-color: rgba(255, 255, 255, 0.070);
+    width: 80%;
+    border-radius:5px;
+    height: auto;
+    margin: 50px auto;
+    justify-content: center;
+    text-align: center;
+    
+}
+.whatApp-container h2{
+    font-family: rouben ligth;
+    letter-spacing: 1px;
+    margin-bottom: 50px ;
+    margin-top: 30px;
+}
+.whatApp-container button{
+    background-color: #36B079;
+    border-radius: 13px;
+    font-weight: lighter;
+    font-family: rouben ;
+    font-size: 1rem;
+    width: 11vw;
+    padding: 5px;
+    margin-bottom: 30px;
+}
+
+.integration-container{
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.284);
+    width: 60%;
+    border-radius:5px;
+    height: auto;
+    margin: 50px auto;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    border: 3px solid transparent;
+   
+}
+.integration-container img{
+    margin: 10px;
+}
+.integration-container button{
+    height: 50%;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: #0c1317;
+
+}
+
+.integration-container:hover{
+    border: 3px solid rgba(255, 255, 255, 0.518);
+}
+.verified-integration{
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    
+}
+
+.verified-integration img{
+    display: flex;
+    margin: auto 10px;
+}
+.verified-integration span{
+    display: flex;
+    margin: auto  ;
+    color: white;
+    font-family: rouben;
+}

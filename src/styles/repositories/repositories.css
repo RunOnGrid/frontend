@@ -1,0 +1,22 @@
+.contenedor-repositories{
+    display: flex;
+    margin-bottom: 50px;
+    flex-direction: column;
+    margin-left: 280px;
+    margin-top: 30px;
+    color: #fff;
+    
+    
+   
+    width: 65%;
+    border-radius: 15px;
+   
+    backdrop-filter: blur(10px);
+  
+}
+.contenedor-repositories li{
+    font-family: rouben ligth;
+}
+.contenedor-repositories h1{
+    font-family: rouben;
+}

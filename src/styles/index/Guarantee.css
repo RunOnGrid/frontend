@@ -1,0 +1,143 @@
+.guarantee-container{
+    
+    width: 700px;
+    height: 200px;
+    border-radius: 20px;
+    text-align: flex-start;
+    display: flex;
+    align-items: center;
+    background: url('/FondoEnterprise.png');
+    background-size: cover;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -50px;
+    padding: 50px;
+    /* background-image: url('../assets/guarantee5.jpg'); 
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat; */
+
+}
+
+.guarantee-section{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    margin-bottom: 80px;
+}
+.guarantee-leyenda{
+    color:white;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 0.7rem;
+    font-family: rouben;
+}
+
+.guarantee-titulo{  
+    color:white;
+    margin-left: 20px;
+    font-size: 2.5rem;
+    font-family: rouben;
+    font-weight: bold;
+}
+
+.guarantee-subtitulo{  
+    color:rgba(255, 255, 255, 0.713);
+    margin-left: 20px;
+    font-size: 1rem;
+    font-family: rouben;    
+}
+.guarantee-texts{
+    width: 70%;
+}
+
+.guarantee-button{
+    font-family: rouben ligth;
+    color:white;
+    padding: 16px 16px;
+    border-radius: 23px;
+    border-style: none;
+    margin-left: 20px;
+    margin-top: 30px;
+    background-color:#36B079 ;
+    width: 70%;
+    margin-bottom: 5%;
+    
+    cursor: pointer;
+}
+.guarantee-icon{
+    margin-left:auto;
+    margin-right: 30px;
+    height: 80px;
+    
+
+}
+@media  only screen and (max-width:1300px){
+    /* .guarantee-container{
+    
+        width: 380px;
+       
+    } */
+}
+@media  only screen and (max-width:900px){
+    .guarantee-container{
+    
+        width: 580px;
+        height: 156px;
+       
+    }
+    .guarantee-titulo{
+        font-size: 1.5rem;
+    }
+    .guarantee-subtitulo{
+        font-size: 0.85rem;
+    }
+    .guarantee-button{
+        padding: 10px;
+    }
+}
+@media  only screen and (max-width:650px){
+    .guarantee-container{
+    
+        width: 90vw;
+        height: 25vh;
+        border-radius: 20px;
+        padding: 10px;
+        text-align: flex-start;
+        display: flex;
+        align-items: center;
+        margin-top: 50px;
+        
+    }
+
+    .guarantee-button{
+        display: flex !important;
+        width: 50%;
+        justify-content: center;
+       
+    }
+    .guarantee-texts{
+        width: 100%;
+    }
+
+    .guarantee-titulo{  
+        font-size: 32px;
+    }
+
+    .guarantee-subtitulo{  
+        font-size: 12px;  
+    }
+
+    .guarantee-icon{
+        margin-right: 20px;
+        margin-left: 10px;
+        height: 60px;
+     }
+
+     .guarantee-leyenda{
+      
+        font-size: 9px;
+       
+    }
+
+}

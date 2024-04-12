@@ -1,0 +1,87 @@
+.webComp-container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.070);
+    width: 80%;
+    border-radius:5px;
+    height: auto;
+    margin: 50px auto;
+    justify-content: center;
+    text-align: center;
+    
+}
+.webComp-container button{
+    display: flex;
+    margin: auto;
+    background-color: #36B079;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+.webComp-container input{
+    border: 2px solid rgba(255, 255, 255, 0.644);
+    margin-bottom: 30px;
+}
+.webComp-container select{
+    display: flex;
+    width: 20vw;
+    margin: auto;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.644);
+    background-color: #0c1317;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+.webComp-container span{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+   
+}
+.webComp-container label{
+   margin-bottom: 5px;
+}
+.ranges{
+    display: flex;
+    flex-direction: column;
+    
+}
+.ranges label{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+
+}
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+   
+    border: none;
+
+  }
+  
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #ffffff4c;
+    height: 0.5rem;
+    border-radius: 25px;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    margin-top: -4px; 
+    background-color: #36B079;
+    height: 1rem;
+    border-radius: 50%;
+    border: 1px solid white;
+    width: 1rem;    
+ }
+ input[type="range"]::-moz-range-progress {
+    background-color: #36B079;
+}
+
+input[type="range"]::-webkit-progress-value {
+    background-color: #36B079;
+}

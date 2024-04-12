@@ -1,0 +1,299 @@
+.custom-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    background-color: #dddddd62;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: auto 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .circle {
+    position: absolute;
+    top: 50%;
+    transform: translate(0%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    transition: transform 0.4s;
+  }
+  
+  .custom-switch.on {
+    background-color: #36B079; /* Background color when the switch is on */
+  }
+  
+  .custom-switch.on .circle {
+    transform: translate(100%, -50%); /* Move the circle to the right when the switch is on */
+  }
+  
+  .custom-switch.off .circle {
+    transform: translate(0%, -50%); /* Move the circle to the left when the switch is off */
+  }
+  .botonera{
+    margin-top: 20px;
+  }
+  .botonera span{
+    display: flex;
+    margin: auto 10px !important;
+  }
+  .card-newApp3{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+    
+    border-radius: 5px;
+    border: 2px solid transparent;
+    margin: -20px auto;
+    padding: 20px;
+   
+    text-align: center;
+}
+
+.card-newApp3 label{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+    font-family: rouben ligth;
+    color: rgba(255, 255, 255, 0.739);
+}
+.geolocation {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-top: 30px;
+  font-family:rouben ;
+}
+.geo-button{
+  display: flex;
+  margin: auto !important;
+  color: white !important;
+  height: 35px !important;
+  width: 35px !important;
+  font-size: 1.6rem !important;
+  align-items: center !important;
+  margin-left: 20px !important;
+}
+
+.geolocation h3 {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  font-family:rouben ;
+ color: white;
+}
+.geolocation h4 {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  font-family:rouben ;
+ color: white;
+}
+.geolocation select{
+  display: flex;
+  width: 15vw !important;
+  margin-right: auto !important;
+  margin-left: 0px !important;
+  font-family: rouben ligth;
+  font-size: 0.8rem;
+}
+.geolocation label{
+  display: flex;
+  margin-right: auto;
+  margin-left: 0;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+}
+
+.geolocation2 {
+  display: flex;
+  padding: 0px;
+  margin: 5px auto;
+  font-family:rouben ;
+  
+  border-radius: 5px;
+  width: 20vw;
+  background-color: #0c1317d9;
+}
+.geolocation2 button{
+  margin-top: auto ;
+  margin-bottom: auto ;
+  margin-left: auto ;
+
+  margin-right: 3% ;
+}
+.geolocation2 p{
+  font-weight: bold;
+  display: flex;
+  margin:  auto 10px;
+  font-size: 0.9rem;
+  
+}
+.geolocation2 span{
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px !important;
+  font-size: 0.9rem;
+  
+  
+}
+.geolocation2 img{
+  margin: auto 10px auto auto ;
+  cursor: pointer;
+}
+
+.geolocation2 input{
+  margin: auto;
+}
+.save-changes{
+  margin: auto !important;
+  margin-bottom: 10px !important;
+  height: 5vh !important;
+  align-items: center !important;
+  width: 40% !important;
+  font-size: 0.8rem !important;
+  font-weight: lighter !important;
+  color: white !important;
+}
+.delete-button{
+  height: 30px !important;
+  align-items: center !important;
+  color: white !important;
+  margin-left: auto !important;
+}
+.geolocation3 {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 0;
+  font-family:rouben ;
+}
+
+.geolocation3 h3 {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  font-family:rouben ;
+}
+.geolocation3 select{
+  display: flex;
+  width: 20vw;
+  
+}
+.geolocation3 label{
+  display: flex;
+  margin-right: auto;
+  margin-left: 0;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+}
+
+
+.geolocation4 {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-top: 30px;
+  font-family:rouben ;
+}
+
+
+.geolocation4 h4 {
+  display: flex;
+  width: 20vw;
+  flex-direction: column;
+  margin-right: auto;
+  color: white;
+  font-family:rouben ;
+}
+.geolocation4 select{
+  display: flex;
+  width: 15vw !important;
+  margin-right: auto !important;
+
+  font-family: rouben ligth;
+  font-size: 0.8rem;
+}
+.geolocation4 label{
+  display: flex;
+  margin-right: auto;
+  margin-left: 0;
+  margin-bottom: 10px;
+  justify-content: flex-start;
+}
+
+
+.newServ-container2{
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.070);
+  width: 80%;
+  border-radius:15px;
+  border: 1px solid rgba(255, 255, 255, 0.068);
+  height: auto;
+  margin: 30px auto;
+  justify-content: center;
+  text-align: center;
+  
+}
+.newServ-container2 h3{
+  font-family: rouben ligth;
+  letter-spacing: 1px;
+  margin-bottom: 20px ;
+  margin-top: 40px;
+  width: 100% !important;
+}
+.newServ-container2 h4{
+  font-family: rouben;
+ color: white;
+}
+.newServ-container2 button{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+  padding: 0px;
+  font-size: 2rem;
+  width: 45px;
+  color: #0c1317;
+  background-color: #36B079;
+  height: 45px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+.newServ-container2 input{
+  border: 2px solid rgba(255, 255, 255, 0.644);
+  margin-bottom: 30px;
+}
+.newServ-container2 select{
+  display: flex;
+  width: 20vw;
+  margin: auto;
+  height: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.644);
+  background-color: #0c1317;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+.newServ-container2 span{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+ 
+}
+.newServ-container2 label{
+ margin-bottom: 5px;
+}
+
+.separador{ 
+  display: flex;
+  height: 10px;
+  border-bottom: 1px solid white;
+  width: 100%;
+  margin:  50px auto;
+}

@@ -1,0 +1,8 @@
+@import url("./bannerAsic.css");
+@import url("./cardsAsic.css");
+@import url("./detailsAsic.css");
+
+.cardFaqs-container{
+    display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}

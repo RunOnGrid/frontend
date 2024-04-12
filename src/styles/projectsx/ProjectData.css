@@ -1,0 +1,726 @@
+
+.projectDataContainer{
+    width: 90%;
+    color: white;
+    display: flex;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  
+}
+.data-project{
+    display: flex;
+    align-items: center;
+}
+
+.data-project h3,p,span  {
+    margin:  10px 0px;
+    font-family: rouben ligth;
+    margin: auto 10px;
+  
+}
+.data-project span{
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+.data-project h2{
+    font-family: rouben;
+    font-size: 2rem ;
+    margin: 0;
+}
+.icon-chico-project{
+    height: 15px;
+    width: 15px;
+}
+.branch-project{
+    display: flex;
+}
+.branch-project div{
+    margin: auto 10px;
+}
+
+.dataDeployContainer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 300px;
+    width: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.589);
+    border-radius: 5px;
+   
+}
+.dataDeployContainer img{
+    display: flex;
+    margin: auto 20px;
+    
+}
+.deployData{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.deployData div{
+    display: flex;
+    margin-top: 10px;
+    font-family: rouben;
+    font-size: 1.1rem;
+}
+.deployData p{
+    font-size: 0.9rem;
+    margin-top: 0;
+}
+.environment-box{
+    width: 50%;
+    color: white;
+    background-color: #0c1317;
+    border: 2px solid grey;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 300px;
+}
+.environment-box h3{
+    font-family: rouben;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.476);
+}
+.environment-box h2{
+    font-family: rouben;
+    justify-content: center;
+    text-align: center;
+}
+.environment-box button{
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    background-color: #36B079;
+    width: 20vw;
+}
+.inputs-headers{
+    display: flex;
+}
+.inputs-headers div{
+    display: flex;
+    flex-direction: column;
+    height: 90px;
+    justify-content: center;
+}
+.inputs-headers img{
+    cursor: pointer;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 5px;
+    
+}
+.inputs-headers label{
+    font-family: rouben;
+}
+.inputs-headers input{
+    width: 70%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 15px;
+    margin-right: 100px;
+}
+.botones-header{
+    display: flex;
+    width: 45%;
+   margin-left: auto;
+}
+.botones-header button{
+    margin: 10px;
+}
+
+.notification-screen{
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.070);
+    color: white;
+    margin: auto;
+    font-family: rouben ligth;
+    border-radius: 5px;
+    margin-top: 20px;
+   
+}
+.activity-box{
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.070);
+    margin-left: 10px;
+    border-radius: 5px;
+}
+.notification-screen h3{
+    padding: 15px;
+    margin: 0px;
+}
+.notification-screen span{
+    display: flex;
+   width: 90%;
+    padding: 15px;
+    margin: 0px;
+}
+
+.activity-ul {
+    color: white;
+    display: flex;
+    margin: auto 10px;
+    
+}
+.activity-ul span{
+    width: 100%;
+    font-size: 0.8rem;
+}
+.circle2{
+    width: 7px;
+    height: 7px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0px;
+}
+.circle1{
+    width: 4px;
+    height: 4px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    margin: auto 5px;
+}
+.circle3{
+    width: 7px;
+    height: 7px;
+    background-color: rgb(39, 208, 78);
+    border-radius: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0px;
+}
+.circle4{
+    width: 7px;
+    height: 7px;
+    background-color: rgb(199, 34, 34);
+    border-radius: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 0px;
+}
+.activity-section{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    
+}
+.activity-titles{
+    display: flex;
+    padding: 20px;
+    color: white;
+    width: 100%;
+}
+.activity-titles p{
+    font-size: 0.9rem;
+}
+.activity-titles span{
+    margin-left: auto;
+    margin-right: 5%;
+    font-size: 0.9rem;
+    color: #ffffffa6;
+}
+.activity-status{
+    display: flex;
+    width: 100%;
+    padding: 20px;
+   
+}
+.activity-status span{
+    color: #36B079;
+    font-size: 0.9rem;
+    margin: auto 10px;
+}
+.activity-status img{
+    margin: auto 0px;
+}
+
+
+.activity-status button{
+    display: flex;
+    background-color: #0c131776;
+    padding: 3px;;
+    font-size: 0.8rem;
+    font-family: rouben ligth;
+    letter-spacing: 1px;
+    
+    
+}
+.activity-details{
+    display: flex;
+    width: 100%;
+    color: white;
+    padding: 10px;
+    
+}
+.activity-details span{
+    font-size: 0.9rem;
+}
+.activity-details img{
+    display: flex;
+    margin: auto 10px; 
+}
+.activity-details p{
+    font-size: 0.8rem;
+    margin-left: 0px;
+    color: #36B079;
+}
+
+.activity-details button{
+    display: flex;
+    background-color: #0c131776;
+    font-size: 0.8rem;
+    font-family: rouben ligth;
+    padding: 3px;
+    letter-spacing: 1px;
+    margin-left: 0px !important;
+  
+
+}
+
+.overview-button{
+    display: flex;
+    background-color: #0c131776;
+    padding: 3px;;
+    font-size: 0.8rem;
+    font-family: rouben ligth;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    margin: 10px;
+}
+
+.overview-screen{
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.070);
+    color: white;
+    margin: auto;
+    font-family: rouben ligth;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.overview-screen h3{
+    padding: 15px;
+    margin: 0px;
+}
+
+.overview-screen span{
+    display: flex;
+    width: 90%;
+     padding: 15px;
+     margin: 0px;
+}
+.single-log{
+    width: 90%;
+    margin: 10px auto;
+}
+.log-date{
+    color: rgba(255, 255, 255, 0.584);
+}
+.log-name{
+    border-radius: 5px;
+    padding: 3px;
+    color: white;
+    background-color: #36B079;
+}
+.log-version{
+    border-radius: 5px;
+    padding: 3px;
+    background-color: white;
+}
+.log-text{
+    color: white;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+.titulos-logs button{
+    
+    padding: 3px;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    background-color: #0c131776;
+    
+}
+.logs-screen{
+    
+    
+}
+.titulos-logs{
+    display: flex;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+.input-with-image {
+    display: flex;
+    padding: 3px;
+    border: 2px solid #36B079;
+    border-radius: 5px;
+    margin: 0px 10px;
+ 
+  }
+  .input-with-image input {
+    background-color: transparent;
+    color: white;
+    margin-left: 5px;
+  }
+  .input-with-image img{
+        margin: auto;
+  }
+
+  .input-with-image2 {
+    display: flex;
+    padding: 3px;
+    background-color: rgba(255, 255, 255, 0.100);
+    border-radius: 5px;
+   
+    color: white;
+    height: 30px;
+    width: 25vw;
+    border-radius: 10px;
+ 
+  }
+  .input-with-image2 input {
+    background-color: transparent;
+    color: white;
+
+  }
+  .input-with-image2 input::placeholder {
+
+    color: white;
+
+  }
+  .input-with-image2 img{
+        margin: auto;
+        margin-right: 10px;
+  }
+  
+.input-builds{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.input-builds input{
+    background-color: #0c131776;
+    height: 25px;
+    border-radius: 5px;
+    color: white;
+    padding: 5px;
+    width: 80%;
+    
+}
+.input-builds label{
+    margin-bottom:5px ;
+}
+
+.buildButton{
+    display: flex;
+    width: 80%;
+    margin: 10px;
+}
+.save-button{
+    display: flex;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+.save-button button{
+   background-color: #36B079;
+
+}
+
+.build-button{
+    display: flex;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.build-button button{
+   background-color: #36B079;
+   margin: 0px;
+   width: 50%;
+    font-size: 0.9rem;
+    font-weight: lighter;
+    letter-spacing: 0px;
+   border-radius: 10px;
+  
+
+}
+.delete{
+    background-color: rgb(197, 64, 64);
+    border:1px solid rgb(197, 64, 64);
+    margin: 10px;
+}
+
+.delete:hover{
+    background-color: rgb(197, 64, 64);
+    border:1px solid rgb(197, 64, 64);
+    margin: 10px;
+}
+.overview-subtitle{
+    display: flex;
+    background-color: #0c131776;
+    width: 80%;
+    margin: 10px;
+    border-radius: 5px;
+}
+.overview-subtitle img{
+    display: flex;
+    margin: auto;
+    
+}
+
+.titulos-repo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+}
+
+.build-button2{
+    display: flex;
+    width: 100%;
+    
+    margin-right: auto;
+    
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.build-button2 span{
+    margin-left: 0px;
+}
+
+.repo-git{
+    display: flex;
+    background-color: transparent;
+    width: 90%;
+    margin: 5px auto;
+    justify-content: flex-start;
+    height: 35px;
+    border: 1px solid white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+.repo-git img{
+    margin: auto 5px;
+}
+.repo-git:hover{
+   
+    background-color: rgba(255, 255, 255, 0.253)
+}
+
+.repo-git2{
+    display: flex;
+    background-color: transparent;
+    width: 90%;
+    margin: 5px auto;
+    justify-content: flex-start;
+    height: 35px;
+    border: 1px solid white;
+    font-weight: bold;
+    border-radius: 5px;
+    
+}
+.repo-git2 img{
+    margin: auto 5px;
+}
+.repo-git2:hover{
+   
+    background-color: rgba(255, 255, 255, 0.253)
+}
+
+.repo-build{
+    display: flex;
+    background-color: transparent;
+    width: 90%;
+    margin: 5px auto;
+    justify-content: flex-start;
+    height: 35px;
+    border: 1px solid white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointerd;
+    
+}
+.repo-build span{
+   color: white !important;
+}
+.repo-build img{
+    margin: auto 5px;
+}
+.repo-build:hover{
+   
+    background-color: rgba(255, 255, 255, 0.253)
+}
+
+.repo-selected{
+    display: flex;
+    width: 90%;
+    margin: 5px auto;
+    background-color: #0c1317d9;
+    height: 40px;
+    border-radius: 5px;
+    
+    
+}
+.repo-selected h5{
+    display: flex;
+    margin: auto 5px;
+    font-family: rouben ligth;
+    font-size: 0.9rem;
+}
+.repo-selected span{
+    display: flex;
+    font-size: 0.9rem;
+   
+}
+.repo-selected p{
+    display: flex;
+    margin-left: auto;
+    color: #36B079;
+    font-family: rouben;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #36B079;
+    cursor: pointer;
+   
+}
+
+.repo-path{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: 30px auto;
+    font-family: rouben ligth;
+}
+.repo-path span{
+    color: rgba(255, 255, 255, 0.641);
+    font-size: 0.9rem;
+    letter-spacing: 0.2px;
+}
+.repo-path label{
+    margin-right: auto;
+    font-size: 0.9rem;
+    letter-spacing: 0.2px;
+    margin-bottom: 10px;
+    
+}
+.repo-path input{
+    background-color: transparent;
+    height: 20px;
+    border: 1px solid white;
+    border-radius:10px;
+    color: white;
+    padding: 5px;
+
+}
+.newClassName{
+    background-color: #0c1317d9 !important;
+    height: 30px !important;
+    border-radius: 5px !important;
+    border: none !important;
+    pointer-events: none;
+  
+}
+.repo-path input::placeholder{
+  color: rgba(255, 255, 255, 0.666);
+    
+}
+
+.buildpack-window{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 30px auto;
+    background-color: rgba(255, 255, 255, 0.213);
+    border-radius: 10px;
+    padding: 5%;
+    font-family: rouben ligth;
+}
+.buildpack-window select{
+    height: 30px;
+    width: 40%;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-color: transparent;
+    color: white;
+    font-family: rouben;
+}
+
+.buildpack-window label{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.buildpack-window div{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.buildpack-window span{
+    color: rgba(255, 255, 255, 0.721);
+    font-size: 0.9rem;
+    letter-spacing: 0.2px;
+}
+.buildpack-window button{
+    background-color: #36B079;
+    width: 20vw;
+    border-radius: 10px;
+    margin: auto;
+}
+.boton-config{
+    padding: 0px;
+    border: 2px solid white;
+    background-color: transparent !important;
+    border-radius: 10px;
+    height: 35px;
+    width: 35px !important;
+    margin-left: 10px !important;
+
+}
+
+.input-with-image3 {
+    display: flex;
+   
+    background-color: rgba(255, 255, 255, 0.100);
+    border-radius: 5px;
+   
+    color: white;
+    height: 30px;
+    width: 90%;
+    border-radius: 5px;
+    margin: 40px auto auto auto;
+ 
+  }
+  .input-with-image3 input {
+    background-color: transparent;
+    color: white;
+    margin-left: 10px;
+
+  }
+  .input-with-image3 input::placeholder {
+
+    color: white;
+
+  }
+  .input-with-image3 img{
+        margin: auto;
+        margin-right: 10px;
+  }
+  

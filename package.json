@@ -1,0 +1,36 @@
+{
+  "name": "grid-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@splinetool/react-spline": "^2.2.6",
+    "@splinetool/runtime": "^0.9.402",
+    "axios": "^1.6.5",
+    "chart.js": "^4.3.0",
+    "cookie": "^0.6.0",
+    "eslint": "8.37.0",
+    "eslint-config-next": "13.2.4",
+    "lottie-web": "^5.10.2",
+    "next": "^13.5.6",
+    "react": "18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "18.2.0",
+    "react-intersection-observer": "^9.4.3",
+    "react-scripts": "5.0.1",
+    "react-slick": "^0.29.0",
+    "react-spring": "^9.7.1",
+    "slick-carousel": "^1.8.1",
+    "typed.js": "^2.1.0",
+    "ws": "^8.16.0",
+    "zxcvbn": "^4.4.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7"
+  }
+}

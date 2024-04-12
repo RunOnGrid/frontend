@@ -1,0 +1,23 @@
+@import url('Navbar.css');
+@import url('Cards.css');
+@import url('ContactForm.css');
+@import url('Faqs.css');
+@import url('Footer.css');
+@import url('Guarantee.css');
+@import url('Icon.css');
+@import url('Powered.css');
+@import url('Principal.css');
+@import url('Segundo.css');
+@font-face {
+    font-family: 'Rouben';
+    src: url(../../../public/fonts/Rouben-Medium.otf) format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Rouben ligth';
+    src: url(../../../public/fonts/Rouben-Light.otf) format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  

@@ -1,0 +1,116 @@
+
+.titulo-asic{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5%;
+  color: white;
+  opacity: 1;
+  font-family: rouben;
+  font-size: 3.5rem;
+  width: 100%;
+  background: linear-gradient(225deg, #fff 40%, #36B079 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-right: auto;
+  animation: fade-in-left 1s forwards 0.5s;
+  
+    
+}
+.titulo-asic2{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 5%;
+  color: white;
+  opacity: 1;
+  font-family: rouben;
+  font-size: 4.5rem;
+  width: 100%;
+  background: linear-gradient(225deg, #fff 40%, #36B079 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-right: auto;
+  animation: fade-in-left 1s forwards 0.5s;
+}
+.titulo-asic3{
+  display: flex;
+  width: 40%;
+  color: white;
+  font-family: rouben;
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(225deg, #fff 40%, #36B079 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;  
+}
+.titulo-asic4{
+  display: flex;
+  width: 40%;
+  color: white;
+  font-family: rouben;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: auto;
+  background: linear-gradient(225deg, #fff 40%, #36B079 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;  
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+  .botones-charts{
+    display: flex;
+    margin: auto ;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  .botones-charts button{
+    background-color: rgba(255, 255, 255, 0.141);
+    margin: auto 10px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    border: 2px solid white;
+    padding: 12px 20px;
+    
+  }
+  .selectedButton{
+    background-color: #36B079 !important;
+  }
+
+@keyframes fade-in-down {
+    from {
+      opacity: 0; /* Start with opacity 0 */
+      transform: translateY(50px); /* Start slightly offscreen to the left */
+    }
+    to {
+      opacity: 1; /* End with opacity 1 */
+      transform: translateY(0); /* Slide in to the original position */
+    }
+  }
+  
+@keyframes fade-in-left {
+    from {
+      opacity: 0; /* Start with opacity 0 */
+      transform: translateX(-100px); /* Start slightly offscreen to the left */
+    }
+    to {
+      opacity: 1; /* End with opacity 1 */
+      transform: translateX(0); /* Slide in to the original position */
+    }
+  }
+
+  @media only screen and (max-width: 1500px) {
+    .titulo-asic{
+      margin-top: 10%;
+    }
+
+
+  }

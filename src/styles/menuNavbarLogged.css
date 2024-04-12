@@ -1,0 +1,60 @@
+.menuNavbarLogged{
+    position: absolute;
+    background-color: white;
+    width: 270px;
+    border-radius: 5px;
+    margin-top: 4.5%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 47vh;
+    left: 82%;
+    
+
+}
+.titulos-menuNavbar{
+    background-color: #36B079;
+    font-family: rouben;
+    padding: 15px 15px;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    
+}
+
+.menuNavbar-subtitulo{
+    font-size: 0.9rem;
+    color: whitee2;
+    margin-bottom: 3%;
+}
+.menuNavbar-titulo{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 5%;
+    
+}
+.menuNavbarLogged li{
+    color: #0c1317;
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin-bottom: 1%;
+}
+.menuNavbarLogged li:hover{
+    color: #36B079;
+    
+}
+
+.button-menuNavbar{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    background-color:#36B079;
+    border-radius: 3px;
+    margin-top: 2%;
+  
+}
+.icono-menuNavbar{
+    height: 20px;
+    margin-right: 5px   ;
+}
