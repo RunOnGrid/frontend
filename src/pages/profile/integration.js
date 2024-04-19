@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Paginacion from '@/commons/Paginacion';
 import Image from 'next/image';
 import { parse } from 'cookie';
+import IntegrationBox from '@/components/IntegrationBox';
 const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
   ssr: false,
   loading: () => <p> Im f</p>,
@@ -44,28 +45,26 @@ export default function Integration({ storedToken }) {
 
       <div style={{ opacity: '0' }}>.</div>
       <Paginacion anterior="Settings" links="/profile" titulo="Integrations" />
+      <div style={{display:'flex',width:'90%',marginTop:'100px'}}>
 
-      <div className="integration-container">
-        <Image alt="" src="/dockerf.png" width={100} height={40} />
-        {/* <div className="verified-integration">
-          <span>
-            Verified <Image alt="" src="/verify.png" width={25} height={25} />{' '}
-          </span>
-        </div> */}
-        <button> Install app </button>
+      <IntegrationBox 
+        title='Docker'
+        image='/docker4.png'
+      />
+      <IntegrationBox 
+        title='Slack'
+        image='/slackButton.png'
+      />
+       <IntegrationBox 
+        title='Github'
+        image='/gitButton.png'
+      />
+   
       </div>
 
-      <div className="integration-container">
-        <Image alt="" src="/slack.png" width={100} height={40} />
-        {/* <div className="verified-integration">
-          <span>
-            Verified <Image alt="" src="/verify.png" width={25} height={25} />{' '}
-          </span>
-        </div> */}
-          <button> Install app </button>
-      </div>
+    
 
-      <div  className="integration-container">
+      {/* <div  className="integration-container">
         <Image alt="" src="/githubL.png" width={100} height={50} />
 
         {storedToken ? (
@@ -81,7 +80,7 @@ export default function Integration({ storedToken }) {
             
     
        
-      </div>
+      </div> */}
       </div>
       </div>
     </div>
