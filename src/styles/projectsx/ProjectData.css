@@ -536,6 +536,7 @@
     font-weight: bold;
     border-radius: 5px;
     
+    
 }
 .repo-git2 img{
     margin: auto 5px;
@@ -543,6 +544,22 @@
 .repo-git2:hover{
    
     background-color: rgba(255, 255, 255, 0.253)
+}
+.repo-git2 input{
+    background-color: transparent;
+    color: white;
+    font-family: rouben;
+    font-size: 1rem;
+}
+.repo-git2 p{
+    display: flex;
+    margin-left: auto;
+    color: white;
+    font-family: rouben ligth;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid white;
+    cursor: pointer;
 }
 
 .repo-build{
@@ -683,6 +700,9 @@
     width: 20vw;
     border-radius: 10px;
     margin: auto;
+}
+.buildpack-window option{
+    background-color: #0c1317;
 }
 .boton-config{
     padding: 0px;

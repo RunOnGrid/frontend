@@ -19,7 +19,7 @@ import Guarantee from "@/commons/Guarantee";
 const DynamicNavbar = dynamic(()=>import("../components/index/Navbar"),
   {
     ssr:false,
-    loading: () => <p> Im </p>
+    loading: () => <p> Im f</p>
   }
 )
 

@@ -14,15 +14,16 @@ const Step4 = forwardRef(({ onNextStep }, ref) => {
     <div ref={ref} className="buildpack-window">
     <label>Build Method:</label>
     <select>
-      <option>Buildpacks</option>
-      <option>Opcion 2</option>
-      <option>Opcion 3</option>
+      <option>heroku/builder-classic:22</option>
+      <option>heroku/builder:22</option>
+      <option>heroku/buildpacks:20</option>
     </select>
     <label>Builder:</label>
     <select>
-      <option>Buildpacks</option>
-      <option>Opcion 2</option>
-      <option>Opcion 3</option>
+      <option>Ruby</option>
+      <option>Python</option>
+      <option>Go</option>
+      <option>Java</option>
     </select>
 
     <div> Buildpacks:</div>

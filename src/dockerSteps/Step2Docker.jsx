@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image';
 
 const Step2Docker = () => {
+  const [url, setUrl] = useState(false)
+  const [image,setImage] = useState('')
   return (
     <div>
          <span >Specify your image tag</span>
@@ -16,16 +18,19 @@ const Step2Docker = () => {
             </div>
             <div className="repo-git2">
             <Image alt="" src="/plus2.png" height={10} width={10} />
-            <span> Use tag: &apos;prueba&apos;</span>
+            <span> Use tag :</span>
+            <input onChange={(e)=>setImage(e.target.value)}/>
+            <p onClick={()=>setUrl(true)}> Add</p>
           </div>
-            <div className="repo-selected">
+          {url ?  <div className="repo-selected">
           <div className="circle1"> </div>
-          <h5> Image tag:</h5>
-          <span> prueba</span>
-          <p> Change </p>
-        </div>
+          <h5> Tag:</h5>
+          <span> {image}</span>
+          <p onClick={() => setUrl(false)}> Change </p>
+        </div> : ''}
     </div>
   )
 }
 
+Step2Docker.displayName = 'Step2Docker'
 export default Step2Docker

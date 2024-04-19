@@ -56,10 +56,7 @@ const NewApplicationj = () => {
         {completedSteps.includes(4) && <EnvVariables onNextStep={() => handleCompleteStep(5)} ref={envRef} />}
         {completedSteps.includes(5) && <PreDeploy onNextStep={() => handleCompleteStep(6)} ref={preDeployRef} />}
         {completedSteps.includes(6) && <PayApp onNextStep={() => handleCompleteStep(7)} ref={payRef} />}
-        {completedSteps.includes(7) &&  <>
-          <div style={{ marginBottom:'30px',fontWeight:'bold'}} className="div-newApp"> WE&apos;RE DONE!</div>
-          <button className='deploy-now'> Deploy now</button>
-        </>}
+     
       </div>
       <div style={{opacity:'0'}}>.</div>
     </>

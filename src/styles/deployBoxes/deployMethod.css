@@ -75,3 +75,57 @@
     background-color: #36B079;
     margin: 0;
   }
+
+
+  .card2 {
+    position: fixed;
+    top: 82%;
+    right: 35%;
+      width: 450px;
+      height: 250px;
+      color: white;
+      padding: 20px;
+      /* background: linear-gradient(to left, rgba(0, 0, 0, 1) 10%, rgba(71, 71, 71, 0.5) 100%); */
+      background-color: #0c1317;
+      border-radius: 20px;
+      margin: auto;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+      z-index: 1000;
+      font-family: rouben;
+    }
+    .card2 label{
+      display: flex;
+      width: 90%;
+      margin: 20px auto;
+      font-family: rouben ligth;
+      letter-spacing: 0.2px;
+      font-size: 0.8rem;
+      margin-left: 3px;
+    
+    }
+    .card2 span{
+      display: flex;
+      color: rgba(255, 255, 255, 0.692);
+      font-size: 0.8rem;
+      width: 90%;
+      margin: auto;
+    }
+    .card2 input{
+      height: 25px;
+      border-radius: 10px;
+      background-color: rgba(128, 128, 128, 0.475);
+      width: 80%;
+      color: white;
+      padding: 5px;
+      margin-bottom: 40px;
+    }
+    .card2 button{
+      display: flex;
+      background-color: #36B079;
+      margin: auto;
+    }
+
+    .envInputs {
+      display: flex;
+      width: 100%;
+    }

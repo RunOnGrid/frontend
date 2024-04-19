@@ -33,7 +33,6 @@ const ComponentSelector = () => {
   };
 
   const handleSpanSelect = (index, selectedSpan) => {
-   
     setSelections((prevSelections) => {
       const updatedSelections = prevSelections.map((selection, i) => {
         if (i === index) {
@@ -107,10 +106,8 @@ const ComponentSelector = () => {
   const handleGeneral = () => {};
   const handleResources = () => {};
   const handleAddSelection = () => {
-
     if (!selectedContinent || !name) {
-  
-      alert("Please select a service type and provide a name.");
+      alert('Please select a service type and provide a name.');
       return;
     }
 
@@ -125,7 +122,7 @@ const ComponentSelector = () => {
       ram: values2.range1,
       ssd: values3.range1,
       index: newIndex,
-      expanded: false, 
+      expanded: false,
     };
 
     setSelections([...selections, newSelection]);
@@ -138,7 +135,7 @@ const ComponentSelector = () => {
     setSelected(0);
   };
   const handleDelete = (indexToRemove) => {
-    setSelections(prevSelections => {
+    setSelections((prevSelections) => {
       const updatedSelections = [...prevSelections];
       updatedSelections.splice(indexToRemove, 1);
       return updatedSelections;
@@ -174,7 +171,6 @@ const ComponentSelector = () => {
             <div>
               <div className="contenedor-titulos-hosting-click-shared2">
                 <span
-             
                   className={`spanHosting-clickeable-shared${
                     selected === 0 ? 'focus' : ''
                   }`}
@@ -287,7 +283,7 @@ const ComponentSelector = () => {
                 <>
                   <label> Start Command</label>
                   <input
-                  style={{display:'flex'}}
+                    style={{ display: 'flex' }}
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
                     placeholder="Ex: npm start"
@@ -295,7 +291,7 @@ const ComponentSelector = () => {
 
                   <label> Ports</label>
                   <input
-                    style={{display:'flex'}}
+                    style={{ display: 'flex' }}
                     value={port}
                     onChange={(e) => setPort(e.target.value)}
                     placeholder="Ex: 3000"
@@ -452,7 +448,6 @@ const ComponentSelector = () => {
                   <p> {continents[selection.continent - 1].name}: </p>
                   <span> {selection.name}</span>
                   <Image
-                    
                     onClick={() => handleToggle(index)}
                     src={
                       selection.expanded ? '/upArrow.png' : '/downNavbar.png'
@@ -461,14 +456,13 @@ const ComponentSelector = () => {
                     width={selection.expanded ? 15 : 20}
                     height={selection.expanded ? 15 : 20}
                   />
-                   <Image
-                     onClick={()=> handleDelete(index)}
-                    src= '/delete.png' 
+                  <Image
+                    onClick={() => handleDelete(index)}
+                    src="/delete.png"
                     alt=""
                     width={20}
                     height={20}
                   />
-                
                 </div>
 
                 {selection.expanded && (
@@ -498,9 +492,8 @@ const ComponentSelector = () => {
                     </div>
                     {selection.continent === '1' && (
                       <div>
-                        {selection.selectedSpan === 'general' || !selection.selectedSpan && (
+                        {selection.selectedSpan === 'general' && (
                           <div>
-                          
                             <select style={{ width: '90%' }}>
                               <option value="SQL">SQL</option>
                               <option value="MongoDB">MongoDB</option>
@@ -555,7 +548,7 @@ const ComponentSelector = () => {
                     )}
                     {selection.continent === '2' && (
                       <div>
-                        {selection.selectedSpan === 'general'|| !selection.selectedSpan  && (
+                        {selection.selectedSpan === 'general' && (
                           <div>
                             <label style={{ marginLeft: '15px' }}>
                               {' '}
@@ -569,10 +562,7 @@ const ComponentSelector = () => {
                               placeholder={selection.command}
                             />
 
-                            <label style={{ marginLeft: '15px' }}>
-                              {' '}
-                              Ports
-                            </label>
+                            <label style={{ marginLeft: '15px' }}> Ports</label>
                             <input
                               style={{
                                 width: '90%',
@@ -628,8 +618,8 @@ const ComponentSelector = () => {
                       </div>
                     )}
                     {selection.continent === '3' && (
-                      <div> 
-                        {selection.selectedSpan === 'general' || !selection.selectedSpan && (
+                      <div>
+                        {selection.selectedSpan === 'general' && (
                           <div>
                             <label style={{ marginLeft: '15px' }}>
                               {' '}
@@ -643,10 +633,7 @@ const ComponentSelector = () => {
                               placeholder={selection.command}
                             />
 
-                            <label style={{ marginLeft: '15px' }}>
-                              {' '}
-                              Ports
-                            </label>
+                            <label style={{ marginLeft: '15px' }}> Ports</label>
                             <input
                               style={{
                                 width: '90%',

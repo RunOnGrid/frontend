@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { forwardRef, useState } from 'react'
 import Image from 'next/image';
 
-const Step1Docker = () => {
+const Step1Docker = forwardRef(({ onNextStep }, ref) => {
+  const [url, setUrl] = useState(false)
+  const [image,setImage] = useState('')
+
+  const handleUrl = () => {
+    setUrl(true)
+    onNextStep();
+  }
   return (
-    <div>
+    <div ref={ref}>
           <h3>Image settings</h3>
         <span>Specify your image URL</span>
         <div className="input-with-image3">
@@ -18,16 +25,20 @@ const Step1Docker = () => {
             </div>
             <div className="repo-git2">
             <Image alt="" src="/plus2.png" height={10} width={10} />
-            <span> Use image URL: &apos;prueba&apos;</span>
+            <span> Use image URL :</span>
+            <input onChange={(e)=>setImage(e.target.value)}/>
+            <p onClick={()=>handleUrl()}> Add</p>
           </div>
-        <div className="repo-selected">
+          {url ?  <div className="repo-selected">
           <div className="circle1"> </div>
           <h5> Image URL:</h5>
-          <span> prueba</span>
-          <p> Change </p>
-        </div>
+          <span> {image}</span>
+          <p onClick={() => setUrl(false)}> Change </p>
+        </div> : ''}
+       
     </div>
   )
-}
+})
 
+Step1Docker.displayName = 'Step1Docker'
 export default Step1Docker

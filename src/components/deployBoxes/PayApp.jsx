@@ -55,7 +55,7 @@ const PayApp = forwardRef(({ onNextStep }, ref) => {
 
     </div>
    
-        <button onClick={()=>onNextStep()}> Continue</button>
+      
     <div style={{opacity:'0'}}>.</div>
     </div>
   )

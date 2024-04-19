@@ -4,7 +4,7 @@ export const LineData = [
         year: '11 feb 2022',
         btcGain: 0,
         userLost: 345,
-    }, 
+    },
     {
         id:2,
         year:'31 mar 2022',

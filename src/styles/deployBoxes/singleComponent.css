@@ -46,6 +46,18 @@
     flex-direction: column;
     
 }
+.ranges2{
+    display: flex;
+    
+    
+}
+.ranges2 label{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 10px;
+    width: 80px;
+
+}
 .ranges label{
     display: flex;
     justify-content: flex-start;

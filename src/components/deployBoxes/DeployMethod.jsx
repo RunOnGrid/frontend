@@ -6,8 +6,8 @@ import Step2 from '@/github/githubSteps/Step2';
 import Step3 from '@/github/githubSteps/Step3';
 import Step4 from '@/github/githubSteps/Step4';
 import BuildpackModal from '@/github/githubSteps/BuildpackModal';
-import Step1Docker from '@/dockerSteps/Step1';
-import Step2Docker from '@/dockerSteps/Step2';
+import Step1Docker from '@/dockerSteps/Step1Docker';
+import Steps2Docker from '@/dockerSteps/Step2Docker';
 
 
 const DeployMethod = forwardRef(({ onNextStep }, ref) => {
@@ -40,9 +40,9 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
     setDocker(false)
   };
 
-  const handleCompleteStep2 = (step, repo) => {
+  const handleCompleteStep2 = (step) => {
     setCompletedSteps(prevSteps => [...prevSteps, step]);
-    setRepo(repo);
+    
     setGits(false)
     setDocker(true)
   };
@@ -108,8 +108,8 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
           {completedSteps.includes(4) && <Step4 ref={step4} />}
         </> : ''}
         {docker ?  <>
-          {completedSteps.includes(5) && <Step1Docker onNextStep={() => handleCompleteStep(6)} ref={step1Docker} />}
-          {completedSteps.includes(6) && <Step2Docker ref={step2Docker} />}
+          {completedSteps.includes(5) && <Step1Docker onNextStep={() => handleCompleteStep2(6)} ref={step1Docker} />}
+          {completedSteps.includes(6) && <Steps2Docker ref={step2Docker} />}
         </>: ''}
    
        
@@ -117,7 +117,7 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
 
     
         <button
-          style={{ margin: 'auto', marginBottom: '30px' }}
+          style={{ margin: 'auto', marginBottom: '30px',marginTop:'50px' }}
           className="boton-continue"
           onClick={() => onNextStep()}>
           Continue
