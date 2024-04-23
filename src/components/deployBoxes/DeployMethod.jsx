@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import React, { forwardRef, use, useEffect, useRef, useState } from 'react';
 
-import Step1 from '@/github/githubSteps/Step1';
-import Step2 from '@/github/githubSteps/Step2';
-import Step3 from '@/github/githubSteps/Step3';
-import Step4 from '@/github/githubSteps/Step4';
-import BuildpackModal from '@/github/githubSteps/BuildpackModal';
-import Step1Docker from '@/dockerSteps/Step1Docker';
-import Steps2Docker from '@/dockerSteps/Step2Docker';
+import Step1 from '@/components/github/githubSteps/Step1';
+import Step2 from '@/components/github/githubSteps/Step2';
+import Step3 from '@/components/github/githubSteps/Step3';
+import Step4 from '@/components/github/githubSteps/Step4';
+import BuildpackModal from '@/components/github/githubSteps/BuildpackModal';
+import Step1Docker from '@/components/docker/Step1Docker';
+import Steps2Docker from '@/components/docker/Step2Docker';
 
 
 const DeployMethod = forwardRef(({ onNextStep }, ref) => {

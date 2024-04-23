@@ -1,4 +1,4 @@
-import AuthComponent from "@/github/AuthComp";
+import AuthComponent from "@/components/github/AuthComp";
 
 export default function PruebaGit () {
   return (
