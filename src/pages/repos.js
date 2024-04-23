@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AuthComponent from '@/github/AuthComp';
+import AuthComponent from '@/components/github/AuthComp';
 import { useState } from 'react';
 
 
