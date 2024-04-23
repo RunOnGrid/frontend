@@ -15,22 +15,25 @@
   
 }
 .botones-shared button:focus{
-    background-color: #36B079;
-    box-shadow: 1px 1px 20px 4px white;
+    border: 2px solid #36B079;
+    background-color: #0c1317;
 }
 
 .contenedor-nuevo-shared div{
     color: white;
     font-size: 1.3rem;
-    font-family: rouben ligth;
+    font-family: rouben ;
     text-decoration: none;
     margin-bottom: 15px;
     
 }
 .contenedor-nuevo-shared button{
-    width: 160px;
-    background-color:#0c1317;
-    margin-bottom: 15px;
+    background-color: #36B079;
+    border-radius: 10px;
+    border: 1px solid white;
+    width: 200px;
+    padding: 15px;
+    margin-bottom: 30px;
     
 }
 
@@ -158,6 +161,15 @@
 .contenedor-completo-shared{
     width: 100%;
 }
+.contenedor-completo-shared span{
+    color: rgb(255, 255, 255);
+    margin: 0;
+}
+.span-shared{
+    display: flex;
+    margin-bottom: 30px !important;
+    color: rgba(255, 255, 255, 0.625) !important;
+}
 
 .container-shared{
     width: 80%;
@@ -175,7 +187,7 @@
     font-size: 3rem;
    
     margin-top: 10px;
-    margin-bottom: 3%;
+    
 }
 
 .infoShared-titulo-container{
@@ -280,6 +292,80 @@
 .button-shared{
     background-color: #36B079;
     margin-left: 10px;
+}
+.botones-shared{
+    display: flex;
+}
+.botones-shared button{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #0c1317bc;
+    width: 20%;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+.botones-shared button:hover{
+    border: 2px solid #36B079;
+    background-color: #0c1317;
+}
+.shared-input{
+    display: flex;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.257);
+    color: white;
+    width: 70%;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.shared-input::placeholder{
+    color: rgba(255, 255, 255, 0.441) !important;
+}
+.shared-columnas{
+    display: flex;
+    width: 80%;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 10px;
+}
+.shared-columnas span{
+    display: flex;
+    font-family: rouben;
+    
+    margin: auto;
+}
+.shared-box{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #0c1317bc;
+    width: 20%;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    margin-right: 20px;
+    margin-top: 20px;
+
+}
+.shared-box:hover{
+    border: 2px solid #36B079;
+    background-color: #0c1317;
+}
+.shared-box span{
+    display: flex;
+    font-family: rouben;
+    margin-top: 10px;
+
+}
+.shared-box div{
+    display: flex;
+    color: rgba(255, 255, 255, 0.646);
+    font-family: rouben ligth;
+    font-size: 1rem;
+    margin-top: 15px;
 }
 @media only screen and (max-width: 1300px) {
     .infoShared-renglones-permisos{
