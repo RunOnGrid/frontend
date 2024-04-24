@@ -1,4 +1,4 @@
-import cookie from "cookie"
+import cookie from 'cookie';
 
 export default async function post(req, res) {
   if (req.method === 'POST') {

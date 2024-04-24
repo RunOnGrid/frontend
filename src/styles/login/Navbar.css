@@ -1,25 +1,24 @@
 .navbarLogin {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    margin-left: 20px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin-left: 20px;
+}
+.logo-navbarLogin {
+  width: 50px;
+
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 500px) {
   .logo-navbarLogin {
-    width: 50px;
-    
+    width: 3rem;
+    height: 3rem;
     margin-top: 10px;
     margin-left: 10px;
   }
-
-  @media only screen and (max-width: 500px) {
-
-    .logo-navbarLogin {
-      width: 3rem;
-      height: 3rem;
-      margin-top: 10px;
-      margin-left: 10px;
-    }
-  }
+}

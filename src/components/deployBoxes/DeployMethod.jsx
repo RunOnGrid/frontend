@@ -9,17 +9,15 @@ import BuildpackModal from '@/components/github/githubSteps/BuildpackModal';
 import Step1Docker from '@/components/docker/Step1Docker';
 import Steps2Docker from '@/components/docker/Step2Docker';
 
-
 const DeployMethod = forwardRef(({ onNextStep }, ref) => {
-
   const [completedSteps, setCompletedSteps] = useState([]);
   const [activeStep, setActiveStep] = useState(null);
-  const [repo,setRepo] = useState('');
-  const [gits,setGits] = useState(false);
-  const [docker, setDocker] = useState(false)
+  const [repo, setRepo] = useState('');
+  const [gits, setGits] = useState(false);
+  const [docker, setDocker] = useState(false);
 
-  const git = useRef(null)
-  const step1= useRef(null);
+  const git = useRef(null);
+  const step1 = useRef(null);
   const step2 = useRef(null);
   const step3 = useRef(null);
   const step4 = useRef(null);
@@ -34,24 +32,18 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
   }, [completedSteps]);
 
   const handleCompleteStep = (step, repo) => {
-    setCompletedSteps(prevSteps => [...prevSteps, step]);
+    setCompletedSteps((prevSteps) => [...prevSteps, step]);
     setRepo(repo);
-    setGits(true)
-    setDocker(false)
+    setGits(true);
+    setDocker(false);
   };
 
   const handleCompleteStep2 = (step) => {
-    setCompletedSteps(prevSteps => [...prevSteps, step]);
-    
-    setGits(false)
-    setDocker(true)
+    setCompletedSteps((prevSteps) => [...prevSteps, step]);
+
+    setGits(false);
+    setDocker(true);
   };
-
-
-
-
-
-
 
   return (
     <div ref={ref}>
@@ -67,9 +59,8 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
         <span>Deploy from a Git repository or a Docker registry.</span>
         <div className="contenedor-flex-only">
           <div className="card-newApp">
-            <div  onClick={()=>handleCompleteStep(1)} className="icono-titulo">
+            <div onClick={() => handleCompleteStep(1)} className="icono-titulo">
               <Image
-               
                 className="icon-card-newApp"
                 src="/iconGit.png"
                 alt="/iconGit.png"
@@ -83,7 +74,10 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
               Deploy using source from a Git repo.{' '}
             </span>
           </div>
-          <div onClick={()=>handleCompleteStep2(5)}  style={{ marginLeft: '30px' }} className="card-newApp">
+          <div
+            onClick={() => handleCompleteStep2(5)}
+            style={{ marginLeft: '30px' }}
+            className="card-newApp">
             <div className="icono-titulo">
               <Image
                 className="icon-card-newApp"
@@ -101,23 +95,42 @@ const DeployMethod = forwardRef(({ onNextStep }, ref) => {
             <input placeholder="Docker image namespace/repository:tag" />
           </div>
         </div>
-        {gits ?  <>
-          {completedSteps.includes(1) && <Step1 onNextStep={() => handleCompleteStep(2)} ref={step1} />}
-          {completedSteps.includes(2) && <Step2 repo={repo} onNextStep={(repo) => handleCompleteStep(3, repo)} ref={step2} />}
-          {completedSteps.includes(3) && <Step3 onNextStep={() => handleCompleteStep(4)} ref={step3} />}
-          {completedSteps.includes(4) && <Step4 ref={step4} />}
-        </> : ''}
-        {docker ?  <>
-          {completedSteps.includes(5) && <Step1Docker onNextStep={() => handleCompleteStep2(6)} ref={step1Docker} />}
-          {completedSteps.includes(6) && <Steps2Docker ref={step2Docker} />}
-        </>: ''}
-   
-       
+        {gits ? (
+          <>
+            {completedSteps.includes(1) && (
+              <Step1 onNextStep={() => handleCompleteStep(2)} ref={step1} />
+            )}
+            {completedSteps.includes(2) && (
+              <Step2
+                repo={repo}
+                onNextStep={(repo) => handleCompleteStep(3, repo)}
+                ref={step2}
+              />
+            )}
+            {completedSteps.includes(3) && (
+              <Step3 onNextStep={() => handleCompleteStep(4)} ref={step3} />
+            )}
+            {completedSteps.includes(4) && <Step4 ref={step4} />}
+          </>
+        ) : (
+          ''
+        )}
+        {docker ? (
+          <>
+            {completedSteps.includes(5) && (
+              <Step1Docker
+                onNextStep={() => handleCompleteStep2(6)}
+                ref={step1Docker}
+              />
+            )}
+            {completedSteps.includes(6) && <Steps2Docker ref={step2Docker} />}
+          </>
+        ) : (
+          ''
+        )}
 
-
-    
         <button
-          style={{ margin: 'auto', marginBottom: '30px',marginTop:'50px' }}
+          style={{ margin: 'auto', marginBottom: '30px', marginTop: '50px' }}
           className="boton-continue"
           onClick={() => onNextStep()}>
           Continue

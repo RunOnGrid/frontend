@@ -1,280 +1,266 @@
-.login-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 
-    margin-top: 100px;
-    
+  margin-top: 100px;
 }
-.login-form span{
-   color: rgba(255, 255, 255, 0.79);
-   font-family: rouben ;
-   margin-bottom: -10px;
-   margin-top: 10px;
-   font-size: 0.8rem;
-   
+.login-form span {
+  color: rgba(255, 255, 255, 0.79);
+  font-family: rouben;
+  margin-bottom: -10px;
+  margin-top: 10px;
+  font-size: 0.8rem;
 }
 .input-container {
-   position: relative;
-   color: black;
- }
-
- .input-container img {
-   position: absolute;
-   right: 15px; 
-   top: 49%; 
-   cursor: pointer;
- }
- .password-strength-bar{
-   position: absolute;
-   right: 100; 
-   top: 100; 
-   height: 5px;
-
- }
-.contenedor-login{
-   display: grid;
-   grid-template-columns: 50% 50%;
-   width: 80%;
-   margin-left: auto;
-   margin-right: auto;
-}
-.textos-login{
-   display: flex;
-   flex-direction: column;
-   margin-left: auto;
-   justify-content: center;
-  
-   margin-top: 50px;
-   width: 100%;
-   
-}
-.doble-contenedor{
-   display: flex;
-   width: 26.5vw;
-}
-.textos-login h1{
-   background: linear-gradient(225deg,#fff,#36B079);
-   -webkit-background-clip: text;
-   -webkit-text-fill-color: transparent;
-   font-family: rouben;
-   font-size: 2.5rem;
-   width: 100%;
-   font-weight: bolder;
-}
-.textos-login div{
-   color: white;
-   font-family: rouben;
-   font-size: 2.5rem;
-   font-weight: bolder;
-   margin-bottom: 20px;
-}
-.textos-login span{
-   color: rgba(255, 255, 255, 0.798);
-   font-family: rouben;
-   margin: 5px;
+  position: relative;
+  color: black;
 }
 
-.login-title{
-   display: flex;
-   justify-content: center;
-    color: white;
+.input-container img {
+  position: absolute;
+  right: 15px;
+  top: 49%;
+  cursor: pointer;
+}
+.password-strength-bar {
+  position: absolute;
+  right: 100;
+  top: 100;
+  height: 5px;
+}
+.contenedor-login {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.textos-login {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  justify-content: center;
+
+  margin-top: 50px;
+  width: 100%;
+}
+.doble-contenedor {
+  display: flex;
+  width: 26.5vw;
+}
+.textos-login h1 {
+  background: linear-gradient(225deg, #fff, #36b079);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: rouben;
+  font-size: 2.5rem;
+  width: 100%;
+  font-weight: bolder;
+}
+.textos-login div {
+  color: white;
+  font-family: rouben;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+.textos-login span {
+  color: rgba(255, 255, 255, 0.798);
+  font-family: rouben;
+  margin: 5px;
+}
+
+.login-title {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-family: rouben;
+}
+.login-input {
+  margin-top: 1%;
+  height: 25px;
+  width: 25vw;
+  padding: 10px 10px;
+  border-style: none;
+  border-radius: 5px;
+}
+
+.login-input-small {
+  margin-top: 5%;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 25px;
+  width: 100%;
+  padding: 10px 10px;
+  border-style: none;
+  border-radius: 5px;
+}
+.login-icono {
+  height: 20px;
+}
+
+.github-login {
+  display: flex;
+  background-color: white;
+  margin-top: 5%;
+  height: 25px;
+  width: 25vw;
+  padding: 10px 10px;
+  border-style: none;
+  border-radius: 5px;
+  font-family: rouben;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.github-login:hover {
+  background-color: rgba(255, 255, 255, 0.934);
+}
+.github-login span {
+  margin-left: 10px;
+}
+.login-submit {
+  display: flex;
+  color: white;
+  margin-top: 25px;
+  background-color: #36b079;
+  width: 26.5vw;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 15px;
+  height: 45px;
+  border-radius: 5px;
+  font-family: rouben;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+}
+.link-zelcore {
+  display: flex;
+  margin: 30px auto;
+}
+
+.forgot-login {
+  color: #36b079;
+  font-family: rouben;
+  margin-top: 5%;
+  cursor: pointer;
+}
+.forgot-login:hover {
+  color: #7ce2b4;
+}
+.member-login {
+  text-align: start;
+  width: 100%;
+  margin-top: 5%;
+  font-size: 1rem !important;
+  font-weight: lighter !important;
+  color: white;
+  font-family: rouben;
+}
+.member2-login {
+  font-size: 1rem !important;
+  color: #36b079 !important;
+  cursor: pointer;
+}
+.member2-login:hover {
+  color: #7ce2b4 !important;
+}
+
+.login-redes {
+  display: flex;
+  flex: row;
+  justify-content: center;
+}
+.logo-google-login {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 20%;
+}
+.logo-facebook-login {
+  height: 35px;
+  width: 35px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 8%;
+}
+
+.a-redes-login {
+  display: flex;
+  background: white;
+  border-radius: 5px;
+  width: 60px;
+  height: 50px;
+  margin-right: 20%;
+  margin-left: 25%;
+}
+.separator {
+  width: 165px;
+  margin-top: 5%;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+.login-separador {
+  display: flex;
+  width: 26.5vw;
+}
+.letra-separador {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 1.5%;
+  color: white;
+}
+
+@media only screen and (max-width: 550px) {
+  .contenedor-login {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+  }
+  .doble-contenedor {
+    width: 90%;
+  }
+  .textos-login div {
+    display: none;
+  }
+  .textos-login span {
+    display: none;
+  }
+  .textos-login h1 {
+    display: flex;
     font-size: 1.5rem;
-    font-family: rouben;
-}
-.login-input{
-    margin-top: 1%;
-    height: 25px;
-    width: 25vw;
-    padding: 10px 10px;
-   border-style: none;
-    border-radius: 5px;
-}
-
-
-.login-input-small{
-   margin-top: 5%;
-   margin-left: 10px;
-   margin-right: 10px;
-   height: 25px;
-   width: 100%;
-   padding: 10px 10px;
-   border-style: none;
-   border-radius: 5px;
-}
-.login-icono{
-   height: 20px;
-}
-
-.github-login{
-   display: flex;
-   background-color: white;
-   margin-top: 5%;
-   height: 25px;
-   width: 25vw;
-   padding: 10px 10px;
-   border-style: none;
-   border-radius: 5px;
-   font-family: rouben;
-   font-size: 1rem;
-   cursor: pointer;
-
-}
-.github-login:hover{
-   background-color: rgba(255, 255, 255, 0.934);
-}
-.github-login span{
-   margin-left: 10px;
-}
-.login-submit{
-   display: flex;
-    color: white;
-    margin-top: 25px;
-    background-color: #36B079;
-    width: 26.5vw;
+    justify-content: center;
+  }
+  .github-login {
+    width: 90%;
+  }
+  .login-separador {
+    display: flex;
+    width: 90%;
+  }
+  .login-title {
+    display: flex;
+    width: 100%;
+    font-size: 1.2rem;
     justify-content: center;
     align-items: center;
-    padding: 15px 15px;
-    height: 45px;
-    border-radius: 5px;
-    font-family: rouben;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
-    
-}
-.link-zelcore{
-   display: flex;
-   margin: 30px auto;
-}
-
-.forgot-login{
-    color:#36B079;
-    font-family: rouben;
-    margin-top: 5%;
-    cursor: pointer;
-}
-.forgot-login:hover{
-    color: #7ce2b4;
-}
- .member-login{
-   text-align: start;
+  }
+  .login-form {
+    margin-top: 20px;
+  }
+  .login-submit {
+    width: 86vw;
+  }
+  .login-input {
+    width: 90%;
+  }
+  .member-login {
     width: 100%;
-    margin-top: 5%;
-    font-size: 1rem !important;
-    font-weight: lighter !important;
-    color: white;
-    font-family: rouben;
- }
- .member2-login{
-   font-size: 1rem !important;
-    color: #36B079 !important;
-    cursor: pointer;
- }
- .member2-login:hover{
-    color: #7ce2b4 !important;
-    
- }
-
- .login-redes{
-    display: flex;
-    flex: row;
-    justify-content: center;
- }
- .logo-google-login{
-    height: 30px;
-    width: 30px;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-top: 20%;
-   
- }
- .logo-facebook-login{
-    height: 35px;
-    width: 35px;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-top: 8%;
-   
- }
-
- .a-redes-login{
-    display: flex;
-    background: white;
-    border-radius: 5px;
-    width: 60px;
-    height: 50px;
-    margin-right: 20%;
-    margin-left: 25%;
-   
-
- }
- .separator {
-    width: 165px;
-    margin-top: 5%;
-    border: 0;
-    border-top: 1px solid #ccc;
+    margin-bottom: 20px;
   }
-  .login-separador{
-    display: flex;
-    width: 26.5vw;
-  }
-  .letra-separador{
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 1.5%;
-    color:white ;
- 
-  }
-
-  @media only screen and (max-width: 550px) {
-   .contenedor-login{
-      display: flex;
-      flex-direction: column;
-      width: 90%;
-   }
-   .doble-contenedor{
-      width: 90%;
-   }
-   .textos-login div{
-      display: none;
-   }
-   .textos-login span{
-      display: none;
-   }
-   .textos-login h1{
-      display: flex;
-      font-size: 1.5rem;
-      justify-content: center;
-   }
-   .github-login{
-      width: 90%;
-   }
-   .login-separador{
-      display: flex;
-      width: 90%;
-   }
-   .login-title{
-      display: flex;
-      width: 100%;
-      font-size: 1.2rem;
-      justify-content: center;
-      align-items: center;
-   }
-   .login-form{
-      margin-top: 20px;
-  }
-  .login-submit{
-   width: 86vw;
 }
-.login-input{
-   width: 90%;
-}
-.member-login{
-   width: 100%;
-   margin-bottom: 20px;
- }
-
-  }

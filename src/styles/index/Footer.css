@@ -1,37 +1,34 @@
-
-.fondo-footer{
+.fondo-footer {
   background: #0c1317;
   width: 100%;
 }
 
-.container-footer{
-    display: flex;
-    flex-direction: column;
-    background: #0c1317;
-    
-    z-index: 0;
-    width: 80%;
-    
-    margin-right: auto !important;
-    margin-left: auto !important;
-    
+.container-footer {
+  display: flex;
+  flex-direction: column;
+  background: #0c1317;
+
+  z-index: 0;
+  width: 80%;
+
+  margin-right: auto !important;
+  margin-left: auto !important;
 }
-li{
+li {
   margin-left: 0px !important;
   list-style: none;
   padding: 10px 10px 10px 0px;
   color: white;
   cursor: pointer;
 }
-li:hover{
+li:hover {
   color: white;
   font-weight: bold;
   transition: ease-out 0.3s;
 }
-a{
+a {
   text-decoration: none;
-  color: white ;
-  
+  color: white;
 }
 .columnas {
   color: white;
@@ -39,12 +36,11 @@ a{
   grid-template-columns: 40% auto auto auto auto;
   margin-bottom: 4%;
 }
-ul{
+ul {
   all: initial;
   font-family: rouben ligth;
 }
 .columna {
- 
   justify-content: center;
   align-items: center;
   text-align: flex-start;
@@ -53,7 +49,6 @@ ul{
   margin-top: 50px;
 }
 .columna-principal {
- 
   justify-content: center;
   align-items: center;
   text-align: flex-start;
@@ -62,48 +57,41 @@ ul{
   grid-column: 1 / 2;
   margin-left: 0px !important;
   margin-top: 50px;
- 
 }
 
-
-.footer-parrafo{
+.footer-parrafo {
   padding: 10px 0px;
   width: 320px;
   color: whitead;
 }
-.redes-footer{
+.redes-footer {
   display: flex;
-  
-  
 }
-.icon-redes{
+.icon-redes {
   height: 25px;
   margin: 10px 10px;
 }
 
-
-.footer-titulo-principal{
+.footer-titulo-principal {
   font-size: 1.3rem;
   color: white;
   font-weight: bolder;
 }
 
-.licencias-footer{
-  
+.licencias-footer {
   all: initial;
   display: flex;
   font-family: 'Courier New', Courier, monospace;
-  color:white;
+  color: white;
   margin: auto;
   margin-bottom: 20px;
 }
-.contenedorFlex{
+.contenedorFlex {
   display: flex;
- 
 }
-.boton-contact-form{
+.boton-contact-form {
   display: flex;
-  background-color: #36B079;
+  background-color: #36b079;
   width: 50%;
   font-family: rouben ligth;
   font-weight: lighter;
@@ -111,21 +99,17 @@ ul{
   border-radius: 15px;
   font-size: 0.8rem;
   margin-top: 4%;
- 
-
-
 }
 @media only screen and (max-width: 1350px) {
   .columna-principal {
-  
-      margin-left: 90px;
+    margin-left: 90px;
   }
-  }
+}
 
 @media only screen and (max-width: 650px) {
-  .container-footer{
+  .container-footer {
     display: flex;
- 
+
     grid-template-columns: auto;
     background: #0c1317;
     padding: 0px;
@@ -133,112 +117,102 @@ ul{
     justify-content: flex-start;
     width: 90%;
     margin: auto;
-    
-    
-}
-.boton-contact-form{
- 
-  height: auto;
-  width: 40vw !important;
-  text-align: center;
-  justify-content: center;
-}
-.footer-parrafo{
-  display: flex;
- justify-content: center;
- width: 90vw;
- text-align: center;
- align-items: center;
- align-self: center;
- font-size: 1rem;
-  margin: auto;
-  
-}
-.licencias-footer{
-  display: flex ;
-  justify-content: center;
-  font-family: 'Courier New', Courier, monospace;
-  color:white;
-  
-  margin-left: auto;
-  font-size: 0.8rem;
-  margin-bottom: 20px;
-  width: 100%;
-
-}
-.licencias-footer span{
-  margin: auto 10px;
-} 
-.footer-titulo-principal{
-  font-size: 1rem;
-  color: white;
-  font-weight: bolder;
-  justify-content: center;
-  align-items: center;
-  
-  text-align: center;
-}
-.footer-titulo{
-  width: 50%;
-}
-.columnas {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
- 
- 
-}
-
-
-
-.columna {
-  display: flex;
-  flex-direction: row;
-  width: 90vw;
-  padding: 0.1rem;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1rem;
-  margin-top: 10px;
-}
-.columna ul{
-  display: flex;
-}
-li{
-  margin: auto 20px;
-  padding: 10px;
-  color: whitead;
-  cursor: pointer;
-  width: 100%;
-  
-  border-bottom: 1px solid white;
-}
-.columna-principal {
-  grid-area: columna-principal;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-  align-content: center;
-  margin-left: 250px;
-  width: 90vw;
   }
-  .redes-footer{
+  .boton-contact-form {
+    height: auto;
+    width: 40vw !important;
+    text-align: center;
+    justify-content: center;
+  }
+  .footer-parrafo {
+    display: flex;
+    justify-content: center;
+    width: 90vw;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    font-size: 1rem;
+    margin: auto;
+  }
+  .licencias-footer {
+    display: flex;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+
+    margin-left: auto;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .licencias-footer span {
+    margin: auto 10px;
+  }
+  .footer-titulo-principal {
+    font-size: 1rem;
+    color: white;
+    font-weight: bolder;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+  }
+  .footer-titulo {
+    width: 50%;
+  }
+  .columnas {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .columna {
+    display: flex;
+    flex-direction: row;
+    width: 90vw;
+    padding: 0.1rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  .columna ul {
+    display: flex;
+  }
+  li {
+    margin: auto 20px;
+    padding: 10px;
+    color: whitead;
+    cursor: pointer;
+    width: 100%;
+
+    border-bottom: 1px solid white;
+  }
+  .columna-principal {
+    grid-area: columna-principal;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    margin-left: 250px;
+    width: 90vw;
+  }
+  .redes-footer {
     justify-content: center;
     align-items: center;
   }
-  
 }
 @media only screen and (max-width: 400px) {
-  .columnas{
+  .columnas {
     margin-left: 0px;
   }
 }
 @media only screen and (max-width: 350px) {
-  .container-footer{
+  .container-footer {
     margin-left: 5px;
   }
-  .columnas{
+  .columnas {
     margin-left: 10px;
   }
   .columna-principal {

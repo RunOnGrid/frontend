@@ -1,24 +1,20 @@
-import dynamic from "next/dynamic";
-import Footer from "@/components/index/Footer";
-import { useInView } from "react-intersection-observer";
-import Charts from "@/components/solutions/Charts";
-import Migration from "@/components/solutions/Migration";
-import React, { useRef } from "react";
-import ContactForm from "@/components/index/ContactForm";
-import SolutionCard from "@/components/solutions/SolutionCard";
+import dynamic from 'next/dynamic';
+import Footer from '@/components/index/Footer';
+import { useInView } from 'react-intersection-observer';
+import Charts from '@/components/solutions/Charts';
+import Migration from '@/components/solutions/Migration';
+import React, { useRef } from 'react';
+import ContactForm from '@/components/index/ContactForm';
+import SolutionCard from '@/components/solutions/SolutionCard';
 
-
-
-const DynamicNavbar = dynamic(()=>import("../components/index/Navbar"),
-  {
-    ssr:false,
-    loading: () => <p> Im f</p>
-  }
-)
+const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
+  ssr: false,
+  loading: () => <p> Im f</p>,
+});
 
 export default function Solutions() {
   const contactFormRef = useRef(null);
-  
+
   const scrollToContactForm = () => {
     if (contactFormRef.current) {
       contactFormRef.current.scrollIntoView({
@@ -26,11 +22,11 @@ export default function Solutions() {
       });
     }
   };
-  
+
   const ContactForm1 = React.forwardRef((props, ref) => (
     // Renderiza el componente ContactForm y asigna la referencia al elemento principal.
     <div ref={ref}>
-      <ContactForm/>
+      <ContactForm />
     </div>
   ));
   ContactForm1.displayName = 'ContactForm1';
@@ -46,10 +42,9 @@ export default function Solutions() {
   };
   return (
     <>
-    <div className="container-homePrincipal"> 
-
-    <DynamicNavbar scrollToContactForm={scrollToContactForm}/>
-    {/* <div className="banner-container">
+      <div className="container-homePrincipal">
+        <DynamicNavbar scrollToContactForm={scrollToContactForm} />
+        {/* <div className="banner-container">
     <Banner
     producto='Web Hosting'
         title='Seamlessly transition from any cloud provider.'
@@ -60,20 +55,17 @@ export default function Solutions() {
          style={inView ? fadeInStylesLeft : {}}
        src="/ilustracion-webHosting.svg" alt="" className="ilustracion-bannerGrande" />
        </div> */}
-       <div style={{opacity:'0'}}>.</div>
-       <SolutionCard/>
-      
-        <div > 
-          
-        <Charts/>
+        <div style={{ opacity: '0' }}>.</div>
+        <SolutionCard />
+
+        <div>
+          <Charts />
         </div>
-        <Migration/>
-        
-   <ContactForm1 ref={contactFormRef}/>
-   <Footer scrollToContactForm={scrollToContactForm}/>
-    </div>
- 
-      
+        <Migration />
+
+        <ContactForm1 ref={contactFormRef} />
+        <Footer scrollToContactForm={scrollToContactForm} />
+      </div>
     </>
-  )
+  );
 }

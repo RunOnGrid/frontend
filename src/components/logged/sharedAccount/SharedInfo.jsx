@@ -11,9 +11,11 @@ const SharedInfo = () => {
       <div> s</div>
       <Paginacion anterior="Settings" links="/profile" titulo="Billing" />
 
-      <div style={{marginTop:'50px'}} className="infoShared-titulo"> Shared Account</div>
+      <div style={{ marginTop: '50px' }} className="infoShared-titulo">
+        {' '}
+        Shared Account
+      </div>
       <div className="contenedor-titulos-hosting-click-shared">
-       
         <span
           className={`spanHosting-clickeable-shared${
             selected === 1 ? 'focus' : ''
@@ -29,11 +31,10 @@ const SharedInfo = () => {
         <span> Generate a project invite for another user </span>
         <input className="input-shared2" placeholder="ex: hello@ongrid.run" />
         <span> Specify a role for this user</span>
-        <div className='botones-shared'>
-
-        <button> Admin </button>
-        <button> Developer </button>
-        <button> Viewer </button>
+        <div className="botones-shared">
+          <button> Admin </button>
+          <button> Developer </button>
+          <button> Viewer </button>
         </div>
         {/* <div className="contenedor-agree">
           <input className="check-asicHosting" type="checkbox" />

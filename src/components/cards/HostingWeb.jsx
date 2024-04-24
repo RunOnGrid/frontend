@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import NuevasCardsHosting from './NuevasCardsHosting';
 import ContactForm from '../index/ContactForm';
 
-
-
 const HostingWeb = () => {
   const [selected, setSelected] = useState(0);
   const [selected1, setSelected1] = useState(null);
@@ -20,24 +18,22 @@ const HostingWeb = () => {
   };
   return (
     <>
-      
       <div>s</div>
-      
-      <div className='probando-index'>
-    <div style={{opacity:'0'}}>.</div>
-      <div style={{marginLeft:'-100px'}} className="tituloPrincipal-hosting">
-        {' '}
-       Choose your deploy service{' '}
-      </div>
-      
-      
-      <div className="mydict">
 
-</div>
+      <div className="probando-index">
+        <div style={{ opacity: '0' }}>.</div>
+        <div
+          style={{ marginLeft: '-100px' }}
+          className="tituloPrincipal-hosting">
+          {' '}
+          Choose your deploy service{' '}
+        </div>
 
-    <NuevasCardsHosting/>
+        <div className="mydict"></div>
 
-    <ContactForm/>
+        <NuevasCardsHosting />
+
+        <ContactForm />
         {/* <div className='aboutUs-final2'>
 
     <h1> Enterprise</h1>
@@ -52,16 +48,11 @@ const HostingWeb = () => {
     
 </div> */}
 
-
-      <div style={{opacity:'0'}}>.</div>
+        <div style={{ opacity: '0' }}>.</div>
       </div>
-      <div style={{opacity:'0'}}>.</div>
+      <div style={{ opacity: '0' }}>.</div>
     </>
   );
 };
 
-
-
 export default HostingWeb;
-
-

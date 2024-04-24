@@ -2,8 +2,8 @@ import dynamic from 'next/dynamic';
 import Footer from '@/components/index/Footer';
 import { useInView } from 'react-intersection-observer';
 import Article from '@/components/blog/Article';
-import React, { useRef } from "react";
-import ContactForm from "@/components/index/ContactForm";
+import React, { useRef } from 'react';
+import ContactForm from '@/components/index/ContactForm';
 
 const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
   ssr: false,
@@ -32,7 +32,7 @@ export default function Blog() {
   const ContactForm1 = React.forwardRef((props, ref) => (
     // Renderiza el componente ContactForm y asigna la referencia al elemento principal.
     <div ref={ref}>
-      <ContactForm/>
+      <ContactForm />
     </div>
   ));
   ContactForm1.displayName = 'ContactForm1';
@@ -46,38 +46,37 @@ export default function Blog() {
             Grid Cloud Blog
           </div>
         </div>
-        <div className='grid-articles'>
-            <Article
-                title='Why pay for Heroku/Render/Fly.io when you have AWS credits?'
-                foto='/netero.jpg'
-                author='SpectroGL'
-                date='January 04,2024'
-                time='5 min read'
-            />
-             <Article
-                title='Why pay for Heroku/Render/Fly.io when you have AWS credits?'
-                foto='/netero.jpg'
-                author='SpectroGL'
-                date='January 04,2024'
-                time='5 min read'
-            />
-             <Article
-                title='Why pay for Heroku/Render/Fly.io when you have AWS credits?'
-                foto='/netero.jpg'
-                author='SpectroGL'
-                date='January 04,2024'
-                time='5 min read'
-            />
-             <Article
-                title='Why pay for Heroku/Render/Fly.io when you have AWS credits?'
-                foto='/netero.jpg'
-                author='SpectroGL'
-                date='January 04,2024'
-                time='5 min read'
-            />
-
+        <div className="grid-articles">
+          <Article
+            title="Why pay for Heroku/Render/Fly.io when you have AWS credits?"
+            foto="/netero.jpg"
+            author="SpectroGL"
+            date="January 04,2024"
+            time="5 min read"
+          />
+          <Article
+            title="Why pay for Heroku/Render/Fly.io when you have AWS credits?"
+            foto="/netero.jpg"
+            author="SpectroGL"
+            date="January 04,2024"
+            time="5 min read"
+          />
+          <Article
+            title="Why pay for Heroku/Render/Fly.io when you have AWS credits?"
+            foto="/netero.jpg"
+            author="SpectroGL"
+            date="January 04,2024"
+            time="5 min read"
+          />
+          <Article
+            title="Why pay for Heroku/Render/Fly.io when you have AWS credits?"
+            foto="/netero.jpg"
+            author="SpectroGL"
+            date="January 04,2024"
+            time="5 min read"
+          />
         </div>
-        <ContactForm1 ref={contactFormRef}/>
+        <ContactForm1 ref={contactFormRef} />
         <Footer scrollToContactForm={scrollToContactForm} />
       </div>
     </>

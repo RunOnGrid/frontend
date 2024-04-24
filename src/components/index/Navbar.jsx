@@ -60,7 +60,7 @@ function Navbar({ scrollToContactForm }) {
             <div className="nav-title">
               <Link href="/pricing"> Pricing </Link>{' '}
             </div>
-           
+
             <div className="nav-title">
               <Link href="/blog"> Blog </Link>{' '}
             </div>
@@ -93,8 +93,6 @@ function Navbar({ scrollToContactForm }) {
       </nav>
       {menu ? <MenuMobile /> : ''}
 
-     
-
       <div
         className={`container-productos ${dropdown2 ? 'show' : ''} ${
           isSticky ? 'sticky' : ''
@@ -117,7 +115,6 @@ function Navbar({ scrollToContactForm }) {
           </div>
         </div>
 
-    
         <div className="productos">
           <img alt="" className="logo-productos" src={'/blog.png'} />
           <div className="descripcion-productos">

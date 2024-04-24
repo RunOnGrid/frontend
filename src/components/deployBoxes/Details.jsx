@@ -1,6 +1,5 @@
-
 import Image from 'next/image';
-import React, { useState,forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 
 import Botonera from '@/commons/Botonera';
 import CountrySelector from './CountrySelector';
@@ -88,7 +87,7 @@ const Details = forwardRef(({ onNextStep }, ref) => {
 
   return (
     <div ref={ref}>
-     <Image
+      <Image
         style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}
         alt=""
         width={25}
@@ -98,47 +97,46 @@ const Details = forwardRef(({ onNextStep }, ref) => {
       <div style={{ display: 'flex' }}>
         <div className="newServ-container2">
           <h3>Allowed Geolocations</h3>
-          <div   className="card-newApp3">
-           <CountrySelector/>
-            <div style={{marginTop:'50px'}}>
-
-            <div className="ranges">
-              <label>Instances: {values.range1}</label>
-              <input
-                type="range"
-                name="range1"
-                min="3"
-                max="100"
-                step="1"
-                value={values.range1}
-                onChange={handleChange}
-              />
+          <div className="card-newApp3">
+            <CountrySelector />
+            <div style={{ marginTop: '50px' }}>
+              <div className="ranges">
+                <label>Instances: {values.range1}</label>
+                <input
+                  type="range"
+                  name="range1"
+                  min="3"
+                  max="100"
+                  step="1"
+                  value={values.range1}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="ranges">
+                <label>Duration: {getDurationLabel(duration)}</label>
+                <input
+                  type="range"
+                  name="duration"
+                  min="1"
+                  max="6"
+                  step="1"
+                  value={duration}
+                  onChange={handleDurationChange}
+                />
+              </div>
+              <Botonera titulo="Static IP" />
+              <Botonera titulo="Enterprise Application" />
             </div>
-            <div className="ranges">
-              <label>Duration: {getDurationLabel(duration)}</label>
-              <input
-                type="range"
-                name="duration"
-                min="1"
-                max="6"
-                step="1"
-                value={duration}
-                onChange={handleDurationChange}
-              />
-            </div>
-            <Botonera titulo="Static IP" />
-            <Botonera titulo="Enterprise Application" />
           </div>
-            </div>
-        <button className='boton-continue' onClick={()=>onNextStep()}>Continue</button>
+          <button className="boton-continue" onClick={() => onNextStep()}>
+            Continue
+          </button>
         </div>
         {/* <WebComponent/> */}
       </div>
-
-     
     </div>
   );
 });
 
 Details.displayName = 'Details';
-export default Details
+export default Details;

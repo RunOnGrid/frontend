@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const NavbarProjects = () => {
-  return (
-    <div>NavbarProjects</div>
-  )
-}
+  return <div>NavbarProjects</div>;
+};
 
-export default NavbarProjects
+export default NavbarProjects;
