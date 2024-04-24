@@ -7,13 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-  }, 
+  },
   "dependencies": {
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.402",
     "axios": "^1.6.5",
     "chart.js": "^4.3.0",
     "cookie": "^0.6.0",
+    "dotenv": "^16.4.5",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "lottie-web": "^5.10.2",
