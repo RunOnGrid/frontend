@@ -1,5 +1,6 @@
 import Paginacion from '@/commons/Paginacion';
 import React, { useState } from 'react';
+import SharedBox from './SharedBox';
 
 const SharedInfo = () => {
   const [selected, setSelected] = useState(1);
@@ -9,12 +10,11 @@ const SharedInfo = () => {
   return (
     <div className="contenedor-completo-shared">
       <div> s</div>
-      <Paginacion anterior="Settings" links="/profile" titulo="Billing" />
+      <Paginacion anterior="Settings" links="/profile" titulo="Shared Account" />
 
-      <div style={{ marginTop: '50px' }} className="infoShared-titulo">
-        {' '}
-        Shared Account
-      </div>
+
+      <div style={{marginTop:'50px'}} className="infoShared-titulo"> Shared Account</div>
+      <span className='span-shared'>Generate a project invite for another user</span>
       <div className="contenedor-titulos-hosting-click-shared">
         <span
           className={`spanHosting-clickeable-shared${
@@ -28,34 +28,36 @@ const SharedInfo = () => {
 
       <div className="contenedor-nuevo-shared">
         <div> Share Project</div>
-        <span> Generate a project invite for another user </span>
-        <input className="input-shared2" placeholder="ex: hello@ongrid.run" />
+       
+        {/* <input className="input-shared2" placeholder="ex: hello@ongrid.run" /> */}
+        <span>Select project</span>
+        <div style={{display:'flex'}}>
+          <SharedBox/>
+          <SharedBox/>
+          <SharedBox/>
+        </div>
+       
         <span> Specify a role for this user</span>
-        <div className="botones-shared">
-          <button> Admin </button>
-          <button> Developer </button>
-          <button> Viewer </button>
+        <div className='botones-shared'>
+        <button> Owner</button>
+        <button> Admin </button>
+        <button> Developer </button>
+        <button> Viewer </button>
         </div>
-        {/* <div className="contenedor-agree">
-          <input className="check-asicHosting" type="checkbox" />
-          <div> Admin </div>
-        </div>
-
-        <div className="contenedor-agree">
-          <input className="check-asicHosting" type="checkbox" />
-          <div> Developer </div>
-        </div>
-        <div className="contenedor-agree">
-          <input className="check-asicHosting" type="checkbox" />
-          <div> Viewer </div>
-        </div> */}
-        <button> Create invite </button>
+        <span>Users address</span>
+        <input className='shared-input' placeholder='ex:hello@ongrid.run'/>
+        <button>Generate Invite</button>
+        <div className='linea-separadora2'></div>
         <div> Invites & collaborators</div>
-        <span> Manage pending invites and view collaborators. </span>
-        <section>
-          {' '}
-          <h4> This project currently has no invites or collaborators </h4>{' '}
-        </section>
+        <span style={{marginBottom:'40px'}}> Manage pending invites and view collaborators. </span>
+        <div className='shared-columnas'> 
+          <span style={{marginLeft:'0px'}}> Project</span>
+          <span> User</span>
+          <span> Role</span>
+          <span> Status</span>
+          <span> Invite Link</span>
+        </div>
+     
       </div>
     </div>
   );

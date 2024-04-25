@@ -429,10 +429,22 @@
   margin-left: 8px;
   margin-right: 8px;
 }
-
 .primer-span {
   margin-bottom: 30px;
 }
+  .contenedor-icono{
+    display: flex;
+    width: 50px;
+  }
+  .linea-separadora2{
+    display: flex;
+   
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    width: 80%;
+  }
 
 .grid-features-hosting {
   display: grid;
