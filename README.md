@@ -1,5 +1,8 @@
-GridCLoud Front
-Variables de entorno keycloak
+
+GridCLoud Front 
+Variables de entorno:
+CLIENT_ID="<client_id_secret>"
+CLIENT_SECRET="<client_secret>"
 KEYCLOAK_CLIENT_ID="nextjs"
 KEYCLOAK_CLIENT_SECRET="<client_secret>"
 KEYCLOAK_ISSUER="http://localhost:8080/realms/myrealm"

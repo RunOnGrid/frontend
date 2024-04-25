@@ -3,6 +3,7 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 import Paginacion from '@/commons/Paginacion';
 import { parse } from 'cookie';
+import "dotenv/config"
 
 const Repositories = ({ username, accessToken, data }) => {
   const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
@@ -123,7 +124,7 @@ export async function getServerSideProps(context) {
   const code = context.query.code;
 
   if (!code) {
-    const CLIENT_ID = 'Iv1.dc11b1e22135af26';
+    const CLIENT_ID = process.env.CLIENT_ID;
     const REDIRECT_URI = 'https://www.ongrid.run/repos';
     const AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user`;
 
@@ -133,8 +134,8 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const CLIENT_ID = 'Iv1.dc11b1e22135af26';
-    const CLIENT_SECRET = '921ae413f1c27dba4711650d8a9937a09d8561b5';
+    const CLIENT_ID = process.env.CLIENT_ID;
+    const CLIENT_SECRET = process.env.CLIENT_SECRET;
     const REDIRECT_URI = 'https://www.ongrid.run/profile/repositories';
 
     const params = {
