@@ -1,9 +1,9 @@
-import AuthComponent from "@/components/github/AuthComp";
+import AuthComponent from '@/components/github/AuthComp';
 
-export default function PruebaGit () {
+export default function PruebaGit() {
   return (
     <div>
-      <AuthComponent/>
+      <AuthComponent />
     </div>
   );
-};
+}

@@ -12,10 +12,10 @@ const SharedInfo = () => {
       <div> s</div>
       <Paginacion anterior="Settings" links="/profile" titulo="Shared Account" />
 
+
       <div style={{marginTop:'50px'}} className="infoShared-titulo"> Shared Account</div>
       <span className='span-shared'>Generate a project invite for another user</span>
       <div className="contenedor-titulos-hosting-click-shared">
-       
         <span
           className={`spanHosting-clickeable-shared${
             selected === 1 ? 'focus' : ''

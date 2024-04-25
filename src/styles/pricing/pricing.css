@@ -1,44 +1,44 @@
-.pricing-card{
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.178);
-    border-radius: 15px;
-    border: 2px solid white;
-    padding: 15px;
-    margin: auto;
-    width: 30%;
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.178);
+  border-radius: 15px;
+  border: 2px solid white;
+  padding: 15px;
+  margin: auto;
+  width: 30%;
 }
-.pricing-card h2{
-    font-family: rouben ligth;
-    color: white;
-    letter-spacing: 1px;
-    text-align: center;
+.pricing-card h2 {
+  font-family: rouben ligth;
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
 }
-.pricing-card h1{
-    font-family: rouben;
-    color: white;
+.pricing-card h1 {
+  font-family: rouben;
+  color: white;
 }
-.pricing-card span{
-    color: rgba(255, 255, 255, 0.584);
-    font-size: 1.2rem;
+.pricing-card span {
+  color: rgba(255, 255, 255, 0.584);
+  font-size: 1.2rem;
 }
-.pricing-card h3{
-    text-align: center;
-    color: rgba(255, 255, 255, 0.702);
-    font-family: rouben ligth;
-    font-size: 1rem;
-    width: 50%;
-    margin: auto;
+.pricing-card h3 {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.702);
+  font-family: rouben ligth;
+  font-size: 1rem;
+  width: 50%;
+  margin: auto;
 }
-.pricing-card button{
-    width: 50%;
-    margin: auto;
-    background-color: #36B079;
+.pricing-card button {
+  width: 50%;
+  margin: auto;
+  background-color: #36b079;
 }
-.pricing-card h4{
-    font-family: rouben ligth;
-    color: white;
-    letter-spacing: 1px;
-    text-align: center;
-    margin: 20px auto ;
+.pricing-card h4 {
+  font-family: rouben ligth;
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 20px auto;
 }

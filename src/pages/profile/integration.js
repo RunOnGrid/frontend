@@ -10,15 +10,13 @@ const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
   loading: () => <p> Im f</p>,
 });
 
-
 export default function Integration({ storedToken }) {
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
     return setVisible(!visible);
   };
-  
-  const [github,setGithub] = useState('')
- 
+
+  const [github, setGithub] = useState('');
 
   const handleLoginClick = () => {
     const CLIENT_ID = 'Iv1.4c4e4dcaca465cb4';
@@ -29,42 +27,25 @@ export default function Integration({ storedToken }) {
     window.location.href = AUTH_URL;
   };
 
-
-
   return (
-    <div
-      className= 'logged-home-component'>
-      
-        
-      
-      <div style={{display:'flex',flexDirection:'row'}}>
-          <DynamicNavbar />
-      <div style={{width: '100%',
-                marginLeft: '100px',
-                marginRight: 'auto'}}>
+    <div className="logged-home-component">
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <DynamicNavbar />
+        <div
+          style={{ width: '100%', marginLeft: '100px', marginRight: 'auto' }}>
+          <div style={{ opacity: '0' }}>.</div>
+          <Paginacion
+            anterior="Settings"
+            links="/profile"
+            titulo="Integrations"
+          />
+          <div style={{ display: 'flex', width: '90%', marginTop: '100px' }}>
+            <IntegrationBox title="Docker" image="/docker4.png" />
+            <IntegrationBox title="Slack" image="/slackButton.png" />
+            <IntegrationBox title="Github" image="/gitButton.png" />
+          </div>
 
-      <div style={{ opacity: '0' }}>.</div>
-      <Paginacion anterior="Settings" links="/profile" titulo="Integrations" />
-      <div style={{display:'flex',width:'90%',marginTop:'100px'}}>
-
-      <IntegrationBox 
-        title='Docker'
-        image='/docker4.png'
-      />
-      <IntegrationBox 
-        title='Slack'
-        image='/slackButton.png'
-      />
-       <IntegrationBox 
-        title='Github'
-        image='/gitButton.png'
-      />
-   
-      </div>
-
-    
-
-      {/* <div  className="integration-container">
+          {/* <div  className="integration-container">
         <Image alt="" src="/githubL.png" width={100} height={50} />
 
         {storedToken ? (
@@ -81,7 +62,7 @@ export default function Integration({ storedToken }) {
     
        
       </div> */}
-      </div>
+        </div>
       </div>
     </div>
   );
@@ -93,10 +74,6 @@ export const getServerSideProps = async (context) => {
   if (storedToken) {
     // Si hay un accessToken en las cookies, usa ese para obtener la lista de repositorios
     try {
-      
-
-      
-
       return {
         props: { storedToken },
       };
@@ -106,8 +83,8 @@ export const getServerSideProps = async (context) => {
         props: {},
       };
     }
-  };
+  }
   return {
     props: {},
-  }
+  };
 };

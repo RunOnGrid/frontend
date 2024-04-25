@@ -13,54 +13,57 @@ const EnvVariables = forwardRef(({ onNextStep }, ref) => {
   const handleSaveEnvVariable = (key, value) => {
     // Actualizar el estado con la nueva variable de entorno
     setEnvVariables([...envVariables, { key, value }]);
-    setModalVisible(false)
+    setModalVisible(false);
   };
 
   return (
     <div>
-      
-    <div ref={ref}>
-      <Image
-        style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}
-        alt=""
-        width={25}
-        height={25}
-        src="/dot.png"
-      />
-      <div className="envVar-container">
-        <h3>
-          Environment variables <p>(optional) </p>
-        </h3>
-        <span>Deploy from a Git repository or a Docker registry.</span>
-        <button onClick={handleAddBuildpackClick} className="button-newApp"> + Add row</button>
-        <div>
-        <h3>Environment Variables:</h3>
-        
-        <ul className='ul-variable' >
-          {envVariables.map((variable, index) => (
-            <div className='variable-keys' key={index} >
+      <div ref={ref}>
+        <Image
+          style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}
+          alt=""
+          width={25}
+          height={25}
+          src="/dot.png"
+        />
+        <div className="envVar-container">
+          <h3>
+            Environment variables <p>(optional) </p>
+          </h3>
+          <span>Deploy from a Git repository or a Docker registry.</span>
+          <button onClick={handleAddBuildpackClick} className="button-newApp">
+            {' '}
+            + Add row
+          </button>
+          <div>
+            <h3>Environment Variables:</h3>
 
-              <div style={{display:'flex',flexDirection:'column'}}>
-              <label> Key</label>
-              <span>{variable.key} </span>
-              </div>
+            <ul className="ul-variable">
+              {envVariables.map((variable, index) => (
+                <div className="variable-keys" key={index}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <label> Key</label>
+                    <span>{variable.key} </span>
+                  </div>
 
-              <div style={{display:'flex',flexDirection:'column'}}>
-              <label> Value </label>
-              <span> {variable.value}</span>
-              </div>
-
-            </div>
-          ))}
-        </ul>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <label> Value </label>
+                    <span> {variable.value}</span>
+                  </div>
+                </div>
+              ))}
+            </ul>
+          </div>
+          <button onClick={() => onNextStep()}> Continue</button>
+        </div>
       </div>
-        <button onClick={() => onNextStep()}> Continue</button>
-      </div>
-      
-    </div>
-  
-    {modalVisible && <EnvModal onSave={handleSaveEnvVariable} onCancel={() => setModalVisible(false)} />}
-    
+
+      {modalVisible && (
+        <EnvModal
+          onSave={handleSaveEnvVariable}
+          onCancel={() => setModalVisible(false)}
+        />
+      )}
     </div>
   );
 });

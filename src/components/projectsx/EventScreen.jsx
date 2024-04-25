@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const EventScreen = () => {
-  return (
-    <div>EventScreen</div>
-  )
-}
+  return <div>EventScreen</div>;
+};
 
-export default EventScreen
+export default EventScreen;

@@ -1,13 +1,13 @@
-import React from 'react'
-import { Line } from 'react-chartjs-2'
-import {Chart as ChartJS} from 'chart.js/auto'
+import React from 'react';
+import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS } from 'chart.js/auto';
 
-const LineChart = ({chartData}) => {
+const LineChart = ({ chartData }) => {
   return (
     <div>
-        <Line data={chartData}  />
+      <Line data={chartData} />
     </div>
-  )
-}
+  );
+};
 
-export default LineChart
+export default LineChart;
