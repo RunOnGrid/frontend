@@ -1,113 +1,81 @@
 import dynamic from 'next/dynamic';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Paginacion from '@/commons/Paginacion';
-import Image from 'next/image';
-import { parse } from 'cookie';
 import IntegrationBox from '@/components/IntegrationBox';
+
+import back from '../../../axios';
+
 const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
 
-
 export default function Integration({ storedToken }) {
   const [visible, setVisible] = useState(true);
+  const [githubIntegrationState, setGithubIntegrationState] = useState(''); // Estado para la integración de GitHub
+
+  useEffect(() => {
+    const checkInstallationOwner = async () => {
+      try {
+        const userGrid = localStorage.getItem('userGrid');
+        if (!userGrid) {
+          // Si no hay usuario en el localStorage, establece el estado en 'Install app' y sale de la función
+          setGithubIntegrationState('Not logged');
+          return;
+        }
+
+        const response = await back.get(`/api/checkOwner/${userGrid}`);
+        if (response.data.exists) {
+          setGithubIntegrationState('Connected');
+          localStorage.setItem('installationId', response.data.id);
+        } else {
+          setGithubIntegrationState('Install app');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        setGithubIntegrationState('Install app'); // Manejo del error: establece el estado en 'Install app'
+      }
+    };
+
+    checkInstallationOwner();
+  }, []);
+
   const toggleSideBar = () => {
     return setVisible(!visible);
   };
-  
-  const [github,setGithub] = useState('')
- 
-
-  const handleLoginClick = () => {
-    const CLIENT_ID = 'Iv1.4c4e4dcaca465cb4';
-    const REDIRECT_URI = 'http://localhost:3000/profile/repositories';
-    const AUTH_URL = `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=repos`;
-
-    // Redirigir al usuario a la página de autorización de GitHub
-    window.location.href = AUTH_URL;
-  };
-
-
 
   return (
-    <div
-      className= 'logged-home-component'>
-      
-        
-      
-      <div style={{display:'flex',flexDirection:'row'}}>
-          <DynamicNavbar />
-      <div style={{width: '100%',
-                marginLeft: '100px',
-                marginRight: 'auto'}}>
-
-      <div style={{ opacity: '0' }}>.</div>
-      <Paginacion anterior="Settings" links="/profile" titulo="Integrations" />
-      <div style={{display:'flex',width:'90%',marginTop:'100px'}}>
-
-      <IntegrationBox 
-        title='Docker'
-        image='/docker4.png'
-      />
-      <IntegrationBox 
-        title='Slack'
-        image='/slackButton.png'
-      />
-       <IntegrationBox 
-        title='Github'
-        image='/gitButton.png'
-      />
-   
-      </div>
-
-    
-
-      {/* <div  className="integration-container">
-        <Image alt="" src="/githubL.png" width={100} height={50} />
-
-        {storedToken ? (
-
-<div className="verified-integration">
-<span>
-  Verified <Image alt="" src="/verify.png" width={25} height={25} />{' '}
-</span>
-</div>
-
-        ) : ( <button onClick={handleLoginClick}> Install app </button>)}
-
-            
-    
-       
-      </div> */}
-      </div>
+    <div className="logged-home-component">
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <DynamicNavbar />
+        <div
+          style={{ width: '100%', marginLeft: '100px', marginRight: 'auto' }}>
+          <div style={{ opacity: '0' }}>.</div>
+          <Paginacion
+            anterior="Settings"
+            links="/profile"
+            titulo="Integrations"
+          />
+          <div style={{ display: 'flex', width: '90%', marginTop: '100px' }}>
+            {/* Utiliza el estado de githubIntegrationState para determinar el estado de la integración de GitHub */}
+            <IntegrationBox
+              state="Connect"
+              title="Docker"
+              image="/docker4.png"
+            />
+            <IntegrationBox
+              state="Connect"
+              title="Slack"
+              image="/slackButton.png"
+            />
+            <IntegrationBox
+              state={githubIntegrationState}
+              title="Github"
+              image="/gitButton.png"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-export const getServerSideProps = async (context) => {
-  // Fetch data, including cookies, from the server
-  const storedToken = parse(context.req.headers.cookie || '').githubAccessToken;
-  if (storedToken) {
-    // Si hay un accessToken en las cookies, usa ese para obtener la lista de repositorios
-    try {
-      
-
-      
-
-      return {
-        props: { storedToken },
-      };
-    } catch (error) {
-      console.error('Error al obtener la lista de repositorios', error);
-      return {
-        props: {},
-      };
-    }
-  };
-  return {
-    props: {},
-  }
-};
