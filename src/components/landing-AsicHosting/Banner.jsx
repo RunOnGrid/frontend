@@ -1,24 +1,23 @@
-
-
-const Banner = ({ title, subtitle, imageSource, producto, buttonText1, buttonText2,scrollToContactForm }) => {
-  
-
+const Banner = ({
+  title,
+  subtitle,
+  imageSource,
+  producto,
+  buttonText1,
+  buttonText2,
+  scrollToContactForm,
+}) => {
   return (
-   
-        <div className="textosBanner">
-       
-          <div className="tituloBanner">{title}</div>
-          <div className="subtituloBanner">{subtitle}</div>
-        <div className="container-botones">
-     
-        </div>
-      </div>
-    
+    <div className="textosBanner">
+      <div className="tituloBanner">{title}</div>
+      <div className="subtituloBanner">{subtitle}</div>
+      <div className="container-botones"></div>
+    </div>
   );
 };
 
 Banner.defaultProps = {
-  producto: "Asic Mining",
+  producto: 'Asic Mining',
   title:
     'Power Your  Asic mining Operations with Our Reliable Hosting Solution',
   subtitle:

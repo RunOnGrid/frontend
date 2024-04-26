@@ -13,7 +13,7 @@ const EnvModal = ({ onSave, onCancel }) => {
   return (
     <div className="card2">
       <h3>Environment Variable</h3>
-      <div className='envInputs'>
+      <div className="envInputs">
         <div style={{ width: '100%' }}>
           <label> Key</label>
           <input value={key} onChange={(e) => setKey(e.target.value)} />
@@ -24,9 +24,9 @@ const EnvModal = ({ onSave, onCancel }) => {
           <input value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
       </div>
-      <div style={{display:'flex'}}>
-      <button onClick={handleSave}> Save</button>
-      <button onClick={onCancel}> Cancel</button>
+      <div style={{ display: 'flex' }}>
+        <button onClick={handleSave}> Save</button>
+        <button onClick={onCancel}> Cancel</button>
       </div>
     </div>
   );

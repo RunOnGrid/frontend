@@ -46,7 +46,11 @@ const ButtonsLanding = () => {
         </div>
         {selected === 0 ? (
           <div className="parrafo-features-landing2">
-          Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you&apos;re unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization.
+            Discover the freedom of managing a cloud without the need of
+            expertise or DevOps. Even if you&apos;re unfamiliar with new
+            decentralized technologies, we make hosting stress-free and
+            accessible for everyone, offering a straightforward and dependable
+            experience in the realm of decentralization.
           </div>
         ) : (
           ''

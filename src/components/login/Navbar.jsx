@@ -3,11 +3,10 @@ import React from 'react';
 
 const Navbar = () => {
   return (
-    <nav className='navbarLogin'>
-      <div >
+    <nav className="navbarLogin">
+      <div>
         <Link href="/">
-        
-        <img className="logo-navbarLogin" src="/LogoGitHub.svg" alt="Logo" />
+          <img className="logo-navbarLogin" src="/LogoGitHub.svg" alt="Logo" />
         </Link>
       </div>
     </nav>

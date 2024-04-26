@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-const ItemMigration3 = ({number,title,subtitle}) => {
+const ItemMigration3 = ({ number, title, subtitle }) => {
   return (
-    <div className='itemMigration tres'>
-        <span>{number} </span>
-        <div>{title}</div>
-        <p>{subtitle}</p>
+    <div className="itemMigration tres">
+      <span>{number} </span>
+      <div>{title}</div>
+      <p>{subtitle}</p>
     </div>
-  )
-}
+  );
+};
 
-export default ItemMigration3
+export default ItemMigration3;

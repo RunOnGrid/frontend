@@ -61,49 +61,47 @@ export default function LoggedLogin() {
                     <ComponentCard2 />
                   </div>
                 </div>
-                <div style={{display:'flex'}}>
-                  <div className='separador-horizontal'></div>
+                <div style={{ display: 'flex' }}>
+                  <div className="separador-horizontal"></div>
 
+                  <div className="filter-index">
+                    <span> Sort by: </span>
+                    <select>
+                      <option value="Lates">Latest</option>
+                      <option value="Active">Active</option>
+                      <option value="Failed">Failed</option>
+                    </select>
+                    <span> Search: </span>
+                    <input />
+                    <p> Filters</p>
+                    <span> Show:</span>
+                    <div className="checkbox-filter">
+                      <input type="checkbox" />
+                      <label>Active</label>
+                    </div>
+                    <div className="checkbox-filter">
+                      <input type="checkbox" />
+                      <label>Suspended</label>
+                    </div>
+                    <div className="checkbox-filter">
+                      <input type="checkbox" />
+                      <label>All</label>
+                    </div>
 
-
-                <div className="filter-index">
-                  <span> Sort by: </span>
-                  <select>
-                    <option value="Lates">Latest</option>
-                    <option value="Active">Active</option>
-                    <option value="Failed">Failed</option>
-                  </select>
-                  <span> Search: </span>
-                  <input />
-                  <p> Filters</p>
-                  <span> Show:</span>
-                  <div className="checkbox-filter">
-                    <input type="checkbox" />
-                    <label>Active</label>
+                    <span> Status:</span>
+                    <div className="checkbox-filter">
+                      <input type="checkbox" />
+                      <label>Deployed</label>
+                    </div>
+                    <div className="checkbox-filter">
+                      <input type="checkbox" />
+                      <label>Failed to deploy</label>
+                    </div>
+                    <div className="checkbox-filter">
+                      <input type="checkbox" />
+                      <label>All</label>
+                    </div>
                   </div>
-                  <div className="checkbox-filter">
-                    <input type="checkbox" />
-                    <label>Suspended</label>
-                  </div>
-                  <div className="checkbox-filter">
-                    <input type="checkbox" />
-                    <label>All</label>
-                  </div>
-
-                  <span> Status:</span>
-                  <div className="checkbox-filter">
-                    <input type="checkbox" />
-                    <label>Deployed</label>
-                  </div>
-                  <div className="checkbox-filter">
-                    <input type="checkbox" />
-                    <label>Failed to deploy</label>
-                  </div>
-                  <div className="checkbox-filter">
-                    <input type="checkbox" />
-                    <label>All</label>
-                  </div>
-                </div>
                 </div>
               </div>
             </div>

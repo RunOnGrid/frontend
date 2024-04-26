@@ -12,14 +12,14 @@ const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
 
 export default function Integration({ storedToken }) {
   const [visible, setVisible] = useState(true);
-  const [githubIntegrationState, setGithubIntegrationState] = useState(''); // Estado para la integración de GitHub
+  const [githubIntegrationState, setGithubIntegrationState] = useState(''); 
 
   useEffect(() => {
     const checkInstallationOwner = async () => {
       try {
         const userGrid = localStorage.getItem('userGrid');
         if (!userGrid) {
-          // Si no hay usuario en el localStorage, establece el estado en 'Install app' y sale de la función
+          
           setGithubIntegrationState('Not logged');
           return;
         }
@@ -33,7 +33,7 @@ export default function Integration({ storedToken }) {
         }
       } catch (error) {
         console.error('Error:', error);
-        setGithubIntegrationState('Install app'); // Manejo del error: establece el estado en 'Install app'
+        setGithubIntegrationState('Install app'); 
       }
     };
 
@@ -43,6 +43,7 @@ export default function Integration({ storedToken }) {
   const toggleSideBar = () => {
     return setVisible(!visible);
   };
+
 
   return (
     <div className="logged-home-component">
@@ -57,7 +58,8 @@ export default function Integration({ storedToken }) {
             titulo="Integrations"
           />
           <div style={{ display: 'flex', width: '90%', marginTop: '100px' }}>
-            {/* Utiliza el estado de githubIntegrationState para determinar el estado de la integración de GitHub */}
+
+           
             <IntegrationBox
               state="Connect"
               title="Docker"
@@ -74,8 +76,10 @@ export default function Integration({ storedToken }) {
               image="/gitButton.png"
             />
           </div>
+
         </div>
       </div>
     </div>
   );
 }
+
