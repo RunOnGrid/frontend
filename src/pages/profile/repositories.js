@@ -13,6 +13,7 @@ const Repositories = () => {
   });
 
   const [repositories, setRepositories] = useState([]);
+  const [selectedClient, setSelectedClient] = useState(null);
 
   useEffect(() => {
     const fetchRepositories = async () => {
@@ -35,6 +36,7 @@ const Repositories = () => {
       const response = await back.post('/api/github/modifyRepo', {
         name: repo,
         fullName: fullName,
+        buildpack: selectedClient,
       });
       console.log(response);
       // Maneja el mensaje de éxito si es necesario
@@ -43,7 +45,9 @@ const Repositories = () => {
       // Maneja el mensaje de error si es necesario
     }
   };
-
+  const handleClientSelection = (client) => {
+    setSelectedClient(client);
+  };
   const toggle = (i) => {
     return setSelected(i);
   };
@@ -65,6 +69,12 @@ const Repositories = () => {
                 {repo.name}
                 <button onClick={() => modifyRepo(repo.name, repo.owner)}>
                   Modificar
+                </button>
+                <button onClick={() => handleClientSelection('docker')}>
+                  Docker
+                </button>
+                <button onClick={() => handleClientSelection('git')}>
+                  Git
                 </button>
               </li>
             ))}

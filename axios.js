@@ -1,8 +1,8 @@
 import axios from 'axios';
-axios.defaults.baseURL = 'https://gitapp.dev.ongrid.run/';
+axios.defaults.baseURL = 'http://localhost:4000/';
 
 const back = axios.create({
-  baseURL: 'https://gitapp.dev.ongrid.run/',
+  baseURL: 'http://localhost:4000/',
 });
 
 export default back;
