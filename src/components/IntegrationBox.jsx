@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
+
 const IntegrationBox = ({ title, image, state }) => {
+
   return (
     <div className="integration-container">
       <div style={{ width: '100%', display: 'flex' }}>

@@ -35,6 +35,7 @@ function Form() {
       </div>
       <form className="login-form" onSubmit={handleSubmit}>
         <h2 className="login-title">Login to your Grid Cloud account</h2>
+
         <input
           placeholder="Email"
           className="register-input"
@@ -48,6 +49,7 @@ function Form() {
             placeholder="Password"
             className="register-input"
             type={view ? 'text' : 'password'}
+
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -63,6 +65,7 @@ function Form() {
         <button className="login-submit" type="submit">
           Login
         </button>
+
         <div className="member-container">
           <div className="member-login">
             Not a member yet?

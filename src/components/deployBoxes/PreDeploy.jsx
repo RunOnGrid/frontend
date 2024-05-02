@@ -20,8 +20,13 @@ const PreDeploy = forwardRef(({ onNextStep }, ref) => {
         <span>
           If specified, this is a job that will be run before every deployment.
         </span>
-        <button onClick={()=>setModalVisible(true)} className="button-newApp"> + Add a new Pre-Deploy job</button>
-      {modalVisible && <PreDeployJob visible={(boolean) => setModalVisible(boolean)}/>}
+        <button onClick={() => setModalVisible(true)} className="button-newApp">
+          {' '}
+          + Add a new Pre-Deploy job
+        </button>
+        {modalVisible && (
+          <PreDeployJob visible={(boolean) => setModalVisible(boolean)} />
+        )}
         <button onClick={() => onNextStep()}> Continue</button>
       </div>
     </div>

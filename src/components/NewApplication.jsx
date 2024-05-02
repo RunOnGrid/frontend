@@ -4,8 +4,8 @@ import NameBox from './deployBoxes/NameBox';
 import DeployMethod from './deployBoxes/DeployMethod';
 import EnvVariables from './deployBoxes/EnvVariables';
 import PreDeploy from './deployBoxes/PreDeploy';
-import  NewServices  from './deployBoxes/NewServices';
-import  Details  from './deployBoxes/Details';
+import NewServices from './deployBoxes/NewServices';
+import Details from './deployBoxes/Details';
 import PayApp from './deployBoxes/PayApp';
 
 const NewApplicationj = () => {
@@ -38,35 +38,55 @@ const NewApplicationj = () => {
   }, [activeStep]);
 
   const handleCompleteStep = (step) => {
-    setCompletedSteps(prevSteps => [...prevSteps, step]);
+    setCompletedSteps((prevSteps) => [...prevSteps, step]);
     setActiveStep(step + 1);
   };
 
   return (
     <>
-    <div style={{opacity:'0'}}>.</div>
+      <div style={{ opacity: '0' }}>.</div>
       <div className="contenedor-newApp">
         <div className="contenedor-flex-only4">
           <div className="div-newApp"> LET&apos;S GET STARTED!</div>
         </div>
         <NameBox onNextStep={() => handleCompleteStep(1)} ref={nameRef} />
-        {completedSteps.includes(1) && <Details onNextStep={() => handleCompleteStep(2)} ref={detailsRef} />}
-        {completedSteps.includes(2) && <NewServices onNextStep={() => handleCompleteStep(3)} ref={servicesRef} />}
-        {completedSteps.includes(3) && <DeployMethod onNextStep={() => handleCompleteStep(4)} ref={deployRef} />}
-        {completedSteps.includes(4) && <EnvVariables onNextStep={() => handleCompleteStep(5)} ref={envRef} />}
-        {completedSteps.includes(5) && <PreDeploy onNextStep={() => handleCompleteStep(6)} ref={preDeployRef} />}
-        {completedSteps.includes(6) && <PayApp onNextStep={() => handleCompleteStep(7)} ref={payRef} />}
-     
+        {completedSteps.includes(1) && (
+          <Details onNextStep={() => handleCompleteStep(2)} ref={detailsRef} />
+        )}
+        {completedSteps.includes(2) && (
+          <NewServices
+            onNextStep={() => handleCompleteStep(3)}
+            ref={servicesRef}
+          />
+        )}
+        {completedSteps.includes(3) && (
+          <DeployMethod
+            onNextStep={() => handleCompleteStep(4)}
+            ref={deployRef}
+          />
+        )}
+        {completedSteps.includes(4) && (
+          <EnvVariables onNextStep={() => handleCompleteStep(5)} ref={envRef} />
+        )}
+        {completedSteps.includes(5) && (
+          <PreDeploy
+            onNextStep={() => handleCompleteStep(6)}
+            ref={preDeployRef}
+          />
+        )}
+        {completedSteps.includes(6) && (
+          <PayApp onNextStep={() => handleCompleteStep(7)} ref={payRef} />
+        )}
       </div>
-      <div style={{opacity:'0'}}>.</div>
+      <div style={{ opacity: '0' }}>.</div>
     </>
   );
 };
 
 export default NewApplicationj;
 
-
-{/* <span className="span-newApp"> Application name </span>
+{
+  /* <span className="span-newApp"> Application name </span>
         <span className="span-newApp2">
           {' '}
           Only Lowercase and Uppercase letters.{' '}
@@ -121,8 +141,10 @@ export default NewApplicationj;
         <button onClick={() => setModal(true)} className="button-newApp">
           {' '}
           + Add a new service{' '}
-        </button> */}
-        {/* {modal ? (
+        </button> */
+}
+{
+  /* {modal ? (
           <div className="modal-newApp">
             <div className="contenedor-flex2">
               <h1> Add a new service </h1>
@@ -155,8 +177,10 @@ export default NewApplicationj;
           </div>
         ) : (
           ''
-        )} */}
-        {/* <div className="webCard-newApp">
+        )} */
+}
+{
+  /* <div className="webCard-newApp">
           <div className="titulo-webCard">
             <div className="contenedor-flex-only">
               <img className="icon-webCard" alt="" src="/downNavbar.png" />
@@ -242,4 +266,5 @@ export default NewApplicationj;
           {' '}
           + Add a new pre-deploy job{' '}
         </button>
-        <button className='boton-deploy'> Deploy app</button> */}
+        <button className='boton-deploy'> Deploy app</button> */
+}

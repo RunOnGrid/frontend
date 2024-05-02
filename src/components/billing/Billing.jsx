@@ -8,20 +8,18 @@ const BillingInfo = () => {
     return setSelected(i);
   };
   return (
-    <div style={{width:'100%'}}>
+    <div style={{ width: '100%' }}>
       <div>s</div>
-      <Paginacion  anterior="Services" links="/profile" titulo="Billing" />
+      <Paginacion anterior="Services" links="/profile" titulo="Billing" />
 
       <div className="tituloPrincipal-hosting">Billing</div>
       <div className="contenedor-titulos-hosting-click">
-      
         <span
           className={`spanHosting-clickeable${selected === 1 ? 'focus' : ''}`}
           onClick={() => toggle(1)}>
           {' '}
           Payment History & Credits
         </span>
-        
       </div>
       {/* <div className='billing-mobile'>
         <div className='billing-titulo-mobile'> Invoice Type</div>
@@ -42,26 +40,26 @@ const BillingInfo = () => {
         </div>
       </div> */}
       <div className="container-general-billing">
-        
         <BillingForms
-          titulo='Invoice Type'
+          titulo="Invoice Type"
           op1="GridCloud service"
           op2="Component Costs"
         />
-    
+
         <BillingForms
-          titulo='Amount'
+          titulo="Amount"
           op1="All"
           op2="Credits"
           op3="Wallet"
           op4="Both"
           op5="None"
         />
-       
       </div>
-      <div className='contenedor-invoices'> 
-        <span> Looks like you dont have any outstanding invoices currently </span>
-      
+      <div className="contenedor-invoices">
+        <span>
+          {' '}
+          Looks like you dont have any outstanding invoices currently{' '}
+        </span>
       </div>
     </div>
   );

@@ -1,117 +1,107 @@
-
-
-
-
-.textosBanner{
-    justify-content: center;
-    align-content: center;
-    margin-top: 20%;
-    width: 90%;
+.textosBanner {
+  justify-content: center;
+  align-content: center;
+  margin-top: 20%;
+  width: 90%;
 }
-.banner-container{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    height: 700px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.banner-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 700px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.banner-container3{
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.banner-container3 {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-
-.subtituloBanner{
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 85%;
-    color: white;
+.subtituloBanner {
+  font-family: rouben ligth;
+  font-size: 20px;
+  width: 85%;
+  color: white;
 }
-.subtituloBanner2{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 100%;
-    color: white;
-    justify-content: center;
-    margin-bottom: 50px;
+.subtituloBanner2 {
+  display: flex;
+  font-family: rouben ligth;
+  font-size: 20px;
+  width: 100%;
+  color: white;
+  justify-content: center;
+  margin-bottom: 50px;
 }
-.subtituloBanner4{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 40%;
-    color: white;
-    justify-content: center;
+.subtituloBanner4 {
+  display: flex;
+  font-family: rouben ligth;
+  font-size: 20px;
+  width: 40%;
+  color: white;
+  justify-content: center;
 }
-.subtituloBanner3{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 50%;
-    margin: 20px auto;
-    color: rgba(255, 255, 255, 0.657);
-    
-    text-align: center;
+.subtituloBanner3 {
+  display: flex;
+  font-family: rouben ligth;
+  font-size: 20px;
+  width: 50%;
+  margin: 20px auto;
+  color: rgba(255, 255, 255, 0.657);
+
+  text-align: center;
 }
-.tituloBanner{
-    font-family: rouben;
-    font-size: 3.5rem;
-    width: 100%;
-    font-weight: bold;
-    margin-bottom: 3%;
-    color:white ;
-    margin-top: 10%;
-    background: linear-gradient(225deg, #fff 30%, #36B079 70%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
+.tituloBanner {
+  font-family: rouben;
+  font-size: 3.5rem;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 3%;
+  color: white;
+  margin-top: 10%;
+  background: linear-gradient(225deg, #fff 30%, #36b079 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.ilustracion-bannerGrande{
-    display: flex;
-    width: 100%;
-    height: 60%;
-    margin-top: 20%;
-    margin-bottom: auto;
-    margin-left: 5%;
-   
- }
+.ilustracion-bannerGrande {
+  display: flex;
+  width: 100%;
+  height: 60%;
+  margin-top: 20%;
+  margin-bottom: auto;
+  margin-left: 5%;
+}
 
+.container-botones {
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
 
- .container-botones{
-    display: flex;
-    margin-top: 50px;
-    margin-bottom: 100px;
- }
-
-
- .itemMigration{
-    position:relative;
-    margin-top: 60px;
-    height: auto;
-    background-color: rgba(255, 255, 255, 0.119);
-    border-radius:15px;
-    border: 1px solid rgba(255, 255, 255, 0.068);
-    margin: auto;
-    width: 21vw;
- }
- .itemMigration span{
-    color: white;
-    font-size: 4rem;
-    padding: 5px 30px;
-    font-weight: bold;
-    width: 10px;
-    margin: 0px;
-    width: 80%;
-
- }
- .itemMigration div{
+.itemMigration {
+  position: relative;
+  margin-top: 60px;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.119);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.068);
+  margin: auto;
+  width: 21vw;
+}
+.itemMigration span {
+  color: white;
+  font-size: 4rem;
+  padding: 5px 30px;
+  font-weight: bold;
+  width: 10px;
+  margin: 0px;
+  width: 80%;
+}
+.itemMigration div {
   display: flex;
   color: white;
   opacity: 1;
@@ -120,116 +110,110 @@
   letter-spacing: 0.3px;
   width: 80%;
   padding: 5px 30px;
-  text-align:start;
+  text-align: start;
 
   margin-right: auto;
   font-weight: lighter !important;
- }
- .itemMigration p{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 16px;
-    width: 80%;
-    padding: 10px 30px;
-    color: rgba(255, 255, 255, 0.702);
-    margin: auto;
-    text-align:start;
-    padding-bottom: 40px;
-    padding-top: 20px;
-
- }
- .migration-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    background-color: #0c131787;
-    width: 400px;
-    padding: 30px;
-    border-radius: 15px;
-    height: auto;
-    color: white;
-    border: 2px solid white;
- }
- .migration-form h1{
-    font-family: rouben;
-    justify-content: center;
-    margin: auto;
-    margin-bottom: 30px;
- }
- .migration-form label{
-    font-family: rouben ligth;
-    font-size: 0.9rem;
-    margin: 10px auto;
- }
- .migration-form input{
-    height: 25px;
-    border-radius: 10px;
-    padding: 10px;
- }
- .migration-form button{
-    margin:auto;
-    margin-top: 30px;
-    background-color: #36B079;
- }
- .faded {
+}
+.itemMigration p {
+  display: flex;
+  font-family: rouben ligth;
+  font-size: 16px;
+  width: 80%;
+  padding: 10px 30px;
+  color: rgba(255, 255, 255, 0.702);
+  margin: auto;
+  text-align: start;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
+.migration-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  background-color: #0c131787;
+  width: 400px;
+  padding: 30px;
+  border-radius: 15px;
+  height: auto;
+  color: white;
+  border: 2px solid white;
+}
+.migration-form h1 {
+  font-family: rouben;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 30px;
+}
+.migration-form label {
+  font-family: rouben ligth;
+  font-size: 0.9rem;
+  margin: 10px auto;
+}
+.migration-form input {
+  height: 25px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.migration-form button {
+  margin: auto;
+  margin-top: 30px;
+  background-color: #36b079;
+}
+.faded {
   backdrop-filter: blur(10px);
-  }
+}
 
-  .uno {
-    top: 10px;
-    left:-270px;
+.uno {
+  top: 10px;
+  left: -270px;
+}
+
+.dos {
+  top: -30px; /* Ajusta esta cantidad para posicionar la segunda tarjeta */
+}
+
+.tres {
+  top: -460px; /* Ajusta esta cantidad para posicionar la tercera tarjeta */
+  left: 270px;
+}
+.migration-button {
+  display: flex;
+  margin: auto;
+  background-color: #36b079;
+  border-radius: 15px;
+  justify-content: center;
+  width: 15vw;
+  margin-top: -230px;
+}
+
+@media only screen and (max-width: 650px) {
+  .ilustracion-bannerGrande {
+    display: none;
   }
-  
-  .dos {
-    top: -30px; /* Ajusta esta cantidad para posicionar la segunda tarjeta */
+  .banner-container {
+    width: 100%;
   }
-  
-  .tres {
-    top: -460px; /* Ajusta esta cantidad para posicionar la tercera tarjeta */
-    left:270px;
-    
+  .textosBanner {
+    margin-top: 100px;
+    margin-bottom: -100px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .migration-button{
+  .tituloBanner {
+    font-size: 1.8rem;
+    font-weight: 100;
+  }
+  .banner-container {
     display: flex;
-    margin: auto;
-    background-color: #36B079;
-    border-radius: 15px;
-    justify-content: center;
-    width: 15vw;
-    margin-top: -230px;
+    height: 100%;
   }
-
-
-
- @media only screen and (max-width:650px){
-    .ilustracion-bannerGrande{
-        display: none;
-    }
-    .banner-container{
-        width: 100%;
-    }
-    .textosBanner{
-        margin-top: 100px;
-        margin-bottom: -100px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .tituloBanner{
-        font-size: 1.8rem;
-        font-weight: 100;
-       
-    }
-    .banner-container{
-        display: flex;
-        height: 100%;
-    }
-    .subtituloBanner{
-        font-family: rouben;
-        display: flex;
-        justify-content: center;
-        margin: 0 !important;
-        font-size: 1rem;
-    }
-
- }
+  .subtituloBanner {
+    font-family: rouben;
+    display: flex;
+    justify-content: center;
+    margin: 0 !important;
+    font-size: 1rem;
+  }
+}
