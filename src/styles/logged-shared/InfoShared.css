@@ -29,8 +29,7 @@
   width: 160px;
   background-color: #0c1317;
   margin-bottom: 15px;
-
-
+}
 
 .contenedor-nuevo-shared h4 {
   display: flex;
@@ -152,14 +151,14 @@
   width: 80%;
   margin-right: 100px;
 }
-.contenedor-completo-shared span{
-    color: rgb(255, 255, 255);
-    margin: 0;
+.contenedor-completo-shared span {
+  color: rgb(255, 255, 255);
+  margin: 0;
 }
-.span-shared{
-    display: flex;
-    margin-bottom: 30px !important;
-    color: rgba(255, 255, 255, 0.625) !important;
+.span-shared {
+  display: flex;
+  margin-bottom: 30px !important;
+  color: rgba(255, 255, 255, 0.625) !important;
 }
 
 .infoShared-titulo {
@@ -271,79 +270,77 @@
   background-color: #36b079;
   margin-left: 10px;
 }
-.botones-shared{
-    display: flex;
+.botones-shared {
+  display: flex;
 }
-.botones-shared button{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #0c1317bc;
-    width: 20%;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    margin-right: 20px;
-    margin-top: 20px;
+.botones-shared button {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #0c1317bc;
+  width: 20%;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  margin-right: 20px;
+  margin-top: 20px;
 }
-.botones-shared button:hover{
-    border: 2px solid #36B079;
-    background-color: #0c1317;
+.botones-shared button:hover {
+  border: 2px solid #36b079;
+  background-color: #0c1317;
 }
-.shared-input{
-    display: flex;
-    padding: 15px;
-    border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.257);
-    color: white;
-    width: 70%;
-    margin-right: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
+.shared-input {
+  display: flex;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.257);
+  color: white;
+  width: 70%;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
-.shared-input::placeholder{
-    color: rgba(255, 255, 255, 0.441) !important;
+.shared-input::placeholder {
+  color: rgba(255, 255, 255, 0.441) !important;
 }
-.shared-columnas{
-    display: flex;
-    width: 80%;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
-    padding: 10px;
+.shared-columnas {
+  display: flex;
+  width: 80%;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 10px;
 }
-.shared-columnas span{
-    display: flex;
-    font-family: rouben;
-    
-    margin: auto;
-}
-.shared-box{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #0c1317bc;
-    width: 20%;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    margin-right: 20px;
-    margin-top: 20px;
+.shared-columnas span {
+  display: flex;
+  font-family: rouben;
 
+  margin: auto;
 }
-.shared-box:hover{
-    border: 2px solid #36B079;
-    background-color: #0c1317;
+.shared-box {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #0c1317bc;
+  width: 20%;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  margin-right: 20px;
+  margin-top: 20px;
 }
-.shared-box span{
-    display: flex;
-    font-family: rouben;
-    margin-top: 10px;
-
+.shared-box:hover {
+  border: 2px solid #36b079;
+  background-color: #0c1317;
 }
-.shared-box div{
-    display: flex;
-    color: rgba(255, 255, 255, 0.646);
-    font-family: rouben ligth;
-    font-size: 1rem;
-    margin-top: 15px;
+.shared-box span {
+  display: flex;
+  font-family: rouben;
+  margin-top: 10px;
+}
+.shared-box div {
+  display: flex;
+  color: rgba(255, 255, 255, 0.646);
+  font-family: rouben ligth;
+  font-size: 1rem;
+  margin-top: 15px;
 }
 @media only screen and (max-width: 1300px) {
   .infoShared-renglones-permisos {
