@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import Router from 'next/router';
 
 function Form() {
   const [email, setEmail] = useState('');
@@ -9,7 +10,9 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // handle form submission here
+
+    localStorage.setItem('userGrid', email);
+    Router.push('/profile');
   };
 
   return (
@@ -36,7 +39,7 @@ function Form() {
         <input
           placeholder="Email"
           className="register-input"
-          type="email"
+          type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -46,23 +49,22 @@ function Form() {
             placeholder="Password"
             className="register-input"
             type={view ? 'text' : 'password'}
+
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <Image
-            onClick={() => {
-              setView(!view);
-            }}
+            onClick={() => setView(!view)}
             alt=""
             src={view ? '/hide2.png' : '/view.png'}
             width={25}
             height={25}
           />
         </div>
-
-        <Link href="/profile">
-          <button className="login-submit" type="submit">
-            Login
-          </button>
-        </Link>
+        <button className="login-submit" type="submit">
+          Login
+        </button>
 
         <div className="member-container">
           <div className="member-login">

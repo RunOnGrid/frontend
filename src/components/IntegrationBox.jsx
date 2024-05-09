@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import React from 'react';
 
-const IntegrationBox = ({ title, image }) => {
+
+const IntegrationBox = ({ title, image, state }) => {
+
   return (
     <div className="integration-container">
       <div style={{ width: '100%', display: 'flex' }}>
         <Image alt="" src={image} width={60} height={60} />
-        <button> Connect </button>
+        <button> {state} </button>
       </div>
       <span>{title}</span>
       <p>
