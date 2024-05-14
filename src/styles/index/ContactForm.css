@@ -1,9 +1,9 @@
 .contact-container2 {
   display: flex;
-  flex-direction: column;
-  background-color: rgba(255, 255, 255, 0.07);
+
+  background-color: rgba(255, 255, 255, 0.103);
   width: 80%;
-  border-radius: 15px;
+  border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.068);
   height: auto;
   margin: 30px auto;
@@ -47,12 +47,13 @@
   margin-top: 2%;
   width: 60%;
   height: 2.5vh;
-  background: #303030;
+  background: transparent;
   color: white;
-  padding: 10px 20px;
+  border: 1px solid white;
+  padding: 20px 20px;
   /* border: 2px solid transparent;
     border-image: linear-gradient(to bottom, white, gray, transparent) 1; */
-  border-radius: 15px;
+  border-radius: 25px;
 }
 textarea {
   font-family: sans-serif;
@@ -63,26 +64,30 @@ textarea {
   margin-top: 2%;
   width: 60%;
   height: 90px;
-  border-radius: 15px;
-  background: #303030;
+  border-radius: 25px;
+  background: transparent;
   color: white;
+  border: 1px solid white;
   padding: 10px 20px;
 }
 .contact-select {
   border-style: none;
   margin-top: 2%;
   width: 65%;
-  border-radius: 15px;
-  background: #303030;
-  color: rgba(255, 255, 255, 0.4);
-  padding: 10px 20px;
+  border-radius: 25px;
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 20px 20px;
 }
 
 .contact-input::placeholder {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: white;
 }
 .contact-input-description::placeholder {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: white;
 }
 
 .titulos-contact {
@@ -97,10 +102,11 @@ textarea {
 .contact-titulo {
   display: flex;
   font-family: rouben;
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   width: 100%;
-  justify-content: center;
-  text-align: ce;
+  justify-content: flex-start;
+  margin-left: 10%;
+  margin-top: 10%;
   color: white;
 }
 
@@ -142,7 +148,6 @@ textarea {
   height: 16px;
   background-color: transparent;
   border: 1px solid white;
-
   padding: 10px 20px;
   /* border: 2px solid transparent;
     border-image: linear-gradient(to bottom, white, gray, transparent) 1; */
@@ -165,7 +170,16 @@ textarea {
   justify-content: center;
   align-items: center;
 }
-
+.contact-container2 span {
+  display: flex;
+  color: rgba(255, 255, 255, 0.747);
+  width: 60%;
+  margin-left: 10%;
+  justify-content: flex-start;
+  text-align: start;
+  margin-top: 4%;
+  font-size: 0.9rem;
+}
 @media only screen and (max-width: 1500px) {
   .contact-titulo {
     font-size: 3.5rem;

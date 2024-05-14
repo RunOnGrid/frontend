@@ -1,0 +1,71 @@
+.deploy-choice {
+  color: white;
+  font-family: rouben ligth;
+  width: 90%;
+  margin: auto;
+}
+.deploy-choice h1 {
+  display: flex;
+  font-size: 3rem;
+  justify-content: center;
+}
+.deploy-choice span {
+  display: flex;
+
+  justify-content: center;
+}
+.deploy-option {
+  justify-content: center;
+  margin: auto;
+  width: 80%;
+}
+.deploy-option span {
+  display: flex;
+  width: 60%;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  font-size: 0.9rem;
+}
+.deploy-option img {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+.deploy-option h2 {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.deploy-option h5 {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+}
+.deploy-data {
+  background-color: rgba(118, 118, 118, 0.384);
+  border-radius: 15px;
+  width: 180px;
+  height: 100px;
+  margin: 20px;
+  font-family: rouben;
+}
+.deploy-data h4 {
+  display: flex;
+  font-size: 1.4rem;
+  justify-content: center;
+  margin-top: 10px;
+}
+.deploy-data p {
+  display: flex;
+  font-size: 1.6rem;
+  justify-content: center;
+  margin-top: -20px;
+}
+.deploy-option button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}

@@ -30,19 +30,17 @@ const Segundo = () => {
         ref={ref2}
         style={inView2 ? fadeInStylesLeft : {}}
         className="textos">
-        <div className="tituloSegundo">
-          <span className="primeraParte">
-            {' '}
-            Flux provides a global cloud network{' '}
-          </span>
+        <div style={{ width: '50%' }}>
+          <div className="tituloSegundo">Book a demo </div>
+          <div className="subtituloSegundo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </div>
         </div>
-        <div className="subtituloSegundo">
-          Regions: North America, Europe, Asia, South America, Africa, Oceania
-          77 geographic location
-        </div>
+        <button className="button-textos">BOOK A DEMO NOW</button>
       </div>
 
-      <div className="textosMobile">
+      {/* <div className="textosMobile">
         <div className="tituloSegundo">
           <span className="primeraParte">
             {' '}
@@ -54,7 +52,7 @@ const Segundo = () => {
           77 geographic location
         </div>
       </div>
-      <img className="fotoSegundo" src={'/mapa.png'} alt="" />
+      <img className="fotoSegundo" src={'/mapa.png'} alt="" /> */}
       {/* <div className='animacion-mundo' ref={container} > </div> */}
     </section>
   );

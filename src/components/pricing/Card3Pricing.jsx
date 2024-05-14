@@ -1,11 +1,11 @@
 import React from 'react';
 
-const CardPrincing = () => {
+const Card3Princing = () => {
   return (
-    <div className="pricing-card">
+    <div className="pricing-card3">
       <h2> Free </h2>
       <h1>
-        $0<span>/ per month</span>
+        $0<span>/per month</span>
       </h1>
       <h3> Everything a small team needs to run on production.</h3>
       <p> Unlimited Resources</p>
@@ -18,4 +18,4 @@ const CardPrincing = () => {
   );
 };
 
-export default CardPrincing;
+export default Card3Princing;

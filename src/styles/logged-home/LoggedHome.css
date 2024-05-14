@@ -155,7 +155,7 @@
 }
 
 .logged-home-component {
-  background-image: url('../../../public/fondoFinal7.svg');
+  background-image: url('/fondoFinal7.svg');
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;

@@ -24,9 +24,12 @@
 
 .subtituloBanner {
   font-family: rouben ligth;
-  font-size: 20px;
-  width: 85%;
+  font-size: 22px;
+  width: 100%;
   color: white;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
 }
 .subtituloBanner2 {
   display: flex;
@@ -56,28 +59,25 @@
   text-align: center;
 }
 .tituloBanner {
-  font-family: rouben;
+  font-family: rouben ligth;
   font-size: 3.5rem;
   width: 100%;
   font-weight: bold;
   margin-bottom: 3%;
   color: white;
-  margin-top: 10%;
-  background: linear-gradient(225deg, #fff 30%, #36b079 70%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  justify-content: center;
+  text-align: center;
 }
 .ilustracion-bannerGrande {
   display: flex;
-  width: 100%;
-  height: 60%;
-  margin-top: 20%;
-  margin-bottom: auto;
-  margin-left: 5%;
+  width: 45vw;
+  height: 80%;
+  margin-top: 10%;
 }
 
 .container-botones {
   display: flex;
+  flex-direction: column;
   margin-top: 50px;
   margin-bottom: 100px;
 }
@@ -186,6 +186,39 @@
   justify-content: center;
   width: 15vw;
   margin-top: -230px;
+}
+.button-landing-1 {
+  background-color: #36b079;
+  border-radius: 50px;
+  width: 38%;
+  height: 60px;
+  font-size: 1.2rem;
+  font-family: rouben ligth;
+  margin: auto;
+  box-shadow: 1px 1px 10px 1px white;
+}
+
+.button-landing-2 {
+  background-color: transparent;
+  border-radius: 50px;
+  width: 38%;
+  height: 60px;
+  font-size: 1.2rem;
+  font-family: rouben ligth;
+  margin: auto;
+  margin-top: 15px;
+}
+.button-landing-3 {
+  background-color: #36b079;
+  border-radius: 50px;
+  width: 250px;
+  height: 60px;
+  font-size: 1.2rem;
+  font-family: rouben ligth;
+  margin: auto;
+  box-shadow: 1px 1px 10px 1px white;
+  margin-top: 100px;
+  margin-bottom: 200px;
 }
 
 @media only screen and (max-width: 650px) {

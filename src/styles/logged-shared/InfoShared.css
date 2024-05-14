@@ -15,7 +15,6 @@
 
 .botones-shared button:focus {
   background-color: #36b079;
-  box-shadow: 1px 1px 20px 4px white;
 }
 
 .contenedor-nuevo-shared div {

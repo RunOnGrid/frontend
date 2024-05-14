@@ -12,6 +12,13 @@ import ButtonsLanding from '@/components/ButtonsLanding';
 import React, { useRef } from 'react';
 import NuevoFaqs from '@/components/NuevoFaqs';
 import Guarantee from '@/commons/Guarantee';
+import BestFeatures from '@/components/BestFeatures/BestFeatures';
+import DeployChoice from '@/components/deployChoice/DeployChoice';
+import CardPrincing from '@/components/pricing/CardPrincing';
+import CardPrincing2 from '@/components/pricing/Card2Pricing';
+import Card3Princing from '@/components/pricing/Card3Pricing';
+import GraphsLanding from '@/components/Graphs/GraphsLanding';
+import InfoLanding from '@/components/Graphs/InfoLanding';
 
 const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
   ssr: false,
@@ -52,7 +59,7 @@ export default function Home() {
           <Banner
             scrollToContactForm={scrollToContactForm}
             title="Just focus on building."
-            subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks. As your projects expand, grid gives you the freedom to adapt your infrastructure to your exact needs, ensuring a scalable and customizable environment."
+            subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
           />
           <img
             ref={ref}
@@ -63,12 +70,24 @@ export default function Home() {
           />
         </div>
         {/* <CardsHosting/> */}
-        <ButtonsLanding />
-
+        {/* <ButtonsLanding /> */}
+        <BestFeatures />
+        <DeployChoice />
+        <h1 className="h1-landing">Pricing</h1>
+        <span className="span-landing4">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        </span>
+        <div style={{ display: 'flex', marginBottom: '100px' }}>
+          <CardPrincing />
+          <CardPrincing2 />
+          <Card3Princing />
+        </div>
         <Segundo />
-        <Guarantee />
-        <Powered />
-        <NuevoFaqs />
+        {/* <Guarantee /> */}
+        {/* <Powered /> */}
+        <GraphsLanding />
+        <InfoLanding />
+        {/* <NuevoFaqs /> */}
         <ContactForm1 ref={contactFormRef} />
         <Footer scrollToContactForm={scrollToContactForm} />
       </div>

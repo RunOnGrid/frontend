@@ -9,9 +9,9 @@ body {
   height: 100%;
 }
 .container-homePrincipal {
-  background-image: url('../../public/fondoFinal7.svg');
+  background-image: url('../../public/UltimoFondo.png');
   background-size: cover;
-  background-attachment: fixed;
+  background-position: center;
   /* background: #0c1317; */
   height: 100%;
   width: 100%;

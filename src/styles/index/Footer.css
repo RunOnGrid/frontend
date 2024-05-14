@@ -1,25 +1,32 @@
 .fondo-footer {
-  background: #0c1317;
   width: 100%;
 }
 
 .container-footer {
   display: flex;
   flex-direction: column;
-  background: #0c1317;
-
   z-index: 0;
   width: 80%;
 
   margin-right: auto !important;
   margin-left: auto !important;
 }
+.container-footer button {
+  border: 1px solid white;
+  border-radius: 50px;
+  font-family: rouben ligth;
+  font-weight: lighter;
+  font-size: 0.8rem;
+  width: 170px;
+  margin-top: 30px;
+}
 li {
   margin-left: 0px !important;
   list-style: none;
-  padding: 10px 10px 10px 0px;
+  padding: 5px 5px 5px 0px;
   color: white;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 li:hover {
   color: white;
@@ -33,7 +40,7 @@ a {
 .columnas {
   color: white;
   display: grid;
-  grid-template-columns: 40% auto auto auto auto;
+  grid-template-columns: 40% auto auto auto 30%;
   margin-bottom: 4%;
 }
 ul {
@@ -62,10 +69,14 @@ ul {
 .footer-parrafo {
   padding: 10px 0px;
   width: 320px;
-  color: whitead;
+  color: white;
+  font-size: 0.8rem;
+  font-family: rouben ligth;
 }
 .redes-footer {
   display: flex;
+  margin: auto;
+  justify-content: center;
 }
 .icon-redes {
   height: 25px;
@@ -73,9 +84,8 @@ ul {
 }
 
 .footer-titulo-principal {
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   color: white;
-  font-weight: bolder;
 }
 
 .licencias-footer {
@@ -89,16 +99,24 @@ ul {
 .contenedorFlex {
   display: flex;
 }
+.boton-contact-form:hover {
+  background-color: white;
+}
 .boton-contact-form {
   display: flex;
-  background-color: #36b079;
-  width: 50%;
-  font-family: rouben ligth;
+  color: black;
+  background-color: white;
+  border: 1px solid white;
+  width: 55%;
+  font-family: rouben;
   font-weight: lighter;
   justify-content: center;
-  border-radius: 15px;
-  font-size: 0.8rem;
+  align-items: center;
+  border-radius: 35px;
+  font-size: 1.7rem;
   margin-top: 4%;
+  height: 60px;
+  letter-spacing: 0px;
 }
 @media only screen and (max-width: 1350px) {
   .columna-principal {

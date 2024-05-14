@@ -1,0 +1,25 @@
+.best-features {
+  width: 90%;
+  color: white;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  font-family: rouben ligth;
+}
+
+.best-features h3 {
+  font-size: 1.5rem;
+}
+.best-features h1 {
+  font-size: 3rem;
+  margin-top: -20px;
+  margin-bottom: 100px;
+}
+.best-features span {
+  display: flex;
+  width: 20vw;
+  font-size: 0.9rem;
+}
+.features {
+  margin: auto;
+}
