@@ -1,21 +1,25 @@
 import React from 'react';
 
-const CardPrincing = () => {
+const CardPricing = ({ planType, price, description, features, className }) => {
   return (
-    <div className="pricing-card">
-      <h2> Free </h2>
+    <div className={`pricing-card ${planType} ${className}`}>
+      <h2>{planType.charAt(0).toUpperCase() + planType.slice(1)}</h2>
       <h1>
-        $0<span>/ per month</span>
+        ${price}
+        <span>/ per month</span>
       </h1>
-      <h3> Everything a small team needs to run on production.</h3>
-      <p> Unlimited Resources</p>
-      <p> Unlimited Applications</p>
-      <p> Unlimited Applications</p>
-      <p> Unlimited Addons</p>
-      <p> Certificate Management</p>
-      <button className="button-pricing">SELECT</button>
+      <h3>{description}</h3>
+      {features.map((feature, index) => (
+        <p key={index}>{feature}</p>
+      ))}
+      <button
+        className={`button-pricing ${
+          planType === 'team' ? 'button-pricing2' : ''
+        }`}>
+        SELECT
+      </button>
     </div>
   );
 };
 
-export default CardPrincing;
+export default CardPricing;

@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
-const DeployOption = ({ image, title, text }) => {
+const DeployOption = ({ image, title, text, className }) => {
   return (
-    <div className="deploy-option">
+    <div className={`deploy-option ${className}`}>
       <Image alt="" src={image} width={350} height={200} />
       <h2>{title}</h2>
       <span>{text}</span>
@@ -28,7 +28,7 @@ const DeployOption = ({ image, title, text }) => {
         </div>
       </div>
       <h5>Countries : 78</h5>
-      <button className="button-landing-3"> DEPLOY NOW</button>
+      <button className="button-landing-3">DEPLOY NOW</button>
     </div>
   );
 };
