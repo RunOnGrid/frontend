@@ -16,7 +16,7 @@
 p,
 span {
   margin: 10px 0px;
-  font-family: rouben ligth;
+
   margin: auto 10px;
 }
 .data-project span {
@@ -25,7 +25,6 @@ span {
   font-size: 1.2rem;
 }
 .data-project h2 {
-  font-family: rouben;
   font-size: 2rem;
   margin: 0;
 }
@@ -60,7 +59,7 @@ span {
 .deployData div {
   display: flex;
   margin-top: 10px;
-  font-family: rouben;
+
   font-size: 1.1rem;
 }
 .deployData p {
@@ -81,11 +80,9 @@ span {
   margin-left: 300px;
 }
 .environment-box h3 {
-  font-family: rouben;
   border-bottom: 1px solid rgba(255, 255, 255, 0.476);
 }
 .environment-box h2 {
-  font-family: rouben;
   justify-content: center;
   text-align: center;
 }
@@ -112,7 +109,6 @@ span {
   border-radius: 5px;
 }
 .inputs-headers label {
-  font-family: rouben;
 }
 .inputs-headers input {
   width: 70%;
@@ -136,7 +132,7 @@ span {
   background-color: rgba(255, 255, 255, 0.07);
   color: white;
   margin: auto;
-  font-family: rouben ligth;
+
   border-radius: 5px;
   margin-top: 20px;
 }
@@ -239,7 +235,7 @@ span {
   background-color: #0c131776;
   padding: 3px;
   font-size: 0.8rem;
-  font-family: rouben ligth;
+
   letter-spacing: 1px;
 }
 .activity-details {
@@ -265,7 +261,7 @@ span {
   display: flex;
   background-color: #0c131776;
   font-size: 0.8rem;
-  font-family: rouben ligth;
+
   padding: 3px;
   letter-spacing: 1px;
   margin-left: 0px !important;
@@ -276,7 +272,7 @@ span {
   background-color: #0c131776;
   padding: 3px;
   font-size: 0.8rem;
-  font-family: rouben ligth;
+
   letter-spacing: 1px;
   margin-bottom: 10px;
   margin: 10px;
@@ -287,7 +283,7 @@ span {
   background-color: rgba(255, 255, 255, 0.07);
   color: white;
   margin: auto;
-  font-family: rouben ligth;
+
   border-radius: 5px;
   margin-top: 20px;
 }
@@ -514,14 +510,14 @@ span {
 .repo-git2 input {
   background-color: transparent;
   color: white;
-  font-family: rouben;
+
   font-size: 1rem;
 }
 .repo-git2 p {
   display: flex;
   margin-left: auto;
   color: white;
-  font-family: rouben ligth;
+
   font-weight: bold;
   letter-spacing: 0.5px;
   border-bottom: 1px solid white;
@@ -561,7 +557,7 @@ span {
 .repo-selected h5 {
   display: flex;
   margin: auto 5px;
-  font-family: rouben ligth;
+
   font-size: 0.9rem;
 }
 .repo-selected span {
@@ -572,7 +568,7 @@ span {
   display: flex;
   margin-left: auto;
   color: #36b079;
-  font-family: rouben;
+
   font-weight: bold;
   letter-spacing: 0.5px;
   border-bottom: 1px solid #36b079;
@@ -584,7 +580,6 @@ span {
   flex-direction: column;
   width: 90%;
   margin: 30px auto;
-  font-family: rouben ligth;
 }
 .repo-path span {
   color: rgba(255, 255, 255, 0.641);
@@ -624,7 +619,6 @@ span {
   background-color: rgba(255, 255, 255, 0.213);
   border-radius: 10px;
   padding: 5%;
-  font-family: rouben ligth;
 }
 .buildpack-window select {
   height: 30px;
@@ -633,7 +627,6 @@ span {
   border: 1px solid white;
   background-color: transparent;
   color: white;
-  font-family: rouben;
 }
 
 .buildpack-window label {

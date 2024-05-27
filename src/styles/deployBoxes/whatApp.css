@@ -8,7 +8,6 @@
   text-align: center;
 }
 .whatApp-container h2 {
-  font-family: rouben ligth;
   letter-spacing: 1px;
   margin-bottom: 50px;
   margin-top: 30px;
@@ -17,7 +16,7 @@
   background-color: #36b079;
   border-radius: 13px;
   font-weight: lighter;
-  font-family: rouben;
+
   font-size: 1rem;
   width: 11vw;
   padding: 5px;
@@ -48,7 +47,6 @@
   border-radius: 10px;
   background-color: #36b079;
   align-items: center;
-  font-family: rouben ligth;
 }
 .integration-container span {
   color: white;
@@ -78,5 +76,4 @@
   display: flex;
   margin: auto;
   color: white;
-  font-family: rouben;
 }

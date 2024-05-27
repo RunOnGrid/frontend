@@ -30,6 +30,7 @@ import '../styles/repositories/repositories.css';
 import '../components/BestFeatures/bestFeatures.css';
 import '../components/deployChoice/deployChoice.css';
 import '../components/Graphs/graphs.css';
+import '../components/profile/dashboard.css';
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;

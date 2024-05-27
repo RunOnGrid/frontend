@@ -9,7 +9,7 @@
 }
 .login-form span {
   color: rgba(255, 255, 255, 0.79);
-  font-family: rouben;
+
   margin-bottom: -10px;
   margin-top: 10px;
   font-size: 0.8rem;
@@ -55,21 +55,21 @@
   background: linear-gradient(225deg, #fff, #36b079);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: rouben;
+
   font-size: 2.5rem;
   width: 100%;
   font-weight: bolder;
 }
 .textos-login div {
   color: white;
-  font-family: rouben;
+
   font-size: 2.5rem;
   font-weight: bolder;
   margin-bottom: 20px;
 }
 .textos-login span {
   color: rgba(255, 255, 255, 0.798);
-  font-family: rouben;
+
   margin: 5px;
 }
 
@@ -78,7 +78,6 @@
   justify-content: center;
   color: white;
   font-size: 1.5rem;
-  font-family: rouben;
 }
 .login-input {
   margin-top: 1%;
@@ -112,7 +111,7 @@
   padding: 10px 10px;
   border-style: none;
   border-radius: 5px;
-  font-family: rouben;
+
   font-size: 1rem;
   cursor: pointer;
 }
@@ -133,7 +132,7 @@
   padding: 15px 15px;
   height: 45px;
   border-radius: 5px;
-  font-family: rouben;
+
   cursor: pointer;
   margin-left: auto;
   margin-right: auto;
@@ -145,7 +144,7 @@
 
 .forgot-login {
   color: #36b079;
-  font-family: rouben;
+
   margin-top: 5%;
   cursor: pointer;
 }
@@ -159,7 +158,6 @@
   font-size: 1rem !important;
   font-weight: lighter !important;
   color: white;
-  font-family: rouben;
 }
 .member2-login {
   font-size: 1rem !important;

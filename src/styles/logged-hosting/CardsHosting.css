@@ -36,7 +36,7 @@
 .saveSpan {
   display: flex;
   margin-top: 5%;
-  font-family: Rouben ligth;
+
   font-size: 12px;
   padding: 2px 8px;
   background-color: #9cefca;
@@ -47,7 +47,6 @@
   width: 35%;
 }
 .pSpan {
-  font-family: Rouben;
   font-size: 20px;
   padding: 2px 8px;
   margin-left: 2%;
@@ -65,7 +64,6 @@
 }
 .extraSpan {
   margin-left: 5%;
-  font-family: Rouben ligth;
   font-size: 0.8rem;
   font-weight: bold;
   margin-top: 2%;
@@ -98,7 +96,7 @@
   display: flex;
   /* border: 1px solid rgb(179, 175, 175); */
   /* height: 50px; */
-  font-family: rouben ligth;
+
   font-size: 0.8rem;
   justify-content: flex-start;
   /* border-top: none;
@@ -150,7 +148,7 @@
 .tituloBestOption {
   display: flex;
   position: absolute;
-  font-family: rouben;
+
   font-size: 1.3rem;
   text-align: center;
   justify-content: center;
@@ -175,7 +173,7 @@
   color: white;
   text-align: center;
   justify-content: center;
-  font-family: rouben;
+
   font-size: 1.4rem;
   width: 100%;
   margin: auto;
@@ -206,7 +204,6 @@
   display: flex;
   color: white;
 
-  font-family: rouben;
   font-size: 1.2rem;
   margin-top: 35px;
 }
@@ -227,7 +224,6 @@
   display: flex;
   position: absolute;
 
-  font-family: rouben;
   font-size: 1.2rem;
   text-align: center;
   justify-content: center;
@@ -274,7 +270,6 @@
 }
 
 .separador-cardHosting {
-  font-family: rouben;
   padding: 10px;
   font-size: 1.1rem;
 }
@@ -398,7 +393,7 @@
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  font-family: rouben;
+
   font-weight: lighter;
   font-size: 2.5rem;
   background: linear-gradient(-55deg, #fff, #36b079);
@@ -415,7 +410,6 @@
 
   margin-top: 5px;
 
-  font-family: rouben;
   font-weight: lighter;
   font-size: 1.8rem;
   background: linear-gradient(-55deg, #fff, #36b079);
@@ -432,19 +426,19 @@
 .primer-span {
   margin-bottom: 30px;
 }
-  .contenedor-icono{
-    display: flex;
-    width: 50px;
-  }
-  .linea-separadora2{
-    display: flex;
-   
-    margin-right: auto;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border: 1px solid rgb(255, 255, 255);
-    width: 80%;
-  }
+.contenedor-icono {
+  display: flex;
+  width: 50px;
+}
+.linea-separadora2 {
+  display: flex;
+
+  margin-right: auto;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid rgb(255, 255, 255);
+  width: 80%;
+}
 
 .grid-features-hosting {
   display: grid;
@@ -504,7 +498,7 @@
 
 .contenedor-nuevas span {
   color: rgba(255, 255, 255, 0.714);
-  font-family: rouben ligth;
+
   margin-top: 15px;
   width: 80%;
   margin-left: auto;
@@ -550,7 +544,6 @@
 .aboutUs-final2 h1 {
   color: white;
 
-  font-family: rouben;
   justify-content: center;
   text-align: center;
   margin-left: auto;
@@ -561,7 +554,6 @@
 .aboutUs-final2 h3 {
   color: white;
 
-  font-family: rouben;
   justify-content: center;
   text-align: center;
   margin-left: auto;
@@ -574,7 +566,6 @@
 .aboutUs-final2 span {
   color: white;
 
-  font-family: rouben ligth;
   justify-content: center;
   text-align: center;
   margin-left: auto;

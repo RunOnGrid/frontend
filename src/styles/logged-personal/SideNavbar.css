@@ -4,8 +4,8 @@
 
   position: sticky;
   top: 0;
-  width: 280px;
-  background-color: #0c1317;
+  width: 230px;
+  background-color: #151e21;
   z-index: 10;
 }
 
@@ -20,19 +20,24 @@
 .sideNavbar-li {
   display: flex;
   align-items: center;
-  font-family: rouben ligth;
-  padding: 5px 5px;
-  width: 70%;
+  padding: 2%;
+  width: 90%;
   height: 26px;
-  margin-left: 10px !important;
+  margin-left: 7% !important;
   color: white;
   font-size: 0.9rem;
-  border-radius: 10px;
+  border-radius: 20px;
+  font-weight: 300;
+  border-end-end-radius: 0px;
+  border-start-end-radius: 0px;
+  margin-bottom: 10px;
 }
-.sideNavbar-li:hover {
-  background-color: #36b079;
 
-  font-weight: 100;
+.sideNavbar-li:hover,
+.sideNavbar-li.active {
+  color: #151e21;
+  background-color: white;
+  font-weight: bold;
 }
 .icon-sideNavbarAsicHosting {
   display: flex;
@@ -53,17 +58,6 @@
   margin-left: 5px;
 }
 
-.titulo-servicios-sidenavbar {
-  color: #36b079;
-  font-family: rouben;
-  font-size: 0.9rem;
-  letter-spacing: 1.5px;
-
-  font-weight: lighter;
-  cursor: default;
-  margin-left: 18px !important;
-}
-
 .footer-sidebar {
   display: flex;
   flex-direction: column;
@@ -74,17 +68,11 @@
   cursor: pointer;
 }
 .footer-sidebar span:hover {
-  font-family: rouben;
   letter-spacing: 1px;
 }
 
-.titulo-servicios-sidenavbar:hover {
-  color: white;
-  font-weight: lighter;
-  cursor: default;
-}
 .icono-sideBar-grid {
-  height: 55px;
+  height: 50px;
 
   margin-top: 20px;
   margin-left: 15px;
@@ -94,7 +82,7 @@
 .li-asicHosting {
   display: flex;
   color: white;
-  font-family: rouben ligth;
+
   font-weight: bold;
   padding: 10px 10px;
   margin-left: 10px;
@@ -102,7 +90,7 @@
 }
 .li-asicHosting:hover {
   color: white;
-  font-family: rouben ligth;
+
   font-weight: bold;
 }
 .dropdown-asicHosting.selected {
@@ -125,6 +113,9 @@
   height: 40px;
   margin-left: 10px;
 }
+.button-logout {
+  margin-right: 10px;
+}
 
 @media only screen and (max-width: 1400px) {
   .sideNavbar {
@@ -139,7 +130,8 @@
   margin-right: auto;
   justify-content: center;
   margin-top: 40px;
-  border-radius: 15px;
+  border-radius: 35px;
+  font-weight: 400;
 }
 
 @media only screen and (max-width: 790px) {

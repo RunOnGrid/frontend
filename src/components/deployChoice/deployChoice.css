@@ -1,6 +1,5 @@
 .deploy-choice {
   color: white;
-  font-family: rouben ligth;
   width: 90%;
   margin: auto;
 }
@@ -51,7 +50,6 @@
   width: 180px;
   height: 100px;
   margin: 20px;
-  font-family: rouben;
 }
 .deploy-data h4 {
   display: flex;

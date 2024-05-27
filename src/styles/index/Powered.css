@@ -4,7 +4,6 @@
 }
 
 .powered {
-  font-family: rouben;
   font-size: 1.5rem;
 }
 
@@ -21,7 +20,6 @@
 }
 @media only screen and (max-width: 550px) {
   .powered {
-    font-family: rouben;
     font-size: 16px;
   }
   .logo-flux {

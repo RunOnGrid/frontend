@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 body {
   overflow-x: hidden;
   background: #0c1317;
@@ -7,6 +7,9 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+}
+* {
+  font-family: 'Montserrat', sans-serif !important;
 }
 .container-homePrincipal {
   background-image: url('../../public/UltimoFondo.png');

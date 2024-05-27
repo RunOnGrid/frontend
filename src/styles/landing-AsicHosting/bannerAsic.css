@@ -23,7 +23,6 @@
 }
 
 .subtituloBanner {
-  font-family: rouben ligth;
   font-size: 22px;
   width: 100%;
   color: white;
@@ -33,7 +32,7 @@
 }
 .subtituloBanner2 {
   display: flex;
-  font-family: rouben ligth;
+
   font-size: 20px;
   width: 100%;
   color: white;
@@ -42,7 +41,7 @@
 }
 .subtituloBanner4 {
   display: flex;
-  font-family: rouben ligth;
+
   font-size: 20px;
   width: 40%;
   color: white;
@@ -50,7 +49,7 @@
 }
 .subtituloBanner3 {
   display: flex;
-  font-family: rouben ligth;
+
   font-size: 20px;
   width: 50%;
   margin: 20px auto;
@@ -59,7 +58,6 @@
   text-align: center;
 }
 .tituloBanner {
-  font-family: rouben ligth;
   font-size: 3.5rem;
   width: 100%;
   font-weight: bold;
@@ -105,7 +103,7 @@
   display: flex;
   color: white;
   opacity: 1;
-  font-family: rouben ligth;
+
   font-size: 1.6rem;
   letter-spacing: 0.3px;
   width: 80%;
@@ -117,7 +115,7 @@
 }
 .itemMigration p {
   display: flex;
-  font-family: rouben ligth;
+
   font-size: 16px;
   width: 80%;
   padding: 10px 30px;
@@ -141,13 +139,11 @@
   border: 2px solid white;
 }
 .migration-form h1 {
-  font-family: rouben;
   justify-content: center;
   margin: auto;
   margin-bottom: 30px;
 }
 .migration-form label {
-  font-family: rouben ligth;
   font-size: 0.9rem;
   margin: 10px auto;
 }
@@ -193,7 +189,7 @@
   width: 38%;
   height: 60px;
   font-size: 1.2rem;
-  font-family: rouben ligth;
+
   margin: auto;
   box-shadow: 1px 1px 10px 1px white;
 }
@@ -204,7 +200,7 @@
   width: 38%;
   height: 60px;
   font-size: 1.2rem;
-  font-family: rouben ligth;
+
   margin: auto;
   margin-top: 15px;
 }
@@ -214,7 +210,7 @@
   width: 250px;
   height: 60px;
   font-size: 1.2rem;
-  font-family: rouben ligth;
+
   margin: auto;
   box-shadow: 1px 1px 10px 1px white;
   margin-top: 100px;
@@ -243,7 +239,6 @@
     height: 100%;
   }
   .subtituloBanner {
-    font-family: rouben;
     display: flex;
     justify-content: center;
     margin: 0 !important;

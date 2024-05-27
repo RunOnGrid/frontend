@@ -36,7 +36,7 @@
 
 .contenedor-cards-buyProd h1 {
   color: white;
-  font-family: rouben ligth;
+
   font-size: 1.7rem;
   margin-top: 6%;
   padding: 0px 5%;
@@ -45,12 +45,11 @@
 
 .contenedor-cards-buyProd span {
   color: rgba(255, 255, 255, 0.561);
-  font-family: rouben;
+
   padding: 0px 5%;
 }
 
 .titulo-buy-prod {
-  font-family: rouben;
   font-size: 2rem;
   text-align: center;
 }
@@ -76,6 +75,6 @@
   margin-top: 2%;
   border: 0.5px solid #6d6d6d27;
   border-radius: 5px;
-  font-family: open sans;
+
   font-weight: bold;
 }

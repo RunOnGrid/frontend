@@ -9,7 +9,6 @@
   border: 1px solid rgba(255, 255, 255, 0.068);
 }
 .newServ-container h3 {
-  font-family: rouben ligth;
   letter-spacing: 1px;
   margin-bottom: 20px;
   margin-top: 40px;
@@ -58,7 +57,6 @@
   margin: 5px auto 25px auto;
 }
 .buttons-newComp div {
-  font-family: rouben;
   border-bottom: 2px solid transparent;
   margin: 10px;
   font-size: 1.2rem;
@@ -68,7 +66,6 @@
   color: #36b079;
 }
 .data-selected {
-  font-family: rouben;
   border-bottom: 2px solid #36b079 !important;
   margin: 10px;
   font-size: 1.2rem;
@@ -76,7 +73,6 @@
   color: #36b079;
 }
 .titulo-singleComp {
-  font-family: rouben;
   padding: 5px;
 }
 

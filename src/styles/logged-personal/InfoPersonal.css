@@ -11,7 +11,7 @@
   justify-content: flex-start;
   color: white;
   z-index: 100;
-  font-family: rouben;
+
   font-size: 1.7rem;
   margin-bottom: 3%;
 }
@@ -23,7 +23,7 @@
 .infoPersonal-titulo-container {
   display: flex;
   align-items: center;
-  font-family: rouben;
+
   font-size: 1.2rem;
   margin-right: 0px;
   background-color: #0c1317;
@@ -38,7 +38,7 @@
 .infoPersonal-subtitulo-container {
   display: flex;
   align-items: center;
-  font-family: rouben;
+
   color: white;
   background-color: #0c1317;
   width: 90%;
@@ -50,7 +50,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: rouben ligth;
+
   background-color: #0c1317;
   color: white;
   width: 90%;
@@ -89,7 +89,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: rouben;
+
   background-color: white;
   width: 90%;
   height: 80px;

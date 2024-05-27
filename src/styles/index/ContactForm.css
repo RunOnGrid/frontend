@@ -21,7 +21,6 @@
 }
 .contact-form label {
   color: white;
-  font-family: rouben;
 
   margin-top: 20px;
   margin-bottom: -10px;
@@ -37,7 +36,7 @@
 }
 .contact-form2 label {
   color: white;
-  font-family: rouben;
+
   margin: auto;
 }
 
@@ -93,7 +92,7 @@ textarea {
 .titulos-contact {
   display: flex;
   flex-direction: column;
-  font-family: rouben ligth;
+
   justify-content: center;
   text-align: center;
   margin: auto;
@@ -101,7 +100,7 @@ textarea {
 }
 .contact-titulo {
   display: flex;
-  font-family: rouben;
+
   font-size: 3.5rem;
   width: 100%;
   justify-content: flex-start;
@@ -202,7 +201,7 @@ textarea {
   }
   .boton-contact-form {
     width: 70%;
-    font-family: rouben ligth;
+
     font-weight: lighter;
     padding: 10px;
 
