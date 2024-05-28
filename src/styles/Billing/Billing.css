@@ -56,7 +56,6 @@
 }
 .contenedor-invoices span {
   display: flex;
-  font-family: rouben;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -78,7 +77,6 @@
   }
 
   .billing-titulo-mobile {
-    font-family: rouben;
     color: white;
     margin: 10px;
     font-size: 1.2rem;

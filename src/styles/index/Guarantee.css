@@ -28,14 +28,13 @@
   margin-top: 20px;
   margin-left: 20px;
   font-size: 0.7rem;
-  font-family: rouben;
 }
 
 .guarantee-titulo {
   color: white;
   margin-left: 20px;
   font-size: 2.5rem;
-  font-family: rouben;
+
   font-weight: bold;
 }
 
@@ -43,14 +42,12 @@
   color: rgba(255, 255, 255, 0.713);
   margin-left: 20px;
   font-size: 1rem;
-  font-family: rouben;
 }
 .guarantee-texts {
   width: 70%;
 }
 
 .guarantee-button {
-  font-family: rouben ligth;
   color: white;
   padding: 16px 16px;
   border-radius: 23px;

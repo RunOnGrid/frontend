@@ -1,11 +1,21 @@
 .textos {
   display: flex;
-  flex-direction: column;
   width: 80%;
-  margin-top: 0;
-  margin-right: auto;
+  margin: auto;
   opacity: 0;
-  height: 500px;
+  height: auto;
+  margin-bottom: 200px;
+}
+.button-textos {
+  background-color: #36b079;
+  width: 25%;
+  height: 90px;
+  border-radius: 50px;
+  font-size: 1.5rem;
+
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-bottom: 0px;
 }
 .textosMobile {
   display: none;
@@ -36,7 +46,7 @@
   font-size: 1.1rem;
   height: 500px;
   width: 90%;
-  font-family: rouben ligth;
+
   margin: auto;
   background-color: rgba(255, 255, 255, 0.264);
 
@@ -51,7 +61,7 @@
   color: white;
   font-size: 1.2rem;
   width: 90%;
-  font-family: rouben ligth;
+
   margin: auto;
 
   /* background-color: #0c1317; */
@@ -92,7 +102,7 @@
 }
 .span-landing {
   display: flex;
-  font-family: rouben ligth;
+
   color: white;
   font-size: 2rem;
   /* border-top: 3px solid rgba(255, 255, 255, 0.541); */
@@ -104,7 +114,7 @@
 }
 .span-landing-selected {
   display: flex !important;
-  font-family: rouben ligth;
+
   height: 50%;
   color: white;
   font-size: 2rem;
@@ -118,14 +128,12 @@
 }
 
 .span-landing-selected2 {
-  font-family: rouben;
   color: white;
   font-size: 1.3rem;
   height: 50px !important;
   cursor: pointer;
 }
 .span-landing2 {
-  font-family: rouben ligth;
   color: rgba(255, 255, 255, 0.651);
   font-size: 1.3rem;
   height: 50px !important;
@@ -133,20 +141,15 @@
   cursor: pointer;
 }
 .tituloSegundo {
-  font-family: rouben;
   font-size: 3.5rem;
-  width: 60%;
-  font-weight: 500;
+
   margin-bottom: 2%;
-  background: linear-gradient(225deg, #fff, #36b079);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: white;
 }
 .subtituloSegundo {
-  font-family: rouben ligth;
-  font-size: 1.3rem;
-  width: 35%;
-  color: white;
+  font-size: 0.9rem;
+  width: 65%;
+  color: rgba(255, 255, 255, 0.84);
 }
 .primeraParte {
   color: #36b079;
@@ -185,7 +188,6 @@
     width: 90%;
     padding: 0px !important;
 
-    font-family: rouben ligth;
     margin-top: -40px;
 
     /* background-color: #0c1317; */
@@ -245,7 +247,6 @@
     margin-right: auto;
     margin-bottom: 10%;
 
-    font-family: rouben ligth;
     font-size: 16px;
     width: 80%;
     color: white;

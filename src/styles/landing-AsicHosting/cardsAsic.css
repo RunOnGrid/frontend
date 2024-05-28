@@ -5,7 +5,7 @@
   margin-top: 5%;
   color: white;
   opacity: 1;
-  font-family: rouben;
+
   font-size: 3.5rem;
   width: 100%;
   background: linear-gradient(225deg, #fff 40%, #36b079 60%);
@@ -21,7 +21,7 @@
   margin-top: 5%;
   color: white;
   opacity: 1;
-  font-family: rouben;
+
   font-size: 4.5rem;
   width: 100%;
   background: linear-gradient(225deg, #fff 40%, #36b079 60%);
@@ -34,7 +34,7 @@
   display: flex;
   width: 40%;
   color: white;
-  font-family: rouben;
+
   font-size: 2rem;
   font-weight: bold;
   background: linear-gradient(225deg, #fff 40%, #36b079 60%);
@@ -45,7 +45,7 @@
   display: flex;
   width: 40%;
   color: white;
-  font-family: rouben;
+
   font-size: 2rem;
   font-weight: bold;
   margin: auto;

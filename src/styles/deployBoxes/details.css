@@ -63,7 +63,7 @@
   width: 100%;
   margin: auto;
   justify-content: center;
-  font-family: rouben ligth;
+
   color: rgba(255, 255, 255, 0.739);
 }
 .geolocation {
@@ -71,7 +71,6 @@
   flex-direction: column;
   margin-right: auto;
   margin-top: 30px;
-  font-family: rouben;
 }
 .geo-button {
   display: flex;
@@ -88,14 +87,14 @@
   display: flex;
   flex-direction: column;
   margin-right: auto;
-  font-family: rouben;
+
   color: white;
 }
 .geolocation h4 {
   display: flex;
   flex-direction: column;
   margin-right: auto;
-  font-family: rouben;
+
   color: white;
 }
 .geolocation select {
@@ -103,7 +102,7 @@
   width: 15vw !important;
   margin-right: auto !important;
   margin-left: 0px !important;
-  font-family: rouben ligth;
+
   font-size: 0.8rem;
 }
 .geolocation label {
@@ -118,7 +117,6 @@
   display: flex;
   padding: 0px;
   margin: 5px auto;
-  font-family: rouben;
 
   border-radius: 5px;
   width: 20vw;
@@ -172,14 +170,12 @@
   flex-direction: column;
   margin: auto;
   margin-top: 0;
-  font-family: rouben;
 }
 
 .geolocation3 h3 {
   display: flex;
   flex-direction: column;
   margin-right: auto;
-  font-family: rouben;
 }
 .geolocation3 select {
   display: flex;
@@ -198,7 +194,6 @@
   flex-direction: column;
   margin-left: auto;
   margin-top: 30px;
-  font-family: rouben;
 }
 
 .geolocation4 h4 {
@@ -207,14 +202,12 @@
   flex-direction: column;
   margin-right: auto;
   color: white;
-  font-family: rouben;
 }
 .geolocation4 select {
   display: flex;
   width: 15vw !important;
   margin-right: auto !important;
 
-  font-family: rouben ligth;
   font-size: 0.8rem;
 }
 .geolocation4 label {
@@ -238,14 +231,12 @@
   text-align: center;
 }
 .newServ-container2 h3 {
-  font-family: rouben ligth;
   letter-spacing: 1px;
   margin-bottom: 20px;
   margin-top: 40px;
   width: 100% !important;
 }
 .newServ-container2 h4 {
-  font-family: rouben;
   color: white;
 }
 .newServ-container2 button {
@@ -300,7 +291,7 @@
   padding: 0px;
   min-height: 40px;
   margin: 5px auto;
-  font-family: rouben;
+
   border-radius: 5px;
   width: 40%;
   background-color: #0c1317d9;

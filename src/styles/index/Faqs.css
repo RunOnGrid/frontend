@@ -9,7 +9,7 @@
 }
 .faqs-titulo {
   font-size: 3rem;
-  font-family: rouben;
+
   align-items: center;
   justify-content: center;
   display: flex;
@@ -18,7 +18,7 @@
 }
 .faqs-subtitulo {
   font-size: 1.3rem;
-  font-family: rouben ligth;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +56,7 @@
   transition: all 1s cubic-bezier(0, 1, 0, 1);
   display: flex;
   margin-bottom: auto;
-  font-family: rouben;
+
   font-size: 1.2rem;
   color: white;
 }
@@ -67,7 +67,7 @@
   transition: all 1s cubic-bezier(1, 0, 1, 0);
   display: flex;
   margin-bottom: auto;
-  font-family: rouben;
+
   font-size: 1.2rem;
   color: white;
 }
@@ -81,7 +81,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-family: rouben;
+
   width: 90%;
   font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.603);
@@ -94,7 +94,7 @@
 
 .faqs-select {
   display: flex;
-  font-family: rouben;
+
   width: 90%;
   font-size: 1.5rem;
   color: white;
@@ -204,7 +204,7 @@
     transition: none;
     display: flex;
     margin: 0px;
-    font-family: rouben;
+
     font-size: 0.8rem;
     color: white;
   }
@@ -215,7 +215,7 @@
     transition: none;
     display: flex;
     margin-bottom: auto;
-    font-family: rouben;
+
     font-size: 1rem;
     color: white;
   }
@@ -234,14 +234,14 @@
     display: flex;
 
     align-items: center;
-    font-family: rouben;
+
     width: 100%;
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.603);
     cursor: pointer;
     text-transform: uppercase;
     font-weight: lighter;
-    letter-spacing: 0px;
+
     transition: none;
     z-index: 9999;
   }
@@ -255,7 +255,7 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    font-family: rouben;
+
     font-size: 0.6rem;
   }
   .faqs-subtitulo {

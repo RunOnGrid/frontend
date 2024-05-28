@@ -16,7 +16,6 @@
 .container-aboutUs h1 {
   color: white;
   margin-top: 120px;
-  font-family: rouben;
   justify-content: center;
   text-align: center;
   margin-left: auto;
@@ -31,7 +30,7 @@
   color: white;
   font-size: 1.5rem;
   margin-top: 20px;
-  font-family: rouben ligth;
+
   margin-left: auto;
   margin-right: auto;
 }
@@ -39,7 +38,6 @@
 .container-aboutUs h2 {
   color: white;
   margin-top: 120px;
-  font-family: rouben;
   justify-content: center;
   text-align: center;
 
@@ -51,7 +49,6 @@
 }
 .container-aboutUs h3 {
   color: white;
-  font-family: rouben;
   justify-content: center;
   text-align: center;
 
@@ -69,7 +66,6 @@
 .aboutUs-final h1 {
   color: white;
   margin-top: 120px;
-  font-family: rouben;
   justify-content: center;
   text-align: center;
   margin-left: auto;
@@ -79,7 +75,6 @@
 .aboutUs-final h3 {
   color: white;
 
-  font-family: rouben;
   justify-content: center;
   text-align: center;
   margin-left: auto;

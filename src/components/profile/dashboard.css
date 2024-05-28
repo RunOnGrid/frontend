@@ -1,0 +1,440 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  border-start-start-radius: 50px;
+  border-end-start-radius: 50px;
+}
+
+.dashboard-container h3 {
+  font-weight: 600;
+}
+
+.dashboard-header {
+  margin-bottom: 20px;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  justify-items: center;
+}
+
+.applications-section {
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  margin-bottom: 20px;
+  width: 90%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.applications-section p {
+  display: flex;
+  justify-content: center;
+  color: grey;
+  width: 100%;
+  font-weight: 500;
+}
+
+.applications-section button {
+  margin-left: 20px;
+  border-radius: 20px !important;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.section-header {
+  display: flex;
+  margin-right: auto;
+}
+
+.section-button {
+  background-color: white;
+  color: #36b079;
+  width: 200px;
+  margin-top: 50px;
+}
+
+.section-button:hover {
+  background-color: white;
+  color: #36b079;
+  width: 200px;
+}
+
+.billing-section,
+.teams-section {
+  background-color: #36b0794d;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto 20px;
+}
+
+.billing-section {
+  background-color: #36b0794d;
+}
+
+.billing-section button {
+  margin-left: 20px;
+  border-radius: 20px !important;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.billing-section p {
+  font-weight: bold;
+  margin-left: 0px;
+  margin-right: auto;
+  margin-top: 0px;
+}
+
+.billing-section span {
+  font-weight: 400;
+}
+
+.teams-section {
+  background-color: #0c1317;
+  padding: 20px;
+}
+.teams-section h3 {
+  margin-right: auto;
+}
+
+.teams-section p {
+  display: flex;
+  justify-content: center;
+  color: grey;
+  width: 100%;
+  font-weight: 500;
+}
+
+.teams-section button {
+  background-color: #36b079;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.deploy-button,
+.section-header button {
+  background-color: #36b079;
+  color: #f4f4f4;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.middle-section {
+  display: flex;
+  width: 95%;
+  margin: auto;
+}
+
+.deploy-button:hover,
+.section-header button:hover {
+  background-color: #36b079;
+}
+.events-section {
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 20px auto;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-header h3 {
+  margin: 0;
+}
+
+.section-header button {
+  border-radius: 20px;
+  background-color: #36b079;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.events-table th,
+.events-table td {
+  border: none;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.events-table th {
+  color: #333;
+}
+
+.events-table td {
+  border-bottom: 1px solid #ddd;
+}
+
+.events-table td img.integration-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.events-table tr:last-child td {
+  border-bottom: none;
+}
+
+.events-table thead {
+  border-bottom: 1px solid black;
+}
+.events-table td {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.dashboard-header {
+  display: flex;
+
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.notification-icon {
+  cursor: pointer;
+  position: relative;
+
+  margin-left: auto;
+  margin-right: 100px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  align-content: center;
+  z-index: 10;
+}
+
+.notification-icon img {
+  display: flex;
+  width: 24px;
+  height: 24px;
+
+  margin: auto;
+}
+
+.notifications-popup {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #1b1b1b;
+  color: #fff;
+  width: 250px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 5;
+  margin-right: 4vw;
+  margin-top: 2vh;
+}
+.notifications-popup h2 {
+  padding: 0px 10px;
+}
+
+.notification-item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  height: 30px;
+  margin: 10px auto;
+  font-size: 0.8rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.dot {
+  height: 7px;
+  width: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  border: 2px solid white;
+}
+
+.green {
+  background-color: #28a745;
+}
+
+.orange {
+  background-color: #ffc107;
+}
+
+.red {
+  background-color: #dc3545;
+}
+@media only screen and (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dashboard-container.light {
+  background-color: #fff;
+}
+
+.applications-section.light,
+.billing-section.light,
+.teams-section.light,
+.events-section.light {
+  background-color: #efefef;
+}
+
+.section-header.light h3,
+.section-header.light button {
+  color: #333;
+}
+
+.notifications-popup.dark {
+  background-color: #f4f4f4;
+  color: #333;
+}
+.notification-item.dark {
+  background-color: #ddd;
+}
+.notification-item.dark:hover {
+  background-color: rgba(128, 128, 128, 0.585);
+}
+.notification-item.dark:not(:last-child) {
+  border-bottom: 1px solid transparent;
+}
+
+.notification-item.light {
+  background-color: rgba(128, 128, 128, 0.585);
+}
+.notification-item.light:hover {
+  background-color: #dddddd91;
+}
+.notification-item.light:not(:last-child) {
+  border-bottom: 1px solid transparent;
+}
+
+.events-table.light th,
+.events-table.light td {
+  color: #333;
+}
+
+/* Estilos para el modo oscuro */
+.dashboard-container.dark {
+  background-color: #070c0e;
+  color: #f4f4f4;
+}
+
+.applications-section.dark {
+  background-color: #151e21;
+}
+.teams-section.dark {
+  background-color: #444e52;
+}
+
+.events-section.dark {
+  background-color: #151e21;
+  color: #f4f4f4;
+}
+
+.section-header.dark h3,
+.section-header.dark button {
+  color: #f4f4f4;
+}
+
+.notifications-popup.ligth {
+  background-color: #333;
+  color: #f4f4f4;
+}
+
+.notification-item.ligth {
+  background-color: #444;
+}
+
+.events-table.dark th,
+.events-table.dark td {
+  background-color: #151e21;
+  color: #f4f4f4;
+}
+.notification-icon.light {
+  background-color: #0c1317;
+}
+.notification-icon.dark {
+  background-color: white;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000;
+  transition: 0.4s;
+  border-radius: 34px;
+  width: 50px;
+  height: 25px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 5px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: white;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+  background-color: #0c1317;
+}

@@ -7,7 +7,7 @@
 .infoSecurity-titulo-container {
   display: flex;
   align-items: center;
-  font-family: rouben;
+
   background-color: #0c1317;
   padding: 10px 30px;
   width: 100%;
@@ -32,7 +32,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: rouben;
 
   width: 100%;
   height: 180px;
@@ -43,7 +42,6 @@
 }
 
 .span2-permisos-security {
-  font-family: rouben ligth;
   color: white;
   padding: 10px 10px;
   width: 100%;

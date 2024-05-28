@@ -11,7 +11,6 @@
   border: 2px solid rgba(255, 255, 255, 0.068);
 }
 .solutionCard h2 {
-  font-family: rouben;
   font-size: 2rem;
   width: 40%;
   background: linear-gradient(225deg, #fff 30%, #36b079 70%);
@@ -43,7 +42,6 @@
   border: 2px solid rgba(255, 255, 255, 0.068);
 }
 .solutionCard2 h2 {
-  font-family: rouben;
   font-size: 2rem;
   width: 70%;
   background: linear-gradient(225deg, #fff 30%, #36b079 70%);
@@ -151,14 +149,12 @@
 }
 
 .article-container h2 {
-  font-family: rouben;
   color: white;
   width: 40vw;
   margin: 20px auto;
 }
 
 .article-container2 h2 {
-  font-family: rouben;
   color: white;
   width: 30vw;
   margin: 20px auto;
@@ -184,11 +180,9 @@
   margin: auto 10px;
 }
 .datos-articulos h3 {
-  font-family: rouben ligth;
   color: white;
 }
 .datos-articulos span {
-  font-family: rouben ligth;
   color: rgba(255, 255, 255, 0.56);
   margin: auto 10px;
 }
@@ -197,14 +191,12 @@
   margin-top: 100px;
 }
 .article-only h1 {
-  font-family: rouben ligth;
   color: white;
   width: 80vw;
   margin: 20px auto;
   font-size: 4rem;
 }
 .article-only p {
-  font-family: rouben ligth;
   color: rgba(255, 255, 255, 0.56);
   margin: auto auto;
   font-size: 1.5rem;
@@ -225,11 +217,9 @@
   margin: auto 10px;
 }
 .datos-articulos3 h3 {
-  font-family: rouben ligth;
   color: white;
 }
 .datos-articulos3 span {
-  font-family: rouben ligth;
   color: rgba(255, 255, 255, 0.56);
   margin: auto 10px;
 }

@@ -7,7 +7,14 @@ const ContactForm = () => {
       <>.</>
 
       <div className="contact-container2">
-        <div className="contact-titulo"> Contact </div>
+        <div>
+          <div className="contact-titulo"> Contact us </div>
+          <span>
+            {' '}
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </span>
+        </div>
 
         <div className="contact-form">
           <input className="contact-input" placeholder="Name / Company"></input>
@@ -28,13 +35,6 @@ const ContactForm = () => {
           </select>
           <div className="contenedorFlex2">
             <button className="boton-contact-form"> SEND</button>
-            <button className="boton-contact-form">
-              {' '}
-              <Link href="https://cal.com/bautista-gonzalez-lazo-g8xn68">
-                {' '}
-                BOOK A DEMO{' '}
-              </Link>{' '}
-            </button>
           </div>
         </div>
       </div>

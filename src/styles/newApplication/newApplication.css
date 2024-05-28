@@ -23,7 +23,7 @@
 }
 .div-newApp {
   font-size: 1.2rem;
-  font-family: rouben ligth;
+
   letter-spacing: 1px;
   color: white;
   margin: auto 10px;
@@ -31,13 +31,11 @@
 }
 
 .span-newApp {
-  font-family: rouben;
   font-size: 1.2rem;
   color: white;
   margin: 10px 0px;
 }
 .span-newApp2 {
-  font-family: rouben ligth;
   color: rgba(255, 255, 255, 0.713);
   margin: 10px 10px;
 }
@@ -101,7 +99,7 @@
   display: flex;
   width: 20vw;
   margin: auto;
-  font-family: rouben ligth;
+
   color: rgba(255, 255, 255, 0.739);
 }
 .icono-titulo {
@@ -126,7 +124,7 @@
   display: flex;
   width: 20vw;
   margin: auto;
-  font-family: rouben ligth;
+
   color: rgba(255, 255, 255, 0.739);
 }
 .icono-titulo {
@@ -174,7 +172,7 @@
 .titulo-webCard span {
   color: white;
   margin-top: 22px;
-  font-family: rouben;
+
   font-size: 1.2rem;
 }
 .opciones-webCard {
@@ -195,7 +193,6 @@
   text-align: center !important;
   justify-content: center !important;
   margin-bottom: 0px !important;
-  font-family: rouben ligth;
 }
 .button-newApp:hover {
   background-color: #0c1317d9;
@@ -221,7 +218,7 @@
 }
 .modal-contact h1 {
   color: white;
-  font-family: rouben ligth;
+
   font-size: 1.3rem;
   font-weight: lighter;
   letter-spacing: 0.5px;
@@ -230,7 +227,7 @@
 }
 .modal-contact span {
   color: rgba(255, 255, 255, 0.83);
-  font-family: rouben ligth;
+
   font-size: 1rem;
   letter-spacing: 0.5px;
   font-weight: lighter;
@@ -238,7 +235,7 @@
 }
 .modal-contact label {
   color: rgba(255, 255, 255, 0.83);
-  font-family: rouben ligth;
+
   font-size: 0.8rem;
   letter-spacing: 0.5px;
   font-weight: lighter;
@@ -303,7 +300,7 @@
 }
 .modal-newApp h1 {
   color: white;
-  font-family: rouben ligth;
+
   font-size: 1.3rem;
   font-weight: lighter;
   letter-spacing: 0.5px;
@@ -312,7 +309,7 @@
 }
 .modal-newApp span {
   color: rgba(255, 255, 255, 0.83);
-  font-family: rouben ligth;
+
   font-size: 1rem;
   letter-spacing: 0.5px;
   font-weight: lighter;
@@ -329,7 +326,7 @@
   border-radius: 5px;
   border: none;
   margin: 20px;
-  font-family: rouben;
+
   letter-spacing: 0.5px;
 }
 .modal-newApp input {
@@ -343,14 +340,14 @@
   border-radius: 5px;
   border: none;
   margin: 20px;
-  font-family: rouben;
+
   letter-spacing: 0.5px;
 }
 .modal-newApp button {
   display: flex;
   margin: auto;
   width: 35%;
-  font-family: rouben ligth;
+
   font-weight: lighter;
   font-size: 1rem;
   letter-spacing: 2px;
@@ -395,7 +392,6 @@
     width: 100%;
   }
   .span-landing-selected {
-    font-family: rouben;
     font-size: 1rem;
     margin: 5px;
   }

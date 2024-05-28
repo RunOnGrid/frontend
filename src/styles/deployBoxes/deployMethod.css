@@ -9,7 +9,6 @@
   text-align: center;
 }
 .deployMethod-container h3 {
-  font-family: rouben ligth;
   letter-spacing: 1px;
   margin-bottom: 20px;
   margin-top: 30px;
@@ -43,13 +42,12 @@
   margin: auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
   z-index: 1000;
-  font-family: rouben;
 }
 .card label {
   display: flex;
   width: 90%;
   margin: 20px auto;
-  font-family: rouben ligth;
+
   letter-spacing: 0.2px;
   font-size: 0.8rem;
 }
@@ -88,13 +86,12 @@
   margin: auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
   z-index: 1000;
-  font-family: rouben;
 }
 .card2 label {
   display: flex;
   width: 90%;
   margin: 20px auto;
-  font-family: rouben ligth;
+
   letter-spacing: 0.2px;
   font-size: 0.8rem;
   margin-left: 3px;

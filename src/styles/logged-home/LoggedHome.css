@@ -91,7 +91,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-family: rouben;
+
   font-size: 0.8rem;
   letter-spacing: 1.5px;
   color: white;
@@ -118,7 +118,7 @@
   background-color: rgba(0, 0, 0, 0.455);
   margin-left: auto;
   margin-right: auto;
-  font-family: rouben;
+
   justify-content: center;
   text-align: center;
   font-size: 1.3rem;
@@ -139,7 +139,7 @@
   display: flex;
   color: white;
   width: 100%;
-  font-family: rouben;
+
   text-decoration: underline;
   font-size: 1.3rem;
   justify-content: center;
@@ -155,9 +155,14 @@
 }
 
 .logged-home-component {
-  background-image: url('../../../public/fondoFinal7.svg');
+  background-image: url('/fondoFinal7.svg');
   background-size: cover;
   background-attachment: fixed;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+.logged-home-component2 {
+  background-color: #151e21;
   min-height: 100vh;
   min-width: 100vw;
 }
@@ -185,7 +190,7 @@
 .contenedor-before h1 {
   display: flex;
   color: white;
-  font-family: rouben ligth;
+
   font-size: 1.8rem;
   margin: auto;
 }
@@ -197,7 +202,7 @@
 .contenedor-before span {
   display: flex;
   color: rgba(255, 255, 255, 0.618);
-  font-family: rouben ligth;
+
   margin: auto;
   font-size: 1.1rem;
 }
@@ -219,7 +224,6 @@
   margin-bottom: 50px;
 }
 .titulos-dashboard h2 {
-  font-family: rouben;
   color: white;
   margin: auto 0;
 }
@@ -248,7 +252,7 @@
 .second {
   display: flex;
   color: white;
-  font-family: rouben ligth;
+
   width: 85%;
   margin: auto;
 }
@@ -341,7 +345,7 @@
   height: 30px;
   border-radius: 10px;
   border: 1px solid white;
-  font-family: rouben;
+
   color: white;
   background-color: black;
   padding: 5px;
@@ -372,7 +376,7 @@
 .checkbox-filter label {
   color: rgba(255, 255, 255, 0.704);
   font-size: 0.9rem;
-  font-family: rouben ligth;
+
   width: 100%;
   margin-right: auto;
   margin-left: 0px;

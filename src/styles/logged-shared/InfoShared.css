@@ -15,27 +15,28 @@
 
 .botones-shared button:focus {
   background-color: #36b079;
-  box-shadow: 1px 1px 20px 4px white;
 }
 
 .contenedor-nuevo-shared div {
   color: white;
   font-size: 1.3rem;
-  font-family: rouben ligth;
+
   text-decoration: none;
   margin-bottom: 15px;
 }
 .contenedor-nuevo-shared button {
-  width: 160px;
-  background-color: #0c1317;
+  width: 200px;
+  background-color: #36b079;
   margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid white;
 }
 
 .contenedor-nuevo-shared h4 {
   display: flex;
   color: rgba(255, 255, 255, 0.752);
   font-size: 1rem;
-  font-family: rouben ligth;
+
   margin: auto;
 }
 
@@ -53,7 +54,7 @@
   color: white;
   text-align: start;
   justify-content: flex-start;
-  font-family: rouben;
+
   font-size: 1rem;
   width: 90%;
 
@@ -65,7 +66,6 @@
   text-align: start;
   justify-content: flex-start;
 
-  font-family: rouben;
   font-size: 1rem;
   width: 90%;
   margin-bottom: 20px;
@@ -81,7 +81,7 @@
   text-align: start;
   justify-content: center;
   margin-left: auto;
-  font-family: rouben;
+
   font-size: 1rem;
   width: 90%;
   margin-bottom: 20px;
@@ -139,7 +139,7 @@
 .contenedor-nuevo-shared span {
   color: rgba(255, 255, 255, 0.698);
   font-size: 1rem;
-  font-family: rouben ligth;
+
   text-decoration: none;
   margin-bottom: 15px;
 }
@@ -165,7 +165,7 @@
   display: flex;
   color: white;
   z-index: 100;
-  font-family: rouben;
+
   font-size: 3rem;
   margin-top: 10px;
   margin-bottom: 3%;
@@ -174,7 +174,7 @@
 .infoShared-titulo-container {
   display: flex;
   align-items: center;
-  font-family: rouben;
+
   font-size: 2rem;
   background-color: white;
   padding: 10px 30px;
@@ -188,7 +188,7 @@
 .infoShared-subtitulo-container {
   display: flex;
   align-items: center;
-  font-family: rouben;
+
   color: #0c131795;
   background-color: red;
   width: 100%;
@@ -200,7 +200,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: rouben;
+
   background-color: white;
   color: #0c131795;
   width: 100%;
@@ -247,7 +247,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-family: rouben;
+
   background-color: white;
   width: 100%;
   height: 180px;
@@ -308,13 +308,44 @@
   border-top: 1px solid white;
   border-bottom: 1px solid white;
   padding: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
+
 .shared-columnas span {
   display: flex;
-  font-family: rouben;
 
-  margin: auto;
+  width: 150px;
 }
+
+.shared-columnas2 {
+  display: flex;
+  width: 80%;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shared-columnas2 span {
+  display: flex;
+
+  color: rgba(255, 255, 255, 0.765);
+
+  width: 250px;
+}
+
+.shared-columnas img {
+  display: flex;
+  margin: 5px !important;
+  cursor: pointer;
+}
+
+.shared-columnas2 img {
+  display: flex;
+  margin: 5px !important;
+  cursor: pointer;
+}
+
 .shared-box {
   display: flex;
   flex-direction: column;
@@ -332,16 +363,116 @@
 }
 .shared-box span {
   display: flex;
-  font-family: rouben;
+
   margin-top: 10px;
 }
 .shared-box div {
   display: flex;
   color: rgba(255, 255, 255, 0.646);
-  font-family: rouben ligth;
+
   font-size: 1rem;
   margin-top: 15px;
 }
+.popup-container {
+  background-color: #0c1317;
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  width: 35vw;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.popup-container h2 {
+  margin-top: 0;
+}
+
+.shared-options {
+  margin: 20px 0;
+}
+
+.shared-options label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.shared-options input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.shared-options input[type='radio'] + span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #36b079;
+  border-radius: 50%;
+  background-color: #21272e;
+}
+
+.shared-options input[type='radio']:checked + span::before {
+  background-color: #36b079;
+  border-color: #36b079;
+}
+
+.shared-options input[type='radio']:checked + span::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #36b079;
+}
+.button-container {
+  display: flex;
+}
+.discard-button,
+.save2-button {
+  display: flex;
+  background-color: #36b079;
+  color: white;
+  margin: auto;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 40% !important;
+  justify-content: center;
+}
+
+.discard-button {
+  background-color: #0c1317;
+}
+
+.discard-button:hover,
+.save-button:hover {
+  opacity: 0.9;
+}
+/* .divisor-shared {
+  width: 1px;
+  background-color: white;
+  height: auto;
+} */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 @media only screen and (max-width: 1300px) {
   .infoShared-renglones-permisos {
     height: 100%;

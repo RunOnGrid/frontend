@@ -46,7 +46,7 @@
 .nav-title {
   display: flex;
   font-size: 1rem;
-  font-family: rouben;
+
   justify-content: center;
   align-items: center;
   cursor: pointer;
@@ -112,7 +112,7 @@
 
 .titulo-productos {
   margin-bottom: 5%;
-  font-family: rouben;
+
   font-size: 1rem;
   color: #0c1317;
 }
@@ -121,7 +121,6 @@
 }
 
 .subtitulo-productos {
-  font-family: rouben ligth;
   width: 100%;
   font-size: 0.7rem;
   color: #0c1317;
@@ -147,9 +146,9 @@ button {
   border-radius: 4px;
   border: 2px solid rgb(54, 176, 121);
   font-size: 14px;
-  font-family: rouben;
+
   font-weight: 600;
-  letter-spacing: 2px;
+
   background: transparent;
   color: #fff;
   overflow: hidden;
@@ -260,19 +259,17 @@ button:active {
   }
   .titulo-mobile {
     color: rgba(255, 255, 255, 0.76);
-    font-family: rouben;
+
     font-size: 0.8rem;
     font-weight: bold;
     padding: 20px;
     margin-top: 10px;
-    letter-spacing: 1px;
   }
   .subtitulo-mobile {
     display: flex;
     margin-top: auto;
     margin-bottom: auto;
     color: white;
-    font-family: rouben;
   }
   .navbar {
     display: flex;
@@ -319,7 +316,6 @@ button:active {
     z-index: 9999;
     margin-top: 65px;
     border: 2px solid white;
-    font-family: rouben;
   }
   .menuMobileContainer2 button {
     display: flex;
@@ -411,14 +407,13 @@ button:active {
   }
 
   .subtitulo-productos {
-    font-family: rouben ligth;
     width: 70%;
     font-size: 0.6rem;
   }
 
   .menu-title {
     display: flex;
-    font-family: rouben !important;
+
     width: 100%;
     padding: 16px 16px;
     justify-content: flex-start;

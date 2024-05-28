@@ -1,0 +1,57 @@
+.graphs-landing {
+  color: white;
+
+  width: 80%;
+  margin: auto;
+}
+.graphs-landing h3 {
+  font-size: 1.3rem;
+}
+.graphs-landing h1 {
+  font-size: 3rem;
+  width: 70%;
+}
+
+.graphs-landing span {
+  color: rgba(255, 255, 255, 0.719);
+  font-size: 0.9rem;
+  width: 40%;
+}
+.cpu-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.cpu-buttons button {
+  border: 1px solid white;
+  width: 95%;
+  border-radius: 50px;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.cpu-buttons span {
+  font-size: 0.8rem;
+  width: 100%;
+  margin: 10px auto;
+}
+.cpu-buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.81);
+  color: #0c1317;
+}
+.cpu-container {
+  margin: auto;
+}
+.graphs-landing h2 {
+  font-size: 3rem;
+  width: 70%;
+  margin-left: auto;
+}
+.logos-landing {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  justify-content: space-around;
+  height: 250px;
+  align-items: center;
+}

@@ -27,6 +27,10 @@ import '../styles/projectsx/ProjectData.css';
 import '../styles/pricing/pricing.css';
 import '../styles/blog/blog.css';
 import '../styles/repositories/repositories.css';
+import '../components/BestFeatures/bestFeatures.css';
+import '../components/deployChoice/deployChoice.css';
+import '../components/Graphs/graphs.css';
+import '../components/profile/dashboard.css';
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;

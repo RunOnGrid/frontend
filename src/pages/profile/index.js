@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ModalContact from '@/commons/ModalContact';
 import ComponentCard from '@/commons/ComponentCard';
 import ComponentCard2 from '@/commons/ComponentCard2';
+import Dashboard from '@/components/profile/Dashboard';
 const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
   ssr: false,
   loading: () => <p> Im f</p>,
@@ -34,17 +35,16 @@ export default function LoggedLogin() {
   return (
     <div>
       <div className={abierto ? 'blureado' : ''}>
-        <div className="logged-home-component">
+        <div className="logged-home-component2">
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <DynamicNavbar abierto={abierto} setAbierto={setAbierto} />
             <div
               style={{
-                width: '100%',
-                marginLeft: '100px',
                 marginRight: 'auto',
+                width: '100%',
               }}>
-              <Paginacion anterior="Home" links="/profile" />
-              <div className="contents-index">
+              <Dashboard />
+              {/* <div className="contents-index">
                 <div style={{ width: '100%' }}>
                   <div className="titulos-dashboard">
                     <h2> My Applications </h2>
@@ -103,7 +103,7 @@ export default function LoggedLogin() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
