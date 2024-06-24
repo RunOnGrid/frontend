@@ -20,39 +20,24 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           </Link>
           <Link href="/profile">
             <li className={`sideNavbar-li ${isActive('/profile')}`}>
-              <img className="icon-sideNavbar2" src="/homeDark.png" /> Dashboard
+              Dashboard
             </li>
           </Link>
           <Link href="/profile/hosting">
             <li className={`sideNavbar-li ${isActive('/profile/hosting')}`}>
-              <img className="icon-sideNavbar" src="/iconDeploy.png" />{' '}
               Applications
             </li>
           </Link>
-          <Link href="/profile/billing">
-            <li className={`sideNavbar-li ${isActive('/profile/billing')}`}>
-              <img className="icon-sideNavbar" src="/iconBill.png" /> Add-Ons
-            </li>
-          </Link>
-          <Link href="/profile/ssl">
-            <li className={`sideNavbar-li ${isActive('/profile/ssl')}`}>
-              <img className="icon-sideNavbar2" src="/userDark.png" /> Billing
-            </li>
-          </Link>
-          <Link href="/profile/security">
-            <li className={`sideNavbar-li ${isActive('/profile/security')}`}>
-              <img className="icon-sideNavbar2" src="/padlock2.png" /> Teams
-            </li>
-          </Link>
+
           <Link href="/profile/sharedAccount">
             <li
               className={`sideNavbar-li ${isActive('/profile/sharedAccount')}`}>
-              <img className="icon-sideNavbar2" src="/groupDark.png" /> Settings
+              Settings
             </li>
           </Link>
           <Link href="/profile/integration">
             <li className={`sideNavbar-li ${isActive('/profile/integration')}`}>
-              <img className="icon-sideNavbar2" src="/name.png" /> Integrations
+              Integrations
             </li>
           </Link>
           <Link href={'/'}>

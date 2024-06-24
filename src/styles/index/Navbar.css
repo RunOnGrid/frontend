@@ -220,7 +220,12 @@ button:active {
   background-color: #36b079;
 }
 .boton-landing1 {
-  background-color: #36b079;
+  color: #36b079;
+  background-color: transparent;
+  border-radius: 25px;
+}
+.boton-landing1:hover {
+  background: transparent;
 }
 .downNavbar {
   height: 20px;

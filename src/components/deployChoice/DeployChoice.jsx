@@ -1,46 +1,82 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import DeployOption from './DeployOption';
+import axios from 'axios';
 
 const DeployChoice = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [nodes, setNodes] = useState(null);
+
   useEffect(() => {
-    const handleScroll = () => {
-      const leftCard = document.querySelector('.scroll-in-left');
-      const rightCard = document.querySelector('.scroll-in-right');
-      const triggerBottom = (window.innerHeight / 5) * 4;
+    const fetchFlux = () => {
+      setLoading(true);
+      fetch('https://stats.runonflux.io/fluxinfo?projection=benchmark')
+        .then((response) => response.json())
+        .then((data) => {
+          let totalSsd = 0,
+            totalRam = 0,
+            totalStorage = 0;
 
-      if (leftCard.getBoundingClientRect().top < triggerBottom) {
-        leftCard.classList.add('visible');
-      }
+          data.data.forEach((item) => {
+            const bench = item.benchmark.bench;
+            totalSsd += bench.ssd;
+            totalRam += bench.ram;
+            totalStorage += bench.cores;
+          });
 
-      if (rightCard.getBoundingClientRect().top < triggerBottom) {
-        rightCard.classList.add('visible');
-      }
+          // Convert MB to TB
+          totalSsd = totalSsd / 1024;
+          totalRam = totalRam / 1024;
+
+          setData({
+            totalSsd,
+            totalRam,
+            totalStorage,
+          });
+
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setLoading(false);
+        });
     };
+    const fetchNodes = () => {
+      setLoading(true);
+      fetch('https://api.runonflux.io/daemon/getfluxnodecount')
+        .then((response) => response.json())
+        .then((data) => {
+          let totalNodes = 0;
+          totalNodes = data.data.total;
 
-    window.addEventListener('scroll', handleScroll);
-
-    // Cleanup event listener on component unmount
-    return () => window.removeEventListener('scroll', handleScroll);
+          setNodes({
+            totalNodes,
+          });
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    };
+    fetchNodes();
+    fetchFlux();
   }, []);
+
+  if (loading || !data) {
+    return <div>Loading...</div>; // Muestra un indicador de carga mientras se obtienen los datos
+  }
 
   return (
     <div className="deploy-choice">
       <h1>Deploy on the cloud of your choice</h1>
       <span>Access computing with the best providers</span>
-      <div style={{ display: 'flex' }}>
-        <DeployOption
-          className="scroll-in-left"
-          image="/fluxLanding.svg"
-          title="The largest decentralized computing network"
-          text="Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you're unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization."
-        />
-        <DeployOption
-          className="scroll-in-right"
-          image="/akashLanding.svg"
-          title="Supercloud"
-          text="Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you're unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization."
-        />
-      </div>
+      <DeployOption
+        image="/fluxLanding.svg"
+        title="The largest decentralized computing network"
+        text="Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you're unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization."
+        data={data}
+        nodes={nodes}
+      />
+      <button className="button-landing-4">DEPLOY NOW</button>
     </div>
   );
 };

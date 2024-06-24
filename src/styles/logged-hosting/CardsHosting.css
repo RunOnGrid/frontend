@@ -436,10 +436,14 @@
   margin-right: auto;
   margin-bottom: 10px;
   margin-top: 10px;
-  border: 1px solid rgb(255, 255, 255);
   width: 80%;
 }
-
+.linea-separadora2.dark {
+  border: 1px solid rgb(255, 255, 255);
+}
+.linea-separadora2.light {
+  border: 1px solid #0c1317;
+}
 .grid-features-hosting {
   display: grid;
   justify-content: center;

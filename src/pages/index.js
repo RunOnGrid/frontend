@@ -9,7 +9,7 @@ import Footer from '@/components/index/Footer';
 import Banner from '@/components/landing-AsicHosting/Banner';
 import { useInView } from 'react-intersection-observer';
 import ButtonsLanding from '@/components/ButtonsLanding';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import NuevoFaqs from '@/components/NuevoFaqs';
 import Guarantee from '@/commons/Guarantee';
 import BestFeatures from '@/components/BestFeatures/BestFeatures';
@@ -20,6 +20,7 @@ import Card3Princing from '@/components/pricing/Card3Pricing';
 import GraphsLanding from '@/components/Graphs/GraphsLanding';
 import InfoLanding from '@/components/Graphs/InfoLanding';
 import CardPricing from '@/components/pricing/CardPrincing';
+import Triangles from '@/components/landing-AsicHosting/Triangles';
 
 const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
   ssr: false,
@@ -28,6 +29,7 @@ const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
 
 export default function Home() {
   const contactFormRef = useRef(null);
+
   const [ref, inView] = useInView({
     triggerOnce: true, // Animation triggers only once
     threshold: 0.7, // Percentage of element visibility to trigger the animation
@@ -56,24 +58,29 @@ export default function Home() {
     <>
       <div className="container-homePrincipal">
         <DynamicNavbar scrollToContactForm={scrollToContactForm} />
-        <div className="banner-container">
-          <Banner
-            scrollToContactForm={scrollToContactForm}
-            title="Just focus on building."
-            subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
-          />
-          <img
+
+        <Banner
+          scrollToContactForm={scrollToContactForm}
+          title="Just focus on building."
+          subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
+        />
+        {/* <div>
+          <button onClick={fetchFlux}>Fetch Data</button>
+          {loading ? <p>Loading...</p> : <p>Data loaded</p>}
+        </div> */}
+        {/* <Triangles /> */}
+        {/* <img
             ref={ref}
             style={inView ? fadeInStylesLeft : {}}
             src="/ilustracion-webHosting.svg"
             alt=""
             className="ilustracion-bannerGrande"
-          />
-        </div>
+          /> */}
+
         <BestFeatures />
         <DeployChoice />
         <div>
-          <h1 className="h1-landing">Pricing</h1>
+          <h1 className="h1-landing">Plans</h1>
           <span className="span-landing4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           </span>

@@ -1,18 +1,16 @@
 .dashboard-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  margin-bottom: 0px;
   width: 100%;
   border-start-start-radius: 50px;
   border-end-start-radius: 50px;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .dashboard-container h3 {
   font-weight: 600;
-}
-
-.dashboard-header {
-  margin-bottom: 20px;
 }
 
 .dashboard-content {
@@ -27,13 +25,14 @@
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: auto;
-  margin-bottom: 20px;
   width: 90%;
-  height: 30vh;
+  margin-bottom: 0px;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 0px;
 }
 
 .applications-section p {
@@ -74,13 +73,13 @@
   padding: 20px;
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  height: 20vh;
+  width: 50%;
+  height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto 20px;
+  margin: 0px 20px;
 }
 
 .billing-section {
@@ -145,7 +144,7 @@
 .middle-section {
   display: flex;
   width: 95%;
-  margin: auto;
+  margin: 15px auto;
 }
 
 .deploy-button:hover,
@@ -157,7 +156,7 @@
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 90%;
-  margin: 20px auto;
+  margin: 0px auto;
 }
 
 .section-header {
@@ -221,9 +220,12 @@
 }
 .dashboard-header {
   display: flex;
-
+  width: 90%;
+  margin: auto;
+  justify-content: flex-start;
+  margin-top: 10px;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .notification-icon {
@@ -231,7 +233,7 @@
   position: relative;
 
   margin-left: auto;
-  margin-right: 100px;
+
   height: 50px;
   width: 50px;
   border-radius: 50px;

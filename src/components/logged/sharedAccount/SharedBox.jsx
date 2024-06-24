@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
-const SharedBox = () => {
+const SharedBox = ({ mode }) => {
   return (
-    <div className='shared-box'>
-        <span>Project name</span>
-        <div>Description</div>
+    <div className={`shared-box ${mode ? 'dark' : 'light'}`}>
+      <span>Project name</span>
+      <div>Description</div>
     </div>
-  )
-}
+  );
+};
 
-export default SharedBox
+export default SharedBox;

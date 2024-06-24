@@ -54,22 +54,22 @@ function Navbar({ scrollToContactForm }) {
               }}
               className="nav-title">
               {' '}
-              Why choose us?
+              WHY CHOOSE US?
               <img className="downNavbar" src="/downNavbar.png" alt="" />
             </div>
             <div className="nav-title">
-              <Link href="/pricing"> Pricing </Link>{' '}
+              <Link href="/pricing"> PRICING </Link>{' '}
             </div>
 
             <div className="nav-title">
-              <Link href="/blog"> Blog </Link>{' '}
+              <Link href="/blog"> BLOG </Link>{' '}
             </div>
 
             <div className="nav-title">
               {' '}
               <Link href="https://cal.com/bautista-gonzalez-lazo-g8xn68">
                 {' '}
-                Book a demo{' '}
+                BOOK A DEMO{' '}
               </Link>{' '}
             </div>
             <div
@@ -78,16 +78,16 @@ function Navbar({ scrollToContactForm }) {
               }}
               className="nav-title">
               {' '}
-              Contact{' '}
+              CONTACT{' '}
             </div>
           </div>
           <div className="login-register">
             <Link href="/login">
-              <button className="boton-landing1">Login</button>
+              <button className="boton-landing1">DEPLOY NOW</button>
             </Link>
-            <Link href="register">
+            {/* <Link href="register">
               <button className="boton-landing">Register</button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </nav>

@@ -36,15 +36,12 @@ export default function LoggedLogin() {
     <div>
       <div className={abierto ? 'blureado' : ''}>
         <div className="logged-home-component2">
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
             <DynamicNavbar abierto={abierto} setAbierto={setAbierto} />
-            <div
-              style={{
-                marginRight: 'auto',
-                width: '100%',
-              }}>
-              <Dashboard />
-              {/* <div className="contents-index">
+
+            <Dashboard />
+            {/* <div className="contents-index">
                 <div style={{ width: '100%' }}>
                   <div className="titulos-dashboard">
                     <h2> My Applications </h2>
@@ -104,7 +101,6 @@ export default function LoggedLogin() {
                   </div>
                 </div>
               </div> */}
-            </div>
           </div>
         </div>
       </div>

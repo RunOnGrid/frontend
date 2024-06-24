@@ -1,10 +1,11 @@
 .sideNavbar {
-  min-height: 110vh;
+  display: flex;
+  min-height: 100vh;
   height: 100%;
 
   position: sticky;
   top: 0;
-  width: 230px;
+  width: 200px;
   background-color: #151e21;
   z-index: 10;
 }
@@ -31,9 +32,9 @@
   border-end-end-radius: 0px;
   border-start-end-radius: 0px;
   margin-bottom: 10px;
+  padding-left: 10px;
 }
 
-.sideNavbar-li:hover,
 .sideNavbar-li.active {
   color: #151e21;
   background-color: white;
@@ -118,14 +119,14 @@
 }
 
 @media only screen and (max-width: 1400px) {
-  .sideNavbar {
+  /* .sideNavbar {
     width: 250px;
-  }
+  } */
 }
 
 .logout-sidebar {
   display: flex;
-  width: 70%;
+  width: 80%;
   margin-left: 15px;
   margin-right: auto;
   justify-content: center;
