@@ -8,9 +8,9 @@ const DeployChoice = () => {
   const [nodes, setNodes] = useState(null);
 
   useEffect(() => {
-    const fetchFlux = () => {
+    const fetchFlux = async () => {
       setLoading(true);
-      fetch('https://stats.runonflux.io/fluxinfo?projection=benchmark')
+      await fetch('https://stats.runonflux.io/fluxinfo?projection=benchmark')
         .then((response) => response.json())
         .then((data) => {
           let totalSsd = 0,
@@ -33,7 +33,6 @@ const DeployChoice = () => {
             totalRam,
             totalStorage,
           });
-
           setLoading(false);
         })
         .catch((error) => {
@@ -41,27 +40,28 @@ const DeployChoice = () => {
           setLoading(false);
         });
     };
-    const fetchNodes = () => {
+
+    const fetchNodes = async () => {
       setLoading(true);
-      fetch('https://api.runonflux.io/daemon/getfluxnodecount')
+      await fetch('https://api.runonflux.io/daemon/getfluxnodecount')
         .then((response) => response.json())
         .then((data) => {
-          let totalNodes = 0;
-          totalNodes = data.data.total;
-
           setNodes({
-            totalNodes,
+            totalNodes: data.data.total,
           });
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error:', error);
+          setLoading(false);
         });
     };
+
     fetchNodes();
     fetchFlux();
   }, []);
 
-  if (loading || !data) {
+  if (loading || !data || !nodes) {
     return <div>Loading...</div>; // Muestra un indicador de carga mientras se obtienen los datos
   }
 

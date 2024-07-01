@@ -14,8 +14,8 @@ const GraphsLanding = () => {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
         </span>
       </div>
-      <div style={{ display: 'flex' }}>
-        <Image alt="" src="/costos.svg" height={500} width={800} />
+      <div style={{ display: 'flex', margin: 'auto', width: '80%' }}>
+        <Image alt="" src="/costos.svg" height={400} width={600} />
         <div className="cpu-container">
           <div className="cpu-buttons">
             <button>2vCPU</button>

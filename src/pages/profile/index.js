@@ -6,6 +6,7 @@ import ModalContact from '@/commons/ModalContact';
 import ComponentCard from '@/commons/ComponentCard';
 import ComponentCard2 from '@/commons/ComponentCard2';
 import Dashboard from '@/components/profile/Dashboard';
+import DashboardActive from '@/components/profile/DashboardActivo';
 const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
   ssr: false,
   loading: () => <p> Im f</p>,
@@ -40,7 +41,7 @@ export default function LoggedLogin() {
             style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
             <DynamicNavbar abierto={abierto} setAbierto={setAbierto} />
 
-            <Dashboard />
+            <DashboardActive />
             {/* <div className="contents-index">
                 <div style={{ width: '100%' }}>
                   <div className="titulos-dashboard">

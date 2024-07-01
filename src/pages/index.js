@@ -64,27 +64,14 @@ export default function Home() {
           title="Just focus on building."
           subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
         />
-        {/* <div>
-          <button onClick={fetchFlux}>Fetch Data</button>
-          {loading ? <p>Loading...</p> : <p>Data loaded</p>}
-        </div> */}
-        {/* <Triangles /> */}
-        {/* <img
-            ref={ref}
-            style={inView ? fadeInStylesLeft : {}}
-            src="/ilustracion-webHosting.svg"
-            alt=""
-            className="ilustracion-bannerGrande"
-          /> */}
-
         <BestFeatures />
         <DeployChoice />
-        <div>
+        <div className="plans-section">
           <h1 className="h1-landing">Plans</h1>
           <span className="span-landing4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           </span>
-          <div style={{ display: 'flex', marginBottom: '100px' }}>
+          <div style={{ display: 'flex', marginBottom: '200px' }}>
             <CardPricing
               className="scroll-in"
               planType="free"

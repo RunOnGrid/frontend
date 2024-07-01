@@ -7,8 +7,8 @@ const Features = ({ image, title, subtitle, className }) => {
       <Image
         alt=""
         src={image}
-        height={300}
-        width={300}
+        height={180}
+        width={180}
         className="icon-hover"
       />
       <h2>{title}</h2>

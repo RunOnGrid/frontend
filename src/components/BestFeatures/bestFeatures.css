@@ -4,13 +4,13 @@
   margin: auto;
   justify-content: center;
   text-align: center;
-
-  margin-top: 150px;
+  max-height: 85vh;
+  margin-top: 210px;
 }
 
 .best-features h3 {
-  font-size: 1.5rem;
-  opacity: 0; /* Inicia invisible */
+  font-size: 1rem;
+  opacity: 0;
   transition: opacity 1s ease-out;
 }
 
@@ -21,8 +21,8 @@
 .best-features h1 {
   font-size: 3rem;
   margin-top: -20px;
-  margin-bottom: 100px;
-  opacity: 0; /* Inicia invisible */
+  margin-bottom: 30px;
+  opacity: 0;
   transition: opacity 1s ease-out;
 }
 
@@ -33,7 +33,7 @@
 .best-features span {
   display: flex;
   width: 20vw;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .features {

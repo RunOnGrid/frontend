@@ -195,7 +195,6 @@
 }
 .button-landing-4 {
   display: flex;
-
   justify-content: center;
   align-items: center;
   background-color: #36b079;
@@ -205,7 +204,6 @@
   font-size: 1.2rem;
   margin: auto;
   margin-bottom: 150px;
-
   box-shadow: 1px 1px 10px 1px white;
 }
 
@@ -227,7 +225,7 @@
 
   margin: auto;
   box-shadow: 1px 1px 10px 1px white;
-  margin-top: 100px;
+  margin-top: 30px;
   margin-bottom: 200px;
 }
 @keyframes float {

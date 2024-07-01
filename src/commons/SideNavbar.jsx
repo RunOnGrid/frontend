@@ -18,6 +18,27 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           <Link href="/profile">
             <img className="icono-sideBar-grid" src="/logo7.svg" />
           </Link>
+          <div className="user-profile">
+            <div className="profile-pic">
+              <Image
+                src="/userDark.png"
+                alt="User Icon"
+                width={30}
+                height={30}
+              />
+              <span className="status-indicator"></span>
+            </div>
+            <div className="profile-info">
+              <p className="profile-name">Name</p>
+              <p className="profile-username">@username</p>
+            </div>
+          </div>
+          <Link href="/profile/deploy">
+            <li className="sideNavbar-li deploy-item">
+              <span>Deploy</span>
+              <span className="deploy-plus">+</span>
+            </li>
+          </Link>
           <Link href="/profile">
             <li className={`sideNavbar-li ${isActive('/profile')}`}>
               Dashboard
@@ -41,7 +62,8 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </li>
           </Link>
           <Link href={'/'}>
-            <button style={{ marginTop: '7vh' }} className="logout-sidebar">
+            <span className="logout-sidebar">
+              Log Out
               <Image
                 className="button-logout"
                 alt=""
@@ -49,11 +71,59 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                 height={16}
                 width={16}
               />
-              Log Out
-            </button>
+            </span>
           </Link>
+
           <div className="footer-sidebar">
-            <span onClick={() => setAbierto(!abierto)}>Contact Support</span>
+            <div className="contact-links">
+              <div className="social-icons">
+                <Link href="https://github.com" passHref>
+                  <Image
+                    src="/githubLogoDark.svg"
+                    alt="GitHub"
+                    width={30}
+                    height={30}
+                  />
+                </Link>
+                <Link href="https://twitter.com" passHref>
+                  <Image
+                    src="/xLogo.svg"
+                    alt="Twitter"
+                    width={30}
+                    height={30}
+                  />
+                </Link>
+                <Link href="https://discord.com" passHref>
+                  <Image
+                    src="/discordLogo.svg"
+                    alt="Discord"
+                    width={30}
+                    height={30}
+                  />
+                </Link>
+              </div>
+              <div className="contact-options">
+                <div className="contact-item">
+                  <Image
+                    src="/contactLogo.svg"
+                    alt="Contact Us"
+                    width={24}
+                    height={24}
+                  />
+                  <span>Contact us</span>
+                </div>
+                <div className="contact-item">
+                  <Image
+                    src="/suppLogo.svg"
+                    alt="Support"
+                    width={24}
+                    height={24}
+                  />
+                  <span>Support</span>
+                </div>
+              </div>
+            </div>
+            {/* <span onClick={() => setAbierto(!abierto)}>Contact Support</span> */}
           </div>
         </ul>
         <img alt="" src="/gridCloud2.svg" className="sidebar-grid" />

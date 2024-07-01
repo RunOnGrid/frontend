@@ -1,8 +1,9 @@
 .graphs-landing {
   color: white;
-
+  max-height: 90vh;
   width: 80%;
   margin: auto;
+  margin-bottom: 200px;
 }
 .graphs-landing h3 {
   font-size: 1.3rem;
@@ -41,6 +42,7 @@
 }
 .cpu-container {
   margin: auto;
+  margin-right: 0px;
 }
 .graphs-landing h2 {
   font-size: 3rem;

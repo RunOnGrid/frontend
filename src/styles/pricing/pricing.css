@@ -41,12 +41,12 @@
 }
 
 .pricing-card h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: 20px;
 }
 
 .pricing-card h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: -20px;
 }
 
@@ -95,6 +95,7 @@
   );
   margin-right: -17vw;
   width: 20%;
+  height: 55vh;
 }
 
 .pricing-card.team {
@@ -103,9 +104,9 @@
     rgba(255, 255, 255, 0.534) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-  height: 75vh;
+  height: 55vh;
   z-index: 2; /* Añadir z-index para que esté por encima */
-  margin-top: -120px; /* Ajustar el margin-top para que se superponga */
+  margin-top: -50px; /* Ajustar el margin-top para que se superponga */
   width: 22%;
 }
 
@@ -117,6 +118,7 @@
   );
   width: 20%;
   margin-left: -17vw;
+  height: 55vh;
 }
 
 .pricing-card.team button {
@@ -130,7 +132,7 @@
   color: white;
   text-align: center;
   justify-content: center;
-  margin-bottom: 180px;
+  margin-bottom: 70px;
 }
 
 .h1-landing {
@@ -139,4 +141,7 @@
   font-size: 2.5rem;
   justify-content: center;
   text-align: center;
+}
+.plans-section {
+  max-height: 90vh;
 }
