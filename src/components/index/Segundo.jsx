@@ -1,6 +1,5 @@
-import Lottie from 'lottie-web';
-import React, { useEffect, useRef } from 'react';
-import { useInView } from 'react-intersection-observer';
+import React from "react";
+import { useInView } from "react-intersection-observer";
 
 const Segundo = () => {
   const [ref2, inView2] = useInView({
@@ -9,28 +8,18 @@ const Segundo = () => {
   });
   const fadeInStylesLeft = {
     opacity: 1,
-    transform: 'translateX(12.4%)',
-    transition: 'opacity 3s ease-in-out, transform 1s ease-in-out',
+    transform: "translateX(12.4%)",
+    transition: "opacity 3s ease-in-out, transform 1s ease-in-out",
   };
 
-  const container = useRef(null);
-
-  useEffect(() => {
-    Lottie.loadAnimation({
-      container: container.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      animationData: require('../../../public/animGlobe3.json'),
-    });
-  }, []);
   return (
     <section className="contenedorSegundo">
       <div
         ref={ref2}
         style={inView2 ? fadeInStylesLeft : {}}
-        className="textos">
-        <div style={{ width: '50%' }}>
+        className="textos"
+      >
+        <div style={{ width: "50%" }}>
           <div className="tituloSegundo">Book a demo </div>
           <div className="subtituloSegundo">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -39,21 +28,6 @@ const Segundo = () => {
         </div>
         <button className="button-textos">BOOK A DEMO NOW</button>
       </div>
-
-      {/* <div className="textosMobile">
-        <div className="tituloSegundo">
-          <span className="primeraParte">
-            {' '}
-            Flux provides a global cloud network{' '}
-          </span>
-        </div>
-        <div className="subtituloSegundo">
-          Regions: North America, Europe, Asia, South America, Africa, Oceania
-          77 geographic location
-        </div>
-      </div>
-      <img className="fotoSegundo" src={'/mapa.png'} alt="" /> */}
-      {/* <div className='animacion-mundo' ref={container} > </div> */}
     </section>
   );
 };

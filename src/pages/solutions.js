@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import Footer from '@/components/index/Footer';
 import { useInView } from 'react-intersection-observer';
-import Charts from '@/components/solutions/Charts';
 import Migration from '@/components/solutions/Migration';
 import React, { useRef } from 'react';
 import ContactForm from '@/components/index/ContactForm';
@@ -57,10 +56,6 @@ export default function Solutions() {
        </div> */}
         <div style={{ opacity: '0' }}>.</div>
         <SolutionCard />
-
-        <div>
-          <Charts />
-        </div>
         <Migration />
 
         <ContactForm1 ref={contactFormRef} />

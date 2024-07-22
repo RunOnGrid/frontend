@@ -3,24 +3,17 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import dynamic from 'next/dynamic';
 import Segundo from '@/components/index/Segundo';
-import Powered from '@/components/index/Powered';
 import ContactForm from '@/components/index/ContactForm';
 import Footer from '@/components/index/Footer';
 import Banner from '@/components/landing-AsicHosting/Banner';
 import { useInView } from 'react-intersection-observer';
-import ButtonsLanding from '@/components/ButtonsLanding';
-import React, { useEffect, useRef, useState } from 'react';
-import NuevoFaqs from '@/components/NuevoFaqs';
-import Guarantee from '@/commons/Guarantee';
+import React, {  useRef} from 'react';
 import BestFeatures from '@/components/BestFeatures/BestFeatures';
 import DeployChoice from '@/components/deployChoice/DeployChoice';
-import CardPrincing from '@/components/pricing/CardPrincing';
-import CardPrincing2 from '@/components/pricing/Card2Pricing';
-import Card3Princing from '@/components/pricing/Card3Pricing';
 import GraphsLanding from '@/components/Graphs/GraphsLanding';
 import InfoLanding from '@/components/Graphs/InfoLanding';
 import CardPricing from '@/components/pricing/CardPrincing';
-import Triangles from '@/components/landing-AsicHosting/Triangles';
+
 
 const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
   ssr: false,
@@ -126,9 +119,7 @@ export default function Home() {
 {
   /* <CardsHosting/> */
 }
-{
-  /* <ButtonsLanding /> */
-}
+
 {
   /* <Guarantee /> */
 }

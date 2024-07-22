@@ -1,13 +1,8 @@
-import Paginacion from '@/commons/Paginacion';
-import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import ModalContact from '@/commons/ModalContact';
-import ComponentCard from '@/commons/ComponentCard';
-import ComponentCard2 from '@/commons/ComponentCard2';
-import Dashboard from '@/components/profile/Dashboard';
-import DashboardActive from '@/components/profile/DashboardActivo';
-const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import ModalContact from "@/commons/ModalContact";
+import DashboardActive from "@/components/profile/DashboardActivo";
+const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
@@ -15,11 +10,11 @@ const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
 export default function LoggedLogin() {
   const [abierto, setAbierto] = useState(false);
   const [selected, setSelected] = useState(0);
-  const [loginPhrase, setLoginPhrase] = useState('');
+  const [loginPhrase, setLoginPhrase] = useState("");
 
   useEffect(() => {
     // Recuperar el valor de loginPhrase de localStorage
-    const storedData = localStorage.getItem('postData');
+    const storedData = localStorage.getItem("postData");
 
     if (storedData) {
       const postData = JSON.parse(storedData);
@@ -35,10 +30,11 @@ export default function LoggedLogin() {
 
   return (
     <div>
-      <div className={abierto ? 'blureado' : ''}>
+      <div className={abierto ? "blureado" : ""}>
         <div className="logged-home-component2">
           <div
-            style={{ display: 'flex', flexDirection: 'row', height: '100vh' }}>
+            style={{ display: "flex", flexDirection: "row", height: "100vh" }}
+          >
             <DynamicNavbar abierto={abierto} setAbierto={setAbierto} />
 
             <DashboardActive />
@@ -109,7 +105,7 @@ export default function LoggedLogin() {
       {abierto ? (
         <ModalContact abierto={abierto} setAbierto={setAbierto} />
       ) : (
-        ''
+        ""
       )}
     </div>
   );

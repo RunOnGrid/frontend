@@ -497,7 +497,7 @@ span {
 
 .slider:before {
   position: absolute;
-  content: '';
+  content: "";
   height: 15px;
   width: 15px;
   left: 4px;
@@ -623,7 +623,7 @@ input:checked + .slider:before {
   border-radius: 50px;
   border: 1px solid transparent;
   right: 0;
-  margin-right: -10px; /* Ajusta este valor según el nivel de superposición deseado */
+  margin-right: -20px; /* Ajusta este valor según el nivel de superposición deseado */
 }
 .member-image-back
 
@@ -641,6 +641,12 @@ input:checked + .slider:before {
 }
 .app-date p {
   font-size: 0.7rem;
+  margin-left: 5px;
+  margin-right: 0px;
+}
+.calendar-app{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .team-date {
@@ -761,3 +767,34 @@ input:checked + .slider:before {
   font-size: 0.8rem;
   font-weight: 500;
 }
+
+
+@media only screen and (max-width: 1250px) {
+  .team-date{
+    flex-direction: column;
+   
+  }
+   .calendar-app{
+    justify-content: center;
+    margin: auto;
+  }
+  .middle-section{
+    display: flex;
+    flex-direction: column;
+  }
+  .billing-section{
+    width: 92%;
+    margin-bottom: 15px;
+  }
+  .teams-section{
+    margin: auto;
+    margin-bottom: 15px;
+    width: 92%;
+  }
+  .envs-section{
+    width: 92%;
+  }
+  .teamActive-container{
+    width: 15vw;
+  }
+ }

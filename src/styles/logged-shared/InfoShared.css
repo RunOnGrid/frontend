@@ -542,6 +542,11 @@
     margin-left: 30%;
   }
 }
+@media only screen and (max-width: 1200px) {
+  .shared-columnas2, .shared-columnas{
+    width: 100%;
+  }
+}
 
 @media only screen and (max-width: 550px) {
   .infoShared-titulo {

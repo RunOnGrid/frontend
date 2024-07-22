@@ -1,0 +1,465 @@
+.table-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .table-header, .table-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr) auto;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .table-header {
+    font-weight: bold;
+    width: 90%;
+    margin: auto;
+   
+  }
+  
+  .table-row {
+    height: 7vh;
+    margin: 10px auto;
+    border-radius: 30px;
+    width: 90%;
+    padding: 15px;
+
+  }
+  .table-row.dark {
+    background-color: #161F21;
+  }
+  .table-row.light {
+    background-color: #f5f6f6;
+    color: black;
+  }
+  .table-row h3{
+    font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px;
+  }
+  .table-row h4{
+    font-size: 0.9rem;
+  font-weight: 500;
+  }
+  .table-row h5{
+    display: flex;
+    font-size: 0.9rem;
+  font-weight: 500;
+  gap: 10px;
+  }
+
+  .status{
+    display: flex;
+    gap: 10px;
+    
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+ 
+  
+  .edit-icon {
+    cursor: pointer;
+  }
+  .filters-container {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    width: 90%;
+    margin: 30px auto;
+  }
+  
+  .filter-button {
+    padding: 10px 20px;
+    background-color: #f5f6f6;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    width: 150px;
+  }
+  
+  .dropdown {
+    position: absolute;
+    background-color: white;
+    border: 2px solid #44494a17;
+    padding: 10px;
+    margin-top: 35px;
+    border-radius: 15px;
+    border-top: none;
+    margin-left: 10px;
+    margin-right: auto;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+  
+  .dropdown p {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+   
+  }
+  
+  .dropdown li {
+    padding: 2px 0;
+    cursor: pointer;
+    color: black;
+  }
+  
+
+  .dropdown2 {
+    position: absolute;
+    background-color: white;
+    border: 2px solid #44494a17;
+    padding: 10px;
+    margin-top: 35px;
+    border-radius: 15px;
+    margin-left: 160px;
+    margin-right: auto;
+  
+  }
+  
+  .dropdown2 p {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .dropdown2 ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+  }
+  
+  .dropdown2 li {
+    display: flex;
+    gap: 5px;
+    padding: 5px 0;
+    cursor: pointer;
+    color: black;
+    background-color: #f5f6f6;
+    margin: 10px;
+    padding: 5px 15px;
+    border-radius: 25px;
+  }
+
+  .application-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 20px;
+    width: 85%;
+    margin: auto;
+  }
+  
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header h1 {
+    margin: 0;
+  }
+  
+  .subheader {
+    color: white;
+    background-color:#161F21 ;
+    padding: 4px 10px;
+    border-radius: 15px;
+    margin: 10px;
+    margin-left: 0px;
+    font-weight: 300;
+  }
+  
+  .link {
+    color: #007bff;
+    text-decoration: none;
+    margin: 10px 0;
+  }
+  
+  .deployment-info {
+    display: flex;
+    gap: 20px;
+    margin-left: auto;
+    margin-right: 0px;
+    margin-bottom: 50px;
+  }
+  
+  .info-box {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 15px;
+    border-radius: 15px;
+    width: 10vw;
+    justify-content: center;
+    text-align: start;
+  }
+  .info-box.dark{
+    background-color:#44494a ;
+  }
+  .info-box.light{
+    background-color:#f5f6f6;
+  }
+  .info-box h4{
+    margin-top: 0px;
+  }
+  
+  .content {
+    display: flex;
+    flex-grow: 1;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .sidebar {
+    width: 200px;
+    margin-right: 20px;
+    
+    border-left: 1px solid rgba(128, 128, 128, 0.253);
+    height: 60%;
+    padding-left: 15px;
+  }
+  .sidebar.light{
+    color: black;
+  }
+  .sidebar.dark li {
+    color: #f4f4f4 !important;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 15px 0;
+    cursor: pointer;
+    color: black !important;
+    font-weight: 500 !important;
+    font-size: 1rem !important;
+  }
+  .sidebar li:hover {
+    font-weight: 700 !important;
+  }
+  
+  .main-content {
+    width: 100%;
+    flex-grow: 1;
+    
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(128, 128, 128, 0.171);
+    margin-bottom: 20px;
+  }
+  .main-content.light{
+    background-color: #fff;
+  }
+
+  .main-content.dark{
+    background-color: #161F21;
+  }
+  
+  /* .general, .custom-domains {
+    margin-bottom: 20px;
+  } */
+  
+  .general-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 25px;
+  }
+  .general-item select{
+    display: flex;
+    margin-left: 0px;
+    margin-right: auto;
+    padding: 15px 2vw;
+    border-radius: 25px;
+    
+  }
+  .general-item h4{
+    margin: 0px;
+    padding-right: 0px;
+    margin-right: 0px !important;
+  }
+  .general-item button{
+    background-color: #f5f6f6;
+    color: black;
+    border: none;
+    border-radius: 25px;
+
+    width: auto;
+  }
+  
+  .general-item label {
+    width: 150px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    width: 30%;
+  }
+ 
+  
+  .general-item input, .general-item span {
+    display: flex;
+    flex-grow: 1;
+    padding: 5px;
+    margin-right: auto;
+    margin-left: 0px;
+    text-align: start;
+    
+  }
+  .general-item input{
+    border: 1px solid rgba(128, 128, 128, 0.267);
+    border-radius: 25px;
+    padding: 10px 25px;
+    width: 60%;
+  }
+  .general-item span{
+    color: rgba(128, 128, 128, 0.904);
+    font-size: 0.9rem;
+  }
+  
+  .status.active {
+    color: green;
+  }
+  
+  .edit-icon, .update-link {
+    color: #007bff;
+    cursor: pointer;
+  }
+  .edit-link{
+    color:#00b174 !important;
+    font-weight: 500;
+    margin-left: 20px !important;
+    cursor: pointer;
+  }
+  
+  .custom-domains button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .custom-domain {
+    display: flex;
+    flex-direction: column;
+  }
+  .custom-domain span{
+    color: #a3a3a3;
+    font-size: 0.8rem;
+    margin: 10px 0px;
+  }
+  .custom-domain button{
+    
+    color: #00b174;
+    font-weight: 600;
+    padding: 10px 5vw !important;
+    width: 40% !important;
+    border-radius: 25px;
+    margin-top: 10px;
+  }
+  .custom-domain button:hover{
+    background-color: white;
+  }
+
+  .general-item2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 25px;
+    padding-left: 0px;
+  }
+  .general-item2 select{
+    display: flex;
+    padding: 15px 2vw;
+    border-radius: 25px;
+    
+  }
+  .general-item2 label {
+    width: 150px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    width: 30%;
+  }
+  .general-item2 span {
+    display: flex;
+ 
+    padding: 5px;
+    margin-right: auto;
+    margin-left: 0px;
+    text-align: start;
+    
+  }
+  .noti-buttons {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    
+  }
+  .noti-buttons button{
+    padding: 5px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    
+  }
+  .noti-button1 {
+    color: #00b174;
+    margin: 10px;
+  }
+  .noti-button2{
+    background-color: #00b174;
+    margin: 10px;
+  }
+
+  .noti-buttons2 {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    
+  }
+  .noti-buttons2 button{
+    padding: 5px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    
+  }
+  .noti-button4 {
+    color: #ef0000;
+    margin: 10px;
+    border-color: #ef0000;
+  }
+  .noti-button3{
+    background-color: #ef0000;
+    border-color: #ef0000;
+    margin: 10px;
+  }
+  .noti-button3:hover{
+    background-color: #ef0000;
+  }
+  .noti-button4:hover{
+    background-color: white;
+  }
+  @media only screen and (max-width: 1250px) {
+    .table-header{
+      font-size: 0.9rem;
+    }
+    .table-row h3, .table-row h4, .table-row h5, .status{
+      font-size: 0.8rem;
+    }
+    .table-row h5{
+      gap: 2px;
+    }
+   
+  }

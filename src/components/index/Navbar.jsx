@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Link from 'next/link';
-import MenuMobile from '../MenuMobile';
+import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import MenuMobile from "../MenuMobile";
 function Navbar({ scrollToContactForm }) {
   const [dropdown, setDropdown] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
@@ -25,26 +25,26 @@ function Navbar({ scrollToContactForm }) {
     const handleScroll = () => {
       window.scrollY > 0 ? setIsSticky(true) : setIsSticky(false);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <>
-      <nav className={`navbar ${isSticky ? 'sticky' : ''}  `}>
+      <nav className={`navbar ${isSticky ? "sticky" : ""}  `}>
         <div className="nav-items">
           <Link href="/">
-            <img className="navbar-logo" src="/probando.svg" />
+            <img className="navbar-logo" src="/logoLanding.svg" />
           </Link>
           <div onClick={() => toggleMenu()} className="hamburguer-navbar">
-            {' '}
+            {" "}
             {menu === false ? (
-              <img className="hamburger-logo" src={'/menu.png'} />
+              <img className="hamburger-logo" src={"/menu.png"} />
             ) : (
-              <img className="hamburger-logoCerrado" src={'/menuCerrado.png'} />
-            )}{' '}
+              <img className="hamburger-logoCerrado" src={"/menuCerrado.png"} />
+            )}{" "}
           </div>
           <div className="un-contenedor">
             <div
@@ -52,33 +52,35 @@ function Navbar({ scrollToContactForm }) {
                 setDropdown2(!dropdown2);
                 setDropdown(false);
               }}
-              className="nav-title">
-              {' '}
+              className="nav-title"
+            >
+              {" "}
               WHY CHOOSE US?
               <img className="downNavbar" src="/downNavbar.png" alt="" />
             </div>
             <div className="nav-title">
-              <Link href="/pricing"> PRICING </Link>{' '}
+              <Link href="/pricing"> PRICING </Link>{" "}
             </div>
 
             <div className="nav-title">
-              <Link href="/blog"> BLOG </Link>{' '}
+              <Link href="/blog"> BLOG </Link>{" "}
             </div>
 
             <div className="nav-title">
-              {' '}
+              {" "}
               <Link href="https://cal.com/bautista-gonzalez-lazo-g8xn68">
-                {' '}
-                BOOK A DEMO{' '}
-              </Link>{' '}
+                {" "}
+                BOOK A DEMO{" "}
+              </Link>{" "}
             </div>
             <div
               onClick={() => {
                 scrollToContactForm();
               }}
-              className="nav-title">
-              {' '}
-              CONTACT{' '}
+              className="nav-title"
+            >
+              {" "}
+              CONTACT{" "}
             </div>
           </div>
           <div className="login-register">
@@ -91,39 +93,40 @@ function Navbar({ scrollToContactForm }) {
           </div>
         </div>
       </nav>
-      {menu ? <MenuMobile /> : ''}
+      {menu ? <MenuMobile /> : ""}
 
       <div
-        className={`container-productos ${dropdown2 ? 'show' : ''} ${
-          isSticky ? 'sticky' : ''
+        className={`container-productos ${dropdown2 ? "show" : ""} ${
+          isSticky ? "sticky" : ""
         }`}
         onMouseOver={() => {
           setDropdown2(true);
           setDropdown(false);
         }}
-        onMouseLeave={() => setDropdown2(false)}>
+        onMouseLeave={() => setDropdown2(false)}
+      >
         <div className="productos">
-          <img alt="" className="logo-productos" src={'/solution.png'} />
+          <img alt="" className="logo-productos" src={"/solution.png"} />
           <div className="descripcion-productos">
             <Link href="/solutions">
               <span className="titulo-productos"> Solutions </span>
             </Link>
             <span className="subtitulo-productos">
-              {' '}
-              Una descripcion un poco mas larga paraq ver{' '}
+              {" "}
+              Una descripcion un poco mas larga paraq ver{" "}
             </span>
           </div>
         </div>
 
         <div className="productos">
-          <img alt="" className="logo-productos" src={'/blog.png'} />
+          <img alt="" className="logo-productos" src={"/blog.png"} />
           <div className="descripcion-productos">
             <Link href="/aboutUs">
               <span className="titulo-productos">About us</span>
             </Link>
             <span className="subtitulo-productos">
-              {' '}
-              Una descripcion un poco mas larga paraq ver{' '}
+              {" "}
+              Una descripcion un poco mas larga paraq ver{" "}
             </span>
           </div>
         </div>

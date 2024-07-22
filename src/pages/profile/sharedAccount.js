@@ -1,8 +1,7 @@
-import SharedInfo from '@/components/logged/sharedAccount/SharedInfo';
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import SharedPopUp from '@/components/logged/sharedAccount/SharedPopUp';
-const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
+import SharedInfo from "@/components/logged/sharedAccount/SharedInfo";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
@@ -14,10 +13,10 @@ export default function SharedAccount() {
   };
   return (
     <div className="logged-home-component2">
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <DynamicNavbar />
 
-        <div style={{ opacity: '0' }}>.</div>
+        <div style={{ opacity: "0" }}>.</div>
         <SharedInfo />
       </div>
     </div>

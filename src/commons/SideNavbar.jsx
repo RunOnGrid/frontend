@@ -1,15 +1,15 @@
-import SidebarMobile from '@/components/SidebarMobile';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
+import SidebarMobile from "@/components/SidebarMobile";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 const SideNavbar = ({ abierto, setAbierto }) => {
   const [menu, setMenu] = useState(false);
   const router = useRouter();
   const currentPath = router.pathname;
 
-  const isActive = (path) => (currentPath === path ? 'active' : '');
+  const isActive = (path) => (currentPath === path ? "active" : "");
 
   return (
     <>
@@ -40,28 +40,31 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </li>
           </Link>
           <Link href="/profile">
-            <li className={`sideNavbar-li ${isActive('/profile')}`}>
+            <li className={`sideNavbar-li ${isActive("/profile")}`}>
               Dashboard
             </li>
           </Link>
-          <Link href="/profile/hosting">
-            <li className={`sideNavbar-li ${isActive('/profile/hosting')}`}>
+          <Link href="/profile/applications">
+            <li
+              className={`sideNavbar-li ${isActive("/profile/applications")}`}
+            >
               Applications
             </li>
           </Link>
 
           <Link href="/profile/sharedAccount">
             <li
-              className={`sideNavbar-li ${isActive('/profile/sharedAccount')}`}>
+              className={`sideNavbar-li ${isActive("/profile/sharedAccount")}`}
+            >
               Settings
             </li>
           </Link>
           <Link href="/profile/integration">
-            <li className={`sideNavbar-li ${isActive('/profile/integration')}`}>
+            <li className={`sideNavbar-li ${isActive("/profile/integration")}`}>
               Integrations
             </li>
           </Link>
-          <Link href={'/'}>
+          <Link href={"/"}>
             <span className="logout-sidebar">
               Log Out
               <Image
@@ -132,17 +135,17 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           <img
             onClick={() => setMenu(true)}
             className="sidebar-menu-mobile"
-            src={'/menu.png'}
+            src={"/menu.png"}
           />
         ) : (
           <img
             onClick={() => setMenu(false)}
             className="sidebar-menu-mobile"
-            src={'/menuCerrado.png'}
+            src={"/menuCerrado.png"}
           />
         )}
       </nav>
-      {menu ? <SidebarMobile /> : ''}
+      {menu ? <SidebarMobile /> : ""}
     </>
   );
 };

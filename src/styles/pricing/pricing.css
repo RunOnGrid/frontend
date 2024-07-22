@@ -36,7 +36,6 @@
 
 .pricing-card h2,
 .pricing-card h1 {
-  font-family: rouben;
   letter-spacing: 1px;
 }
 
@@ -61,14 +60,14 @@
 }
 
 .pricing-card h3 {
-  font-family: rouben ligth;
+
   font-size: 1rem;
   width: 70%;
   margin: auto;
 }
 
 .pricing-card h4 {
-  font-family: rouben ligth;
+
   letter-spacing: 1px;
   margin: 20px auto;
 }
@@ -137,7 +136,7 @@
 
 .h1-landing {
   color: white;
-  font-family: rouben ligth;
+
   font-size: 2.5rem;
   justify-content: center;
   text-align: center;

@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import dynamic from 'next/dynamic';
-import Paginacion from '@/commons/Paginacion';
-import { parse } from 'cookie';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import dynamic from "next/dynamic";
 
-import 'dotenv/config';
-import back from '../../../axios';
+import { parse } from "cookie";
+
+import "dotenv/config";
+import back from "../../../axios";
 
 const Repositories = () => {
-
-  const DynamicNavbar = dynamic(() => import('../../commons/SideNavbar'), {
+  const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
     ssr: false,
     loading: () => <p> Im f</p>,
   });
@@ -20,12 +19,12 @@ const Repositories = () => {
   useEffect(() => {
     const fetchRepositories = async () => {
       try {
-        const userGrid = localStorage.getItem('userGrid');
+        const userGrid = localStorage.getItem("userGrid");
         const response = await back.get(`/api/getRepositories/${userGrid}`);
 
         setRepositories(response.data);
       } catch (error) {
-        console.error('Error obteniendo los repositorios', error);
+        console.error("Error obteniendo los repositorios", error);
       }
     };
 
@@ -35,15 +34,14 @@ const Repositories = () => {
   const modifyRepo = async (repo, owner) => {
     try {
       const fullName = `${owner}/${repo}`;
-      const response = await back.post('/api/github/modifyRepo', {
+      const response = await back.post("/api/github/modifyRepo", {
         name: repo,
         fullName: fullName,
         buildpack: selectedClient,
       });
       console.log(response);
-   
     } catch (error) {
-      console.error('Error modificando el repositorio', error);
+      console.error("Error modificando el repositorio", error);
     }
   };
   const handleClientSelection = (client) => {
@@ -61,23 +59,19 @@ const Repositories = () => {
     <div>
       <div className="logged-home-component">
         <DynamicNavbar />
-        <Paginacion anterior="Home" links="/profile" titulo="Repositories" />
         <div className="contenedor-repositories">
-
           <h1>Lista de Repositorios </h1>
-
           <ul>
             {repositories.map((repo) => (
               <li key={repo.id}>
                 {repo.name}
-
                 <button onClick={() => modifyRepo(repo.name, repo.owner)}>
                   Modificar
                 </button>
-                <button onClick={() => handleClientSelection('docker')}>
+                <button onClick={() => handleClientSelection("docker")}>
                   Docker
                 </button>
-                <button onClick={() => handleClientSelection('git')}>
+                <button onClick={() => handleClientSelection("git")}>
                   Git
                 </button>
               </li>

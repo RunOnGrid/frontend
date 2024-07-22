@@ -1,4 +1,4 @@
-import Paginacion from '@/commons/Paginacion';
+
 import React, { useState } from 'react';
 import SharedBox from './SharedBox';
 import Image from 'next/image';
@@ -32,12 +32,8 @@ const SharedInfo = () => {
 
   return (
     <div className={`dashboard-container ${darkMode ? 'dark' : 'light'}`}>
-      {/* <div> s</div> */}
-      {/* <Paginacion
-        anterior="Settings"
-        links="/profile"
-        titulo="Shared Account"
-      /> */}
+ 
+    
       <div className="dashboard-header">
         <h2>Dashboard</h2>
         <div className="toggle-mode">

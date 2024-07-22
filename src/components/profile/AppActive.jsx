@@ -1,21 +1,21 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from "next/image";
+import React from "react";
 
 const AppActive = ({ title, type, state, date, mode }) => {
   const getStateClass = (state) => {
     switch (state.toLowerCase()) {
-      case 'active':
-        return 'active';
-      case 'inactive':
-        return 'inactive';
-      case 'renew':
-        return 'renew';
+      case "active":
+        return "active";
+      case "inactive":
+        return "inactive";
+      case "renew":
+        return "renew";
       default:
-        return '';
+        return "";
     }
   };
   return (
-    <div className={`appActive-container ${mode ? 'dark' : 'light'}`}>
+    <div className={`appActive-container ${mode ? "dark" : "light"}`}>
       <div className="app-titles">
         <h3>{title}</h3>
         <div className="appActive-state">
@@ -31,34 +31,36 @@ const AppActive = ({ title, type, state, date, mode }) => {
             <Image
               className="member-image"
               alt=""
-              src="/userDark.png"
-              width={25}
-              height={25}
+              src="/memberDark.svg"
+              width={40}
+              height={40}
             />
           </div>
           <div className="member-image-back">
             <Image
               className="member-image"
               alt=""
-              src="/userDark.png"
-              width={25}
-              height={25}
+              src="/memberDark.svg"
+              width={40}
+              height={40}
             />
           </div>
           <div className="member-image-back">
             <Image
               className="member-image"
               alt=""
-              src="/userDark.png"
-              width={25}
-              height={25}
+              src="/memberDark.svg"
+              width={40}
+              height={40}
             />
           </div>
         </div>
-        <Image alt="" src="/calendar.png" height={15} width={15} />
-        <div className="app-date">
-          <p>RENEWAL DATE</p>
-          <p>{date}</p>
+        <div className="calendar-app">
+          <Image alt="" src="/calendar.png" height={15} width={15} />
+          <div className="app-date">
+            <p>RENEWAL DATE</p>
+            <p>{date}</p>
+          </div>
         </div>
       </div>
     </div>

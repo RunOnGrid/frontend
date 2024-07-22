@@ -1,4 +1,4 @@
-import Paginacion from '@/commons/Paginacion';
+
 import React, { useState } from 'react';
 
 const Proyecto = () => {
@@ -9,7 +9,7 @@ const Proyecto = () => {
   return (
     <div>
       <div> s</div>
-      <Paginacion anterior="Home" links="/profile" />
+    
       <div className="contenedor-titulos-hosting-click-shared">
         <span
           className={`spanHosting-clickeable-shared${

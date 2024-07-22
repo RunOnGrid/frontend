@@ -1,31 +1,31 @@
-import Image from 'next/image';
-import React from 'react';
+import Image from "next/image";
+import React from "react";
 
 const TeamActive = ({ name, quantity, mode }) => {
   return (
-    <div className={`teamActive-container ${mode ? 'dark' : 'light'}`}>
+    <div className={`teamActive-container ${mode ? "dark" : "light"}`}>
       <h3>{name}</h3>
       <div className="team-members">
         <Image
           className="member-image"
           alt=""
-          src="/userDark.png"
-          width={25}
-          height={25}
+          src="/memberDark.svg"
+          width={40}
+          height={40}
         />
         <Image
           className="member-image"
           alt=""
-          src="/userDark.png"
-          width={25}
-          height={25}
+          src="/memberDark.svg"
+          width={40}
+          height={40}
         />
         <Image
           className="member-image"
           alt=""
-          src="/userDark.png"
-          width={25}
-          height={25}
+          src="/memberDark.svg"
+          width={40}
+          height={40}
         />
       </div>
     </div>
