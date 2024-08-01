@@ -5,9 +5,10 @@
 }
 .deploy-choice h1 {
   display: flex;
-  font-size: 2rem;
+  font-size: 3.5rem;
   justify-content: center;
-  font-weight: 400;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
 .deploy-choice span {
   display: flex;
@@ -113,6 +114,6 @@
 }
 
 .countup-large {
-  font-size: 1.5rem; /* Ajusta el tamaño según tus necesidades */
-  font-weight: bold; /* Opcional: para hacer el texto más grueso */
+  font-size: 1.5rem;
+  
 }

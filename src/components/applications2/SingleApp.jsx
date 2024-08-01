@@ -2,32 +2,23 @@ import React, { useState } from "react";
 import General from "./General";
 import Domains from "./Domains";
 import Notifications from "./Notifications";
+import ThemeToggle from "../ThemeToggle";
+import { useTheme } from "@/ThemeContext";
+import Notis from "./Notis";
 
 const SingleApp = () => {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
         <h2>My applications</h2>
-        <div className="toggle-mode">
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={darkMode}
-              onChange={toggleDarkMode}
-            />
-            <span className="slider round"></span>
-          </label>
-        </div>
+        <ThemeToggle />
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}
@@ -37,27 +28,7 @@ const SingleApp = () => {
             alt="Notifications"
           />
         </div>
-        {showNotifications && (
-          <div className={`notifications-popup ${darkMode ? "dark" : "light"}`}>
-            <h2>Notifications</h2>
-            <div className={`notification-item ${darkMode ? "dark" : "light"}`}>
-              <span className="dot green"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-            <div className={`notification-item ${darkMode ? "dark" : "light"}`}>
-              <span className="dot orange"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-            <div className={`notification-item ${darkMode ? "dark" : "light"}`}>
-              <span className="dot green"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-            <div className={`notification-item ${darkMode ? "dark" : "light"}`}>
-              <span className="dot red"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-          </div>
-        )}
+        {showNotifications && <Notis darkMode={darkMode} />}
       </div>
       <div className={`application-details ${darkMode ? "dark" : "light"}`}>
         <div className="header">

@@ -1,8 +1,9 @@
 .cloudSelect {
   display: flex;
+  flex-direction: column;
   text-align: center;
-  align-items: center;
-  align-content: center;
+
+  
   padding: 20px;
   width: 92%;
   margin: 10px auto;
@@ -12,6 +13,13 @@
   border-radius: 30px;
   border: none;
 }
+.cloudSelect button{
+  background-color: #000;
+  margin: 15px 5px;
+}
+.cloudSelect button:hover{
+  background-color: #00b174;
+}
 .cloudSelect span,
 .databaseSelect span,
 .locationSelect span {
@@ -19,6 +27,7 @@
   font-size: 0.9rem;
   margin: 5px 0px;
   margin-right: 30px;
+  font-weight: 600;
 }
 .cloudSelect h3,
 .databaseSelect h3,
@@ -36,7 +45,7 @@
 }
 .databaseSelect button {
   padding: 0px 15px;
-  background-color: #f5f6f6;
+ 
   margin: 10px 5px;
 }
 .databaseSelect button:hover {
@@ -63,6 +72,18 @@
   margin-top: 10px;
   height: 40px;
   margin-left: 20px;
+  background-color: transparent !important;
+}
+.input-container3 {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  padding: 5px;
+  width: 95%;
+  margin-top: 10px;
+  height: 40px;
+  margin-bottom: 20px;
   background-color: transparent !important;
 }
 
@@ -131,7 +152,7 @@
 }
 
 .region-button.active {
-  border: 2px solid #00c853; /* Verde */
+  border: 2px solid #00b174; /* Verde */
 
   background-color: transparent;
 }
@@ -163,8 +184,8 @@
 }
 
 .plan-card.active {
-  border: 2px solid #00c853; /* Verde */
-  background-color: #e8f5e9; /* Verde claro */
+  border: 2px solid #00b174; 
+  background-color: #d6eee3; 
 }
 
 .plan-card.light:hover {
@@ -269,18 +290,24 @@
   grid-template-columns: 60% 35%;
   margin: auto;
 }
+.deploy-container2 {
+  display: grid;
+  grid-template-columns: 100%;
+  margin: auto;
+}
 
 .summary-container {
   padding: 20px;
   border-radius: 20px;
-  width: 95%;
-  margin: 30px auto;
+  width: 90%;
+  margin:  auto;
   margin-left: auto;
-  margin-right: 0px;
   font-family: 'Arial', sans-serif;
+  margin-bottom: 40px;
+  margin-top: 30px;
 }
 .summary-container.light {
-  background-color: #f9f9f9;
+  background-color: #f5f6f6;
 }
 .summary-container.dark {
   background-color: #44494a;
@@ -322,4 +349,347 @@
 
 .price-container p {
   font-size: 18px;
+}
+
+.deployMethodBox {
+ 
+  width: 12vw;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  margin: 10px;
+  height: 14vh;
+  cursor: pointer;
+}
+.deployMethodBox.light{
+  background-color: #f5f6f6;
+}
+.deployMethodBox.dark{
+  background-color: #161f21;
+}
+.deployMethodBox:hover {
+  background-color: #d6eee3;
+  border: 2px solid #00b174;
+ 
+}
+
+.databaseSelect-title p{
+  font-size: 0.85rem;
+  margin-left: 0px;
+  font-weight: 550;
+  color: #7a7979;
+}
+
+.deployMethodBox p{
+  font-size: 0.8rem;
+  width: 60%;
+  margin: 0px auto;
+  justify-content: center;
+  text-align: center;
+}
+.deployMethodBox-title{
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+  justify-content: center;
+}
+.deployMethodBox-title h4{
+  font-size: 0.9rem;
+}
+.deployMethodBox-title img{
+  margin-right: 10px;
+}
+
+
+
+
+.geo-option {
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 10px;
+  text-align: start;
+  width: 32vw;
+  height: 25vh;
+}
+.geo-option.light{
+  background-color: white;
+}
+.geo-option.dark{
+  background-color: #161f21;
+  border: 1px solid transparent;
+}
+.geo-option h2{
+  display: flex;
+  margin-top: 0px;
+  font-size: 1rem;
+}
+.geo-locations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.geo-button {
+  background: #f0f0f0;
+  color: black !important;
+  border-radius: 20px;
+  margin: 5px !important;
+  width: auto !important;
+  font-size: 0.8rem !important;
+  padding: 10px 20px;
+}
+
+.add-button {
+  
+  border: 2px solid #00b174 !important;
+  border-radius: 20px;
+  color: #00b174;
+  padding: 6px 20px !important;
+  margin-top: 10px;
+  font-weight: 600 !important;
+  cursor: pointer;
+}
+.add-button:hover{
+  background-color: #d6eee3;
+}
+
+.geo-option span{
+  font-size: 0.8rem;
+}
+
+.selected-locations{
+  display: flex;
+  color: #6f6f6f;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.location{
+  margin-right: 3px;
+}
+
+.add-component {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  width: 50%;
+}
+.add-component.light{
+  background-color: white;
+}
+.add-component.dark{
+  background-color: #161f21;
+  border: 1px solid transparent;
+}
+.add-component label{
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-left: 10px;
+  
+}
+
+.form {
+  flex: 1;
+}
+
+.form h2 {
+  font-size: 18px;
+}
+
+.service-type {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.service-button {
+  padding: 5px 20px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  background-color: #f5f6f6;
+  cursor: pointer;
+  color: black;
+}
+
+.service-button:hover, .service-button:focus {
+  border: 1px solid #00b174;
+  background-color: #d6eee3;
+}
+
+
+.instance-config {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.instance-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.customize-button {
+  padding: 5px 20px;
+  border: 2px solid black;
+  color: black;
+  font-weight: 600;
+  border-radius: 20px;
+  background-color: #f5f6f6;
+  cursor: pointer;
+}
+
+.customize-button:hover, .customize-button:focus{
+  background-color: white;
+  border: 2px solid #00b174;
+  color: #00b174;
+}
+
+.slider {
+  margin-bottom: 10px;
+}
+
+.slider label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.instance-details {
+  display: flex;
+  justify-content: space-between;
+  
+
+  border-radius: 8px;
+  gap: 40px;
+}
+
+.details {
+  flex: 1;
+  margin-right: 20px;
+  
+}
+
+.details h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.value-box {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  align-items: center;
+}
+.value-box.light{
+  background-color: white;
+}
+.value-box.dark{
+  background-color: #161f21;
+  border: 1px solid transparent;
+}
+
+.value-box p {
+  display: flex;
+  justify-content: flex-end;
+  color: #7a7979;
+  font-weight: 600;
+  font-size: 0.8rem;
+
+}
+
+.value-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.value-details span {
+  display: block;
+  margin: 0;
+}
+
+.accept-button {
+  display: block;
+  padding: 10px 20px;
+  border: 2px solid #00b174;
+  border-radius: 20px;
+  color: #00b174;
+  cursor: pointer;
+  text-align: center;
+  margin-left: auto;
+  font-weight: 600;
+}
+
+.accept-button:hover {
+ background-color: white;
+}
+
+.customized-includes {
+  flex: 1;
+}
+
+.customized-includes h3 {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.customized-includes ul {
+ 
+  padding: 0;
+}
+
+.customized-includes li {
+  list-style-type:disc;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #7a7979;
+}
+.termService {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+ 
+}
+.termService h4{
+  margin: auto 5px;
+}
+/* DeployButton.css */
+
+.deploy-button-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.line-background {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #949494;
+  z-index: 0;
+}
+
+.deploy-button {
+  background-color: #00b174;
+  color: white;
+  padding: 10px 25px !important;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 400;
+  width: 12vw;
+  position: relative;
+  z-index: 1;
+  border: none;
+  cursor: pointer;
 }

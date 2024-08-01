@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import SharedBox from './SharedBox';
 import Image from 'next/image';
 import SharedPopUp from './SharedPopUp';
+import { useTheme } from "@/ThemeContext";
+import ThemeToggle from "@/components/ThemeToggle";
+import Notis from "@/components/applications2/Notis";
 
 const SharedInfo = () => {
   const [selected, setSelected] = useState(1);
   const [showPopup, setShowPopup] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
 
   const toggleNotifications = () => {
@@ -31,82 +34,53 @@ const SharedInfo = () => {
   };
 
   return (
-    <div className={`dashboard-container ${darkMode ? 'dark' : 'light'}`}>
- 
-    
+    <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
         <h2>Dashboard</h2>
-        <div className="toggle-mode">
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={darkMode}
-              onChange={toggleDarkMode}
-            />
-            <span className="slider round"></span>
-          </label>
-        </div>
+        <ThemeToggle />
         <div
-          className={`notification-icon ${darkMode ? 'dark' : 'light'}`}
-          onClick={toggleNotifications}>
+          className={`notification-icon ${darkMode ? "dark" : "light"}`}
+          onClick={toggleNotifications}
+        >
           <img
-            src={`/${darkMode ? 'notification2.png' : 'notification.png'}`}
+            src={`/${darkMode ? "notification2.png" : "notification.png"}`}
             alt="Notifications"
           />
         </div>
-        {showNotifications && (
-          <div className={`notifications-popup ${darkMode ? 'dark' : 'light'}`}>
-            <h2>Notifications</h2>
-            <div className={`notification-item ${darkMode ? 'dark' : 'light'}`}>
-              <span className="dot green"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-            <div className={`notification-item ${darkMode ? 'dark' : 'light'}`}>
-              <span className="dot orange"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-            <div className={`notification-item ${darkMode ? 'dark' : 'light'}`}>
-              <span className="dot green"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-            <div className={`notification-item ${darkMode ? 'dark' : 'light'}`}>
-              <span className="dot red"></span>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </div>
-          </div>
-        )}
+        {showNotifications && <Notis darkMode={darkMode} />}
       </div>
-      <div style={{ padding: '50px' }}>
-        <div className={`infoShared-titulo ${darkMode ? 'dark' : 'light'}`}>
+      <div style={{ padding: "50px" }}>
+        <div className={`infoShared-titulo ${darkMode ? "dark" : "light"}`}>
           Shared Account
         </div>
-        <span className={`span-shared ${darkMode ? 'dark' : 'light'}`}>
+        <span className={`span-shared ${darkMode ? "dark" : "light"}`}>
           Generate a project invite for another user
         </span>
         <div
-          className={`sharedInfo-span-container ${
-            darkMode ? 'dark' : 'light'
-          }`}>
+          className={`sharedInfo-span-container ${darkMode ? "dark" : "light"}`}
+        >
           <span
-            className={`sharedInfo-span ${darkMode ? 'dark' : 'light'}`}
-            onClick={() => toggle(1)}>
+            className={`sharedInfo-span ${darkMode ? "dark" : "light"}`}
+            onClick={() => toggle(1)}
+          >
             Application
           </span>
         </div>
 
         <div
-          className={`contenedor-nuevo-shared ${darkMode ? 'dark' : 'light'}`}>
+          className={`contenedor-nuevo-shared ${darkMode ? "dark" : "light"}`}
+        >
           <div> Share Project</div>
 
           <span>Select project</span>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: "flex" }}>
             <SharedBox mode={darkMode} />
             <SharedBox mode={darkMode} />
             <SharedBox mode={darkMode} />
           </div>
 
           <span> Specify a role for this user</span>
-          <div className={`botones-shared ${darkMode ? 'dark' : 'light'}`}>
+          <div className={`botones-shared ${darkMode ? "dark" : "light"}`}>
             <button> Owner</button>
             <button> Admin </button>
             <button> Developer </button>
@@ -114,19 +88,18 @@ const SharedInfo = () => {
           </div>
           <span>Users address</span>
           <input
-            className={`shared-input ${darkMode ? 'dark' : 'light'}`}
+            className={`shared-input ${darkMode ? "dark" : "light"}`}
             placeholder="ex:hello@ongrid.run"
           />
           <button>Generate Invite</button>
           <div
-            className={`linea-separadora2 ${
-              darkMode ? 'dark' : 'light'
-            }`}></div>
+            className={`linea-separadora2 ${darkMode ? "dark" : "light"}`}
+          ></div>
           <div> Invites & collaborators</div>
-          <span style={{ marginBottom: '40px' }}>
+          <span style={{ marginBottom: "40px" }}>
             Manage pending invites and view collaborators.
           </span>
-          <div className={`shared-columnas ${darkMode ? 'dark' : 'light'}`}>
+          <div className={`shared-columnas ${darkMode ? "dark" : "light"}`}>
             <span>Project</span>
             <span>User</span>
             <span>Role</span>
@@ -136,20 +109,20 @@ const SharedInfo = () => {
               <img />
             </div>
             <div>
-              {' '}
+              {" "}
               <img />
             </div>
           </div>
-          <div className={`shared-columnas2 ${darkMode ? 'dark' : 'light'}`}>
+          <div className={`shared-columnas2 ${darkMode ? "dark" : "light"}`}>
             <span>Project Name</span>
             <span>email@google.com</span>
             <span>Viewer</span>
             <span>Pending</span>
             <span>
-              Copy{' '}
+              Copy{" "}
               <Image
                 alt=""
-                src={`${darkMode ? '/copy.png' : '/copyL.png'}`}
+                src={`${darkMode ? "/copy.png" : "/copyL.png"}`}
                 height={15}
                 width={15}
               />
@@ -157,7 +130,7 @@ const SharedInfo = () => {
             <div>
               <Image
                 alt=""
-                src={`${darkMode ? '/invitation.png' : '/invitationL.png'}`}
+                src={`${darkMode ? "/invitation.png" : "/invitationL.png"}`}
                 height={25}
                 width={25}
                 onClick={handleImageClick}
@@ -166,22 +139,22 @@ const SharedInfo = () => {
             <div>
               <Image
                 alt=""
-                src={`${darkMode ? '/delete2.png' : '/deleteL.png'}`}
+                src={`${darkMode ? "/delete2.png" : "/deleteL.png"}`}
                 height={25}
                 width={25}
               />
             </div>
           </div>
-          <div className={`shared-columnas2 ${darkMode ? 'dark' : 'light'}`}>
+          <div className={`shared-columnas2 ${darkMode ? "dark" : "light"}`}>
             <span>Project Name</span>
             <span>email@google.com</span>
             <span>Viewer</span>
             <span>Pending</span>
             <span>
-              Copy{' '}
+              Copy{" "}
               <Image
                 alt=""
-                src={`${darkMode ? '/copy.png' : '/copyL.png'}`}
+                src={`${darkMode ? "/copy.png" : "/copyL.png"}`}
                 height={15}
                 width={15}
               />
@@ -189,7 +162,7 @@ const SharedInfo = () => {
             <div>
               <Image
                 alt=""
-                src={`${darkMode ? '/invitation.png' : '/invitationL.png'}`}
+                src={`${darkMode ? "/invitation.png" : "/invitationL.png"}`}
                 height={25}
                 width={25}
                 onClick={handleImageClick}
@@ -198,7 +171,7 @@ const SharedInfo = () => {
             <div>
               <Image
                 alt=""
-                src={`${darkMode ? '/delete2.png' : '/deleteL.png'}`}
+                src={`${darkMode ? "/delete2.png" : "/deleteL.png"}`}
                 height={25}
                 width={25}
               />

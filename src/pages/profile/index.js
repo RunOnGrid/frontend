@@ -36,7 +36,6 @@ export default function LoggedLogin() {
             style={{ display: "flex", flexDirection: "row", height: "100vh" }}
           >
             <DynamicNavbar abierto={abierto} setAbierto={setAbierto} />
-
             <DashboardActive />
             {/* <div className="contents-index">
                 <div style={{ width: '100%' }}>

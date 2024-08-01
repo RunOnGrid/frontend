@@ -5,23 +5,25 @@
   background-color: #dddddd62;
   border-radius: 15px;
   cursor: pointer;
-  margin: auto 10px;
+  margin: auto 0px;
   transition: background-color 0.3s;
+  border: 1px solid black;
 }
 
 .circle {
   position: absolute;
   top: 50%;
   transform: translate(0%, -50%);
-  width: 20px;
-  height: 20px;
-  background-color: rgb(255, 255, 255);
+  width: 16px;
+  height: 16px;
+  background-color: black;
   border-radius: 50%;
   transition: transform 0.4s;
+  margin-left: 3px;
 }
 
 .custom-switch.on {
-  background-color: #36b079; /* Background color when the switch is on */
+  background-color: white; /* Background color when the switch is on */
 }
 
 .custom-switch.on .circle {
@@ -37,13 +39,23 @@
     -50%
   ); /* Move the circle to the left when the switch is off */
 }
+
+
+
+.custom-switch2.off .circle {
+  transform: translate(
+    0%,
+    -60%
+  ); /* Move the circle to the left when the switch is off */
+}
 .botonera {
-  margin-top: 20px;
+  margin-top: 0px;
 }
 .botonera span {
   display: flex;
   margin: auto 10px !important;
 }
+
 .card-newApp3 {
   display: flex;
   flex-direction: column;

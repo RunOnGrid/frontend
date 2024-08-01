@@ -1,4 +1,4 @@
-import DeployScreen from "@/components/deploy/database/DeployScreen";
+import DeployAppScreen from "@/components/deploy/application/DeployAppScreen";
 import dynamic from "next/dynamic";
 
 import React, { useState } from "react";
@@ -7,7 +7,7 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   loading: () => <p> Im f</p>,
 });
 
-export default function Deploy() {
+export default function DeployApp() {
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
     return setVisible(!visible);
@@ -18,7 +18,7 @@ export default function Deploy() {
       <div className="logged-home-component2">
         <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
           <DynamicNavbar />
-          <DeployScreen />
+          <DeployAppScreen />
         </div>
       </div>
     </>

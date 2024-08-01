@@ -1,6 +1,6 @@
 import DeployedNavbar from "@/commons/DeployedNavbar";
 import ProjectInfo from "@/commons/ProjectInfo";
-import SingleApp from "@/components/applications/SingleApp";
+import SingleApp from "@/components/applications2/SingleApp";
 import ActivityScreen from "@/components/projectsx/ActivityScreen";
 import dynamic from "next/dynamic";
 

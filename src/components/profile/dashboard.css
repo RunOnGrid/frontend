@@ -661,6 +661,9 @@ input:checked + .slider:before {
   color: #00b174;
   border: none;
 }
+.active2{
+  color: #00b174;
+}
 
 .inactive {
   color: rgb(255, 10, 10);
