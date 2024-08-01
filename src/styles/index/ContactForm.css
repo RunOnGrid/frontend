@@ -50,8 +50,7 @@
   color: white;
   border: 1px solid white;
   padding: 20px 20px;
-  /* border: 2px solid transparent;
-    border-image: linear-gradient(to bottom, white, gray, transparent) 1; */
+
   border-radius: 25px;
 }
 textarea {
@@ -136,8 +135,7 @@ textarea {
   border: 1px solid white;
   color: white;
   padding: 10px 20px;
-  /* border: 2px solid transparent;
-    border-image: linear-gradient(to bottom, white, gray, transparent) 1; */
+
   border-radius: 15px;
 }
 .contact-input2:focus {
@@ -148,8 +146,7 @@ textarea {
   background-color: transparent;
   border: 1px solid white;
   padding: 10px 20px;
-  /* border: 2px solid transparent;
-    border-image: linear-gradient(to bottom, white, gray, transparent) 1; */
+
   border-radius: 15px;
 }
 .contact-input2::placeholder {

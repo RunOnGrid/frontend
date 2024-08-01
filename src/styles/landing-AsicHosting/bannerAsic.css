@@ -167,11 +167,11 @@
 }
 
 .dos {
-  top: -30px; /* Ajusta esta cantidad para posicionar la segunda tarjeta */
+  top: -30px; 
 }
 
 .tres {
-  top: -460px; /* Ajusta esta cantidad para posicionar la tercera tarjeta */
+  top: -460px;
   left: 270px;
 }
 .migration-button {
@@ -240,9 +240,8 @@
   }
 }
 .triangles-background {
-  /* position: relative;
-  overflow: hidden; */
-  height: 100%; /* Asegúrate de que el contenedor tenga altura suficiente */
+
+  height: 100%; 
 }
 
 .triangle {
@@ -253,7 +252,7 @@
 .triangle1 {
   top: 65%;
   left: 89%;
-  width: 250px; /* Ajusta el tamaño según sea necesario */
+  width: 250px; 
   height: auto;
   z-index: 10;
   animation-delay: 0s;
@@ -262,7 +261,7 @@
 .triangle2 {
   top: 60%;
   left: 83%;
-  width: 260px; /* Ajusta el tamaño según sea necesario */
+  width: 260px; 
   height: auto;
   animation-delay: 1s;
 }
@@ -270,7 +269,7 @@
 .triangle3 {
   top: 18%;
   left: 94%;
-  width: 250px; /* Ajusta el tamaño según sea necesario */
+  width: 250px; 
   height: auto;
   animation-delay: 2s;
 }
@@ -278,7 +277,7 @@
 .triangle4 {
   top: 35%;
   left: 92%;
-  width: 220px; /* Ajusta el tamaño según sea necesario */
+  width: 220px; 
   height: auto;
   animation-delay: 3s;
 }
@@ -286,7 +285,7 @@
 .triangle5 {
   top: 60%;
   left: 75%;
-  width: 130px; /* Ajusta el tamaño según sea necesario */
+  width: 130px; 
   height: auto;
   z-index: 10;
   animation-delay: 4s;
@@ -295,7 +294,7 @@
 .triangle6 {
   top: 52%;
   left: 70.5%;
-  width: 150px; /* Ajusta el tamaño según sea necesario */
+  width: 150px; 
   height: auto;
   animation-delay: 5s;
 }
@@ -303,21 +302,21 @@
 .triangle7 {
   top: 20%;
   left: 75%;
-  width: 270px; /* Ajusta el tamaño según sea necesario */
+  width: 270px; 
   height: auto;
   animation-delay: 6s;
 }
 .triangle8 {
   top: 20%;
   left: 68%;
-  width: 220px; /* Ajusta el tamaño según sea necesario */
+  width: 220px; 
   height: auto;
   animation-delay: 7s;
 }
 .triangle9 {
   top: 18%;
   left: 38%;
-  width: 500px; /* Ajusta el tamaño según sea necesario */
+  width: 500px; 
   height: auto;
   z-index: 0;
   animation-delay: 8s;
@@ -325,7 +324,7 @@
 .triangle10 {
   top: 47%;
   left: 60%;
-  width: 200px; /* Ajusta el tamaño según sea necesario */
+  width: 200px; 
   height: auto;
   z-index: 10;
   animation-delay: 9s;

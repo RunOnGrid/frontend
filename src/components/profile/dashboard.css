@@ -220,7 +220,7 @@ span {
   padding-top: 0px;
   margin-top: -40px;
   margin-bottom: 10px;
-  /* font-size: 18px; */
+  
 }
 .section-header h3 {
   margin: 0;
@@ -228,7 +228,7 @@ span {
   font-weight: 500;
   padding-top: 0px;
 
-  /* font-size: 18px; */
+  
 }
 
 .section-header button {
@@ -421,7 +421,7 @@ span {
   color: #333;
 }
 
-/* Estilos para el modo oscuro */
+
 .dashboard-container.dark {
   background-color: black;
   color: #f4f4f4;
@@ -592,7 +592,7 @@ input:checked + .slider:before {
   height: 20px;
   text-align: center;
   align-items: center;
-  /* font-weight: bold; */
+ 
   background-color: white;
   justify-content: center;
   width: 80px;
@@ -616,18 +616,18 @@ input:checked + .slider:before {
 .app-members {
   display: flex;
   position: relative;
-  width: fit-content; /* Ajusta el contenedor al tamaño de las imágenes */
+  width: fit-content; 
 }
 
 .member-image {
   border-radius: 50px;
   border: 1px solid transparent;
   right: 0;
-  margin-right: -20px; /* Ajusta este valor según el nivel de superposición deseado */
+  margin-right: -20px; 
 }
 .member-image-back
 
-/* Para asegurarte de que las imágenes se superpongan de derecha a izquierda */
+
 .member-image:nth-child(1) {
   z-index: 1;
 }
@@ -755,12 +755,12 @@ input:checked + .slider:before {
 .env-members {
   display: flex;
   margin: 10px 0px;
-  width: fit-content; /* Ajusta el contenedor al tamaño de las imágenes */
+  width: fit-content; 
 }
 .team-members {
   display: flex;
   margin: 10px auto;
-  width: fit-content; /* Ajusta el contenedor al tamaño de las imágenes */
+  width: fit-content; 
 }
 .teamActive-container h3 {
   display: flex;

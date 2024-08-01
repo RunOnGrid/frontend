@@ -66,9 +66,7 @@
   margin-bottom: 20px;
 }
 
-/* .integration-container:hover{
-    border: 3px solid rgba(255, 255, 255, 0.518);
-} */
+
 .verified-integration {
   display: flex;
   justify-content: center;

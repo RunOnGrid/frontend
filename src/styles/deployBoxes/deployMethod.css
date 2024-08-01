@@ -36,11 +36,10 @@
   height: 600px;
   color: white;
   padding: 20px;
-  /* background: linear-gradient(to left, rgba(0, 0, 0, 1) 10%, rgba(71, 71, 71, 0.5) 100%); */
   background-color: #0c1317;
   border-radius: 20px;
   margin: auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
   z-index: 1000;
 }
 .card label {
@@ -80,11 +79,10 @@
   height: 250px;
   color: white;
   padding: 20px;
-  /* background: linear-gradient(to left, rgba(0, 0, 0, 1) 10%, rgba(71, 71, 71, 0.5) 100%); */
   background-color: #0c1317;
   border-radius: 20px;
   margin: auto;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
   z-index: 1000;
 }
 .card2 label {

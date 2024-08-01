@@ -15,7 +15,6 @@ body {
   background-image: url('../../public/UltimoFondo.png');
   background-size: cover;
   background-position: center;
-  /* background: #0c1317; */
   height: 100%;
   width: 100%;
   padding: 0;
@@ -23,7 +22,7 @@ body {
 input:focus {
   outline: none;
   border: none;
-  /* Otros estilos que desees aplicar cuando el input está enfocado */
+ 
 }
 input {
   outline: none;

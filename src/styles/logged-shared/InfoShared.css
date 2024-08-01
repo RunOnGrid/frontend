@@ -316,10 +316,7 @@
 .botones-shared.dark button {
   background-color: #151e21;
 }
-/* .botones-shared button:hover {
-  border: 2px solid #36b079;
-  background-color: #0c1317;
-} */
+
 .shared-input {
   display: flex;
   padding: 15px;
@@ -516,11 +513,7 @@
 .save-button:hover {
   opacity: 0.9;
 }
-/* .divisor-shared {
-  width: 1px;
-  background-color: white;
-  height: auto;
-} */
+
 .popup-overlay {
   position: fixed;
   top: 0;

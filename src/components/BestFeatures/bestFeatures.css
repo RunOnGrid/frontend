@@ -39,12 +39,12 @@
 
 .features {
   margin: auto;
-  opacity: 0; /* Inicia invisible */
-  transform: translateY(20px); /* Posición inicial para animación */
+  opacity: 0; 
+  transform: translateY(20px); 
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-/* Animación de entrada */
+
 .features.visible {
   opacity: 1;
   transform: translateY(0);
@@ -62,13 +62,13 @@
   transition-delay: 0.9s;
 }
 
-/* Hover Effects */
+
 .icon-hover:hover {
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
 
-/* Scale Effect */
+
 .scale-hover:hover {
   transform: scale(1.1);
   transition: transform 0.3s ease;

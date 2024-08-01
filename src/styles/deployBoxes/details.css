@@ -23,21 +23,21 @@
 }
 
 .custom-switch.on {
-  background-color: white; /* Background color when the switch is on */
+  background-color: white;
 }
 
 .custom-switch.on .circle {
   transform: translate(
     100%,
     -50%
-  ); /* Move the circle to the right when the switch is on */
+  ); 
 }
 
 .custom-switch.off .circle {
   transform: translate(
     0%,
     -50%
-  ); /* Move the circle to the left when the switch is off */
+  );
 }
 
 
@@ -46,7 +46,7 @@
   transform: translate(
     0%,
     -60%
-  ); /* Move the circle to the left when the switch is off */
+  ); 
 }
 .botonera {
   margin-top: 0px;

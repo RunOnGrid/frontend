@@ -11,10 +11,7 @@
   margin-left: auto;
   margin-top: -50px;
   padding: 50px;
-  /* background-image: url('../assets/guarantee5.jpg'); 
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat; */
+
 }
 
 .guarantee-section {
@@ -65,13 +62,7 @@
   margin-right: 30px;
   height: 80px;
 }
-@media only screen and (max-width: 1300px) {
-  /* .guarantee-container{
-    
-        width: 380px;
-       
-    } */
-}
+
 @media only screen and (max-width: 900px) {
   .guarantee-container {
     width: 580px;

@@ -3,7 +3,7 @@
   background: #0c1317d9;
   height: 6vh;
   width: 100%;
-  margin: 0 auto; /* Centrar la navbar horizontalmente */
+  margin: 0 auto; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,7 +30,7 @@
 
 .nav-items {
   width: 80%;
-  margin: 0 auto; /* Centrar la navbar horizontalmente */
+  margin: 0 auto; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,15 +71,15 @@
   background: white;
   border-radius: 10px;
   backdrop-filter: blur(0px);
-  transition: opacity 0.4s ease-in-out; /* Add the transition property with a longer duration */
-  opacity: 0; /* Set the initial opacity to 0 */
-  pointer-events: none; /* Disable pointer events when the element is hidden */
+  transition: opacity 0.4s ease-in-out; 
+  opacity: 0; 
+  pointer-events: none; 
 }
 
 .container-productos.show {
   transition: opacity 0.4s ease-in-out;
-  opacity: 1; /* Change the opacity to 1 to show the element */
-  pointer-events: auto; /* Enable pointer events when the element is shown */
+  opacity: 1; 
+  pointer-events: auto; 
   margin-left: 30vw;
 }
 
@@ -158,7 +158,7 @@ button {
 
 button:hover {
   background: rgb(54, 176, 121);
-  /* box-shadow: 0 0 30px 5px rgba(54, 176, 121, 0.515); */
+ 
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -366,7 +366,7 @@ button:active {
   .nav-items {
     display: flex;
     flex-direction: row;
-    /* margin-top: 300px; */
+    
   }
   .un-contenedor {
     display: none;

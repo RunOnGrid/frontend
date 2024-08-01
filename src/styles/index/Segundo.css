@@ -50,7 +50,7 @@
   margin: auto;
   background-color: rgba(255, 255, 255, 0.264);
 
-  /* background-color: #0c1317; */
+  
   border-radius: 20px;
   padding: 20px;
   animation: fadeInFromRightAnimation 1s ease-in-out;
@@ -64,7 +64,7 @@
 
   margin: auto;
 
-  /* background-color: #0c1317; */
+  
   border-radius: 20px;
   padding: 20px;
   animation: fadeInFromRightAnimation 1s ease-in-out;
@@ -105,7 +105,7 @@
 
   color: white;
   font-size: 2rem;
-  /* border-top: 3px solid rgba(255, 255, 255, 0.541); */
+
 
   margin: auto;
   align-items: center;
@@ -118,7 +118,7 @@
   height: 50%;
   color: white;
   font-size: 2rem;
-  /* border-top: 3px solid white; */
+
   margin: auto;
   align-items: center;
   background: linear-gradient(225deg, #fff 5%, #36b079 60%);
@@ -171,7 +171,7 @@
     opacity: 0;
     transform: translateX(
       150px
-    ); /* o el valor que desees para la distancia de la animación */
+    ); 
   }
   to {
     opacity: 1;
@@ -190,7 +190,7 @@
 
     margin-top: -40px;
 
-    /* background-color: #0c1317; */
+    
     border-radius: 20px;
     padding: 20px;
     animation: fadeInFromRightAnimation 1s ease-in-out;
@@ -212,9 +212,7 @@
     margin-left: 0;
   }
   .textos {
-    /* width: 85%;
-        margin-top: 10%;
-         */
+   
 
     display: none;
   }

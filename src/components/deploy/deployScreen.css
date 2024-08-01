@@ -117,7 +117,7 @@
 }
 
 .custom-button:hover {
-  background-color: #333; /* Color al pasar el mouse */
+  background-color: #333; 
 }
 
 .region-container {
@@ -152,7 +152,7 @@
 }
 
 .region-button.active {
-  border: 2px solid #00b174; /* Verde */
+  border: 2px solid #00b174; 
 
   background-color: transparent;
 }
@@ -255,7 +255,7 @@
 
 .create-team-button {
   background-color: transparent;
-  border: 2px solid #00b174; /* Verde */
+  border: 2px solid #00b174; 
   color: #00b174;
   padding: 5px 15px;
   border-radius: 25px;
@@ -659,7 +659,6 @@
 .termService h4{
   margin: auto 5px;
 }
-/* DeployButton.css */
 
 .deploy-button-wrapper {
   position: relative;

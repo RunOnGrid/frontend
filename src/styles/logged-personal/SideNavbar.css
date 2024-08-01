@@ -206,9 +206,7 @@
 }
 
 @media only screen and (max-width: 1400px) {
-  /* .sideNavbar {
-    width: 250px;
-  } */
+
 }
 
 .logout-sidebar {
@@ -310,10 +308,5 @@
     width: 30%;
     margin-right: 0px;
   }
-  /* .mobile-before{
-        display: flex;
-        flex-direction: column;
-        width: 80%;
-        margin: 0 !important;
-    } */
+
 }

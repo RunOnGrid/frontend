@@ -9,14 +9,14 @@
   height: 60vh;
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 1s ease-out,
     transform 1s ease-out;
-  position: relative; /* Añadir position relative */
+  position: relative; 
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.159) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-  opacity: 0; /* Inicia invisible */
-  transform: translateY(20px); /* Posición inicial para animación */
+  opacity: 0; 
+  transform: translateY(20px); 
 }
 
 .pricing-card.visible {
@@ -85,7 +85,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Variaciones específicas */
+
 .pricing-card.free {
   background: linear-gradient(
     135deg,
@@ -104,8 +104,8 @@
     rgba(255, 255, 255, 0) 100%
   );
   height: 55vh;
-  z-index: 2; /* Añadir z-index para que esté por encima */
-  margin-top: -50px; /* Ajustar el margin-top para que se superponga */
+  z-index: 2; 
+  margin-top: -50px; 
   width: 22%;
 }
 
