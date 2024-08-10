@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import General from "./General";
-import Domains from "./Domains";
-import Notifications from "./Notifications";
+
 import ThemeToggle from "../ThemeToggle";
 import { useTheme } from "@/ThemeContext";
 import Notis from "./Notis";
+import InfoSideBar from "./InfoSideBar";
+import UpgradeInfo from "./UpgradeInfo";
 
-const SingleApp = () => {
+const Update = () => {
   const { darkMode } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -48,30 +48,13 @@ const SingleApp = () => {
             </div>
           </div>
         </div>
+        <h3>Upgrade/Renew</h3>
         <div className="content">
-          <div className={`sidebar ${darkMode ? "dark" : "light"}`}>
-            <ul>
-              <li>Information</li>
-              <li>Events</li>
-              <li>Logs</li>
-              <li>Team</li>
-              <li>Environment</li>
-              <li>Metrics</li>
-              <li>Update/Renew</li>
-            </ul>
-          </div>
+          <InfoSideBar darkMode={darkMode} />
           <div
             style={{ display: "flex", flexDirection: "column", width: "80%" }}
           >
-            <General darkMode={darkMode} />
-            <Domains darkMode={darkMode} />
-            <Notifications darkMode={darkMode} />
-            <div>
-              <div className="noti-buttons2">
-                <button className="noti-button3"> Delete web service</button>
-                <button className="noti-button4"> Suspend web service</button>
-              </div>
-            </div>
+            <UpgradeInfo darkMode={darkMode} />
           </div>
         </div>
       </div>
@@ -79,4 +62,4 @@ const SingleApp = () => {
   );
 };
 
-export default SingleApp;
+export default Update;

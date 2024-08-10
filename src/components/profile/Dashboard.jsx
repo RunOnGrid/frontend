@@ -43,7 +43,7 @@ const Dashboard = () => {
           <h3>Applications</h3>
           <button>View all</button>
         </div>
-        <p>It looks like you don't have any applications running yet</p>
+        <p>It looks like you don&apos;t have any applications running yet</p>
         <button className="section-button">Deploy</button>
       </div>
       <div className="middle-section">
@@ -58,7 +58,7 @@ const Dashboard = () => {
         </div>
         <div className={`teams-section ${darkMode ? "dark" : "light"}`}>
           <h3>Teams</h3>
-          <p>You don't have any teams yet</p>
+          <p>You don&apos;t have any teams yet</p>
           <button>Manage</button>
         </div>
       </div>

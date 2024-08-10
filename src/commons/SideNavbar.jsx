@@ -6,8 +6,13 @@ import Image from "next/image";
 
 const SideNavbar = ({ abierto, setAbierto }) => {
   const [menu, setMenu] = useState(false);
+  const [showLinks, setShowLinks] = useState(false);
   const router = useRouter();
+
   const currentPath = router.pathname;
+  const toggleLinks = () => {
+    setShowLinks(!showLinks);
+  };
 
   const isActive = (path) => (currentPath === path ? "active" : "");
 
@@ -33,12 +38,24 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               <p className="profile-username">@username</p>
             </div>
           </div>
-          <Link href="/profile/deploy">
-            <li className="sideNavbar-li deploy-item">
-              <span>Deploy</span>
-              <span className="deploy-plus">+</span>
-            </li>
-          </Link>
+
+          <li onClick={toggleLinks} className="sideNavbar-li deploy-item">
+            <span>Deploy</span>
+            <span className="deploy-plus">+</span>
+          </li>
+          {showLinks && (
+            <div className="dropdown3">
+              <ul>
+                <Link href="/profile/deployApp">
+                  <li>Deploy app</li>
+                </Link>
+                <Link href="/profile/deploy">
+                  <li>Deploy database</li>
+                </Link>
+              </ul>
+            </div>
+          )}
+
           <Link href="/profile">
             <li className={`sideNavbar-li ${isActive("/profile")}`}>
               Dashboard
