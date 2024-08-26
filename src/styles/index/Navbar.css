@@ -21,15 +21,26 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
 }
+/* .snap-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
 
+.snap-section {
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+} */
 .navbar-logo {
   display: flex;
   align-items: center;
   width: 120px;
+  margin-left: 30px;
 }
 
 .nav-items {
-  width: 80%;
+  width: 100%;
   margin: 0 auto; 
   display: flex;
   justify-content: space-between;
@@ -216,9 +227,11 @@ button:active {
   background-color: #36b079;
 }
 .boton-landing1 {
+  display: flex;
   color: #36b079;
   background-color: transparent;
   border-radius: 25px;
+  margin-right: 10vw;
 }
 .boton-landing1:hover {
   background: transparent;

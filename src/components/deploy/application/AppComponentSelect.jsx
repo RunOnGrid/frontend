@@ -1,16 +1,16 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import AddComponent from "../AddComponent";
 
-const AppComponentSelect = ({ darkMode }) => {
+const AppComponentSelect = forwardRef(({ onNext, darkMode }, ref) => {
   return (
-    <div className="locationSelect">
+    <div ref={ref} className="locationSelect">
       <div style={{ display: "flex" }}>
         <h3>4.</h3>
-        <span>Deployment location</span>
+        <span>Component</span>
       </div>
-      <AddComponent darkMode={darkMode} />
+      <AddComponent onNext={onNext} darkMode={darkMode} />
     </div>
   );
-};
+});
 
 export default AppComponentSelect;

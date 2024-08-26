@@ -1,33 +1,35 @@
 import Image from "next/image";
-import React from "react";
+import React, { forwardRef, useState } from "react";
+import Buildpack from "../Buildpack";
 
-const AppMethodSelect = ({ darkMode, value, onClick }) => {
-  return (
-    <div className="databaseSelect">
-      <div style={{ display: "flex" }}>
-        <h3>2.</h3>
-        <div className="databaseSelect-title">
-          <span>Select a deployment method</span>
-          <p>Deploy from a Git repository or a Docker registry</p>
+const AppMethodSelect = forwardRef(
+  ({ onNext, darkMode, onClick, value }, ref) => {
+    const [build, setBuild] = useState(false);
+    return (
+      <div ref={ref} className="databaseSelect">
+        <div style={{ display: "flex" }}>
+          <h3>2.</h3>
+          <div className="databaseSelect-title">
+            <span>Select a deployment method</span>
+            <p>Deploy from a Git repository or a Docker registry</p>
+          </div>
         </div>
-      </div>
-      <div style={{ display: "flex" }}>
-        <div className={`deployMethodBox ${darkMode ? "dark" : "light"}`}>
-          <div className="deployMethodBox-title">
-            <Image alt="" src="/iconGit.png" height={30} width={30} />
+        <div className="deployMethodBox-container">
+          <div
+            onClick={() => setBuild(!build)}
+            className={`deployMethodBox ${darkMode ? "dark" : "light"}`}
+          >
+            <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
+            <p>Deploy using source from a git repo.</p>
           </div>
-          <p>Deploy using source from a git repo.</p>
-        </div>
-        <div className={`deployMethodBox ${darkMode ? "dark" : "light"}`}>
-          <div className="deployMethodBox-title">
-            <Image alt="" src="/dockerIcon.png" height={30} width={30} />
+          <div className={`deployMethodBox ${darkMode ? "dark" : "light"}`}>
+            <Image alt="" src="/dockerIcon.png" height={50} width={50} />
             <h4>Docker repository</h4>
+            <p>Deploy a container from an image registry.</p>
           </div>
-          <p>Deploy a container from an image registry.</p>
         </div>
-      </div>
-      <div>
+        <span style={{ marginTop: "30px" }}>Application root path</span>
         <div className={`input-container2 ${darkMode ? "dark" : "light"}`}>
           <input
             type="text"
@@ -39,9 +41,17 @@ const AppMethodSelect = ({ darkMode, value, onClick }) => {
             Done
           </button>
         </div>
+        {build ? (
+          <>
+            {" "}
+            <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
+          </>
+        ) : (
+          ""
+        )}
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default AppMethodSelect;

@@ -81,6 +81,11 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               Integrations
             </li>
           </Link>
+          <Link href="/profile/gridOps">
+            <li className={`sideNavbar-li ${isActive("/profile/gridOps")}`}>
+              GridOps
+            </li>
+          </Link>
           <Link href={"/"}>
             <span className="logout-sidebar">
               Log Out

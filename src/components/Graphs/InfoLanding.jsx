@@ -24,7 +24,7 @@ const InfoLanding = () => {
   }, []);
   return (
     <div className="graphs-landing">
-      <div className="scroll2-in-left" style={{ display: 'flex' }}>
+      <div className="scroll2-in-left" style={{ display: "flex" }}>
         <div>
           <h1>Seamlessly transition from any cloud provider</h1>
         </div>
@@ -38,7 +38,7 @@ const InfoLanding = () => {
           culpa qui offcia
         </span>
       </div>
-      <div className="scroll2-in-right" style={{ display: 'flex' }}>
+      <div className="scroll2-in-right" style={{ display: "flex" }}>
         <span>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.

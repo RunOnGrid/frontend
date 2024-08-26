@@ -52,9 +52,24 @@
   .status{
     display: flex;
     gap: 10px;
-    
     font-size: 0.9rem;
     font-weight: 500;
+  }
+  .status2{
+    display: flex;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    height: 25px ;
+    border: 1px solid black;
+    border-radius: 50px;
+    padding: 0px 10px;
+    margin: auto;
+  }
+  .status2 span{
+    display: flex;
+    font-size: 0.8rem !important;
+    
   }
  
   
@@ -197,6 +212,7 @@
   
   .header h1 {
     margin: 0;
+    font-size: 1.5rem;
   }
   
   .subheader {
@@ -297,6 +313,8 @@
   .main-content.dark{
     background-color: #161F21;
   }
+
+
   
 
   
@@ -444,20 +462,41 @@
     font-weight: 500;
     
   }
-  .noti-button1 {
-    color: #00b174;
+
+  .noti-buttons button:hover{
+    background-color:initial !important;
+  }
+
+  .noti-button1, .noti-button2{
     margin: 10px;
   }
-  .noti-button2{
-    background-color: #00b174;
-    margin: 10px;
+
+  .noti-button1.light{
+    color: black;
+    border: 2px solid black;
   }
+
+  .noti-button2.light{
+    background-color: black;
+    border: 2px solid black;
+  }
+
+  .noti-button1.dark{
+    
+    border: 2px solid white;
+   
+  }
+
+  .noti-button2.dark{
+    background-color: black;
+    border: 2px solid black;
+  }
+
 
   .noti-buttons2 {
     display: flex;
     width: 100%;
     justify-content: flex-start;
-    
   }
   .noti-buttons2 button{
     padding: 5px 20px;

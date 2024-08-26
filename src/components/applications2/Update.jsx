@@ -49,7 +49,7 @@ const Update = () => {
           </div>
         </div>
         <h3>Upgrade/Renew</h3>
-        <div className="content">
+        <div className="content2">
           <InfoSideBar darkMode={darkMode} />
           <div
             style={{ display: "flex", flexDirection: "column", width: "80%" }}

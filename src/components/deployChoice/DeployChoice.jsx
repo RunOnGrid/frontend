@@ -95,20 +95,22 @@ const DeployChoice = () => {
     <div className="deploy-choice">
       <h1>Deploy on the cloud of your choice</h1>
       <span>Access computing with the best providers</span>
-      <DeployOption
-        image="/fluxLanding.svg"
-        title="The largest decentralized computing network"
-        text="Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you're unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization."
-        data={fluxData}
-        nodes={fluxNodes}
-      />
-      <DeployOption2
-        image="/akashLanding.svg" // Replace with actual image path
-        title="Akash Network"
-        text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
-        data={akashData}
-        nodes={akashData.totalNodes} // Assuming activeLeaseCount represents the number of active nodes
-      />
+      <div className="deploy-options">
+        <DeployOption
+          image="/fluxLanding.svg"
+          title="The largest decentralized computing network"
+          text="Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you're unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization."
+          data={fluxData}
+          nodes={fluxNodes}
+        />
+        <DeployOption2
+          image="/akashLanding.svg" // Replace with actual image path
+          title="Akash Network"
+          text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
+          data={akashData}
+          nodes={akashData.totalNodes} // Assuming activeLeaseCount represents the number of active nodes
+        />
+      </div>
       <button className="button-landing-4">DEPLOY NOW</button>
     </div>
   );

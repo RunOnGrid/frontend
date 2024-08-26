@@ -55,6 +55,11 @@
   border: 2px solid #00b174;
   background-color: #d6eee3;
 }
+.deployMethodBox-container{
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: flex-start;
+}
 .locationSelect {
   display: flex;
   flex-direction: column;
@@ -68,13 +73,26 @@
   border: 1px solid #ddd;
   border-radius: 25px;
   padding: 5px;
-  width: 100%;
+  width: 45%;
   margin-top: 10px;
   height: 40px;
-  margin-left: 20px;
+
   background-color: transparent !important;
 }
 .input-container3 {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  padding: 5px;
+
+  width: 95%;
+  margin-top: 10px;
+  height: 40px;
+  margin-bottom: 20px;
+  background-color: transparent !important;
+}
+.input-container4 {
   display: flex;
   align-items: center;
   border: 1px solid #ddd;
@@ -84,7 +102,14 @@
   margin-top: 10px;
   height: 40px;
   margin-bottom: 20px;
+  border-end-end-radius: 0px;
+  border-start-end-radius: 0px;
   background-color: transparent !important;
+}
+.geoSelect-container{
+  display: grid;
+  grid-template-columns: 50% 45%;
+  gap: 20px;
 }
 
 .custom-input {
@@ -291,9 +316,7 @@
   margin: auto;
 }
 .deploy-container2 {
-  display: grid;
-  grid-template-columns: 100%;
-  margin: auto;
+ 
 }
 
 .summary-container {
@@ -353,12 +376,15 @@
 
 .deployMethodBox {
  
-  width: 12vw;
+  width: 90%;
   border: 2px solid transparent;
   border-radius: 20px;
   margin: 10px;
-  height: 14vh;
+  height: auto;
   cursor: pointer;
+
+  justify-content: center;
+  text-align: center;
 }
 .deployMethodBox.light{
   background-color: #f5f6f6;
@@ -381,23 +407,16 @@
 
 .deployMethodBox p{
   font-size: 0.8rem;
-  width: 60%;
-  margin: 0px auto;
-  justify-content: center;
-  text-align: center;
+  margin-bottom: 10px;
+
 }
-.deployMethodBox-title{
-  display: flex;
-  align-items: center;
-  width: 90%;
-  margin: auto;
-  justify-content: center;
-}
-.deployMethodBox-title h4{
+
+.deployMethodBox h4{
   font-size: 0.9rem;
 }
-.deployMethodBox-title img{
-  margin-right: 10px;
+.deployMethodBox img{
+  margin:  auto;
+  margin-top: 10px;
 }
 
 
@@ -454,7 +473,20 @@
 .add-button:hover{
   background-color: #d6eee3;
 }
-
+.add-button2 {
+  
+  border: 2px solid #00b174 !important;
+  border-radius: 20px;
+  color: #00b174;
+  padding: 6px 20px !important;
+  margin-top: 40px;
+  font-weight: 600 !important;
+  cursor: pointer;
+  margin-right: auto;
+}
+.add-button2:hover{
+  background-color: #d6eee3;
+}
 .geo-option span{
   font-size: 0.8rem;
 }
@@ -691,4 +723,96 @@
   z-index: 1;
   border: none;
   cursor: pointer;
+}
+
+.add-buildpack {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  width: 90%;
+  margin-top: 30px;
+}
+.add-buildpack.light{
+  background-color: white;
+}
+.add-buildpack.dark{
+  background-color: #161f21;
+  border: 1px solid transparent;
+}
+.buildpack-selects{
+  display: flex;
+  width: 100%;
+}
+.buildpack-single{
+  flex-direction: column;
+  display: flex;
+  width: 100%;
+  margin-top: 30px;
+}
+.buildpack-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+  padding: 10px;
+  width: 47.5%; 
+  background-color: #f5f6f6;
+}
+
+.buildpack-item > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.buildpack-item > div:first-child img {
+  margin-right: 5px; 
+}
+.buildpack-item img, .buildpack-item2 img{
+  cursor: pointer;
+}
+
+.buildpack-item2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 50px;
+  padding: 10px;
+  width: 95%; 
+  background-color: #f5f6f6;
+}
+
+.buildpack-item2 > div:first-child {
+  display: flex;
+  align-items: center;
+}
+
+.buildpack-item2 > div:first-child img {
+  margin-right: 5px; 
+}
+.buildpack-new{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.custom-buildpacks p{
+  font-size: 0.85rem;
+  margin-left: 0px;
+  font-weight: 550;
+  color: #7a7979;
+}
+.number-input{
+  background-color: #f5f6f6;
+}
+.chat-container{
+  display: flex;
+  flex-direction: column;
+}
+.img-gridOps{
+  
+    display: flex;
+    margin: auto;
+    margin-top: 0px;
+  
 }

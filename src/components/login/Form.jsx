@@ -1,83 +1,88 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import Router from 'next/router';
+import { useTheme } from "@/ThemeContext";
+import Image from "next/image";
+import Link from "next/link";
 
-function Form() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [view, setView] = useState(false);
+import WebToggle from "./WebToggle";
+import { useState } from "react";
+import ThemeToggle from "../ThemeToggle";
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    localStorage.setItem('userGrid', email);
-    Router.push('/profile');
+export default function LoginForm() {
+  const [web3, setWeb3] = useState(false);
+  const toggleWeb3 = () => {
+    setWeb3(!web3);
   };
-
   return (
-    <div className="contenedor-login">
-      <div className="textos-login">
-        <div> Grid Cloud </div>
-        <h1> Welcome back to Grid Cloud</h1>
-        <span>
-          {' '}
-          <img alt="" src="" /> Read the Grid Cloud docs{' '}
-        </span>
-        <span>
-          {' '}
-          <img alt="" src="" /> See whats new with Grid Cloud{' '}
-        </span>
-        <span>
-          {' '}
-          <img alt="" src="" /> Join the community{' '}
-        </span>
-      </div>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2 className="login-title">Login to your Grid Cloud account</h2>
-
-        <input
-          placeholder="Email"
-          className="register-input"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <div className="input-container">
-          <input
-            placeholder="Password"
-            className="register-input"
-            type={view ? 'text' : 'password'}
-
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <Image
-            onClick={() => setView(!view)}
-            alt=""
-            src={view ? '/hide2.png' : '/view.png'}
-            width={25}
-            height={25}
-          />
-        </div>
-        <button className="login-submit" type="submit">
-          Login
-        </button>
-
-        <div className="member-container">
-          <div className="member-login">
-            Not a member yet?
-            <Link href="/register">
-              <span className="member2-login"> Create an account </span>
-            </Link>
-            and start right now!
+    <div className="login">
+      <Link href="/">
+        <Image alt="" src="/LogoGridVacio.svg" height={100} width={100} />
+      </Link>
+      <div className="form-container">
+        <div className="login-container">
+          <div className="dashboard-header2">
+            <h2>Login</h2>
+            <WebToggle onChange={toggleWeb3} web3={web3} />
           </div>
+          <div className="login-options">
+            <button className="login-option">
+              <Image
+                alt=""
+                src={web3 ? "/metamask.svg" : ""}
+                height={20}
+                width={20}
+              />
+              <span className="login-option-text">
+                {" "}
+                {web3 ? "Continue with Metamask" : "Continue with GitHub"}
+              </span>
+              <span className="login-option-arrow">→</span>
+            </button>
+            <button className="login-option">
+              <Image
+                alt=""
+                src={web3 ? "/phantomLogo.jpg" : ""}
+                height={20}
+                width={20}
+              />
+              <span className="login-option-text">
+                {web3 ? "Continue with Phantom" : "Continue with GitLab"}
+              </span>
+              <span className="login-option-arrow">→</span>
+            </button>
+            <button className="login-option">
+              <Image
+                alt=""
+                src={web3 ? "/zelId.svg" : ""}
+                height={20}
+                width={20}
+              />
+              <span className="login-option-text">
+                {web3 ? "Continue with Zelcore" : "Continue with Google"}
+              </span>
+              <span className="login-option-arrow">→</span>
+            </button>
+          </div>
+          <div className="login-divider">
+            <span className="login-divider-text">OR</span>
+          </div>
+          <form className="login-form">
+            <input className="login-input" type="email" placeholder="Email" />
+            <input
+              className="login-input"
+              type="password"
+              placeholder="Password"
+            />
+            <button className="login-submit" type="submit">
+              <Link href="/profile">Sign In</Link>
+            </button>
+          </form>
         </div>
-      </form>
+        <p className="login-signup">
+          Don't have an account?{" "}
+          <a className="login-signup-link" href="#">
+            Sign Up
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
-
-export default Form;

@@ -5,8 +5,8 @@ import CountUp from "react-countup";
 const DeployOption2 = ({ image, title, text, className, data, nodes }) => {
   return (
     <div className={`deploy-option ${className}`}>
-      <div>
-        <Image alt="" src={image} width={250} height={150} />
+      <div className="info-deploy-option">
+        <Image alt="" src={image} width={220} height={150} />
         <h2>{title}</h2>
         <span>{text}</span>
       </div>

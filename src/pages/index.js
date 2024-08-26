@@ -29,13 +29,13 @@ export default function Home() {
   });
   const fadeInStylesLeft = {
     opacity: 1,
-    transform: 'translateX(-50px)',
-    transition: 'opacity 1s ease-in-out, transform 1s ease-in-out',
+    transform: "translateX(-50px)",
+    transition: "opacity 1s ease-in-out, transform 1s ease-in-out",
   };
   const scrollToContactForm = () => {
     if (contactFormRef.current) {
       contactFormRef.current.scrollIntoView({
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   };
@@ -46,20 +46,44 @@ export default function Home() {
       <ContactForm />
     </div>
   ));
-  ContactForm1.displayName = 'ContactForm1';
+  ContactForm1.displayName = "ContactForm1";
   return (
     <>
       <div className="container-homePrincipal">
         <DynamicNavbar scrollToContactForm={scrollToContactForm} />
 
         <Banner
-          scrollToContactForm={scrollToContactForm}
           title="Just focus on building."
           subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
+          subtitle2="Build, conect, deploy."
         />
         <BestFeatures />
         <DeployChoice />
-        <div className="plans-section">
+        <Segundo />
+        <GraphsLanding />
+        <InfoLanding />
+        <ContactForm1 ref={contactFormRef} />
+        <Footer scrollToContactForm={scrollToContactForm} />
+      </div>
+    </>
+  );
+}
+
+{
+  /* <CardsHosting/> */
+}
+
+{
+  /* <Guarantee /> */
+}
+{
+  /* <Powered /> */
+}
+{
+  /* <NuevoFaqs /> */
+}
+{
+  /* <div className="plans-section">
           <h1 className="h1-landing">Plans</h1>
           <span className="span-landing4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -105,27 +129,5 @@ export default function Home() {
               ]}
             />
           </div>
-        </div>
-        <Segundo />
-        <GraphsLanding />
-        <InfoLanding />
-        <ContactForm1 ref={contactFormRef} />
-        <Footer scrollToContactForm={scrollToContactForm} />
-      </div>
-    </>
-  );
-}
-
-{
-  /* <CardsHosting/> */
-}
-
-{
-  /* <Guarantee /> */
-}
-{
-  /* <Powered /> */
-}
-{
-  /* <NuevoFaqs /> */
+        </div> */
 }

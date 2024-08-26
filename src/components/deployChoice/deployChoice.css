@@ -15,10 +15,23 @@
 
   justify-content: center;
 }
+.info-deploy-option{
+  width: 60%;
+}
+.info-deploy-option span{
+  height: 12vh;
+}
+.info-deploy-option h2{
+  height: 6vh;
+}
+.deploy-options{
+  display: flex;
+  margin: auto;
+}
 .deploy-option {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  align-items: start;
+  display: flex;
+ flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin: auto;
   width: 80%;
@@ -45,7 +58,7 @@
   text-align: center;
   margin-bottom: 30px;
   font-weight: 400;
-  width: 50%;
+ width: 100%;
 }
 .deploy-option h5 {
   display: flex;

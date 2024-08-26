@@ -291,6 +291,15 @@ span {
   align-items: center;
   margin-bottom: 0px;
 }
+.dashboard-header2 {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0px;
+}
 
 .notification-icon {
   cursor: pointer;
@@ -800,4 +809,17 @@ input:checked + .slider:before {
   .teamActive-container{
     width: 15vw;
   }
+ }
+
+ .button-gridOps{
+  background-color: #00b174;
+  border-radius: 0px;
+  padding:  5px;
+  height: 52px;
+  justify-content: center;
+  
+  margin: auto 0px;
+  margin-top: 10px;
+  border-end-end-radius: 10px;
+  border-start-end-radius: 10px;
  }

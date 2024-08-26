@@ -1,10 +1,8 @@
-import DeployedNavbar from '@/commons/DeployedNavbar';
-import ProjectInfo from '@/commons/ProjectInfo';
-import EnvironmentScreen from '@/components/projectsx/EnvironmentScreen';
-import dynamic from 'next/dynamic';
+import Environments from "@/components/applications2/environment/Environments";
+import dynamic from "next/dynamic";
 
-import { useState } from 'react';
-const DynamicNavbar = dynamic(() => import('../../../commons/SideNavbar'), {
+import { useState } from "react";
+const DynamicNavbar = dynamic(() => import("../../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
@@ -16,15 +14,10 @@ export default function Activity() {
   };
 
   return (
-    <div className="logged-home-component">
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div className="logged-home-component2">
+      <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
         <DynamicNavbar />
-        <div style={{ width: '100%' }}>
-          <ProjectInfo />
-          <DeployedNavbar />
-
-          <EnvironmentScreen />
-        </div>
+        <Environments />
       </div>
     </div>
   );

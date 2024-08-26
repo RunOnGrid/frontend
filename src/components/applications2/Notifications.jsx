@@ -20,8 +20,14 @@ const Notifications = ({ darkMode }) => {
           </select>
         </div>
         <div className="noti-buttons">
-          <button className="noti-button1"> Cancel</button>
-          <button className="noti-button2"> Save Changes</button>
+          <button className={`noti-button1 ${darkMode ? "dark" : "light"}`}>
+            {" "}
+            Cancel
+          </button>
+          <button className={`noti-button2 ${darkMode ? "dark" : "light"}`}>
+            {" "}
+            Save Changes
+          </button>
         </div>
       </div>
     </div>

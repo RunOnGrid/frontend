@@ -26,10 +26,10 @@ const BestFeatures = () => {
     <div className="best-features">
       <h3 className="section-title scroll-in">ABOUT US</h3>
       <h1 className="section-title scroll-in">Best features</h1>
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: "flex" }}>
         <Features
           className="scroll-in feature-item"
-          image="/exp.svg"
+          image="/experience.svg"
           title="NO EXPERIENCE NEEDED"
           subtitle="Discover the freedom of managing a cloud without
       the need of expertise or DevOps. Even if you're
@@ -40,7 +40,7 @@ const BestFeatures = () => {
         />
         <Features
           className="scroll-in feature-item"
-          image=""
+          image="/organize.svg"
           title="ORGANIZE AND UPSCALE"
           subtitle="Empower your Docker container with Grid flexible
           capabilities. Easily allocate resources, set environment
@@ -52,7 +52,7 @@ const BestFeatures = () => {
         />
         <Features
           className="scroll-in feature-item"
-          image="/des.svg"
+          image="/descentralization.svg"
           title="DESCENTRALIZATION"
           subtitle="Thanks to distributed infrastructures, we can provide
           access to cost-effective computing power with an

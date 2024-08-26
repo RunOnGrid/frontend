@@ -33,6 +33,7 @@ import '../components/Graphs/graphs.css';
 import '../components/profile/dashboard.css';
 import '../components/deploy/deployScreen.css';
 import "../components/applications2/applications.css";
+import "../components/applications2/environment.css";
 import { ThemeProvider } from "@/ThemeContext";
 
 export default function App({ Component, pageProps }) {

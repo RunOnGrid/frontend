@@ -1,8 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-const AppDetails = ({ darkMode }) => {
+const AppDetails = forwardRef(({ onNext, darkMode }, ref) => {
   return (
-    <div className="locationSelect">
+    <div ref={ref} className="locationSelect">
       <div style={{ display: "flex" }}>
         <h3>5.</h3>
         <span>Instance type</span>
@@ -20,7 +20,9 @@ const AppDetails = ({ darkMode }) => {
               <p>0.1 CPU</p>
             </div>
           </div>
-          <button className="accept-button">Accept and continue</button>
+          <button onClick={onNext} className="accept-button">
+            Accept and continue
+          </button>
         </div>
         <div className="customized-includes">
           <h3>Your customized instance includes:</h3>
@@ -35,6 +37,6 @@ const AppDetails = ({ darkMode }) => {
       </div>
     </div>
   );
-};
+});
 
 export default AppDetails;
