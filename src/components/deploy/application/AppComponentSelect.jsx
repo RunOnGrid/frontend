@@ -12,5 +12,5 @@ const AppComponentSelect = forwardRef(({ onNext, darkMode }, ref) => {
     </div>
   );
 });
-
+AppComponentSelect.displayName = "AppComponentSelect";
 export default AppComponentSelect;

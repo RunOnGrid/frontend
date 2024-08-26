@@ -1,5 +1,5 @@
 import DeployedNavbar from '@/commons/DeployedNavbar';
-import ProjectInfo from '@/commons/ProjectInfo';
+
 
 import NotificationScreen from '@/components/projectsx/NotificationScreen';
 import dynamic from 'next/dynamic';
@@ -18,10 +18,9 @@ export default function Notifications() {
 
   return (
     <div className="logged-home-component">
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <DynamicNavbar />
-        <div style={{ width: '100%' }}>
-          <ProjectInfo />
+        <div style={{ width: "100%" }}>
           <DeployedNavbar />
 
           <NotificationScreen />

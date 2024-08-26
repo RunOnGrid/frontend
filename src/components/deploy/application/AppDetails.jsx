@@ -38,5 +38,5 @@ const AppDetails = forwardRef(({ onNext, darkMode }, ref) => {
     </div>
   );
 });
-
+AppDetails.displayName = "AppDetails";
 export default AppDetails;

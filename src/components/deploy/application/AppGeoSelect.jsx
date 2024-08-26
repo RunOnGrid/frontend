@@ -38,5 +38,5 @@ const AppGeoSelect = forwardRef(({ onNext, darkMode }, ref) => {
     </div>
   );
 });
-
+AppGeoSelect.displayName = "AppGeoSelect";
 export default AppGeoSelect;

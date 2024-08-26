@@ -1,5 +1,5 @@
 import DeployedNavbar from '@/commons/DeployedNavbar';
-import ProjectInfo from '@/commons/ProjectInfo';
+
 import LogsScreen from '@/components/projectsx/LogsScreen';
 import dynamic from 'next/dynamic';
 
@@ -17,10 +17,9 @@ export default function Logs() {
 
   return (
     <div className="logged-home-component">
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <DynamicNavbar />
-        <div style={{ width: '100%' }}>
-          <ProjectInfo />
+        <div style={{ width: "100%" }}>
           <DeployedNavbar />
 
           <LogsScreen />

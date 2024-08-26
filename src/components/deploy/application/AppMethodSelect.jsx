@@ -53,5 +53,5 @@ const AppMethodSelect = forwardRef(
     );
   }
 );
-
+AppMethodSelect.displayName = "AppMethodSelect";
 export default AppMethodSelect;
