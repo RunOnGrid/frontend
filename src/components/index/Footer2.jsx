@@ -15,20 +15,17 @@ const Footer2 = () => {
           <a href="//www.linkedin.com">
             <img
               style={{ marginLeft: "0px" }}
-              className="icon-redes"
+              className="icon-redes2"
               src={"/linkedin.png"}
             />
           </a>
 
           <a href="//www.discord.com">
-            <img className="icon-redes" src={"/discord (1).png"} />
+            <img className="icon-redes2" src={"/discord (1).png"} />
           </a>
 
-          <a href="//www.twitter.com">
-            <img className="icon-redes" src={"/twitter-sign.png"} />
-          </a>
-          <a href="//www.instragram.com">
-            <img className="icon-redes" src={"/instagram.png"} />
+          <a href="https://x.com/OnGridRun">
+            <img className="icon-redes2" src={"/twitter.png"} />
           </a>
         </div>
       </section>

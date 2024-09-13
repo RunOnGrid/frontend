@@ -17,6 +17,7 @@
   color: rgba(255, 255, 255, 0.719);
   font-size: 0.9rem;
   width: 40%;
+    margin: auto;
 }
 .cpu-buttons {
   display: flex;
@@ -56,4 +57,33 @@
   justify-content: space-around;
   height: 250px;
   align-items: center;
+}
+
+@media only screen and (max-width: 1450px) {
+  .graphs-landing h1, .graphs-landing h2{
+    font-size: 2rem;
+  }
+  .graphs-landing span{
+    width: 60%;
+
+    margin: auto;
+  }
+  .logos-landing img{
+    height: 60px;
+  }
+ 
+}
+@media only screen and (max-width: 650px) {
+  .graphs-landing h1, .graphs-landing h2{
+    font-size: 1.2rem;
+    width: 100%;
+  }
+  .graphs-landing {
+    width: 90%;
+    margin-bottom: 50px;
+  }
+  .graphs-landing span{
+    width: 100%;
+    font-size: 0.8rem;
+  }
 }

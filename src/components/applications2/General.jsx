@@ -1,3 +1,4 @@
+import Select from "@/commons/Select";
 import React from "react";
 
 const General = ({ darkMode }) => {
@@ -7,7 +8,7 @@ const General = ({ darkMode }) => {
         <h3>General</h3>
         <div className="general-item">
           <label>Name</label>
-          <input type="text" placeholder="Application name" />
+          <input type="text" placeholder="grid-application" />
           <span className="edit-icon">✏️</span>
         </div>
         <div className="general-item">
@@ -16,9 +17,9 @@ const General = ({ darkMode }) => {
         </div>
         <div className="general-item">
           <label>Status</label>
-          <span className="status active">
+          <span className="status pending">
             {" "}
-            <div className="circle3"></div>ACTIVE
+            <div className="circle5"></div>Pending Transaction
           </span>
         </div>
         <div className="general-item">
@@ -43,20 +44,17 @@ const General = ({ darkMode }) => {
         </div>
         <div className="general-item">
           <label>Build command</label>
-          <button>STANDARD</button>
+          <button>npm run build</button>
           <span className="edit-link">Edit</span>
         </div>
         <div className="general-item">
           <label>Start command</label>
-          <button>STANDARD</button>
+          <button>npm start</button>
           <span className="edit-link">Edit</span>
         </div>
         <div className="general-item">
           <label>Auto-Deploy</label>
-          <select>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+          <Select options={["Yes", "No"]} />
         </div>
       </div>
     </div>

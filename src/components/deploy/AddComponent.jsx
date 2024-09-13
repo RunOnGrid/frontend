@@ -1,67 +1,27 @@
 import React, { useState } from "react";
+import PricingPlanSelector from "./PricingSelector";
 
-const AddComponent = ({ darkMode, onNext }) => {
+const AddComponent = ({
+  darkMode,
+  onNext,
+  onSaveComponentData,
+  price,
+  setPrice,
+}) => {
   const [serviceName, setServiceName] = useState("");
   const [instances, setInstances] = useState(3);
   const [cpu, setCpu] = useState(0.1);
   const [ram, setRam] = useState(100);
-  const [ssd, setSsd] = useState(1);
+  const [hdd, setHdd] = useState(1);
   const [selectedService, setSelectedService] = useState(null);
   const [activeTab, setActiveTab] = useState("GENERAL");
   const [ports, setPorts] = useState("");
+  const [custom, setCustom] = useState(false);
+  const [personalized, setPersonalized] = useState(false);
+  const [instance, setInstance] = useState(false);
 
   const handleServiceSelection = (service) => {
     setSelectedService(service);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const requestBody = {
-      name: serviceName,
-      description: serviceName, // You might want to add a separate description field
-      owner: "1NFtogBvh3e9HdvyLbKxkpxXcskTTGXVyS", // This should probably come from somewhere else
-      compose: [
-        {
-          name: serviceName,
-          description: serviceName,
-          repotag: "gridcloud/hello-app:2.0", // This should probably be configurable
-          ports: ports.split(",").map((port) => parseInt(port.trim())),
-          domains: [""],
-          environmentParameters: [],
-          commands: [],
-          containerPorts: [8080], // This should probably be configurable
-          containerData: "/data",
-          cpu: cpu,
-          ram: ram,
-          hdd: ssd,
-          tiered: false,
-          secrets: "",
-          repoauth: "",
-        },
-      ],
-    };
-
-    try {
-      const response = await fetch("/api/your-endpoint", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (response.ok) {
-        console.log("Service added successfully");
-        // Handle success (e.g., show a success message, reset form, etc.)
-      } else {
-        console.error("Failed to add service");
-        // Handle error (e.g., show error message)
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle error (e.g., show error message)
-    }
   };
 
   const handleInputChange = (setter) => (e) => {
@@ -69,8 +29,30 @@ const AddComponent = ({ darkMode, onNext }) => {
     if (value === "" || isNaN(value)) return;
     setter(parseFloat(value));
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí envías los datos al componente padre
+    onSaveComponentData({
+      cpu,
+      ram,
+      hdd,
+      serviceName,
+    });
+    // Luego llamas a la función para avanzar al siguiente paso
+    onNext();
+  };
 
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const handleCustom = () => {
+    setCustom(true);
+    setPersonalized(false);
+    setInstance(true);
+  };
+
+  const handlePersonalized = () => {
+    setCustom(false);
+    setPersonalized(true);
+    setInstance(true);
+  };
 
   return (
     <div style={{ display: "flex" }}>
@@ -150,100 +132,128 @@ const AddComponent = ({ darkMode, onNext }) => {
             )}
           </div>
 
-          <button className="add-button">+ Add</button>
+          {/* <button className="add-button" type="submit">
+            + Add
+          </button> */}
         </form>
       </div>
       <div className="instance-config">
         <h4>INSTANCE</h4>
         <div className="instance-buttons">
-          <button className="customize-button">Customize</button>
-          <button className="customize-button">
+          <button onClick={() => handleCustom()} className="customize-button">
+            Customize
+          </button>
+          <button
+            onClick={() => handlePersonalized()}
+            className="customize-button"
+          >
             Use recommended configuration
           </button>
         </div>
-        <h4>
-          INSTANCES:{" "}
-          <input
-            className="number-input"
-            type="number"
-            value={instances}
-            onChange={handleInputChange(setInstances)}
-            min="0"
-            max="10"
-          />{" "}
-        </h4>
+        {custom ? (
+          <>
+            <h4>
+              INSTANCES:{" "}
+              <input
+                className="number-input"
+                type="number"
+                value={instances}
+                onChange={handleInputChange(setInstances)}
+                min="0"
+                max="10"
+              />{" "}
+            </h4>
 
-        <div className="ranges3">
-          <input
-            type="range"
-            min="0"
-            max="10"
-            value={instances}
-            onChange={(e) => setInstances(parseInt(e.target.value))}
-          />
-        </div>
-        <h4>RESOURCES:</h4>
-        <label>CPU: </label>
-        <input
-          className="number-input"
-          type="number"
-          value={cpu}
-          onChange={handleInputChange(setCpu)}
-          step="0.1"
-          min="0.1"
-          max="1"
-        />
-        <div className="ranges3">
-          <input
-            type="range"
-            min="0.1"
-            max="1"
-            step="0.1"
-            value={cpu}
-            onChange={(e) => setCpu(parseFloat(e.target.value))}
-          />
-        </div>
-        <label>RAM: </label>
-        <input
-          className="number-input"
-          type="number"
-          value={ram}
-          onChange={handleInputChange(setRam)}
-          step="100"
-          min="100"
-          max="1000"
-        />
-        <div className="ranges3">
-          <input
-            type="range"
-            min="100"
-            max="1000"
-            step="100"
-            value={ram}
-            onChange={(e) => setRam(parseInt(e.target.value))}
-          />
-        </div>
-        <label>SSD: </label>
-        <input
-          className="number-input"
-          type="number"
-          value={ssd}
-          onChange={handleInputChange(setSsd)}
-          min="1"
-          max="10"
-        />
-        <div className="ranges3">
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={ssd}
-            onChange={(e) => setSsd(parseInt(e.target.value))}
-          />
-        </div>
-        <button className="add-button" onClick={onNext}>
-          Done
-        </button>
+            <div className="ranges3">
+              <input
+                type="range"
+                min="0"
+                max="10"
+                value={instances}
+                onChange={(e) => setInstances(parseInt(e.target.value))}
+              />
+            </div>
+            <h4>RESOURCES:</h4>
+            <label>CPU: </label>
+            <input
+              className="number-input"
+              type="number"
+              value={cpu}
+              onChange={handleInputChange(setCpu)}
+              step="0.1"
+              min="0.1"
+              max="1"
+            />
+            <div className="ranges3">
+              <input
+                type="range"
+                min="0.1"
+                max="1"
+                step="0.1"
+                value={cpu}
+                onChange={(e) => setCpu(parseFloat(e.target.value))}
+              />
+            </div>
+            <label>RAM: </label>
+            <input
+              className="number-input"
+              type="number"
+              value={ram}
+              onChange={handleInputChange(setRam)}
+              step="100"
+              min="100"
+              max="1000"
+            />
+            <div className="ranges3">
+              <input
+                type="range"
+                min="100"
+                max="1000"
+                step="100"
+                value={ram}
+                onChange={(e) => setRam(parseInt(e.target.value))}
+              />
+            </div>
+            <label>HDD: </label>
+            <input
+              className="number-input"
+              type="number"
+              value={hdd}
+              onChange={handleInputChange(setHdd)}
+              min="1"
+              max="10"
+            />
+            <div className="ranges3">
+              <input
+                type="range"
+                min="1"
+                max="10"
+                value={hdd}
+                onChange={(e) => setHdd(parseInt(e.target.value))}
+              />
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+        {personalized ? (
+          <>
+            <PricingPlanSelector
+              mode={darkMode}
+              price={price}
+              setPrice={setPrice}
+            />
+          </>
+        ) : (
+          ""
+        )}
+        {instance ? (
+          <button className="add-button" onClick={handleSubmit}>
+            Done
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

@@ -1,37 +1,37 @@
 import React from 'react';
 
 const Summary = ({
-  geolocation = '',
-  period = '',
-  service = '',
+  geolocation = "- North America  - South America  - Europe",
+  period = "",
+  service = "Web",
   instanceType = {},
   specs = [],
-  price = '',
+  price,
   mode,
 }) => {
   return (
-    <div className={`summary-container ${mode ? 'dark' : 'light'}`}>
+    <div className={`summary-container ${mode ? "dark" : "light"}`}>
       <h2>Summary</h2>
       <p>
         <strong>Geolocation:</strong> {geolocation}
       </p>
-      <p>
+      {/* <p>
         <strong>Period:</strong> {period}
-      </p>
+      </p> */}
       <p>
         <strong>Service:</strong> {service}
       </p>
       <p>
-        <strong>Instance type:</strong> {instanceType.type || ''}
+        <strong>Instance type:</strong> {instanceType.type || "STANDARD"}
       </p>
-      <p>{instanceType.subtype || ''}</p>
-      <ul className="specs-list">
+      <p>{instanceType.subtype || ""}</p>
+      {/* <ul className="specs-list">
         {specs.length > 0 ? (
           specs.map((spec, index) => <li key={index}>{spec}</li>)
         ) : (
           <li>No specs available</li>
         )}
-      </ul>
+      </ul> */}
       <div className="price-container">
         <hr />
         <p>

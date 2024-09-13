@@ -19,7 +19,7 @@ const Information = () => {
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
         <h2>My applications</h2>
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}
@@ -33,7 +33,7 @@ const Information = () => {
       </div>
       <div className={`application-details ${darkMode ? "dark" : "light"}`}>
         <div className="header">
-          <h1>Application name</h1>
+          <h1>grid-application</h1>
           <span className="subheader">Web service</span>
           {/* <a href="https://meet.google.com/jrb-zjea-msu" className="link">
           https://meet.google.com/jrb-zjea-msu
@@ -41,11 +41,11 @@ const Information = () => {
           <div className="deployment-info">
             <div className={`info-box ${darkMode ? "dark" : "light"}`}>
               <h4>Last deployed</h4>
-              <span>12/03/2025 17:00:25</span>
+              <span>------------</span>
             </div>
             <div className={`info-box ${darkMode ? "dark" : "light"}`}>
               <h4>Renewal date</h4>
-              <span>12/03/2025</span>
+              <span>-------</span>
             </div>
           </div>
         </div>

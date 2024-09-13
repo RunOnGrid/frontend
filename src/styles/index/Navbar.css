@@ -10,6 +10,17 @@
   padding: 20px 0;
   z-index: 1000;
 }
+.navbar2 {
+
+  height: 0vh;
+  width: 89%;
+  margin: auto; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  z-index: 1000;
+}
 .hamburguer-navbar {
   display: none;
 }
@@ -37,6 +48,13 @@
   align-items: center;
   width: 120px;
   margin-left: 30px;
+}
+.navbar-logo2 {
+  display: flex;
+  align-items: center;
+  width: 180px;
+  margin-top: 150px;
+  
 }
 
 .nav-items {
@@ -464,11 +482,12 @@ button:active {
     margin-top: 0px;
     background-color: transparent;
   }
-  button {
-    display: none;
-  }
+  
   i {
     display: none;
+  }
+  .hamburguer-navbar{
+    display: none !important;
   }
 }
 @media only screen and (max-width: 400px) {

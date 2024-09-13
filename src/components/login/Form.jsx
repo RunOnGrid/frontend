@@ -14,7 +14,7 @@ export default function LoginForm() {
   return (
     <div className="login">
       <Link href="/">
-        <Image alt="" src="/LogoGridVacio.svg" height={100} width={100} />
+        <Image alt="" src="/logoGridVacio.svg" height={100} width={100} />
       </Link>
       <div className="form-container">
         <div className="login-container">
@@ -26,7 +26,7 @@ export default function LoginForm() {
             <button className="login-option">
               <Image
                 alt=""
-                src={web3 ? "/metamask.svg" : ""}
+                src={web3 ? "/metamask.svg" : "/githubLogin.png"}
                 height={20}
                 width={20}
               />
@@ -39,7 +39,7 @@ export default function LoginForm() {
             <button className="login-option">
               <Image
                 alt=""
-                src={web3 ? "/phantomLogo.jpg" : ""}
+                src={web3 ? "/phantomLogo.jpg" : "/gitlab.jpg"}
                 height={20}
                 width={20}
               />
@@ -51,7 +51,7 @@ export default function LoginForm() {
             <button className="login-option">
               <Image
                 alt=""
-                src={web3 ? "/zelId.svg" : ""}
+                src={web3 ? "/zelID.svg" : "/googleLogo.png"}
                 height={20}
                 width={20}
               />
@@ -60,6 +60,20 @@ export default function LoginForm() {
               </span>
               <span className="login-option-arrow">→</span>
             </button>
+            {web3 ? (
+              <button className="login-option">
+                <Image
+                  alt=""
+                  src={web3 ? "/keplr.png" : ""}
+                  height={20}
+                  width={20}
+                />
+                <span className="login-option-text">Continue with Keplr</span>
+                <span className="login-option-arrow">→</span>
+              </button>
+            ) : (
+              ""
+            )}
           </div>
           <div className="login-divider">
             <span className="login-divider-text">OR</span>

@@ -11,32 +11,18 @@ const DeployChoice = () => {
   useEffect(() => {
     const fetchFlux = async () => {
       try {
-        const response = await fetch(
-          "https://stats.runonflux.io/fluxinfo?projection=benchmark"
-        );
+        const response = await fetch("/api/flux-proxy");
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            `API error: ${errorData.error}, Details: ${errorData.details}`
+          );
+        }
         const data = await response.json();
-        let totalSsd = 0,
-          totalRam = 0,
-          totalStorage = 0;
-
-        data.data.forEach((item) => {
-          const bench = item.benchmark.bench;
-          totalSsd += bench.ssd;
-          totalRam += bench.ram;
-          totalStorage += bench.cores;
-        });
-
-        // Convert MB to TB
-        totalSsd = totalSsd / 1024;
-        totalRam = totalRam / 1024;
-
-        setFluxData({
-          totalSsd,
-          totalRam,
-          totalStorage,
-        });
+        setFluxData(data);
       } catch (error) {
-        console.error("Error fetching Flux data:", error);
+        console.error("Error fetching Flux data:", error.message);
+        setFluxData(null); // or some default/error state
       }
     };
 
@@ -56,16 +42,20 @@ const DeployChoice = () => {
 
     const fetchAkash = async () => {
       try {
-        const response = await fetch(
-          "https://api.cloudmos.io/v1/dashboard-data"
-        );
+        const response = await fetch("/api/akash-proxy");
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(
+            `API error: ${errorData.error}, Details: ${errorData.details}`
+          );
+        }
         const data = await response.json();
-        const akashInfo = data.now;
+        const akashInfo = data;
 
-        const totalSsd = akashInfo.activeStorage / 1024 ** 4; // Convert bytes to TB
-        const totalRam = akashInfo.activeMemory / 1024 ** 4; // Convert bytes to TB
-        const totalStorage = akashInfo.activeCPU; // Assuming this is the total cores
-        const totalNodes = akashInfo.activeGPU;
+        const totalSsd = akashInfo.totalStorage / 1000000000000; // Convert bytes to TB
+        const totalRam = akashInfo.totalMemory / 1000000000000; // Convert bytes to TB
+        const totalStorage = akashInfo.totalGPU; // Assuming this is the total cores
+        const totalNodes = akashInfo.activeProviderCount;
 
         setAkashData({
           totalSsd,
@@ -87,25 +77,26 @@ const DeployChoice = () => {
     fetchAllData();
   }, []);
 
-  if (loading || !fluxData || !fluxNodes || !akashData) {
-    return <div>Loading...</div>; // Muestra un indicador de carga mientras se obtienen los datos
+  if (loading || !fluxData || !fluxNodes) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="deploy-choice">
       <h1>Deploy on the cloud of your choice</h1>
+
       <span>Access computing with the best providers</span>
       <div className="deploy-options">
         <DeployOption
           image="/fluxLanding.svg"
           title="The largest decentralized computing network"
-          text="Discover the freedom of managing a cloud without the need of expertise or DevOps. Even if you're unfamiliar with new decentralized technologies, we make hosting stress-free and accessible for everyone, offering a straightforward and dependable experience in the realm of decentralization."
+          text="Connected Worldwide, Across All Continents, Flux is the largest decentralized network in the world, offering a secure, scalable, and cost-effective cloud for building decentralized applications."
           data={fluxData}
           nodes={fluxNodes}
         />
         <DeployOption2
           image="/akashLanding.svg" // Replace with actual image path
-          title="Akash Network"
+          title="Supercloud"
           text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
           data={akashData}
           nodes={akashData.totalNodes} // Assuming activeLeaseCount represents the number of active nodes

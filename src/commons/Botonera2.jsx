@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-const Botonera2 = ({ titulo }) => {
+const Botonera2 = ({ titulo, setAgree, agree }) => {
   const [isOn, setIsOn] = useState(false);
   const toggleSwitch = () => {
     setIsOn(!isOn);
+    setAgree(!agree);
   };
   return (
     <div className="botonera" style={{ display: "flex" }}>

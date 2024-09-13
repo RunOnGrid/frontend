@@ -29,22 +29,19 @@ const InfoLanding = () => {
           <h1>Seamlessly transition from any cloud provider</h1>
         </div>
         <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui offcia
+          Decentralized infrastructures use containers, allowing for seamless
+          transitions from any cloud provider.
         </span>
       </div>
       <div className="scroll2-in-right" style={{ display: "flex" }}>
         <span>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Connect your GitHub repository to Grid and use our Buildpacks solution
+          to deploy your applications with ease. Our automated process takes
+          care of the build, deployment, and scaling, so you can focus
+          on writing code.
         </span>
         <div>
-          <h2>Anything that runs on the cloud can be run on Grid</h2>
+          <h2>From code to deployment in minutes</h2>
         </div>
       </div>
       <div className="logos-landing">

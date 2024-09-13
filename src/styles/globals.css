@@ -12,7 +12,7 @@ body {
   font-family: 'Montserrat', sans-serif !important;
 }
 .container-homePrincipal {
-  background-image: url('../../public/UltimoFondo.png');
+  background-image: url('/UltimoFondo.png');
   background-size: cover;
   background-position: center;
   height: 100%;

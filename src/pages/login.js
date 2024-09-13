@@ -7,19 +7,16 @@ export default function Login() {
     <div className="login-screen">
       <Form />
       <div className="login-info-container">
-        <h1>
-          Grid Compute removes the entry barrier for operating nodes on multiple
-          chains
-        </h1>
-        <p>
-          without coding, embodying Web3 ethos through decentralized computing
-          for all nodes.
-        </p>
+        <h2>
+          Grid removes the need for DevOps management and creates a frictionless
+          gateway to decentralized computing.
+        </h2>
+        <p>Build, Connect, Deploy.</p>
         <div className="login-profile-info">
           <Image alt="" src="/userDark.png" width={30} height={30} />
           <div>
-            <h3>John Doe</h3>
-            <p>Head of reasearch</p>
+            <h3>Benjamin Aguirre</h3>
+            <p>CEO</p>
           </div>
         </div>
       </div>

@@ -95,7 +95,7 @@ function Navbar({ scrollToContactForm }) {
       </nav>
       {menu ? <MenuMobile /> : ""}
 
-      <div
+      {/* <div
         className={`container-productos ${dropdown2 ? "show" : ""} ${
           isSticky ? "sticky" : ""
         }`}
@@ -104,8 +104,9 @@ function Navbar({ scrollToContactForm }) {
           setDropdown(false);
         }}
         onMouseLeave={() => setDropdown2(false)}
-      >
-        <div className="productos">
+        >
+        </div> */}
+      {/* <div className="productos">
           <img alt="" className="logo-productos" src={"/solution.png"} />
           <div className="descripcion-productos">
             <Link href="/solutions">
@@ -116,9 +117,9 @@ function Navbar({ scrollToContactForm }) {
               Una descripcion un poco mas larga paraq ver{" "}
             </span>
           </div>
-        </div>
+        </div> */}
 
-        <div className="productos">
+      {/* <div className="productos">
           <img alt="" className="logo-productos" src={"/blog.png"} />
           <div className="descripcion-productos">
             <Link href="/aboutUs">
@@ -129,8 +130,7 @@ function Navbar({ scrollToContactForm }) {
               Una descripcion un poco mas larga paraq ver{" "}
             </span>
           </div>
-        </div>
-      </div>
+        </div> */}
     </>
   );
 }

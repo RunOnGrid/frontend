@@ -14,37 +14,37 @@ const DeployOption2 = ({ image, title, text, className, data, nodes }) => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="deploy-numbers">
             <div className="deploy-data">
-              <h4>Total Nodes</h4>
+              <h4>Total Providers</h4>
               <p className="countup-large">
                 <CountUp
                   start={0}
-                  end={nodes}
+                  end={Math.floor(nodes)}
                   duration={2.5}
-                  style={{ fontSize: "26px" }}
+                  style={{ fontSize: "20px" }}
                 />
               </p>
             </div>
 
             <div className="deploy-data">
-              <h4>Total RAM</h4>
+              <h4>Total Memory</h4>
               <p className="countup-large">
                 <CountUp
-                  style={{ fontSize: "26px" }}
+                  style={{ fontSize: "20px" }}
                   start={0}
                   end={data.totalRam}
                   duration={2.5}
-                />{" "}
-                TB
+                  suffix=" TB"
+                />
               </p>
             </div>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="deploy-data">
-            <h4>Total CPU</h4>
+            <h4>Total GPU</h4>
             <p className="countup-large">
               <CountUp
-                style={{ fontSize: "26px" }}
+                style={{ fontSize: "20px" }}
                 start={0}
                 end={data.totalStorage}
                 duration={2.5}
@@ -52,21 +52,18 @@ const DeployOption2 = ({ image, title, text, className, data, nodes }) => {
             </p>
           </div>
           <div className="deploy-data">
-            <h4>Total SSD</h4>
+            <h4>Total Storage</h4>
             <p className="countup-large">
               <CountUp
-                style={{ fontSize: "26px" }}
+                style={{ fontSize: "20px" }}
                 start={0}
-                end={data.totalSsd}
+                end={Math.floor(data.totalSsd)}
                 duration={2.5}
-                decimal=","
-                decimals={2}
-              />{" "}
-              TB
+                suffix=" TB"
+              />
             </p>
           </div>
         </div>
-        <h5>Countries : 78</h5>
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ export default function Home() {
         <BestFeatures />
         <DeployChoice />
         <Segundo />
-        <GraphsLanding />
+
         <InfoLanding />
         <ContactForm1 ref={contactFormRef} />
         <Footer scrollToContactForm={scrollToContactForm} />

@@ -1,3 +1,4 @@
+import Select from "@/commons/Select";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -14,19 +15,15 @@ const Buildpack = ({ darkMode, value, onClick }) => {
         <div className="buildpack-selects">
           <div className="buildpack-single">
             <span> Build method</span>
-            <select className="input-container3">
-              <option> Buildpacks</option>
-              <option>Buildpacks</option>
-              <option>Buildpacks</option>
-            </select>
+            <Select
+              options={["Buildpack-01", "Buildpack-02", "Buildpack-03"]}
+            />
           </div>
           <div className="buildpack-single">
             <span> Builder</span>
-            <select className="input-container3">
-              <option>Buildpacks</option>
-              <option>Buildpacks</option>
-              <option>Buildpacks</option>
-            </select>
+            <Select
+              options={["Elixir", "Go", "Node", "Python3", "Ruby", "Rust"]}
+            />
           </div>
         </div>
         <h4>Buildpack configuration</h4>
@@ -123,7 +120,7 @@ const Buildpack = ({ darkMode, value, onClick }) => {
         )}
 
         <button onClick={onClick} className="add-button2">
-          Done
+          Continue
         </button>
       </div>
     </div>

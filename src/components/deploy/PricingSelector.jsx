@@ -27,28 +27,25 @@ const plans = [
   },
 ];
 
-const PricingPlanSelector = ({ setInstanceType, setPrice, mode }) => {
-  const [selectedPlan, setSelectedPlan] = useState('STANDARD');
+const PricingPlanSelector = ({ setInstanceType, setPrice, mode, price }) => {
+  const [selectedPlan, setSelectedPlan] = useState("");
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan.title);
-    setInstanceType({
-      type: plan.title,
-      subtype: plan.subtitle,
-      specs: plan.specs,
-    });
+
     setPrice(plan.price);
   };
 
   return (
-    <div className={`plans-container ${mode ? 'dark' : 'light'}`}>
+    <div className={`plans-container ${mode ? "dark" : "light"}`}>
       {plans.map((plan) => (
         <div
           key={plan.title}
-          className={`plan-card ${mode ? 'dark' : 'light'} ${
-            selectedPlan === plan.title ? 'active' : ''
+          className={`plan-card ${mode ? "dark" : "light"} ${
+            selectedPlan === plan.title ? "active" : ""
           }`}
-          onClick={() => handleSelectPlan(plan)}>
+          onClick={() => handleSelectPlan(plan)}
+        >
           <div>
             <h3>{plan.title}</h3>
             <h4>{plan.subtitle}</h4>

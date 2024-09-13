@@ -115,15 +115,7 @@
   transition: border-bottom 0.5s ease;
   color: #24f396;
 }
-.selected {
-  display: flex;
-  margin: auto 10px;
-  margin-bottom: 10px !important;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.5s ease;
-  color: #24f396;
-}
+
 .input-shared2 {
   display: flex;
   width: 50%;

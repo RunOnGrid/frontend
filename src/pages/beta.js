@@ -1,12 +1,13 @@
-import BestFeatures from "@/components/BestFeatures/BestFeatures";
-import DeployChoice from "@/components/deployChoice/DeployChoice";
+import BestFeaturesBeta from "@/components/BestFeatures/BestFeaturesBeta";
+import DeployChoiceBeta from "@/components/deployChoice/DeployChoiceBeta";
 import InfoLanding from "@/components/Graphs/InfoLanding";
 import Footer2 from "@/components/index/Footer2";
-import Banner from "@/components/landing-AsicHosting/Banner";
+
+import Banner2 from "@/components/landing-AsicHosting/Banner2";
 import dynamic from "next/dynamic";
 
 export default function Beta() {
-  const DynamicNavbar = dynamic(() => import("../components/index/Navbar"), {
+  const DynamicNavbar = dynamic(() => import("../components/index/Navbar2"), {
     ssr: false,
     loading: () => <p> Im f</p>,
   });
@@ -15,13 +16,13 @@ export default function Beta() {
     <div className="container-homePrincipal">
       {" "}
       <DynamicNavbar />
-      <Banner
+      <Banner2
         title="Just focus on building."
         subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
         subtitle2="Build, conect, deploy."
       />
-      <BestFeatures />
-      <DeployChoice />
+      <BestFeaturesBeta />
+      <DeployChoiceBeta />
       <InfoLanding />
       <Footer2 />
     </div>

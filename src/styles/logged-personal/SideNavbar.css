@@ -17,6 +17,9 @@
 .no-visible {
   display: none;
 }
+.sideNavbar-ul{
+  padding-left: 0px;
+}
 
 .sideNavbar-li {
   display: flex;

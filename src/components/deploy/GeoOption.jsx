@@ -11,13 +11,18 @@ const GeoOption = ({ title, darkMode }) => {
     "Europe",
     "Asia",
     "Oceania",
+    "All",
   ];
 
   const handleAddLocation = () => {
     if (currentLocation && !selectedLocations.includes(currentLocation)) {
       setSelectedLocations([...selectedLocations, currentLocation]);
-      setCurrentLocation(""); // Reset current location after adding
+      setCurrentLocation(""); // Resetea la ubicación actual después de agregarla
     }
+  };
+
+  const handleRemoveLocation = (location) => {
+    setSelectedLocations(selectedLocations.filter((loc) => loc !== location));
   };
 
   return (
@@ -25,8 +30,12 @@ const GeoOption = ({ title, darkMode }) => {
       <h2>{title}</h2>
       <div className="selected-locations">
         {selectedLocations.map((location, index) => (
-          <div key={index} className="location">
-            -{location}
+          <div
+            key={index}
+            className="location"
+            onClick={() => handleRemoveLocation(location)} // Elimina la ubicación al hacer clic
+          >
+            {location}
           </div>
         ))}
       </div>

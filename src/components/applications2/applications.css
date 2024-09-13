@@ -378,6 +378,9 @@
   .status.active {
     color: green;
   }
+  .status.pending {
+    color: rgb(0, 0, 0);
+  }
   
   .edit-icon, .update-link {
     color: #007bff;

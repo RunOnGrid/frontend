@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import GeoOption from "../GeoOption";
-import Botonera2 from "@/commons/Botonera2";
+
+import Botonera3 from "@/commons/Botonera3";
 
 const AppGeoSelect = forwardRef(({ onNext, darkMode }, ref) => {
   return (
@@ -22,16 +23,16 @@ const AppGeoSelect = forwardRef(({ onNext, darkMode }, ref) => {
             darkMode={darkMode}
           />
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div className="geo-options">
           <h4> DURATION: 2 WEEKS </h4>
           <div className="ranges3">
             <input type="range" name="range1" min="100" max="1000" step="50" />
           </div>
-          <Botonera2 titulo="STATIC IP" />
-          <Botonera2 titulo="ENTERPRISE APPLICATION" />
-          <button onClick={onNext} className="add-button">
+          <Botonera3 titulo="STATIC IP" />
+          <Botonera3 titulo="ENTERPRISE APPLICATION" />
+          <button onClick={onNext} className="add-button2">
             {" "}
-            Done
+            Continue
           </button>
         </div>
       </div>

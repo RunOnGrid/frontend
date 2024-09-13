@@ -3,35 +3,35 @@ import React, { useState, useEffect } from "react";
 
 import useToast from "./UseToast";
 import { useTheme } from "@/ThemeContext";
+import Spinner from "@/commons/Spinner";
+import { useRouter } from "next/router";
 
 export default function Component() {
   const { darkMode } = useTheme();
   const [isDeploying, setIsDeploying] = useState(false);
-  const [deployProgress, setDeployProgress] = useState(0);
+  const router = useRouter();
   const { toast, toasts } = useToast();
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
 
-  const handleDeploy = () => {
+  const [deploymentMessage, setDeploymentMessage] = useState("Deploy");
+  const handleDeploy = async () => {
     setIsDeploying(true);
-    setDeployProgress(0);
-
-    const interval = setInterval(() => {
-      setDeployProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          clearInterval(interval);
-          setIsDeploying(false);
-          toast({
-            title: "Deployment Successful",
-            description: "Your PostgreSQL database has been deployed.",
-          });
-          return 0;
-        }
-        return prevProgress + 10;
-      });
-    }, 500);
+    setDeploymentMessage(""); // Vaciar el mensaje para mostrar el Spinner
+    // Simula un despliegue real
+    setTimeout(() => {
+      setIsDeploying(false);
+      setDeploymentMessage("Deploy Successful"); // Cambiar el texto del botón
+      setTimeout(() => {
+        router.push("/profile/project/activity"); // Redirigir a la página deseada
+      }, 1000); // Esperar 1 segundo antes de redirigir
+    }, 3000); // Esperar 3 segundos para simular el despliegue
   };
-
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
       setMessages((prevMessages) => [
@@ -40,74 +40,64 @@ export default function Component() {
       ]);
       setUserInput("");
 
-      // Check if the user input is "gridOps"
-      if (userInput.toLowerCase() === "gridops") {
+      // Check if the user input contains "postgresql"
+      if (userInput.toLowerCase().includes("postgresql")) {
+        // Esperar 2 segundos antes de enviar el mensaje con las especificaciones
         setTimeout(() => {
           setMessages((prevMessages) => [
             ...prevMessages,
             {
               type: "ai",
-              text: (
-                <div
-                  style={{
-                    backgroundColor: "#f0f0f0",
-                    padding: "16px",
-                    borderRadius: "8px",
-                  }}
-                >
-                  <h3 style={{ fontWeight: 600 }}>Summary</h3>
-                  <ul
-                    style={{
-                      marginTop: "8px",
-                      paddingLeft: "20px",
-                    }}
-                  >
-                    <li style={{ color: "black" }}>Deploy PostgreSQL</li>
-                    <li style={{ color: "black" }}>
-                      1000 rows and 1000 columns capacity
-                    </li>
-                    <li style={{ color: "black" }}>
-                      Geolocation: North America
-                    </li>
-                  </ul>
-                  <div style={{ marginTop: "16px" }}>
-                    <div style={{ fontSize: "14px", fontWeight: 600 }}>
-                      {isDeploying
-                        ? `Deploying: ${deployProgress}%`
-                        : "Estimated time: 5m 30s"}
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "8px",
-                        height: "8px",
-                        width: "100%",
-                        backgroundColor: "#e0e0e0",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          height: "100%",
-                          width: isDeploying ? `${deployProgress}%` : "33%",
-                          backgroundColor: "#00b174",
-                          borderRadius: "4px",
-                          transition: "width 0.5s ease-in-out",
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleDeploy}
-                    disabled={isDeploying}
-                    style={{ marginTop: "16px", width: "100%" }}
-                  >
-                    {isDeploying ? "Deploying..." : "Deploy"}
-                  </button>
-                </div>
-              ),
+              text: `Processor: A high-power processor (8-16 vCPUs) should be sufficient to handle the workload of 4 concurrent users and a large database.\n
+                     Memory RAM: 32-64 GB of RAM may be sufficient to store and process a large database and to handle the workload of 4 concurrent users.\n
+                     Storage: 100-200 GB of storage may be sufficient to store a large database with 10000 columns and 10000 rows.\n
+                     Geolocation: North America\n
+                     Cloud: Flux`,
             },
           ]);
-        }, 500);
+
+          // Mostrar el Summary después de 1 segundo de enviar el mensaje
+          setTimeout(() => {
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
+                type: "ai",
+                text: (
+                  <div
+                    style={{
+                      backgroundColor: "#f0f0f0",
+                      padding: "16px",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    <h3 style={{ fontWeight: 600 }}>Summary</h3>
+                    <ul
+                      style={{
+                        marginTop: "8px",
+                        paddingLeft: "20px",
+                      }}
+                    >
+                      <li style={{ color: "black" }}>
+                        Deploy PostgreSQL Database
+                      </li>
+                      <li style={{ color: "black" }}>
+                        Geolocation: North America
+                      </li>
+                      <li style={{ color: "black" }}>Price: 7 $USD/month</li>
+                    </ul>
+
+                    <button
+                      className="deploy-button"
+                      style={{ marginTop: "16px", width: "100%" }}
+                    >
+                      Deploy
+                    </button>
+                  </div>
+                ),
+              },
+            ]);
+          }, 1000); // Muestra el Summary después de 1 segundo del mensaje de especificaciones
+        }, 2000); // Envía el primer mensaje después de 2 segundos
       } else {
         setTimeout(() => {
           setMessages((prevMessages) => [
@@ -182,6 +172,7 @@ export default function Component() {
                           message.type === "user" ? "#f0f0f0" : "#f0f0f0",
                         padding: "16px",
                         borderRadius: "8px",
+                        width: "40%",
                       }}
                     >
                       {message.text}
@@ -196,6 +187,7 @@ export default function Component() {
                 className={`input-container4 ${darkMode ? "dark" : "light"}`}
               >
                 <input
+                  onKeyDown={handleKeyDown}
                   placeholder="Type your message..."
                   style={{ flex: 1 }}
                   value={userInput}

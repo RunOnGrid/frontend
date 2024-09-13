@@ -5,7 +5,9 @@
   justify-content: center;
   text-align: center;
   max-height: 85vh;
-  margin-top: 210px;
+  margin-top: 150px;
+  margin-bottom: 200px;
+ 
 }
 
 .best-features h3 {
@@ -13,6 +15,9 @@
   opacity: 0;
   transition: opacity 1s ease-out;
   margin-bottom: 10px;
+}
+.features-container{
+  display: flex;
 }
 
 .best-features h3.visible {
@@ -80,4 +85,34 @@
 
 .button-landing-3:hover {
   transform: scale(1.1);
+}
+
+@media only screen and (max-width: 650px) {
+  .best-features {
+    width: 90%;
+    color: white;
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 200px;
+  }
+  .features-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .best-features h1{
+    font-size: 2rem;
+    
+  }
+  .best-features h2{
+    font-size: 1.5rem;
+  }
+  .best-features span{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .best-features img{
+    height: 150px;
+    width: 150px;
+  }
 }
