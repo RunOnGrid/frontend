@@ -141,6 +141,15 @@ span {
   min-width: 90px;
   border: none;
 }
+.billing3 {
+  background-color: #00b174;
+  padding: 6px 15px;
+  font-size: 0.8rem !important;
+  margin-top: 20px;
+  margin-bottom: -5vh !important;
+  min-width: 90px;
+  border: none;
+}
 .billing2 {
   padding: 6px 15px;
   font-size: 0.8rem !important;

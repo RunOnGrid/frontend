@@ -5,12 +5,31 @@ import Link from "next/link";
 import WebToggle from "./WebToggle";
 import { useState } from "react";
 import ThemeToggle from "../ThemeToggle";
+import { useRouter } from "next/router";
+import authService from "../../../authService";
 
 export default function LoginForm() {
   const [web3, setWeb3] = useState(false);
   const toggleWeb3 = () => {
     setWeb3(!web3);
   };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    const result = await authService.login(username, password);
+
+    if (result.success) {
+      router.push("/profile");
+    } else {
+      setError(result.message);
+    }
+  };
+
   return (
     <div className="login">
       <Link href="/">
@@ -78,15 +97,23 @@ export default function LoginForm() {
           <div className="login-divider">
             <span className="login-divider-text">OR</span>
           </div>
-          <form className="login-form">
-            <input className="login-input" type="email" placeholder="Email" />
+          <form className="login-form" onSubmit={handleSubmit}>
+            <input
+              className="login-input"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             <input
               className="login-input"
               type="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button className="login-submit" type="submit">
-              <Link href="/profile">Sign In</Link>
+              Sign In
             </button>
           </form>
         </div>

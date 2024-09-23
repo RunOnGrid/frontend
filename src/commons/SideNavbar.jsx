@@ -15,6 +15,17 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   };
 
   const isActive = (path) => (currentPath === path ? "active" : "");
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+
+      router.push("/login");
+    } catch (error) {
+      console.error("Error during logout:", error);
+
+      router.push("/login");
+    }
+  };
 
   return (
     <>
@@ -81,13 +92,18 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               Integrations
             </li>
           </Link>
+          <Link href="/profile/billing">
+            <li className={`sideNavbar-li ${isActive("/profile/billing")}`}>
+              Billing
+            </li>
+          </Link>
           <Link href="/profile/gridOps">
             <li className={`sideNavbar-li ${isActive("/profile/gridOps")}`}>
               GridOps
             </li>
           </Link>
           <Link href={"/"}>
-            <span className="logout-sidebar">
+            <span onClick={handleLogout} className="logout-sidebar">
               Log Out
               <Image
                 className="button-logout"

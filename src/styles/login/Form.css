@@ -306,7 +306,7 @@
   }
   .login-option-text {
     font-size: 14px;
-
+    min-width: 60%;
   }
   .login-option-arrow {
     font-size: 18px;
@@ -394,7 +394,18 @@
     justify-content: center;
     align-items: center;
   }
-
+  @media only screen and (max-width: 1500px){
+    .form-container {
+    
+      width: 55%;
+    }
+  }
+  @media only screen and (max-width: 1100px){
+    .form-container {
+      width: 65%;
+    }
+  }
+  
   @media only screen and (max-width: 700px) {
     .login-info-container{
       display: none;
