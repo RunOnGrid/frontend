@@ -1,7 +1,8 @@
 export default async function handler(req, res) {
+  const API_URL = process.env.GRID_API;
   if (req.method === "POST") {
     try {
-      const response = await fetch("http://localhost:3000/deploy", {
+      const response = await fetch(`${API_URL}/flux/deploy`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

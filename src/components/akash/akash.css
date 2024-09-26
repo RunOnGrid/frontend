@@ -1,0 +1,157 @@
+.deployment-config {
+
+    width: 80%;
+    margin: 0 auto;
+    padding: 25px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-radius: 20px;
+    margin-left: 4%;
+    margin-bottom: 50px;
+  }
+  .deployment-config h2{
+    font-size: 0.9rem;
+  }
+  
+  .deployment-config p{
+    font-size: 0.8rem;
+    color: grey;
+    margin: 0px;
+  }
+  .deployment-config h3{
+    font-size: 0.8rem;
+    color: rgb(0, 0, 0);
+    margin: 0px;
+  }
+  
+  
+  .input-group, .slider-group, .section {
+    margin-bottom: 50px;
+  }
+ 
+  .input-container5 {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    padding: 5px;
+  
+    width: 95%;
+    margin-top: 10px;
+    min-height: 25px;
+    max-height: 25px;
+    margin-bottom: 20px;
+    
+  }
+
+  
+  .done-button,  .continue-button {
+    padding: 8px 16px;
+    background-color: #00b174;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .edit-button, .edit-button:hover{
+    color: #00b174;
+    font-size: 0.8rem;
+    height: 16px;
+    border-bottom: 1px solid #00b174;
+    padding-bottom: 0px;
+    cursor: pointer;
+   
+    margin: auto 0px;
+  }
+  
+  
+  
+  .continue-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: -40px;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  .section {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    
+  }
+  
+  .section h3 {
+    margin-top: 0;
+  }
+  
+  .section p {
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  .slider-group span{
+    border: 1px solid rgb(173, 173, 173);
+    padding: 5px 20px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: black;
+    font-weight: 500;
+    margin: 5px;
+  }
+  .slider-group input{
+    width: 70%;
+  }
+  .akash-sliders{
+    display: flex;
+    width: 100%;
+  }
+  .sliders-akash{
+    width: 50%;
+  }
+  .sections-akash{
+    width: 50%;
+   
+  }
+
+  .section2 {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    width: 80%;
+    height: 18vh;
+    justify-content: space-between;
+    
+    
+  }
+  
+  .section2 h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .section2 p {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  .second-akash {
+    display: flex;
+  }
+  .akash-expose{
+    width: 50%;
+  }
+  .akash-persistent{
+    width: 40%;
+  }

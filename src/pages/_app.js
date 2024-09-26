@@ -36,6 +36,7 @@ import "../components/applications2/applications.css";
 import "../components/applications2/environment.css";
 import { ThemeProvider } from "@/ThemeContext";
 import "../components/billing/billing.css";
+import "../components/akash/akash.css";
 
 export default function App({ Component, pageProps }) {
   return (

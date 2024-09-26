@@ -17,3 +17,4 @@ docker run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin
 ```
 $env:NODE_OPTIONS='--dns-result-order=ipv4first'; npm run dev
 ```
+GRID_API = variable para api de deploys en akash y flux
