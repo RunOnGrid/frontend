@@ -55,14 +55,14 @@ export default function Home() {
         <Banner
           title="Just focus on building."
           subtitle="Grid simplifies the deployment of your applications to a decentralized cloud, allowing you to get started with just a few clicks."
-          subtitle2="Build, conect, deploy."
+          subtitle2="Build, connect, deploy."
         />
         <BestFeatures />
         <DeployChoice />
-        <Segundo />
+        {/* <Segundo /> */}
 
         <InfoLanding />
-        <ContactForm1 ref={contactFormRef} />
+        {/* <ContactForm1 ref={contactFormRef} /> */}
         <Footer scrollToContactForm={scrollToContactForm} />
       </div>
     </>

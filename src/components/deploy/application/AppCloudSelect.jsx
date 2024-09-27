@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AppCloudSelect = ({ onNext }) => {
   const [selectedCloud, setSelectedCloud] = useState(null);
@@ -16,6 +16,11 @@ const AppCloudSelect = ({ onNext }) => {
       onNext(selectedCloud);
     }
   };
+  useEffect(() => {
+    if (selectedCloud) {
+      onNext(selectedCloud);
+    }
+  }, [selectedCloud]);
 
   return (
     <div className="cloudSelect">

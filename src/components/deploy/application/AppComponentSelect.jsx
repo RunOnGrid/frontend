@@ -2,12 +2,12 @@ import React, { forwardRef } from "react";
 import AddComponent from "../AddComponent";
 
 const AppComponentSelect = forwardRef(
-  ({ onNext, darkMode, onSaveComponentData, price, setPrice }, ref) => {
+  ({ onNext, darkMode, onSaveComponentData, price, setPrice, image }, ref) => {
     return (
       <div ref={ref} className="locationSelect">
         <div style={{ display: "flex" }}>
           <h3>4.</h3>
-          <span>Component</span>
+          <span>Service</span>
         </div>
         <AddComponent
           onSaveComponentData={onSaveComponentData}
@@ -15,6 +15,7 @@ const AppComponentSelect = forwardRef(
           darkMode={darkMode}
           price={price}
           setPrice={setPrice}
+          image={image}
         />
       </div>
     );

@@ -33,6 +33,7 @@
     "react-spring": "^9.7.1",
     "slick-carousel": "^1.8.1",
     "typed.js": "^2.1.0",
+    "uuid": "^10.0.0",
     "ws": "^8.16.0",
     "zxcvbn": "^4.4.2"
   },

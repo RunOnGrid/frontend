@@ -6,7 +6,14 @@ import { parse } from "cookie";
 
 import "dotenv/config";
 import back from "../../../axios";
-
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
+      permanent: false,
+    },
+  };
+}
 const Repositories = () => {
   const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
     ssr: false,

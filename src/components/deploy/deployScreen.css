@@ -330,9 +330,11 @@
   grid-template-columns: 60% 35%;
   margin: auto;
 }
-.deploy-container2 {
- 
+.deploy-container2 a{
+ color: black;
+ border-bottom: 1px solid black;
 }
+
 
 .summary-container {
   padding: 20px;
@@ -349,6 +351,15 @@
 }
 .summary-container.dark {
   background-color: #44494a;
+}
+.summary-container.light li{
+  color: black;
+  font-weight: 600;
+  font-size: 0.8rem;
+
+}
+.summary-container ul{
+  padding-left: 0px;
 }
 
 .summary-container h2 {
@@ -409,8 +420,8 @@
   border: 2px solid #00b174;
 }
 .deployMethodBox.light.disabled{
-
-  opacity: 0.6;
+  cursor: auto;
+  opacity: 0.7;
   
 }
 .deployMethodBox.dark{
@@ -583,7 +594,7 @@
   color: black;
 }
 
-.service-button:hover, .service-button:focus {
+.service-button:hover, .service-button:focus,  .service-button.active {
   border: 1px solid #00b174;
   background-color: #d6eee3;
 }
@@ -610,7 +621,7 @@
   cursor: pointer;
 }
 
-.customize-button:hover, .customize-button:focus{
+.customize-button:hover, .customize-button:focus, .customize-button.active{
   background-color: white;
   border: 2px solid #00b174;
   color: #00b174;

@@ -2,6 +2,7 @@ import React, { forwardRef } from "react";
 import GeoOption from "../GeoOption";
 
 import Botonera3 from "@/commons/Botonera3";
+import GeoOption2 from "../GeoOption2";
 
 const AppGeoSelect = forwardRef(({ onNext, darkMode }, ref) => {
   return (
@@ -17,19 +18,19 @@ const AppGeoSelect = forwardRef(({ onNext, darkMode }, ref) => {
             subtitle="Add allowed geolocations"
             darkMode={darkMode}
           />
-          <GeoOption
+          <GeoOption2
             title="FORBIDDEN"
             subtitle="Add forbidden geolocations"
             darkMode={darkMode}
           />
         </div>
         <div className="geo-options">
-          <h4> DURATION: 2 WEEKS </h4>
+          {/* <h4> DURATION: 2 WEEKS </h4>
           <div className="ranges3">
             <input type="range" name="range1" min="100" max="1000" step="50" />
           </div>
           <Botonera3 titulo="STATIC IP" />
-          <Botonera3 titulo="ENTERPRISE APPLICATION" />
+          <Botonera3 titulo="ENTERPRISE APPLICATION" /> */}
           <button onClick={onNext} className="add-button2">
             {" "}
             Continue

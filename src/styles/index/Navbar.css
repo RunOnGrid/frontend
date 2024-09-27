@@ -501,9 +501,9 @@ button:active {
   }
 }
 @media only screen and (max-width: 1300px) {
-  .boton-landing1 {
+  /* .boton-landing1 {
     margin-left: 60%;
-  }
+  } */
   .boton-landing {
     margin-left: 60%;
   }

@@ -10,7 +10,14 @@ const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
-
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
+      permanent: false,
+    },
+  };
+}
 export default function Solutions() {
   const contactFormRef = useRef(null);
 

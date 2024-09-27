@@ -218,13 +218,14 @@
   }
 
   .contenedorSegundo {
-    display: flex;
+    display: none;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 90%;
     margin: auto;
-    height: 350px;
+    height: 350px; */
   }
 
   .primeraParte {

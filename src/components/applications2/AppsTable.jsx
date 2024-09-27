@@ -31,7 +31,7 @@ const AppsTable = () => {
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
         <h2>My applications</h2>
-        <ThemeToggle />
+
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}
@@ -52,44 +52,9 @@ const AppsTable = () => {
       <div className="table-container">
         <AppsTableHeader />
         <AppsTableRow
-          name="Application name"
-          type="Application"
+          type="Web"
           status="ACTIVE"
-          team="+1"
           creationDate="12/03/2025"
-          renewalDate="12/03/2025"
-          instanceType="STANDARD"
-          mode={darkMode}
-        />
-
-        <AppsTableRow
-          name="Application name"
-          type="Application"
-          status="ACTIVE"
-          team="+1"
-          creationDate="12/03/2025"
-          renewalDate="12/03/2025"
-          instanceType="STANDARD"
-          mode={darkMode}
-        />
-        <AppsTableRow
-          name="Application name"
-          type="Application"
-          status="ACTIVE"
-          team="+1"
-          creationDate="12/03/2025"
-          renewalDate="12/03/2025"
-          instanceType="STANDARD"
-          mode={darkMode}
-        />
-        <AppsTableRow
-          name="Application name"
-          type="Application"
-          status="ACTIVE"
-          team="+1"
-          creationDate="12/03/2025"
-          renewalDate="12/03/2025"
-          instanceType="STANDARD"
           mode={darkMode}
         />
       </div>

@@ -2,15 +2,16 @@ import Image from "next/image";
 import React, { forwardRef, useState } from "react";
 import Buildpack from "../Buildpack";
 import BuildSettings from "../BuildSettings";
+import Select from "@/commons/Select";
 
-const AppMethodSelect = forwardRef(
-  ({ onNext, darkMode, onClick, value }, ref) => {
+const MethodSelectFlux = forwardRef(
+  ({ onNext, darkMode, onClick, value, setImage }, ref) => {
     const [build, setBuild] = useState(false);
     const [build2, setBuild2] = useState(false);
     const [grid, setGrid] = useState(false);
     const [docker, setDocker] = useState(false);
-    const [image, setImage] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState("");
+    const [selectedOption, setSelectedOption] = useState("");
     const handleGit = () => {
       setSelectedMethod("git");
       setImage(false);
@@ -24,6 +25,10 @@ const AppMethodSelect = forwardRef(
       setBuild(false);
       setBuild2(false);
     };
+    const handleSelect = (option) => {
+      setImage(option);
+    };
+
     return (
       <div ref={ref} className="databaseSelect">
         <div style={{ display: "flex" }}>
@@ -35,14 +40,13 @@ const AppMethodSelect = forwardRef(
         </div>
         <div className="deployMethodBox-container">
           <div
-            onClick={handleGit}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-              selectedMethod === "git" ? "selected" : ""
-            }${selectedMethod === "docker" ? "disabled" : ""}`}
+            className={`deployMethodBox ${
+              darkMode ? "dark" : "light"
+            } disabled`}
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
-            <p>Deploy using source from a git repo.</p>
+            <p>Available soon.</p>
           </div>
           <div
             onClick={handleDocker}
@@ -75,34 +79,31 @@ const AppMethodSelect = forwardRef(
           <>
             {" "}
             <span> Image settings</span>
-            <p className="span-deploy">Specify your image URL.</p>
-            <div className="input-with-image4">
+            <p className="span-deploy">Select our whitelisted images URL.</p>
+            <Select
+              options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
+              onSelect={handleSelect}
+            />
+            {/* <div className="input-with-image4">
               <input
-                onClick={() => {
-                  setImage(!image);
-                }}
-                placeholder="Search images "
+                onChange={(e) => setImage(e.target.value)}
+                placeholder="Default: gridcloud/aptos-app:v.1"
               />
               <Image alt="" src="/searchLigth.png" height={20} width={20} />
-            </div>
-            {image ? (
-              <>
-                <p className="span-deploy">Specify your image tag.</p>
-                <div className="input-with-image4">
-                  <input placeholder="Specify tags " />
-                </div>
-                <button onClick={onNext} className="add-button2">
-                  Continue
-                </button>
-              </>
-            ) : (
-              ""
-            )}
+            </div> */}
+            <button
+              onClick={() => {
+                onNext();
+              }}
+              className="add-button2"
+            >
+              Continue
+            </button>
           </>
         ) : (
           ""
         )}
-        {build ? (
+        {/* {build ? (
           <>
             {" "}
             <BuildSettings
@@ -122,10 +123,10 @@ const AppMethodSelect = forwardRef(
           </>
         ) : (
           ""
-        )}
+        )} */}
       </div>
     );
   }
 );
-AppMethodSelect.displayName = "AppMethodSelect";
-export default AppMethodSelect;
+MethodSelectFlux.displayName = "MethodSelectFlux";
+export default MethodSelectFlux;

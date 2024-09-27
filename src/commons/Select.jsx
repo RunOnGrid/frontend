@@ -1,14 +1,17 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const Select = ({ options }) => {
+const Select = ({ options, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
+
   const selectOption = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
+    // Llamamos a la función onSelect pasando la opción seleccionada
+    onSelect(option);
   };
 
   return (

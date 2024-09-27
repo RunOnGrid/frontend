@@ -2,6 +2,14 @@ import Form from '@/components/login/Form';
 import Navbar from '@/components/login/Navbar';
 import Image from "next/image";
 
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
+      permanent: false,
+    },
+  };
+}
 export default function Login() {
   return (
     <div className="login-screen">

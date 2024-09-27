@@ -5,11 +5,9 @@ const AppsTableHeader = () => {
     <div className="table-header">
       <div>Name</div>
       <div>Type</div>
+      <div>URL</div>
       <div>Status</div>
-      <div>Team</div>
       <div>Creation date</div>
-      <div>Renewal date</div>
-      <div>Instance type</div>
     </div>
   );
 };

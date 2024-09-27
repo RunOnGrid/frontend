@@ -6,14 +6,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { serviceName, cpu, memory, ephemeralStorage, serviceCount } =
+    const { serviceName, cpu, memory, ephemeralStorage, serviceCount, image } =
       req.body;
 
     const yamlStructure = {
       version: "2.0",
       services: {
         [serviceName || "web"]: {
-          image: "gridcloud/hello-app:2.0",
+          image: image || "gridcloud/aptos-app:v.1",
           expose: [
             {
               port: 8080,
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
     const yamlString = yaml.dump(yamlStructure);
 
     const API_URL = process.env.GRID_API;
-    console.log(API_URL);
+   
     const akashResponse = await fetch(`${API_URL}/akash/deploy`, {
       method: "POST",
       headers: {

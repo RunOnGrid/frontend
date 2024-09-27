@@ -221,13 +221,14 @@ textarea {
     margin: 30px auto;
   }
   .contact-container2 {
-    display: flex;
+    display: none;
+    /* display: flex;
     flex-direction: column;
     width: 80%;
     height: auto;
 
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; */
   }
   .contact-titulo {
     justify-content: center;

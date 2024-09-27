@@ -26,7 +26,7 @@ const BestFeatures = () => {
     <div className="best-features">
       <h3 className="section-title scroll-in">ABOUT US</h3>
       <h1 className="section-title scroll-in">Best features</h1>
-      <div style={{ display: "flex" }}>
+      <div className="features-container">
         <Features
           className="scroll-in feature-item"
           image="/experience.svg"
@@ -46,7 +46,6 @@ const BestFeatures = () => {
           subtitle="Access to low cost computing power and democratized deployment of secure, censorship-resistant apps, available to all developers."
         />
       </div>
-      <button className="button-landing-3 scale-hover">DEPLOY NOW</button>
     </div>
   );
 };

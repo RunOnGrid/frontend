@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DeployOption from "./DeployOption";
 import DeployOption2 from "./DeployOption2";
+import Link from "next/link";
 
 const DeployChoice = () => {
   const [fluxData, setFluxData] = useState(null);
@@ -54,7 +55,8 @@ const DeployChoice = () => {
 
         const totalSsd = akashInfo.totalStorage / 1000000000000; // Convert bytes to TB
         const totalRam = akashInfo.totalMemory / 1000000000000; // Convert bytes to TB
-        const totalStorage = akashInfo.totalGPU; // Assuming this is the total cores
+        const totalStorage = akashInfo.totalCPU / 1000000; // Assuming this is the total cores
+
         const totalNodes = akashInfo.activeProviderCount;
 
         setAkashData({
@@ -102,7 +104,9 @@ const DeployChoice = () => {
           nodes={akashData.totalNodes} // Assuming activeLeaseCount represents the number of active nodes
         />
       </div>
-      <button className="button-landing-4">DEPLOY NOW</button>
+      <button className="button-landing-4">
+        <Link href="/deploy">DEPLOY NOW </Link>
+      </button>
     </div>
   );
 };

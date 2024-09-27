@@ -50,11 +50,12 @@
 }
 .subtituloBanner2 {
   display: flex;
-
-  font-size: 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
   width: 100%;
+  margin-top: 15px;
   color: white;
-  justify-content: center;
+ 
   margin-bottom: 50px;
 }
 .subtituloBanner4 {
@@ -383,64 +384,109 @@
 }
 
 @media only screen and (max-width: 650px) {
-  .ilustracion-bannerGrande {
-    display: none;
+  .button-landing-4 {
+ 
+
+    width: 68%;
+    height: 40px;
+    font-size: 0.9rem;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    box-shadow: 1px 1px 10px 1px white;
   }
-  .banner-container {
-    width: 100%;
+  .subtituloBanner2 {
+  font-size: 0.9rem;
+  }
+  .button-landing-1 {
+    background-color: #36b079;
+    border-radius: 50px;
+    width: 68%;
+    height: 40px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    margin-left: 0px;
+  }
+  .button-landing-2 {
+    background-color: transparent;
+    border-radius: 50px;
+    width: 68%;
+    height: 40px;
+    font-size: 0.9rem;
+    margin-left: 0px;
+  }
+  .container-botones {
+   flex-direction: column;
   }
   .textosBanner {
-    margin-top: 100px;
-    margin-bottom: -100px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 80%;
+    margin-left: 5%;
+    margin-top: 160px;
   }
-  .tituloBanner {
-    font-size: 1.8rem;
-    font-weight: 100;
-  }
+ 
   .banner-container {
-    display: flex;
-    height: 100%;
-  }
-  .subtituloBanner {
-    display: flex;
-    justify-content: center;
-    margin: 0 !important;
-    font-size: 1rem;
-  }
- .triangle5, .triangle4,  .triangle6, .triangle7, .triangle3, .triangle8,.triangle2{
-    display: none;
-  }
-  .textosBanner2 {
-   width: 100%;
-   margin-top: 100px;
-  }
-  .container-botones2{
-    margin-top: 10px;
-  }
-  .button-landing-5{
-    width: 100%;
-  }
-  .navbar-logo2{
-    margin-top: 80px;
-  }
+      width: 100%;
+      display: flex;
+      height: 100%;
+    }
+    .textosBanner2 {
+      width: 100%;
+      margin-top: 10px;
+     }
+     .tituloBanner {
+      font-size: 1.8rem;
+      font-weight: 100;
+    }
+    .subtituloBanner {
+      display: flex;
+      justify-content: center;
+      margin: 0 !important;
+      font-size: 1rem;
+    }
+    .container-botones2{
+      margin-top: 10px;
+    }
+    .button-landing-5{
+      width: 100%;
+    }
+    .triangle3 {
+      display: none;
+    }
+    .triangle4 {
+      display: none;
+    }
+    .triangle5 {
+      display: none;
+    }
+    .triangle6 {
+      display: none;
+    }
+    .triangle7 {
+      display: none;
+    }
+    .triangle2 {
+      display: none;
+    }
+    .triangle8 {
+      display: none;
+    }
+    
 }
 
 @media only screen and (max-width: 1500px) {
   .subtituloBanner{
-    font-size: 1rem;
-    width: 90%;
+    font-size: 0.9rem;
+    width: 100%;
     
   }
   .subtituloBanner5{
-    font-weight: 600;
-    font-size: 1rem;
-  }
-  .button-landing-5{
-    font-size: 0.9rem;
-    
-  }
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .button-landing-5{
+      font-size: 0.9rem;
+      
+    }
 }
 
 

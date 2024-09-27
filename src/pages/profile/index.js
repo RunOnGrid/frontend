@@ -6,7 +6,14 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
-
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
+      permanent: false,
+    },
+  };
+}
 export default function LoggedLogin() {
   const [abierto, setAbierto] = useState(false);
   const [selected, setSelected] = useState(0);

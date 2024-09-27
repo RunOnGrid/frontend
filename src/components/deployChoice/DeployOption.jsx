@@ -46,7 +46,7 @@ const DeployOption = ({ image, title, text, className, data, nodes }) => {
               <CountUp
                 style={{ fontSize: "20px" }}
                 start={0}
-                end={Math.floor(data.totalStorage)}
+                end={Math.floor(data.totalStorage / 1000)}
                 duration={2.5}
                 suffix=" K"
               />

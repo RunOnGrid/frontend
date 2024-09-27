@@ -10,7 +10,7 @@ const ContactForm = () => {
         <div>
           <div className="contact-titulo"> Contact us </div>
           <span>
-            {' '}
+            {" "}
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </span>
@@ -21,11 +21,12 @@ const ContactForm = () => {
           <input className="contact-input" placeholder="Email"></input>
           <input
             className="contact-input"
-            placeholder="What type of application want to host?"></input>
-          <textarea
+            placeholder="What type of application want to host?"
+          ></input>
+          {/* <textarea
             className="contact-input-description"
             placeholder={`Write us your suggestions and ideas, let's talk`}
-          />
+          /> */}
           <label>Topic</label>
           <select className="contact-select">
             <option value="Help Needed">Help Needed</option>
@@ -39,7 +40,7 @@ const ContactForm = () => {
         </div>
       </div>
 
-      <div style={{ opacity: '0' }}>.</div>
+      <div style={{ opacity: "0" }}>.</div>
     </>
   );
 };

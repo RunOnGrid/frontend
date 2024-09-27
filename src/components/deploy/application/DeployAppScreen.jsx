@@ -4,12 +4,16 @@ import Botonera2 from "@/commons/Botonera2";
 import { useTheme } from "@/ThemeContext";
 import Notis from "../../applications2/Notis";
 import AppCloudSelect from "./AppCloudSelect";
-import AppMethodSelect from "./AppMethodSelect";
 import AppGeoSelect from "./AppGeoSelect";
 import AppComponentSelect from "./AppComponentSelect";
 import BuildAkash from "@/components/akash/BuildAkash";
 import Spinner from "@/commons/Spinner";
 import { useRouter } from "next/router";
+import { DataComponent } from "@/components/deployBoxes/DataComponent";
+import MethodSelectAkash from "./MethodSelectAkash";
+import MethodSelectFlux from "./MethodSelectFlux";
+import Link from "next/link";
+import axios from "axios";
 
 const DeployAppScreen = () => {
   const { darkMode } = useTheme();
@@ -24,6 +28,8 @@ const DeployAppScreen = () => {
   const [selectedCloud, setSelectedCloud] = useState(null);
   const [componentData, setComponentData] = useState({});
   const [agree, setAgree] = useState(false);
+  const [image, setImage] = useState("gridcloud/aptos-app:v.1");
+  const [fluxAvailable, setFluxAvailable] = useState(0);
 
   const nameRef = useRef(null);
   const detailsRef = useRef(null);
@@ -37,21 +43,55 @@ const DeployAppScreen = () => {
 
   useEffect(() => {
     if (activeStep === 1) {
-      nameRef.current.scrollIntoView({ behavior: "smooth" });
+      nameRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 2) {
-      detailsRef.current.scrollIntoView({ behavior: "smooth" });
+      detailsRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 3 && selectedCloud === "flux") {
-      servicesRef.current.scrollIntoView({ behavior: "smooth" });
+      servicesRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 4 && selectedCloud === "flux") {
-      deployRef.current.scrollIntoView({ behavior: "smooth" });
+      deployRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 5 && selectedCloud === "flux") {
-      envRef.current.scrollIntoView({ behavior: "smooth" });
+      envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep, selectedCloud]);
+  useEffect(() => {
+    const fluxWallet = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.runonflux.io/explorer/balance?address=t1SsyhfbkVJr8RFNP4VRPNeKx5wHWYQrXkT"
+        );
+
+        const formattedNum = (response.data.data / 100000000).toFixed(2);
+        setFluxAvailable(formattedNum);
+      } catch (error) {
+        console.error("Error obteniendo los repositorios", error);
+      }
+    };
+
+    fluxWallet();
+  }, []);
 
   const handleCompleteStep = (step) => {
     setCompletedSteps((prevSteps) => [...prevSteps, step]);
     setActiveStep(step + 1);
+  };
+  const resetFlow = () => {
+    setDatabaseName("");
+    setPrice(0);
+    setCompletedSteps([]);
+    setActiveStep(null);
+    setIsDeploying(false);
+    setDeploymentMessage("Deploy");
+    setSelectedCloud(null);
+    setComponentData({});
+    setAgree(false);
+    setImage("gridcloud/aptos-app:v.1");
+  };
+
+  const handleCloudSelect = (cloud) => {
+    resetFlow();
+    setSelectedCloud(cloud);
+    handleCompleteStep(1);
   };
 
   const toggleNotifications = () => {
@@ -66,14 +106,14 @@ const DeployAppScreen = () => {
       if (selectedCloud === "flux") {
         // Lógica de despliegue para Flux
         const deploymentConfig = {
-          name: componentData.serviceName,
+          name: componentData.name || "grid-cloud",
           description: "anotherDescription",
           owner: process.env.owner,
           compose: [
             {
-              name: componentData.serviceName,
+              name: componentData.name || "grid-cloud",
               description: "GridTestNamev0001",
-              repotag: "gridcloud/hello-app:2.0",
+              repotag: componentData.image || "gridcloud/aptos-app:v.1",
               ports: [36522],
               domains: [""],
               environmentParameters: [],
@@ -100,9 +140,13 @@ const DeployAppScreen = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setDeploymentMessage(
-          `Despliegue exitoso en Flux. ID de transacción: ${data.transactionId}, ID de aplicación: ${data.appId}`
-        );
+        if (data.name && data.uri) {
+          localStorage.setItem("DeploymentName", data.name);
+          localStorage.setItem("DeploymentUri", data.uri);
+        }
+        setDeploymentMessage(`Succesfull deployment`);
+
+        router.push("/applications");
       } else if (selectedCloud === "akash") {
         // Lógica de despliegue para Akash
         // Aquí deberías usar la lógica de BuildAkash para el despliegue
@@ -117,6 +161,7 @@ const DeployAppScreen = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
+
         setDeploymentMessage(
           `Despliegue exitoso en Akash. Detalles: ${JSON.stringify(data)}`
         );
@@ -145,22 +190,58 @@ const DeployAppScreen = () => {
       </div>
       <div className="deploy-container2">
         <div>
-          <AppCloudSelect
-            onNext={(cloud) => {
-              setSelectedCloud(cloud);
-              handleCompleteStep(1);
-            }}
-            ref={nameRef}
-          />
+          <AppCloudSelect onNext={handleCloudSelect} ref={nameRef} />
 
-          {completedSteps.includes(1) && (
-            <AppMethodSelect
-              darkMode={darkMode}
-              onClick={setDatabaseName}
-              value={databaseName}
-              onNext={() => handleCompleteStep(2)}
-              ref={detailsRef}
-            />
+          {selectedCloud === "akash" && completedSteps.includes(1) && (
+            <>
+              <span className="akash-faucet">
+                Use
+                <strong>
+                  <Link
+                    href="https://faucet.sandbox-01.aksh.pw/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    this faucet
+                  </Link>
+                </strong>
+                to fund our sandbox address:
+                <strong> akash1lvjmmlqd0ucjx6ntyh55v78a7z2u7myel6rarn </strong>
+              </span>
+            </>
+          )}
+          {selectedCloud === "flux" && completedSteps.includes(1) && (
+            <>
+              <span className="flux-faucet">
+                Flux available:
+                <strong>{fluxAvailable}</strong>
+              </span>
+            </>
+          )}
+
+          {selectedCloud === "flux" && completedSteps.includes(1) && (
+            <>
+              <MethodSelectFlux
+                darkMode={darkMode}
+                onClick={setDatabaseName}
+                value={databaseName}
+                onNext={() => handleCompleteStep(2)}
+                setImage={setImage}
+                ref={detailsRef}
+              />
+            </>
+          )}
+          {selectedCloud === "akash" && completedSteps.includes(1) && (
+            <>
+              <MethodSelectAkash
+                darkMode={darkMode}
+                onClick={setDatabaseName}
+                value={databaseName}
+                onNext={() => handleCompleteStep(2)}
+                setImage={setImage}
+                ref={detailsRef}
+              />
+            </>
           )}
 
           {selectedCloud === "flux" && completedSteps.includes(2) && (
@@ -178,6 +259,7 @@ const DeployAppScreen = () => {
                   ref={deployRef}
                   price={price}
                   setPrice={setPrice}
+                  image={image}
                 />
               )}
             </>
@@ -188,6 +270,7 @@ const DeployAppScreen = () => {
               darkMode={darkMode}
               onSaveComponentData={handleSaveComponentData}
               onNext={() => handleCompleteStep(3)}
+              image={image}
             />
           )}
         </div>
@@ -195,7 +278,7 @@ const DeployAppScreen = () => {
         {((selectedCloud === "flux" && completedSteps.includes(4)) ||
           (selectedCloud === "akash" && completedSteps.includes(3))) && (
           <div ref={envRef}>
-            <Summary price={price} mode={darkMode} />
+            <Summary componentData={componentData} mode={darkMode} />
             <div className="termService">
               <Botonera2 setAgree={setAgree} agree={agree} />
               <h4>I agree with Terms of Service</h4>
