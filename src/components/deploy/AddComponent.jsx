@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import Spinner from "@/commons/Spinner";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const AddComponent = ({
@@ -8,12 +9,13 @@ const AddComponent = ({
   price,
   setPrice,
   image,
+  existingNames,
 }) => {
   const [serviceName, setServiceName] = useState("");
   const [instances, setInstances] = useState(3);
   const [cpu, setCpu] = useState(0.1);
   const [ram, setRam] = useState(128);
-  const [hdd, setHdd] = useState(128);
+  const [hdd, setHdd] = useState(1);
   const [selectedService, setSelectedService] = useState("Web");
   const [activeTab, setActiveTab] = useState("GENERAL");
   const [ports, setPorts] = useState("");
@@ -21,16 +23,15 @@ const AddComponent = ({
   const [personalized, setPersonalized] = useState(false);
   const [instance, setInstance] = useState(false);
   const [name, setName] = useState("");
+  const [existingNames2, setExistingNames2] = useState(existingNames);
+  const [isNameTaken, setIsNameTaken] = useState(false);
+
+  const [error, setError] = useState(null);
 
   const handleServiceSelection = (service) => {
     setSelectedService(service);
   };
 
-  const handleNameChange = (event) => {
-    const newName = event.target.value;
-    setServiceName(newName);
-    setName(`${newName}-${uuidv4()}`);
-  };
   const handleInputChange = (setter) => (e) => {
     const value = e.target.value;
     if (value === "" || isNaN(value)) return;
@@ -60,6 +61,20 @@ const AddComponent = ({
     setCustom(false);
     setPersonalized(true);
     setInstance(true);
+  };
+
+  const handleNameChange = (event) => {
+    const newName = event.target.value;
+    // Validar que solo contenga letras y números
+    if (/^[a-zA-Z0-9]*$/.test(newName)) {
+      setName(newName);
+
+      if (existingNames2.includes(newName.toLowerCase())) {
+        setIsNameTaken(true);
+      } else {
+        setIsNameTaken(false);
+      }
+    }
   };
 
   return (
@@ -97,31 +112,40 @@ const AddComponent = ({
               </button> */}
             </div>
 
-            <label>Name this service</label>
+            {isNameTaken ? (
+              <label className="error-text"> Name not available </label>
+            ) : (
+              <label>Name this service</label>
+            )}
+
             <div className={`input-container3 ${darkMode ? "dark" : "light"}`}>
               <input
                 type="text"
                 className={`custom-input ${darkMode ? "dark" : "light"}`}
-                value={serviceName}
+                value={name}
                 onChange={handleNameChange}
                 required
               />
             </div>
-            {activeTab === "GENERAL" && (
-              <>
-                <label>Ports (comma-separated)</label>
-                <div
-                  className={`input-container3 ${darkMode ? "dark" : "light"}`}
-                >
-                  <input
-                    type="text"
-                    className={`custom-input ${darkMode ? "dark" : "light"}`}
-                    value={ports}
-                    onChange={(e) => setPorts(e.target.value)}
-                  />
-                </div>
-              </>
-            )}
+
+            <label>Ports (comma-separated)</label>
+            <div className={`input-container3 ${darkMode ? "dark" : "light"}`}>
+              <input
+                type="text"
+                className={`custom-input ${darkMode ? "dark" : "light"}`}
+                value={ports}
+                onChange={(e) => setPorts(e.target.value)}
+              />
+            </div>
+            <label>Commands (comma-separated)</label>
+            <div className={`input-container3 ${darkMode ? "dark" : "light"}`}>
+              <input
+                type="text"
+                className={`custom-input ${darkMode ? "dark" : "light"}`}
+                value={ports}
+                onChange={(e) => setPorts(e.target.value)}
+              />
+            </div>
           </div>
 
           {/* <button className="add-button" type="submit">
@@ -200,19 +224,23 @@ const AddComponent = ({
                 <div className="slider-group">
                   <input
                     type="range"
-                    min="128"
-                    max="1024"
-                    step="128"
+                    min="1"
+                    max="2"
+                    step="1"
                     value={hdd}
                     onChange={(e) => setHdd(parseInt(e.target.value))}
                   />
-                  <span>{hdd} Mi</span>
+                  <span>{hdd} </span>
                 </div>
               </div>
             </div>
-            <button className="add-button" onClick={handleSubmit}>
-              Done
-            </button>
+            {isNameTaken ? (
+              <span className="error-text"> Please select a valid name</span>
+            ) : (
+              <button className="add-button" onClick={handleSubmit}>
+                Done
+              </button>
+            )}
           </>
         ) : (
           ""

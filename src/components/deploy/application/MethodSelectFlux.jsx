@@ -3,6 +3,7 @@ import React, { forwardRef, useState } from "react";
 import Buildpack from "../Buildpack";
 import BuildSettings from "../BuildSettings";
 import Select from "@/commons/Select";
+import JsonEditor from "@/components/flux/JsonEditor";
 
 const MethodSelectFlux = forwardRef(
   ({ onNext, darkMode, onClick, value, setImage }, ref) => {
@@ -77,7 +78,6 @@ const MethodSelectFlux = forwardRef(
         )}
         {docker ? (
           <>
-            {" "}
             <span> Image settings</span>
             <p className="span-deploy">Select our whitelisted images URL.</p>
             <Select

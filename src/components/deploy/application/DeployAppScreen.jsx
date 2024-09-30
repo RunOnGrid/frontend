@@ -14,6 +14,7 @@ import MethodSelectAkash from "./MethodSelectAkash";
 import MethodSelectFlux from "./MethodSelectFlux";
 import Link from "next/link";
 import axios from "axios";
+import JsonEditor from "@/components/flux/JsonEditor";
 
 const DeployAppScreen = () => {
   const { darkMode } = useTheme();
@@ -30,6 +31,10 @@ const DeployAppScreen = () => {
   const [agree, setAgree] = useState(false);
   const [image, setImage] = useState("gridcloud/aptos-app:v.1");
   const [fluxAvailable, setFluxAvailable] = useState(0);
+  const [currentDate, setCurrentDate] = useState("");
+  const [activeTab, setActiveTab] = useState("");
+  const [existingNames, setExistingNames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const nameRef = useRef(null);
   const detailsRef = useRef(null);
@@ -67,7 +72,34 @@ const DeployAppScreen = () => {
         console.error("Error obteniendo los repositorios", error);
       }
     };
+    const formatDate = (date) => {
+      const options = {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+      return date.toLocaleDateString("en-US", options);
+    };
+    setCurrentDate(formatDate(new Date()));
+    const fetchExistingNames = async () => {
+      try {
+        const response = await fetch(
+          "https://api.runonflux.io/apps/globalappsspecifications"
+        );
+        const data = await response.json();
+        if (data && data.data) {
+          const names = data.data.map((app) => app.name.toLowerCase());
+          setExistingNames(names);
+        }
+      } catch (err) {
+        setError("Error al cargar los nombres de aplicaciones existentes");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+    fetchExistingNames();
     fluxWallet();
   }, []);
 
@@ -104,16 +136,15 @@ const DeployAppScreen = () => {
 
     try {
       if (selectedCloud === "flux") {
-        // Lógica de despliegue para Flux
         const deploymentConfig = {
-          name: componentData.name || "grid-cloud",
+          name: componentData.name,
           description: "anotherDescription",
           owner: process.env.owner,
           compose: [
             {
-              name: componentData.name || "grid-cloud",
+              name: componentData.name,
               description: "GridTestNamev0001",
-              repotag: componentData.image || "gridcloud/aptos-app:v.1",
+              repotag: componentData.image || "gridcloud/hello-app:2.0",
               ports: [36522],
               domains: [""],
               environmentParameters: [],
@@ -128,7 +159,9 @@ const DeployAppScreen = () => {
               repoauth: "",
             },
           ],
+          geolocation: [],
         };
+
         const response = await fetch("/api/flux-deploy", {
           method: "POST",
           headers: {
@@ -143,28 +176,11 @@ const DeployAppScreen = () => {
         if (data.name && data.uri) {
           localStorage.setItem("DeploymentName", data.name);
           localStorage.setItem("DeploymentUri", data.uri);
+          localStorage.setItem("DeploymentDate", currentDate);
         }
         setDeploymentMessage(`Succesfull deployment`);
 
         router.push("/applications");
-      } else if (selectedCloud === "akash") {
-        // Lógica de despliegue para Akash
-        // Aquí deberías usar la lógica de BuildAkash para el despliegue
-        const response = await fetch("/api/akash/deploy", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(componentData),
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-
-        setDeploymentMessage(
-          `Despliegue exitoso en Akash. Detalles: ${JSON.stringify(data)}`
-        );
       }
     } catch (error) {
       console.error("Error durante el despliegue:", error);
@@ -246,11 +262,39 @@ const DeployAppScreen = () => {
 
           {selectedCloud === "flux" && completedSteps.includes(2) && (
             <>
-              <AppGeoSelect
-                darkMode={darkMode}
-                onNext={() => handleCompleteStep(3)}
-                ref={servicesRef}
-              />
+              <div className="billing-tabs2">
+                <div
+                  className={`billing-tab ${
+                    activeTab === "builder" ? "billing-tab-active" : ""
+                  }`}
+                  onClick={() => setActiveTab("builder")}
+                >
+                  Builder
+                </div>
+                <div
+                  className={`billing-tab ${
+                    activeTab === "yaml" ? "billing-tab-active" : ""
+                  }`}
+                  onClick={() => setActiveTab("yaml")}
+                >
+                  Json
+                </div>
+              </div>
+              {activeTab === "yaml" ? (
+                <JsonEditor existingNames={existingNames} image={image} />
+              ) : (
+                ""
+              )}
+              {activeTab === "builder" ? (
+                <AppGeoSelect
+                  darkMode={darkMode}
+                  onNext={() => handleCompleteStep(3)}
+                  ref={servicesRef}
+                />
+              ) : (
+                ""
+              )}
+
               {completedSteps.includes(3) && (
                 <AppComponentSelect
                   darkMode={darkMode}
@@ -260,6 +304,7 @@ const DeployAppScreen = () => {
                   price={price}
                   setPrice={setPrice}
                   image={image}
+                  existingNames={existingNames}
                 />
               )}
             </>

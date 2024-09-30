@@ -51,12 +51,7 @@ const AppsTable = () => {
       />
       <div className="table-container">
         <AppsTableHeader />
-        <AppsTableRow
-          type="Web"
-          status="ACTIVE"
-          creationDate="12/03/2025"
-          mode={darkMode}
-        />
+        <AppsTableRow type="Web" status="ACTIVE" mode={darkMode} />
       </div>
     </div>
   );

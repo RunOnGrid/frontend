@@ -1,5 +1,5 @@
 import Select from "@/commons/Select";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import Spinner from "@/commons/Spinner";
@@ -20,11 +20,13 @@ export default function BuildAkash({ darkMode, image }) {
   const [name, setName] = useState("");
   const [activeTab, setActiveTab] = useState("builder");
   const [builder, setBuilder] = useState(true);
+  const [currentDate, setCurrentDate] = useState("");
   const [yaml, setYaml] = useState(`
+    ---
     version: "2.0"
     services:
       service-1:
-        image: ""
+        image: 
         expose:
           - port: 8080
             as: 80
@@ -105,6 +107,7 @@ export default function BuildAkash({ darkMode, image }) {
       if (data.name && data.uri) {
         localStorage.setItem("DeploymentName", data.name);
         localStorage.setItem("DeploymentUri", data.uri);
+        localStorage.setItem("DeploymentDate", currentDate);
       }
       router.push("/applications");
     } catch (err) {
@@ -113,9 +116,22 @@ export default function BuildAkash({ darkMode, image }) {
       setIsLoading(false);
     }
   };
+  useEffect(() => {
+    const formatDate = (date) => {
+      const options = {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      };
+      return date.toLocaleDateString("en-US", options);
+    };
+    setCurrentDate(formatDate(new Date()));
+  }, []);
   return (
     <div className="deployment-config">
       <h2>Deployment configuration</h2>
+
       <p>Configure your deployment settings.</p>
       <div className="billing-tabs">
         <div

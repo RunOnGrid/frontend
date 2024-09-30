@@ -45,7 +45,7 @@
   }
 
   
-  .done-button,  .continue-button {
+  .done-button,  .continue-button, .continue2-button {
     padding: 8px 16px;
     background-color: #00b174;
     color: white;
@@ -70,6 +70,12 @@
     display: block;
     width: 100%;
     margin-top: 20px;
+  }
+  .continue2-button {
+    display: block;
+    margin: 30px auto;
+    width: 80%;
+  
   }
   
   .checkbox-group {
@@ -185,7 +191,19 @@
     margin: 0px 5px;
   }
 
-  
+  .json-editor {
+    display: flex;
+    font-family: monospace;
+    font-size: 14px;
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+    height: 65vh;
+    width: 80%;
+    margin: auto;
+  }
   .yaml-editor {
     display: flex;
     font-family: monospace;
@@ -235,3 +253,14 @@
   .keyword2 { color: #9cdcfe; }
   .string { color: #ce9178; }
   .number { color: #b5cea8; }
+
+  .error-text{
+    color: rgb(226, 34, 34);
+  }
+  .error-text2{
+    color: rgb(226, 34, 34);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+   
+  }
