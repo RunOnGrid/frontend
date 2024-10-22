@@ -1,43 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const plans = [
   {
-    title: 'STANDARD',
-    subtitle: 'Starter',
-    price: '$7 / month',
-    specs: ['256 MB (RAM)', '0.1 CPU', '1 GB (STORAGE)', '3 INSTANCES (NODES)'],
+    title: "STANDARD",
+    subtitle: "Starter",
+    price: "$7 / month",
+    specs: ["3 INSTANCES (NODES)", "256 MB (RAM)", "0.1 CPU", "1 GB (HDD)"],
+    values: [3, 256, 0.1, 1],
   },
   {
-    title: 'TEST',
-    subtitle: 'Standard',
-    price: '$20 / month',
-    specs: ['1 GB (RAM)', '1 CPU', '16 GB (STORAGE)', '6 INSTANCES (NODES)'],
+    title: "TEST",
+    subtitle: "Standard",
+    price: "$20 / month",
+    specs: ["6 INSTANCES (NODES)", "1 GB (RAM)", "1 CPU", "16 GB (HDD)"],
+    values: [6, 1024, 1, 16],
   },
   {
-    title: 'PRODUCTION',
-    subtitle: 'Pro',
-    price: '$95 / month',
-    specs: ['4 GB (RAM)', '2 CPU', '96 GB (STORAGE)', '12 INSTANCES (NODES)'],
+    title: "PRODUCTION",
+    subtitle: "Pro",
+    price: "$45 / month",
+    specs: ["12 INSTANCES (NODES)", "4 GB (RAM)", "2 CPU", "32 GB (HDD)"],
+    values: [12, 4096, 2, 32],
   },
   {
-    title: 'PRODUCTION PLUS',
-    subtitle: 'Pro Plus',
-    price: '$185 / month',
-    specs: ['8 GB (RAM)', '4 CPU', '256 GB (STORAGE)', '24 INSTANCES (NODES)'],
+    title: "PRODUCTION2",
+    subtitle: "Pro Plus",
+    price: "$90 / month",
+    specs: ["24 INSTANCES (NODES)", "8 GB (RAM)", "4 CPU", "64 GB (HDD)"],
+    values: [24, 8192, 4, 64],
   },
 ];
 
-const PricingPlanSelector = ({ setInstanceType, setPrice, mode, price }) => {
+const PricingPlanSelector = ({
+  setInstances,
+  setCpu,
+  setRam,
+  setHdd,
+  mode,
+}) => {
   const [selectedPlan, setSelectedPlan] = useState("");
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan.title);
-
-    setPrice(plan.price);
+    setInstances(plan.values[0]);
+    setRam(plan.values[1]);
+    setCpu(plan.values[2]);
+    setHdd(plan.values[3]);
   };
 
   return (
-    <div className={`plans-container ${mode ? "dark" : "light"}`}>
+    <div className={`plans-container2 ${mode ? "dark" : "light"}`}>
       {plans.map((plan) => (
         <div
           key={plan.title}

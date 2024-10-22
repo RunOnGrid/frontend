@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Summary from "../Summary";
 import Botonera2 from "@/commons/Botonera2";
 import { useTheme } from "@/ThemeContext";
@@ -15,6 +15,14 @@ import MethodSelectFlux from "./MethodSelectFlux";
 import Link from "next/link";
 import axios from "axios";
 import JsonEditor from "@/components/flux/JsonEditor";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "@/components/stripe/StripeScreen";
+import { loadStripe } from "@stripe/stripe-js";
+import PayModal from "@/components/PayModal";
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);
 
 const DeployAppScreen = () => {
   const { darkMode } = useTheme();
@@ -32,9 +40,55 @@ const DeployAppScreen = () => {
   const [image, setImage] = useState("gridcloud/aptos-app:v.1");
   const [fluxAvailable, setFluxAvailable] = useState(0);
   const [currentDate, setCurrentDate] = useState("");
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("builder");
   const [existingNames, setExistingNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [allowedLocations, setAllowedLocations] = useState([]);
+  const [forbiddenLocations, setForbiddenLocations] = useState([]);
+  const [staticIp, setStaticIp] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
+  const [showPayment, setShowPayment] = useState(false);
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleAllowedLocationsChange = useCallback((locations) => {
+    setAllowedLocations(locations);
+  }, []);
+
+  const handleForbiddenLocationsChange = useCallback((locations) => {
+    setForbiddenLocations(locations);
+  }, []);
+  const handleContinue = async () => {
+    setIsLoading2(true);
+    setError(null);
+    setShowModal(false);
+
+    try {
+      const price = 100;
+
+      const response = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: price * 100 }), // Convert to cents
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setClientSecret(data.clientSecret);
+      setShowPayment(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading2(false);
+    }
+  };
 
   const nameRef = useRef(null);
   const detailsRef = useRef(null);
@@ -125,12 +179,31 @@ const DeployAppScreen = () => {
     setSelectedCloud(cloud);
     handleCompleteStep(1);
   };
+  const handleStaticIp = (boolean) => {
+    setStaticIp(boolean);
+  };
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
   };
-
   const handleDeploy = async () => {
+    setShowPayment(true);
+    try {
+      const response = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount: price * 100 }), // Assuming price is in dollars, convert to cents
+      });
+      const data = await response.json();
+      setClientSecret(data.clientSecret);
+    } catch (error) {
+      console.error("Error creating payment intent:", error);
+      setShowPayment(false);
+    }
+  };
+  const handlePaymentSuccess = async () => {
+    setPaymentCompleted(true);
+    setShowPayment(false);
     setIsDeploying(true);
     setDeploymentMessage("");
 
@@ -138,28 +211,31 @@ const DeployAppScreen = () => {
       if (selectedCloud === "flux") {
         const deploymentConfig = {
           name: componentData.name,
-          description: "anotherDescription",
+          description: componentData.description || "grid-default-description",
           owner: process.env.owner,
           compose: [
             {
               name: componentData.name,
-              description: "GridTestNamev0001",
+              description:
+                componentData.description || "grid-default-description",
               repotag: componentData.image || "gridcloud/hello-app:2.0",
-              ports: [36522],
-              domains: [""],
-              environmentParameters: [],
-              commands: [],
-              containerPorts: [8080],
+              ports: componentData.ports || [36522],
+              domains: componentData.domains || [""],
+              environmentParameters: componentData.envVariables || [],
+              commands: componentData.commands || [],
+              containerPorts: componentData.contPorts || [8080],
               containerData: "/data",
-              cpu: parseFloat(componentData.cpu),
-              ram: parseInt(componentData.ram),
-              hdd: parseInt(componentData.hdd),
+              cpu: parseFloat(componentData.cpu) || 0.1,
+              ram: parseInt(componentData.ram) || 128,
+              hdd: parseInt(componentData.hdd) || 1,
               tiered: false,
               secrets: "",
               repoauth: "",
             },
           ],
-          geolocation: [],
+          instances: parseInt(componentData.instances),
+          geolocation: [...allowedLocations, ...forbiddenLocations],
+          staticip: staticIp,
         };
 
         const response = await fetch("/api/flux-deploy", {
@@ -180,13 +256,29 @@ const DeployAppScreen = () => {
         }
         setDeploymentMessage(`Succesfull deployment`);
 
-        router.push("/applications");
+        router.push("/profile");
       }
     } catch (error) {
       console.error("Error durante el despliegue:", error);
       setDeploymentMessage("Error en el despliegue: " + error.message);
     } finally {
       setIsDeploying(false);
+    }
+  };
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    if (tab === "yaml") {
+      // Reset completed steps to only include steps 1 and 2
+      setCompletedSteps((prevSteps) => prevSteps.filter((step) => step <= 2));
+      // Reset active step to 2 (since we want to keep up to step 2)
+      setActiveStep(2);
+      // Reset any data from later steps
+      setComponentData({});
+      setAllowedLocations([]);
+      setForbiddenLocations([]);
+      setStaticIp(null);
+      setPrice(0);
     }
   };
 
@@ -267,7 +359,7 @@ const DeployAppScreen = () => {
                   className={`billing-tab ${
                     activeTab === "builder" ? "billing-tab-active" : ""
                   }`}
-                  onClick={() => setActiveTab("builder")}
+                  onClick={() => handleTabChange("builder")}
                 >
                   Builder
                 </div>
@@ -275,7 +367,7 @@ const DeployAppScreen = () => {
                   className={`billing-tab ${
                     activeTab === "yaml" ? "billing-tab-active" : ""
                   }`}
-                  onClick={() => setActiveTab("yaml")}
+                  onClick={() => handleTabChange("yaml")}
                 >
                   Json
                 </div>
@@ -290,6 +382,9 @@ const DeployAppScreen = () => {
                   darkMode={darkMode}
                   onNext={() => handleCompleteStep(3)}
                   ref={servicesRef}
+                  onLocationsChange={handleAllowedLocationsChange}
+                  onLocationsChange2={handleForbiddenLocationsChange}
+                  onStaticIp={handleStaticIp}
                 />
               ) : (
                 ""
@@ -338,15 +433,39 @@ const DeployAppScreen = () => {
               <div className="line-background"></div>
               <button
                 className="deploy-button"
-                onClick={handleDeploy}
-                disabled={isDeploying || !agree}
+                onClick={() => {
+                  setShowModal(true);
+                }}
+                disabled={isLoading || paymentCompleted}
               >
-                {isDeploying ? <Spinner /> : deploymentMessage}
+                {paymentCompleted
+                  ? "Deployment in progress"
+                  : "Continue to payment"}
               </button>
             </div>
           </div>
         )}
       </div>
+      {showPayment && clientSecret && (
+        <Elements options={{ clientSecret }} stripe={stripePromise}>
+          <CheckoutForm
+            onClick={setShowPayment}
+            onPaymentSuccess={handlePaymentSuccess}
+          />
+        </Elements>
+      )}
+      {showModal && (
+        <>
+          <PayModal
+            onClick={() => {
+              setShowModal(false);
+            }}
+            pay={() => {
+              handleContinue();
+            }}
+          />
+        </>
+      )}
     </div>
   );
 };

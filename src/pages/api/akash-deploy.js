@@ -6,35 +6,66 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { serviceName, cpu, memory, ephemeralStorage, serviceCount, image } =
-      req.body;
+    const {
+      serviceName,
+      cpu,
+      memory,
+      ephemeralStorage,
+      serviceCount,
+      image,
+      ports,
+      storageUnit,
+      memoryUnit,
+      commands,
+      env,
+    } = req.body;
+
+    const objetoPort = {
+      port: ports && ports[0] && ports[0].port ? ports[0].port : 3000,
+      as: ports && ports[0] && ports[0].as ? ports[0].as : 80,
+    };
+    let comando = "";
+    let argumento = "";
+
+    if (commands && typeof commands === "object") {
+      const [primerComando] = Object.entries(commands);
+      if (primerComando) {
+        [comando, argumento] = primerComando;
+      }
+    }
 
     const yamlStructure = {
       version: "2.0",
       services: {
-        [serviceName || "web"]: {
-          image: image || "gridcloud/aptos-app:v.1",
+        [serviceName]: {
+          image: image,
           expose: [
             {
-              port: 8080,
-              as: 80,
+              port: objetoPort.port,
+              as: objetoPort.as,
+              accept: Object.entries(ports[0].urls).map(
+                ([key, value]) => `${value}`
+              ),
               to: [{ global: true }],
             },
           ],
+          command: [comando],
+          args: [argumento],
+          env: Object.entries(env).map(([key, value]) => `${key}=${value}`),
         },
       },
       profiles: {
         compute: {
-          [serviceName || "web"]: {
+          [serviceName]: {
             resources: {
               cpu: {
-                units: cpu,
+                units: parseFloat(cpu),
               },
               memory: {
-                size: `${memory}Mi`,
+                size: `${memory}${memoryUnit}`,
               },
               storage: {
-                size: `${ephemeralStorage}Mi`,
+                size: `${ephemeralStorage}${storageUnit}`,
               },
             },
           },
@@ -42,18 +73,18 @@ export default async function handler(req, res) {
         placement: {
           dcloud: {
             pricing: {
-              [serviceName || "web"]: {
+              [serviceName]: {
                 denom: "uakt",
-                amount: 1000,
+                amount: 10000,
               },
             },
           },
         },
       },
       deployment: {
-        [serviceName || "web"]: {
+        [serviceName]: {
           dcloud: {
-            profile: serviceName || "web",
+            profile: serviceName,
             count: serviceCount,
           },
         },
@@ -63,7 +94,7 @@ export default async function handler(req, res) {
     const yamlString = yaml.dump(yamlStructure);
 
     const API_URL = process.env.GRID_API;
-   
+    console.log(yamlString);
     const akashResponse = await fetch(`${API_URL}/akash/deploy`, {
       method: "POST",
       headers: {
@@ -73,6 +104,7 @@ export default async function handler(req, res) {
     });
 
     if (!akashResponse.ok) {
+      console.log(akashResponse);
       throw new Error(
         `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`
       );

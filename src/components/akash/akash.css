@@ -7,6 +7,11 @@
     border-radius: 20px;
     margin-left: 4%;
     margin-bottom: 50px;
+  
+  }
+  .deployment-config.disabled{
+    pointer-events: none; /* Desactiva cualquier interacción */
+    opacity: 0.5;
   }
   .deployment-config h2{
     font-size: 0.9rem;
@@ -27,6 +32,10 @@
   .input-group, .slider-group, .section, .slider-group2 {
     margin-bottom: 50px;
     display: flex;
+  }
+  .slider-group{
+    width: 95%;
+    height: 35px;
   }
  
   .input-container5 {
@@ -140,7 +149,7 @@
     padding: 15px;
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.24);
-    width: 80%;
+    width: 90%;
     height: 18vh;
     justify-content: space-between;
     
@@ -157,10 +166,15 @@
     margin-top: 15px;
   }
   .second-akash {
-    display: flex;
+    display: grid;
+    grid-template-columns: 40% 60%;
   }
   .akash-expose{
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    align-content: center;
   }
   .akash-persistent{
     width: 40%;
@@ -263,4 +277,22 @@
     display: flex;
     justify-content: center;
    
+  }
+  .stripe-form{
+    position: fixed;
+    top: 44%;
+    right:22%;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px #CDCDCD;
+    margin: 40px auto;
+    padding: 20px;
+    width: 50vw;
+    
+  }
+  .close-form{
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    margin-bottom: 10px;
   }

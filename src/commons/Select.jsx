@@ -10,7 +10,6 @@ const Select = ({ options, onSelect }) => {
   const selectOption = (option) => {
     setSelectedOption(option);
     setIsOpen(false);
-    // Llamamos a la función onSelect pasando la opción seleccionada
     onSelect(option);
   };
 

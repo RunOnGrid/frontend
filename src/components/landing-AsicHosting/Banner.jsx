@@ -12,7 +12,7 @@ const Banner = ({ title, subtitle, subtitle2 }) => {
           {" "}
           <button className="button-landing-1">
             {" "}
-            <Link href="/deploy">DEPLOY NOW </Link>
+            <Link href="/login">DEPLOY NOW </Link>
           </button>
           {/* <button className="button-landing-2">BOOK A DEMO</button> */}
         </div>

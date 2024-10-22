@@ -63,12 +63,6 @@ const IntegrationScreen = () => {
         />
         <IntegrationBox
           mode={darkMode}
-          state="Connect"
-          title="Slack"
-          image="/slackButton.png"
-        />
-        <IntegrationBox
-          mode={darkMode}
           state={githubIntegrationState}
           title="Github"
           image="/gitButton.png"

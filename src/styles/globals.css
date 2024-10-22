@@ -18,6 +18,16 @@ body {
   height: 100%;
   width: 100%;
   padding: 0;
+  min-height: 100vh;
+}
+.container-homePrincipal2{
+  background-image: url('/fondo-login.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  min-height: 100vh;
 }
 input:focus {
   outline: none;

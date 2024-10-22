@@ -9,7 +9,7 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 export async function getServerSideProps() {
   return {
     redirect: {
-      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
+      destination: "/profile", // Puedes redirigir a una página de "Próximamente" o similar
       permanent: false,
     },
   };

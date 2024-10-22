@@ -206,6 +206,19 @@
   grid-template-columns: 45% 45%;
   gap: 20px;
   width: 100%;
+  justify-content: flex-end;
+  margin-right: -15px;
+  margin-left: auto;
+
+}
+.plans-container2 {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-start;
+  margin-right: auto;
+  margin-left: 0px;
 
 }
 
@@ -526,8 +539,37 @@
   align-items: center;
   align-content: center;
 }
-.add-button2:hover{
+.add-button4 {
+  display: flex;
+  border: 2px solid #00b174 !important;
+  border-radius: 20px;
+  color: #00b174;
+  padding: 6px 20px !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  margin: auto !important;
+  margin-top: 20px !important;
+  justify-content: center !important;
+  width: 120px;
+}
+.add-button2:hover,  .add-button3:hover, .add-button4:hover{
   background-color: #d6eee3;
+}
+
+.add-button3 {
+  border: 2px solid #00b174 ;
+  border-radius: 20px;
+  color: #00b174;
+  padding: 2px 10px !important ;
+  margin-top: 40px;
+  font-weight: 600 ;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin: auto;
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 .geo-option span{
   font-size: 0.8rem;
@@ -556,6 +598,7 @@
   border: 1px solid #ccc;
   border-radius: 25px;
   width: 50%;
+  height: 50vh;
 }
 .add-component.light{
   background-color: white;
@@ -603,6 +646,11 @@
 .instance-config {
   flex: 1;
   margin-left: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-right: 0px;
+  margin-left: 50px;
 }
 
 .instance-buttons {
@@ -939,6 +987,20 @@
   font-size: 0.9rem;
 
 }
+.dropdown-container2{
+  position: relative;
+  width: 70px;
+  margin: auto;
+  color: black;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+.dropdown-container2 img{
+  margin-left: auto;
+  
+}
+
 .dropdown-container img{
   margin-left: auto;
   margin-right: 5px;
@@ -967,6 +1029,31 @@
   border-end-end-radius: 0px;
   
 }
+.dropdown-header2 {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 8px 5px;
+  height: 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  
+}
+.dropdown-header2.openHeader2 {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  height: 20px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  border-end-start-radius: 0px;
+  border-end-end-radius: 0px;
+  
+}
 
 .dropdown-list {
   position: absolute;
@@ -983,6 +1070,7 @@
   border:1px solid #ddd;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+
 }
 
 .dropdown-list li {
@@ -990,6 +1078,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
   color: black;
+  font-size: 0.8rem;
 }
 .dropdown-list li:last-child {
   border-bottom-left-radius: 25px;

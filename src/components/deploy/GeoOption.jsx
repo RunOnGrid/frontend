@@ -1,28 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const GeoOption = ({ title, darkMode }) => {
+const GeoOption = ({ title, darkMode, onLocationsChange }) => {
   const [selectedLocations, setSelectedLocations] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState("");
+  const [currentLocation, setCurrentLocation] = useState(null);
 
   const locations = [
-    "North America",
-    "South America",
-    "Africa",
-    "Europe",
-    "Asia",
-    "Oceania",
-    "All",
+    { name: "North America", code: "NA" },
+    { name: "South America", code: "SA" },
+    { name: "Africa", code: "AF" },
+    { name: "Europe", code: "EU" },
+    { name: "Asia", code: "AS" },
+    { name: "Oceania", code: "OC" },
+    { name: "All", code: "ALL" },
   ];
 
+  useEffect(() => {
+    onLocationsChange(selectedLocations.map((loc) => `ac${loc.code}`));
+  }, [selectedLocations]);
+
   const handleAddLocation = () => {
-    if (currentLocation && !selectedLocations.includes(currentLocation)) {
-      setSelectedLocations([...selectedLocations, currentLocation]);
-      setCurrentLocation(""); // Resetea la ubicación actual después de agregarla
+    if (
+      currentLocation &&
+      !selectedLocations.some((loc) => loc.code === currentLocation.code)
+    ) {
+      setSelectedLocations((prevLocations) => [
+        ...prevLocations,
+        currentLocation,
+      ]);
+      setCurrentLocation(null);
     }
   };
 
   const handleRemoveLocation = (location) => {
-    setSelectedLocations(selectedLocations.filter((loc) => loc !== location));
+    setSelectedLocations((prevLocations) =>
+      prevLocations.filter((loc) => loc.code !== location.code)
+    );
   };
 
   return (
@@ -32,10 +44,10 @@ const GeoOption = ({ title, darkMode }) => {
         {selectedLocations.map((location, index) => (
           <div
             key={index}
-            className="location"
-            onClick={() => handleRemoveLocation(location)} // Elimina la ubicación al hacer clic
+            className="location allowed"
+            onClick={() => handleRemoveLocation(location)}
           >
-            {location}
+            {location.name}
           </div>
         ))}
       </div>
@@ -44,16 +56,16 @@ const GeoOption = ({ title, darkMode }) => {
           <button
             key={index}
             className={`geo-button ${
-              currentLocation === location ? "selected" : ""
+              currentLocation?.code === location.code ? "selected" : ""
             }`}
             onClick={() => setCurrentLocation(location)}
           >
-            {location}
+            {location.name}
           </button>
         ))}
       </div>
       <button className="add-button" onClick={handleAddLocation}>
-        + Add
+        + Add Allowed
       </button>
     </div>
   );

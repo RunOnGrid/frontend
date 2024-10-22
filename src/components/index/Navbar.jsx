@@ -84,7 +84,7 @@ function Navbar({ scrollToContactForm }) {
             </div>
           </div> */}
           <div className="login-register">
-            <Link href="/deploy">
+            <Link href="/login">
               <button className="boton-landing1">DEPLOY NOW</button>
             </Link>
             {/* <Link href="register">

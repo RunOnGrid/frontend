@@ -50,11 +50,13 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </div>
           </div>
 
-          <li onClick={toggleLinks} className="sideNavbar-li deploy-item">
-            <span>Deploy</span>
-            <span className="deploy-plus">+</span>
-          </li>
-          {showLinks && (
+          <Link href="/profile/deployApp">
+            <li onClick={toggleLinks} className="sideNavbar-li deploy-item">
+              <span>Deploy</span>
+              <span className="deploy-plus">+</span>
+            </li>
+          </Link>
+          {/* {showLinks && (
             <div className="dropdown3">
               <ul>
                 <Link href="/profile/deployApp">
@@ -65,20 +67,20 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                 </Link>
               </ul>
             </div>
-          )}
+          )} */}
 
           <Link href="/profile">
             <li className={`sideNavbar-li ${isActive("/profile")}`}>
-              Dashboard
+              Applications
             </li>
           </Link>
-          <Link href="/profile/applications">
+          {/* <Link href="/profile/applications">
             <li
               className={`sideNavbar-li ${isActive("/profile/applications")}`}
             >
               Applications
             </li>
-          </Link>
+          </Link> */}
 
           <Link href="/profile/sharedAccount">
             <li
