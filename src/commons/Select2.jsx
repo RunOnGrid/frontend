@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
-const Select2 = ({ options, onSelect, initialValue }) => {
+const Select2 = ({ options, onSelect, initialValue, darkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(
     initialValue || options[0]
@@ -24,14 +24,16 @@ const Select2 = ({ options, onSelect, initialValue }) => {
   return (
     <div className="dropdown-container2">
       <div
-        className={`dropdown-header2 ${isOpen ? "openHeader2" : ""}`}
+        className={`dropdown-header2 ${isOpen ? "openHeader2" : ""} ${
+          darkMode ? "dark" : "light"
+        }`}
         onClick={toggleDropdown}
       >
         {selectedOption}
         <Image alt="" src="/downLigth.png" height={15} width={15} />
       </div>
       {isOpen && (
-        <ul className="dropdown-list">
+        <ul className={`dropdown-list ${darkMode ? "dark" : "light"}`}>
           {options.map((option, index) => (
             <li key={index} onClick={() => selectOption(option)}>
               {option}

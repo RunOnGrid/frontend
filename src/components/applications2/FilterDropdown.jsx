@@ -1,8 +1,8 @@
 import React from "react";
 
-const FilterDropdown = () => {
+const FilterDropdown = ({ darkMode }) => {
   return (
-    <div className="dropdown2">
+    <div className={`dropdown2 ${darkMode ? "dark" : "light"}`}>
       <p>Status</p>
       <ul>
         <li>

@@ -40,7 +40,7 @@ const BillingScreen = () => {
           >
             Billing overview
           </div>
-          <div
+          {/* <div
             className={`billing-tab ${
               activeTab === "billing-settings" ? "billing-tab-active" : ""
             }`}
@@ -55,7 +55,7 @@ const BillingScreen = () => {
             onClick={() => setActiveTab("invoice-settings")}
           >
             Invoice settings
-          </div>
+          </div> */}
         </div>
 
         <div className="billing-title">Billing</div>
@@ -65,12 +65,12 @@ const BillingScreen = () => {
             <History darkMode={darkMode} />
             <BillOverview />
           </div>
-
+          {/* 
           <div className="billing-column2 billing-gap-20">
             <CurrentPlan darkMode={darkMode} />
             <NextPayment darkMode={darkMode} />
             <ExtraFeatures />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -85,11 +85,18 @@ input[type='range'] {
   border: none;
 }
 
-input[type='range']::-webkit-slider-runnable-track {
+
+.light input[type='range']::-webkit-slider-runnable-track {
   background: #5757574c;
   height: 0.5rem;
   border-radius: 25px;
+}
 
+/* Tema oscuro */
+.dark input[type='range']::-webkit-slider-runnable-track {
+  background: #44494a;
+  height: 0.5rem;
+  border-radius: 25px;
 }
 
 input[type='range']::-webkit-slider-thumb {
@@ -102,6 +109,16 @@ input[type='range']::-webkit-slider-thumb {
 
   width: 1rem;
 }
+
+.dark input[type='range']::-webkit-slider-thumb {
+ background-color: white;
+}
+.light input[type='range']::-webkit-slider-thumb {
+  background-color: black;
+ }
+
+
+
 input[type='range']::-moz-range-progress {
   background-color: #36b079;
 }

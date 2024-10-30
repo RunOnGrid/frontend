@@ -1,41 +1,19 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import ModalContact from "@/commons/ModalContact";
-import DashboardActive from "@/components/profile/DashboardActivo";
 import AppsTable from "@/components/applications2/AppsTable";
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
 
-export default function LoggedLogin() {
-  const [abierto, setAbierto] = useState(false);
-  const [selected, setSelected] = useState(0);
-  const [loginPhrase, setLoginPhrase] = useState("");
-
-  useEffect(() => {
-    // Recuperar el valor de loginPhrase de localStorage
-    const storedData = localStorage.getItem("postData");
-
-    if (storedData) {
-      const postData = JSON.parse(storedData);
-      // Actualizar el estado con el valor de loginPhrase
-      setLoginPhrase(postData.loginPhrase);
-    }
-  }, []);
-
-  const toggle = (i) => {
-    return setSelected(i);
-  };
-  const [visible, setVisible] = useState(true);
-
+export default function Applications() {
   return (
     <div className="logged-home-component2">
-    <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
-      <DynamicNavbar />
-      <AppsTable />
+      <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+        <DynamicNavbar />
+        <AppsTable />
+      </div>
     </div>
-  </div>
   );
 }
 

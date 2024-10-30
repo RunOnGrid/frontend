@@ -13,13 +13,13 @@ const Buildpack = ({ darkMode, value, onClick }) => {
         </div>
 
         <div className="buildpack-selects">
-          <div className="buildpack-single">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <span> Build method</span>
             <Select
               options={["Buildpack-01", "Buildpack-02", "Buildpack-03"]}
             />
           </div>
-          <div className="buildpack-single">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <span> Builder</span>
             <Select
               options={["Elixir", "Go", "Node", "Python3", "Ruby", "Rust"]}

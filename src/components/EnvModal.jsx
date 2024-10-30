@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const EnvModal = ({ onSave, onCancel }) => {
+const EnvModal = ({ onSave, onCancel, darkMode }) => {
   const [key, setKey] = useState("");
   const [value, setValue] = useState("");
 
@@ -13,7 +13,7 @@ const EnvModal = ({ onSave, onCancel }) => {
   };
 
   return (
-    <div className="card2">
+    <div className={`card2 ${darkMode ? "dark" : "light"}`}>
       <h3>Environment Variable</h3>
       <div className="envInputs">
         <div className="modal-input">

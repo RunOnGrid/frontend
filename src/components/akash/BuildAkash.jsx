@@ -138,7 +138,7 @@ export default function BuildAkash({ darkMode, image }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount: price * 100 }), // Convert to cents
+        body: JSON.stringify({ amount: price * 100, customer: "tuvieja" }),
       });
 
       if (!response.ok) {
@@ -148,6 +148,8 @@ export default function BuildAkash({ darkMode, image }) {
       const data = await response.json();
       setClientSecret(data.clientSecret);
       setShowPayment(true);
+      console.log(data, "respo0sne stripe");
+      console.log("funciona log");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -327,7 +329,7 @@ deployment:
           <div
             className={`billing-tab ${
               activeTab === "builder" ? "billing-tab-active" : ""
-            }`}
+            }  ${darkMode ? "dark" : "light"}`}
             onClick={() => setActiveTab("builder")}
           >
             Builder
@@ -335,7 +337,7 @@ deployment:
           <div
             className={`billing-tab ${
               activeTab === "yaml" ? "billing-tab-active" : ""
-            }`}
+            } ${darkMode ? "dark" : "light"}`}
             onClick={() => setActiveTab("yaml")}
           >
             Yaml
@@ -344,7 +346,9 @@ deployment:
         {activeTab === "builder" ? (
           <>
             <div className="buildpack-selects">
-              <div className="buildpack-single">
+              <div
+                className={`buildpack-single ${darkMode ? "dark" : "light"}`}
+              >
                 <h3> Deployment name (optional)</h3>
                 <div
                   className={`input-container5 ${darkMode ? "dark" : "light"}`}
@@ -358,7 +362,9 @@ deployment:
                   />
                 </div>
               </div>
-              <div className="buildpack-single">
+              <div
+                className={`buildpack-single ${darkMode ? "dark" : "light"}`}
+              >
                 <h3> Service name</h3>
                 <div
                   className={`input-container5 ${darkMode ? "dark" : "light"}`}
@@ -373,10 +379,10 @@ deployment:
                 </div>
               </div>
             </div>
-            <div className="akash-sliders">
+            <div className={`akash-sliders ${darkMode ? "dark" : "light"}`}>
               <div className="sliders-akash">
                 <h3>CPU</h3>
-                <div className="slider-group">
+                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
                     min="0.1"
@@ -389,7 +395,7 @@ deployment:
                 </div>
 
                 <h3>Memory</h3>
-                <div className="slider-group">
+                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
                     min="128"
@@ -400,6 +406,7 @@ deployment:
                   />
                   <span>{memory} </span>
                   <Select2
+                    darkMode={darkMode}
                     options={UnitOptions}
                     onSelect={handleMemoryUnit}
                     initialValue={memoryUnit}
@@ -407,7 +414,7 @@ deployment:
                 </div>
 
                 <h3>Ephemeral Storage</h3>
-                <div className="slider-group">
+                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
                     min="128"
@@ -420,6 +427,7 @@ deployment:
                   />
                   <span>{ephemeralStorage} </span>
                   <Select2
+                    darkMode={darkMode}
                     options={UnitOptions}
                     onSelect={handleStorageUnit}
                     initialValue={storageUnit}
@@ -427,7 +435,7 @@ deployment:
                 </div>
               </div>
               <div className="sections-akash">
-                <div className="section">
+                <div className={`section ${darkMode ? "dark" : "light"}`}>
                   <div>
                     <h3>Environment Variables</h3>
 
@@ -462,17 +470,19 @@ deployment:
                 </div>
                 {showEnv && (
                   <EnvModal
+                    darkMode={darkMode}
                     onSave={handleShowEnv}
                     onCancel={() => setShowEnv(false)}
                   />
                 )}
                 {showComm && (
                   <CommModal
+                    darkMode={darkMode}
                     onSave={handleSaveCommand}
                     onCancel={() => setShowComm(false)}
                   />
                 )}
-                <div className="section">
+                <div className={`section ${darkMode ? "dark" : "light"}`}>
                   <div>
                     <h3>Commands</h3>
                     {commands.length === 0 ? (
@@ -519,6 +529,7 @@ deployment:
             </div>
             {showPorts && (
               <PortModal
+                darkMode={darkMode}
                 onSave={handleSavePort}
                 onCancel={() => setShowPorts(false)}
                 initialPort={ports}
@@ -526,7 +537,7 @@ deployment:
             )}
             <div className="second-akash">
               <div className="akash-expose">
-                <div className="section2">
+                <div className={`section2 ${darkMode ? "dark" : "light"}`}>
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <h3>Expose</h3>
                     <p>
@@ -544,7 +555,9 @@ deployment:
                     Edit
                   </span>
                 </div>
-                <div className="buildpack-single">
+                <div
+                  className={`buildpack-single ${darkMode ? "dark" : "light"}`}
+                >
                   <h3> Instances</h3>
                   <div
                     className={`input-container5 ${
@@ -609,6 +622,7 @@ deployment:
       {showModal && (
         <>
           <PayModal
+            darkMode={darkMode}
             onClick={() => {
               setShowModal(false);
             }}
@@ -625,7 +639,7 @@ deployment:
 {
   /* <div className="akash-persistent">
               <h3>Persistent Storage</h3>
-              <div className="slider-group">
+              <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                 <input
                   type="range"
                   min="1"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PortModal = ({ onSave, onCancel, initialPort }) => {
+const PortModal = ({ onSave, onCancel, initialPort, darkMode }) => {
   const [port, setPort] = useState(initialPort?.port);
   const [as, setAs] = useState(initialPort?.as);
   const [accept, setAccept] = useState(initialPort?.accept || []);
@@ -30,7 +30,7 @@ const PortModal = ({ onSave, onCancel, initialPort }) => {
   };
 
   return (
-    <div className="card2">
+    <div className={`card2 ${darkMode ? "dark" : "light"}`}>
       <h3>Port Configuration</h3>
       <div className="portInputs">
         <div className="comm-inputs">

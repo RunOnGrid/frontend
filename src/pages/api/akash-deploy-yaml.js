@@ -24,7 +24,6 @@ export default async function handler(req, res) {
     }
 
     const akashResult = await akashResponse.json();
-    console.log(akashResult);
 
     res.status(200).json(akashResult);
   } catch (error) {

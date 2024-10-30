@@ -265,7 +265,7 @@ const AddComponent = ({
           <>
             <h4>
               INSTANCES:{" "}
-              <div className="slider-group">
+              <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                 <input
                   type="range"
                   min="1"
@@ -281,7 +281,7 @@ const AddComponent = ({
             <div className="akash-sliders">
               <div className="sliders-flux">
                 <h3>CPU</h3>
-                <div className="slider-group">
+                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
                     min="0.1"
@@ -294,7 +294,7 @@ const AddComponent = ({
                 </div>
 
                 <h3>RAM</h3>
-                <div className="slider-group">
+                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
                     min="128"
@@ -307,7 +307,7 @@ const AddComponent = ({
                 </div>
 
                 <h3>HDD</h3>
-                <div className="slider-group">
+                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
                     min="1"

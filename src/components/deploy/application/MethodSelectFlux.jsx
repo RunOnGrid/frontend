@@ -81,6 +81,7 @@ const MethodSelectFlux = forwardRef(
             <span> Image settings</span>
             <p className="span-deploy">Select our whitelisted images URL.</p>
             <Select
+              darkMode={darkMode}
               options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
               onSelect={handleSelect}
             />

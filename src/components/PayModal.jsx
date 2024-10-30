@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-const PayModal = ({ onClick, pay }) => {
+const PayModal = ({ onClick, pay, darkMode }) => {
   const [key, setKey] = useState("");
   const [value, setValue] = useState("");
 
@@ -12,7 +12,7 @@ const PayModal = ({ onClick, pay }) => {
   };
 
   return (
-    <div className="card2">
+    <div className={`card2 ${darkMode ? "dark" : "light"}`}>
       <Image
         onClick={() => {
           onClick();

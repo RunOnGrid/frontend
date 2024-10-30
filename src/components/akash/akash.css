@@ -106,6 +106,12 @@
     border: 1px solid rgba(0, 0, 0, 0.24);
     
   }
+  .section.light {
+    background-color: white;
+  }
+  .section.dark{
+    background-color: #161f21;
+  }
   
   .section h3 {
     margin-top: 0;
@@ -116,20 +122,41 @@
     margin-top: 10px;
   }
   .slider-group span{
-    border: 1px solid rgb(173, 173, 173);
     padding: 5px 20px;
     border-radius: 8px;
     font-size: 0.8rem;
-    color: black;
     font-weight: 500;
-    margin: 5px;
+    margin: 3px;
   }
   .slider-group input{
     width: 70%;
+    border-radius: 5px;
+  }
+  .slider-group.dark input{
+    background-color: black;
+  }
+  .slider-group.light input{
+    background-color: white;
+  }
+
+  .slider-group.dark span{
+    border: 2px solid rgb(173, 173, 173);
+    color: white;
+   
+  }
+  .slider-group.light span{
+    border: 2px solid rgb(173, 173, 173);
+    color: black;
   }
   .akash-sliders{
     display: flex;
     width: 100%;
+  }
+  .akash-sliders.light h3{
+    color: black;
+  }
+  .akash-sliders.dark h3{
+    color: white;
   }
   .sliders-akash{
     width: 50%;
@@ -145,20 +172,27 @@
   .section2 {
     display: flex;
     justify-content: space-between;
-    background-color: white;
     padding: 15px;
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.24);
     width: 90%;
     height: 18vh;
     justify-content: space-between;
-    
-    
   }
   
+  .section2.light{
+    background-color: white;
+  }
+  .section2.dark {
+    background-color: #161f21;
+  }
+
   .section2 h3 {
     margin-top: 0;
     margin-bottom: 10px;
+  }
+  .section2.dark h3{
+    color: white;
   }
   
   .section2 p {

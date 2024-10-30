@@ -24,7 +24,6 @@ const DashboardActive = () => {
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
-        <ThemeToggle />
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}

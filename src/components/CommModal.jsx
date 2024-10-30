@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CommModal = ({ onSave, onCancel }) => {
+const CommModal = ({ onSave, onCancel, darkMode }) => {
   const [command, setCommand] = useState("");
   const [argument, setArgument] = useState("");
 
@@ -13,7 +13,7 @@ const CommModal = ({ onSave, onCancel }) => {
   };
 
   return (
-    <div className="card2">
+    <div className={`card2 ${darkMode ? "dark" : "light"}`}>
       <h3>Commands</h3>
       <div className="commInputs">
         <div className="modal-input">

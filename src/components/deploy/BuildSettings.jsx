@@ -22,7 +22,7 @@ const BuildSettings = ({ darkMode, value, onClick }) => {
               </div>
             </span>
           </div>
-          <div className="buildpack-single">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <span> GitHub repository</span>
             <Select
               options={[
@@ -34,11 +34,11 @@ const BuildSettings = ({ darkMode, value, onClick }) => {
           </div>
         </div>
         <div className="buildpack-selects">
-          <div className="buildpack-single">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <span> GitHub branch</span>
             <Select options={["Main", "Develop", "Production"]} />
           </div>
-          <div className="buildpack-single">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <span> Application root path</span>
 
             <div className={`input-container3 ${darkMode ? "dark" : "light"}`}>

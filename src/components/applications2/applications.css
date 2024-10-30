@@ -95,15 +95,26 @@
   
   .filter-button {
     padding: 10px 20px;
-    background-color: #f5f6f6;
-    color: black;
     border: none;
     cursor: pointer;
     border-radius: 25px;
     width: 150px;
+    z-index: 100;
   }
+ 
+
+  .filter-button.dark{
+    background-color: #44494a;
+    color: white;
+  }
+  .filter-button.light{
+    background-color: #f5f6f6;
+    color: black;
+  }
+
+
+
   .dropdown3 {
-   
     background-color: white;
     border: 2px solid #44494a17;
     padding: 10px;
@@ -136,22 +147,36 @@
   
   .dropdown {
     position: absolute;
-    background-color: white;
-    border: 2px solid #44494a17;
+    width: 128px;
     padding: 10px;
-    margin-top: 35px;
+    margin-top: 20px;
     border-radius: 15px;
     border-top: none;
-    margin-left: 10px;
     margin-right: auto;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
+    z-index: 0;
+  }
+  .dropdown.dark{
+    background-color: #dbdbdb;
+    color: black;
+  }
+  .dropdown.dark li{
+   
+    
+  }
+  .dropdown.light{
+    background-color: white;
+    border: 1px  solid  rgba(128, 128, 128, 0.212);
+    border-top: none;
   }
   
   
   .dropdown p {
     margin: 0;
-    font-weight: bold;
+    font-weight: 600;
+    margin-top: 20px;
+    font-size: 0.9rem;
   }
   
   .dropdown ul {
@@ -165,25 +190,43 @@
     padding: 2px 0;
     cursor: pointer;
     color: black;
+    font-size: 0.8rem;
   }
   
 
   .dropdown2 {
     position: absolute;
-    background-color: white;
-    border: 2px solid #44494a17;
     padding: 10px;
-    margin-top: 35px;
+    margin-top: 15px;
     border-radius: 15px;
     margin-left: 160px;
     margin-right: auto;
+    z-index: 1;
+
   
+  }
+  .dropdown2.light{
+    background-color: white;
+    border: 1px  solid  rgba(128, 128, 128, 0.212);
+    color: black;
+
+  }
+  .dropdown2.dark{
+    background-color: #dbdbdb;
+    border: 1px  solid  rgba(128, 128, 128, 0.212);
+
+  }
+  .dropdown2.dark p{
+    color: black;
   }
   
   .dropdown2 p {
     margin: 0;
     font-weight: bold;
+    margin-top: 20px;
+    font-size: 0.9rem;
   }
+ 
   
   .dropdown2 ul {
     display: flex;
@@ -202,6 +245,9 @@
     margin: 10px;
     padding: 5px 15px;
     border-radius: 25px;
+  }
+  .dropdown2 li:hover {
+    font-weight: 400;
   }
 
   .application-details {

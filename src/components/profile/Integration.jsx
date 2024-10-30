@@ -42,7 +42,7 @@ const IntegrationScreen = () => {
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
         <h2>Integrations</h2>
-        <ThemeToggle />
+
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}

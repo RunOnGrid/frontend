@@ -70,10 +70,14 @@
   .billing-tab {
     padding: 10px 20px;
     cursor: pointer;
+    font-weight: bold;
   }
   
-  .billing-tab-active {
+  .billing-tab-active.light {
     border-bottom: 2px solid black;
+  }
+  .billing-tab-active.dark {
+    border-bottom: 2px solid rgb(255, 255, 255);
   }
   
   /* Card styles */
@@ -95,14 +99,14 @@
   }
   
   .billing-card.dark {
-    background-color: #2c3e50;
+    background-color: #161f21;
     color: white;
   }
   
   /* Typography */
   .billing-title {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 32px;
+    
     margin-bottom: 20px;
   }
   

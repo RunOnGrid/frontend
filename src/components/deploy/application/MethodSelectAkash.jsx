@@ -75,7 +75,7 @@ const MethodSelectAkash = forwardRef(
             {" "}
             <span> Image settings</span>
             <p className="span-deploy">Specify your image URL.</p>
-            <div className="input-with-image4">
+            <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
               <input
                 onChange={(e) => setImage(e.target.value)}
                 placeholder="Default: gridcloud/aptos-app:v.1"

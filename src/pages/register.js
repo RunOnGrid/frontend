@@ -1,18 +1,9 @@
-import Form from '@/components/register/Form';
-import Navbar from '@/components/login/Navbar';
-export async function getServerSideProps() {
-  return {
-    redirect: {
-      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
-      permanent: false,
-    },
-  };
-}
-export default function Register() {
+import RegisterScreen from "@/components/login/Register";
+
+export default function Login() {
   return (
-    <>
-      <Navbar />
-      <Form />
-    </>
+    <div className="container-homePrincipal2">
+      <RegisterScreen />
+    </div>
   );
 }

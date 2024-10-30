@@ -714,6 +714,10 @@ span {
   margin-left: 10px;
   width: 90%;
 }
+.input-with-image4.dark input {
+  color: white;
+}
+
 .input-with-image4 input::placeholder {
   color: grey;
 }

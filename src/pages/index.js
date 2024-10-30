@@ -2,17 +2,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import dynamic from 'next/dynamic';
-import Segundo from '@/components/index/Segundo';
-import ContactForm from '@/components/index/ContactForm';
-import Footer from '@/components/index/Footer';
-import Banner from '@/components/landing-AsicHosting/Banner';
-import { useInView } from 'react-intersection-observer';
-import React, {  useRef} from 'react';
-import BestFeatures from '@/components/BestFeatures/BestFeatures';
-import DeployChoice from '@/components/deployChoice/DeployChoice';
-import GraphsLanding from '@/components/Graphs/GraphsLanding';
-import InfoLanding from '@/components/Graphs/InfoLanding';
-import CardPricing from '@/components/pricing/CardPrincing';
+import ContactForm from "@/components/index/ContactForm";
+import Footer from "@/components/index/Footer";
+import Banner from "@/components/landing-AsicHosting/Banner";
+import { useInView } from "react-intersection-observer";
+import React, { useRef } from "react";
+import BestFeatures from "@/components/BestFeatures/BestFeatures";
+import DeployChoice from "@/components/deployChoice/DeployChoice";
+import InfoLanding from "@/components/Graphs/InfoLanding";
+
 
 
 const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {

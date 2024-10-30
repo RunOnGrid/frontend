@@ -48,6 +48,7 @@ const AppsTable = () => {
         showRecents={showRecents}
         onClick={toggleRecents}
         onClick2={toggleFilters}
+        darkMode={darkMode}
       />
       <div className="table-container">
         <AppsTableHeader />

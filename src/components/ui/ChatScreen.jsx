@@ -168,12 +168,11 @@ export default function Component() {
                     />
                     <div
                       style={{
-                        backgroundColor:
-                          message.type === "user" ? "#f0f0f0" : "#f0f0f0",
                         padding: "16px",
                         borderRadius: "8px",
                         width: "40%",
                       }}
+                      className={`msj-gridops ${darkMode ? "dark" : "light"}`}
                     >
                       {message.text}
                     </div>

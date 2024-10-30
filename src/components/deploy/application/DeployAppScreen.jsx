@@ -192,7 +192,7 @@ const DeployAppScreen = () => {
       const response = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: price * 100 }), // Assuming price is in dollars, convert to cents
+        body: JSON.stringify({ amount: price * 100 }),
       });
       const data = await response.json();
       setClientSecret(data.clientSecret);
@@ -302,7 +302,7 @@ const DeployAppScreen = () => {
 
           {selectedCloud === "akash" && completedSteps.includes(1) && (
             <>
-              <span className="akash-faucet">
+              <span className={`akash-faucet ${darkMode ? "dark" : "light"}`}>
                 Use
                 <strong>
                   <Link
@@ -358,7 +358,7 @@ const DeployAppScreen = () => {
                 <div
                   className={`billing-tab ${
                     activeTab === "builder" ? "billing-tab-active" : ""
-                  }`}
+                  } ${darkMode ? "dark" : "light"}`}
                   onClick={() => handleTabChange("builder")}
                 >
                   Builder
@@ -366,7 +366,7 @@ const DeployAppScreen = () => {
                 <div
                   className={`billing-tab ${
                     activeTab === "yaml" ? "billing-tab-active" : ""
-                  }`}
+                  } ${darkMode ? "dark" : "light"}`}
                   onClick={() => handleTabChange("yaml")}
                 >
                   Json

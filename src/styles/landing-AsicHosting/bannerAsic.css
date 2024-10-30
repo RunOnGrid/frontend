@@ -7,15 +7,7 @@
   z-index: 10;
   margin-left: 10%;
 }
-.textosBanner2 {
-  justify-content: center;
-  align-content: center;
-  text-align: start;
-  margin-top: 250px;
-  width: 50%;
-  z-index: 10;
-  margin-left: 6%;
-}
+
 .banner-container {
   display: flex;
   position: relative;
@@ -73,16 +65,7 @@
   color: white;
   justify-content: center;
 }
-.subtituloBanner3 {
-  display: flex;
 
-  font-size: 20px;
-  width: 50%;
-  margin: 20px auto;
-  color: rgba(255, 255, 255, 0.657);
-
-  text-align: center;
-}
 .tituloBanner {
   font-size: 3rem;
   width: 100%;
@@ -596,7 +579,12 @@
   color: #00b174 !important;
   font-size: 0.9rem;
   margin-top: 0px !important;
+  cursor: pointer;
 }
+.forgot-pass:hover{
+  color: #22ca8f !important;
+}
+
 .remember-info{
   margin-left: 10px;
   margin-bottom: 20px;
@@ -657,10 +645,7 @@
       display: flex;
       height: 100%;
     }
-    .textosBanner2 {
-      width: 100%;
-      margin-top: 10px;
-     }
+
      .tituloBanner {
       font-size: 1.8rem;
       font-weight: 100;
