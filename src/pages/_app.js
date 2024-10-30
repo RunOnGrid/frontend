@@ -31,7 +31,7 @@ import "../components/profile/dashboard.css";
 import "../components/deploy/deployScreen.css";
 import "../components/applications2/applications.css";
 import "../components/applications2/environment.css";
-import "../styles/logged-personal/sideNavbar.css";
+import "../styles/logged-personal/SideNavbar.css";
 import { ThemeProvider } from "@/ThemeContext";
 import "../components/billing/billing.css";
 import "../components/akash/akash.css";

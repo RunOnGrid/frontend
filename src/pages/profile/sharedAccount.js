@@ -1,6 +1,6 @@
-import SharedInfo from "@/components/logged/sharedAccount/SharedInfo";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import SharedInfo from "@/components/SharedInfo";
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,

@@ -1,5 +1,6 @@
 import React from "react";
 import { useStripe } from "@stripe/react-stripe-js";
+import Link from "next/link";
 
 const SuccessIcon = (
   <svg
@@ -171,9 +172,9 @@ export default function CompletePage() {
           </svg>
         </a>
       )}
-      <a id="retry-button" href="/">
+      <Link id="retry-button" href="/">
         Test another
-      </a>
+      </Link>
     </div>
   );
 }
