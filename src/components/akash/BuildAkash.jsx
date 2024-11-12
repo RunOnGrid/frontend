@@ -14,6 +14,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../stripe/StripeScreen";
 import PricingPlanAkash from "../deploy/PricingPlanAkash";
+import Summary from "../deploy/Summary";
+import Botonera2 from "@/commons/Botonera2";
+import SummaryAkash from "../deploy/SummaryAkash";
+import Select3 from "@/commons/Select3";
+import HoverInfo from "@/commons/HoverInfo";
+import LoadingText from "@/commons/LoaderText";
+import Link from "next/link";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -26,8 +33,6 @@ export default function BuildAkash({ darkMode, image }) {
   const [cpu, setCpu] = useState(0.5);
   const [memory, setMemory] = useState(512);
   const [ephemeralStorage, setEphemeralStorage] = useState(512);
-  const [persistentStorage, setPersistentStorage] = useState(186);
-  const [readOnly, setReadOnly] = useState(false);
   const [serviceCount, setServiceCount] = useState(1);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +51,6 @@ export default function BuildAkash({ darkMode, image }) {
   });
   const [accept, setAccept] = useState("");
   const [mount, setMount] = useState("/mnt/data");
-  const [persistStorageName, setPersistStorageName] = useState("");
   const [memoryUnit, setMemoryUnit] = useState("Mi");
   const [storageUnit, setStorageUnit] = useState("Mi");
   const [persistUnit, setPersistUnit] = useState("Mi");
@@ -54,11 +58,12 @@ export default function BuildAkash({ darkMode, image }) {
   const [showEnv, setShowEnv] = useState(false);
   const [showComm, setShowComm] = useState(false);
   const [showPorts, setShowPorts] = useState(false);
-  const [persistentName, setPersistentName] = useState("");
   const [yaml, setYaml] = useState("");
   const [clientSecret, setClientSecret] = useState("");
   const [showPayment, setShowPayment] = useState(false);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
+  const [summary, setSummary] = useState(false);
+  const [agree, setAgree] = useState(false);
 
   const handleYamlChange = (newYaml) => {
     setYaml(newYaml);
@@ -124,6 +129,23 @@ export default function BuildAkash({ darkMode, image }) {
       prevArgs.filter((_, index) => index !== indexToDelete)
     );
   };
+
+  const cpuText = [
+    "The amount of vCPU's required for this workload.",
+    "The maximum for a single instance is 384 vCPU's.",
+    "The maximum total multiplied by the count of instances is 512 vCPU's.",
+  ];
+  const memoryText = [
+    "The amount of memory required for this workload.",
+    "The maximum for a single instance is 512 Gi.",
+    "The maximum total multiplied by the count of instances is 1024 Gi.",
+  ];
+  const ephemeralText = [
+    "The amount of ephemeral disk storage required for this workload.",
+    "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
+    "The maximum for a single instance is 32 Ti.",
+    "The maximum total multiplied by the count of instances is also 32 Ti",
+  ];
 
   const handleContinue = async () => {
     setIsLoading(true);
@@ -386,21 +408,22 @@ deployment:
                   <input
                     type="range"
                     min="0.1"
-                    max="1"
-                    step="0.1"
+                    max="384"
+                    step="1"
                     value={cpu}
                     onChange={(e) => setCpu(parseFloat(e.target.value))}
                   />
                   <span>{cpu}</span>
+                  <HoverInfo text={cpuText} />
                 </div>
 
                 <h3>Memory</h3>
                 <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
-                    min="128"
-                    max="1024"
-                    step="128"
+                    min="1"
+                    max="5120"
+                    step="1"
                     value={memory}
                     onChange={(e) => setMemory(parseInt(e.target.value))}
                   />
@@ -411,27 +434,29 @@ deployment:
                     onSelect={handleMemoryUnit}
                     initialValue={memoryUnit}
                   />
+                  <HoverInfo text={memoryText} />
                 </div>
 
                 <h3>Ephemeral Storage</h3>
                 <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                   <input
                     type="range"
-                    min="128"
-                    max="1024"
-                    step="128"
+                    min="1"
+                    max="5120"
+                    step="1"
                     value={ephemeralStorage}
                     onChange={(e) =>
                       setEphemeralStorage(parseInt(e.target.value))
                     }
                   />
                   <span>{ephemeralStorage} </span>
-                  <Select2
+                  <Select3
                     darkMode={darkMode}
                     options={UnitOptions}
                     onSelect={handleStorageUnit}
                     initialValue={storageUnit}
                   />
+                  <HoverInfo text={ephemeralText} />
                 </div>
               </div>
               <div className="sections-akash">
@@ -576,6 +601,7 @@ deployment:
                   </div>
                 </div>
               </div>
+
               <PricingPlanAkash
                 setMemory={setMemory}
                 setMemoryUnit={setMemoryUnit}
@@ -593,32 +619,16 @@ deployment:
 
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
-        {isLoading ? (
-          <div className="loading-container">
-            <Spinner />
-          </div>
-        ) : (
-          <button
-            className="continue-button"
-            onClick={() => {
-              setShowModal(true);
-            }}
-            disabled={isLoading || paymentCompleted}
-          >
-            {paymentCompleted
-              ? "Deployment in progress"
-              : "Continue to payment"}
-          </button>
-        )}
+        <button
+          className="add-button4"
+          onClick={() => {
+            setSummary(true);
+          }}
+        >
+          Continue
+        </button>
       </div>
-      {showPayment && clientSecret && (
-        <Elements options={{ clientSecret }} stripe={stripePromise}>
-          <CheckoutForm
-            onClick={setShowPayment}
-            onPaymentSuccess={handlePaymentSuccess}
-          />
-        </Elements>
-      )}
+
       {showModal && (
         <>
           <PayModal
@@ -631,6 +641,57 @@ deployment:
             }}
           />
         </>
+      )}
+      {summary && (
+        <div>
+          <SummaryAkash
+            cpu={cpu}
+            ram={memory}
+            hdd={ephemeralStorage}
+            mode={darkMode}
+            name={serviceName}
+          />
+          <div className="termService">
+            <Botonera2 setAgree={setAgree} agree={agree} />
+            <h4>I agree with Terms of Service</h4>
+          </div>
+          <div
+            className={
+              agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
+            }
+          >
+            <div className="line-background"></div>
+            {isLoading ? (
+              <div className="loading-container">
+                <LoadingText />
+              </div>
+            ) : (
+              <>
+                <Link href="/profile/stripe_checkout">
+                  <button
+                    className="deploy-button"
+                    // onClick={() => {
+                    //   handleContinue();
+                    // }}
+                    disabled={isLoading || paymentCompleted}
+                  >
+                    {paymentCompleted
+                      ? "Deployment in progress"
+                      : "Continue to payment"}
+                  </button>
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+      {showPayment && clientSecret && (
+        <Elements options={{ clientSecret }} stripe={stripePromise}>
+          <CheckoutForm
+            onClick={setShowPayment}
+            onPaymentSuccess={handlePaymentSuccess}
+          />
+        </Elements>
       )}
     </div>
   );

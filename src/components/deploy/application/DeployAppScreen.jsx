@@ -114,18 +114,18 @@ const DeployAppScreen = () => {
     }
   }, [activeStep, selectedCloud]);
   useEffect(() => {
-    const fluxWallet = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.runonflux.io/explorer/balance?address=t1SsyhfbkVJr8RFNP4VRPNeKx5wHWYQrXkT"
-        );
+    // const fluxWallet = async () => {
+    //   try {
+    //     const response = await axios.get(
+    //       "https://api.runonflux.io/explorer/balance?address=t1SsyhfbkVJr8RFNP4VRPNeKx5wHWYQrXkT"
+    //     );
 
-        const formattedNum = (response.data.data / 100000000).toFixed(2);
-        setFluxAvailable(formattedNum);
-      } catch (error) {
-        console.error("Error obteniendo los repositorios", error);
-      }
-    };
+    //     const formattedNum = (response.data.data / 100000000).toFixed(2);
+    //     setFluxAvailable(formattedNum);
+    //   } catch (error) {
+    //     console.error("Error obteniendo los repositorios", error);
+    //   }
+    // };
     const formatDate = (date) => {
       const options = {
         weekday: "short",
@@ -154,7 +154,7 @@ const DeployAppScreen = () => {
     };
 
     fetchExistingNames();
-    fluxWallet();
+    // fluxWallet();
   }, []);
 
   const handleCompleteStep = (step) => {
@@ -183,9 +183,6 @@ const DeployAppScreen = () => {
     setStaticIp(boolean);
   };
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
-  };
   const handleDeploy = async () => {
     setShowPayment(true);
     try {
@@ -284,7 +281,7 @@ const DeployAppScreen = () => {
 
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
-      <div className="dashboard-header">
+      {/* <div className="dashboard-header">
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}
@@ -295,12 +292,12 @@ const DeployAppScreen = () => {
           />
         </div>
         {showNotifications && <Notis darkMode={darkMode} />}
-      </div>
+      </div> */}
       <div className="deploy-container2">
         <div>
           <AppCloudSelect onNext={handleCloudSelect} ref={nameRef} />
 
-          {selectedCloud === "akash" && completedSteps.includes(1) && (
+          {/* {selectedCloud === "akash" && completedSteps.includes(1) && (
             <>
               <span className={`akash-faucet ${darkMode ? "dark" : "light"}`}>
                 Use
@@ -317,15 +314,15 @@ const DeployAppScreen = () => {
                 <strong> akash1lvjmmlqd0ucjx6ntyh55v78a7z2u7myel6rarn </strong>
               </span>
             </>
-          )}
-          {selectedCloud === "flux" && completedSteps.includes(1) && (
+          )} */}
+          {/* {selectedCloud === "flux" && completedSteps.includes(1) && (
             <>
               <span className="flux-faucet">
                 Flux available:
                 <strong>{fluxAvailable}</strong>
               </span>
             </>
-          )}
+          )} */}
 
           {selectedCloud === "flux" && completedSteps.includes(1) && (
             <>
@@ -431,17 +428,23 @@ const DeployAppScreen = () => {
               }
             >
               <div className="line-background"></div>
-              <button
-                className="deploy-button"
-                onClick={() => {
-                  setShowModal(true);
-                }}
-                disabled={isLoading || paymentCompleted}
-              >
-                {paymentCompleted
-                  ? "Deployment in progress"
-                  : "Continue to payment"}
-              </button>
+              {isLoading ? (
+                <div className="loading-container">
+                  <Spinner />
+                </div>
+              ) : (
+                <button
+                  className="deploy-button"
+                  onClick={() => {
+                    handleContinue();
+                  }}
+                  disabled={isLoading || paymentCompleted}
+                >
+                  {paymentCompleted
+                    ? "Deployment in progress"
+                    : "Continue to payment"}
+                </button>
+              )}
             </div>
           </div>
         )}
@@ -453,18 +456,6 @@ const DeployAppScreen = () => {
             onPaymentSuccess={handlePaymentSuccess}
           />
         </Elements>
-      )}
-      {showModal && (
-        <>
-          <PayModal
-            onClick={() => {
-              setShowModal(false);
-            }}
-            pay={() => {
-              handleContinue();
-            }}
-          />
-        </>
       )}
     </div>
   );

@@ -76,15 +76,13 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               Applications
             </li>
           </Link> */}
-          {/* <Link href="/profile/applications">
-            <li
-              className={`sideNavbar-li ${isActive("/profile/applications")}`}
-            >
+          <Link href="/profile">
+            <li className={`sideNavbar-li ${isActive("/profile")}`}>
               Applications
             </li>
-          </Link> */}
+          </Link>
 
-          <Link href="/profile/sharedAccount">
+          {/* <Link href="/profile/sharedAccount">
             <li
               className={`sideNavbar-li ${
                 darkMode ? "dark" : "light"
@@ -92,8 +90,8 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             >
               Settings
             </li>
-          </Link>
-          <Link href="/profile/integration">
+          </Link> */}
+          {/* <Link href="/profile/integration">
             <li
               className={`sideNavbar-li ${
                 darkMode ? "dark" : "light"
@@ -101,7 +99,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             >
               Integrations
             </li>
-          </Link>
+          </Link> */}
           <Link href="/profile/billing">
             <li
               className={`sideNavbar-li ${
@@ -111,7 +109,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               Billing
             </li>
           </Link>
-          <Link href="/profile/gridOps">
+          {/* <Link href="/profile/gridOps">
             <li
               className={`sideNavbar-li ${
                 darkMode ? "dark" : "light"
@@ -119,7 +117,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             >
               GridOps
             </li>
-          </Link>
+          </Link> */}
           <Link href={"/"}>
             <span onClick={handleLogout} className="logout-sidebar">
               Log Out

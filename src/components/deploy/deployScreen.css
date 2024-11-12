@@ -229,6 +229,16 @@
   margin-left: 0px;
 
 }
+.pricing-title{
+  display: flex;
+  margin-left: 4.5vw !important;
+  margin-bottom: 20px !important;
+  color: #00b174 !important;
+  border-bottom: 2px solid #00b174 !important;
+  padding-bottom: 2px  !important;
+  width: 86.5% !important;
+}
+
 
 .plan-card {
   display: flex;
@@ -290,7 +300,15 @@
   justify-content: flex-end !important;
   text-align: end;
 }
-
+.pricing-title2{
+  display: flex;
+  
+  margin-bottom: 20px !important;
+  color: #00b174 !important;
+  border-bottom: 2px solid #00b174 !important;
+  padding-bottom: 2px  !important;
+  font-weight: 0.9rem !important;
+}
 .plan-card .specs li {
   font-size: 0.7rem;
   color: #6f6f6f;
@@ -817,6 +835,12 @@
   align-items: center;
   margin-bottom: 50px;
 }
+
+.deploy-button-wrapper a {
+ 
+  border-bottom: none;
+}
+
 .deploy-button-wrapper-disabled{
   position: relative;
   width: 100%;
@@ -1028,9 +1052,21 @@
   justify-content: space-between;
   font-size: 0.9rem;
   margin-left: 10px;
-  z-index: 9999;
+  z-index: 100;
+  margin-right: 5px;
 }
-.dropdown-container2 img{
+.dropdown-container3{
+  position: relative;
+  width: 70px;
+  margin: auto;
+  color: black;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-left: 10px;
+  z-index: 1;
+  margin-right: 5px;
+}
+.dropdown-container2 img,  .dropdown-container3 img{
   margin-left: auto;
   
 }
@@ -1150,4 +1186,10 @@
 .dropdown-list.light li{
   background-color: #f9f9f9;
   color: black;
+}
+
+.checkout-stripe{
+  background-color: white;
+  min-height: 100vh !important;
+  margin: auto;
 }

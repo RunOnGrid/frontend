@@ -18,7 +18,7 @@ const BillingScreen = () => {
   };
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
-      <div className="dashboard-header">
+      {/* <div className="dashboard-header">
         <div
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}
@@ -29,48 +29,21 @@ const BillingScreen = () => {
           />
         </div>
         {showNotifications && <Notis darkMode={darkMode} />}
+      </div> */}
+      <div className="dashboard-header">
+        <h2>Billing overwiev</h2>
       </div>
       <div className="billing-container">
-        <div className="billing-tabs">
-          <div
-            className={`billing-tab ${
-              activeTab === "billing-overview" ? "billing-tab-active" : ""
-            }`}
-            onClick={() => setActiveTab("billing-overview")}
-          >
-            Billing overview
-          </div>
-          {/* <div
-            className={`billing-tab ${
-              activeTab === "billing-settings" ? "billing-tab-active" : ""
-            }`}
-            onClick={() => setActiveTab("billing-settings")}
-          >
-            Billing settings
-          </div>
-          <div
-            className={`billing-tab ${
-              activeTab === "invoice-settings" ? "billing-tab-active" : ""
-            }`}
-            onClick={() => setActiveTab("invoice-settings")}
-          >
-            Invoice settings
-          </div> */}
-        </div>
-
         <div className="billing-title">Billing</div>
 
         <div className="billing-flex">
           <div className="billing-column1 billing-gap-20 ">
+            <div style={{ display: "flex" }}>
+              <BillOverview />
+              <CurrentPlan darkMode={darkMode} />
+            </div>
             <History darkMode={darkMode} />
-            <BillOverview />
           </div>
-          {/* 
-          <div className="billing-column2 billing-gap-20">
-            <CurrentPlan darkMode={darkMode} />
-            <NextPayment darkMode={darkMode} />
-            <ExtraFeatures />
-          </div> */}
         </div>
       </div>
     </div>

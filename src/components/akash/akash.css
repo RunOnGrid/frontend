@@ -127,6 +127,7 @@
     font-size: 0.8rem;
     font-weight: 500;
     margin: 3px;
+  
   }
   .slider-group input{
     width: 70%;
@@ -159,14 +160,15 @@
     color: white;
   }
   .sliders-akash{
-    width: 50%;
+    width: 48%;
+    padding: 10px 20px;
   }
   .sliders-flux{
     width: 100%;
   }
   .sections-akash{
-    width: 50%;
-   
+    width: 48%;
+    padding: 10px 20px;
   }
 
   .section2 {
@@ -329,4 +331,17 @@
     margin-left: auto;
     display: flex;
     margin-bottom: 10px;
+  }
+  .loading-container{
+    display: flex;
+    z-index: 9999;
+    background-color: #00b174;
+    padding: 5px;
+    border-radius: 15px;
+    width: auto;
+  }
+  .loading-container p{
+    display: flex;
+    color: white;
+    
   }

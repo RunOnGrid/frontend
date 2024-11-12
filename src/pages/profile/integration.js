@@ -6,7 +6,14 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
-
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/",
+      permanent: false,
+    },
+  };
+}
 export default function Integration() {
   return (
     <div className="logged-home-component2">

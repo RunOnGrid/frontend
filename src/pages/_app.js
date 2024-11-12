@@ -35,6 +35,7 @@ import "../styles/logged-personal/SideNavbar.css";
 import { ThemeProvider } from "@/ThemeContext";
 import "../components/billing/billing.css";
 import "../components/akash/akash.css";
+import "../commons/commons.css";
 
 export default function App({ Component, pageProps }) {
   return (

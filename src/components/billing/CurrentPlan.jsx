@@ -1,22 +1,19 @@
+import Link from "next/link";
 import React from "react";
 
 const CurrentPlan = ({ darkMode }) => {
   return (
     <div className={`billing-section ${darkMode ? "dark" : "light"}`}>
-      <div className="section-header">
-        <h4>Current subscription plan</h4>
+      <div className="section-header2">
+        <h1>CREDITS</h1>
       </div>
       <div className="billing-info">
-        <div>
-          <h1>DEV</h1>
-          <div style={{ display: "flex" }}>
-            <h3>$ 000 </h3>
-            <span> / month</span>
-          </div>
-          <p>NEXT PAYMENT: 6/14/2024</p>
-        </div>
+        <h3>$00.00 </h3>
       </div>
-      <button className="billing3">Manage my plan</button>
+      <button className="billing3">
+        {" "}
+        <Link href="/profile/stripe_checkout">Add funds</Link>
+      </button>
     </div>
   );
 };

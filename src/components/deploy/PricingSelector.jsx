@@ -4,28 +4,28 @@ const plans = [
   {
     title: "STANDARD",
     subtitle: "Starter",
-    price: "$7 / month",
+
     specs: ["3 INSTANCES (NODES)", "256 MB (RAM)", "0.1 CPU", "1 GB (HDD)"],
     values: [3, 256, 0.1, 1],
   },
   {
     title: "TEST",
     subtitle: "Standard",
-    price: "$20 / month",
+
     specs: ["6 INSTANCES (NODES)", "1 GB (RAM)", "1 CPU", "16 GB (HDD)"],
     values: [6, 1024, 1, 16],
   },
   {
     title: "PRODUCTION",
     subtitle: "Pro",
-    price: "$45 / month",
+
     specs: ["12 INSTANCES (NODES)", "4 GB (RAM)", "2 CPU", "32 GB (HDD)"],
     values: [12, 4096, 2, 32],
   },
   {
     title: "PRODUCTION2",
     subtitle: "Pro Plus",
-    price: "$90 / month",
+
     specs: ["24 INSTANCES (NODES)", "8 GB (RAM)", "4 CPU", "64 GB (HDD)"],
     values: [24, 8192, 4, 64],
   },
@@ -49,29 +49,32 @@ const PricingPlanSelector = ({
   };
 
   return (
-    <div className={`plans-container2 ${mode ? "dark" : "light"}`}>
-      {plans.map((plan) => (
-        <div
-          key={plan.title}
-          className={`plan-card ${mode ? "dark" : "light"} ${
-            selectedPlan === plan.title ? "active" : ""
-          }`}
-          onClick={() => handleSelectPlan(plan)}
-        >
-          <div>
-            <h3>{plan.title}</h3>
-            <h4>{plan.subtitle}</h4>
-            <p className="price">{plan.price}</p>
+    <div>
+      <h5 className="pricing-title2">Use recommended configuration</h5>
+      <div className={`plans-container2 ${mode ? "dark" : "light"}`}>
+        {plans.map((plan) => (
+          <div
+            key={plan.title}
+            className={`plan-card ${mode ? "dark" : "light"} ${
+              selectedPlan === plan.title ? "active" : ""
+            }`}
+            onClick={() => handleSelectPlan(plan)}
+          >
+            <div>
+              <h3>{plan.title}</h3>
+              <h4>{plan.subtitle}</h4>
+              <p className="price">{plan.price}</p>
+            </div>
+            <div>
+              <ul className="specs">
+                {plan.specs.map((spec, index) => (
+                  <li key={index}>{spec}</li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div>
-            <ul className="specs">
-              {plan.specs.map((spec, index) => (
-                <li key={index}>{spec}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

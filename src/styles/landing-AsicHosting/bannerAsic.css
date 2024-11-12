@@ -513,7 +513,7 @@
   flex-direction: column;
 }
 .inputs-login input{
-  margin: 10px;
+  margin: 10px auto;
   height: 15px;
   padding: 10px;
   border-radius: 30px;
@@ -522,6 +522,8 @@
   color: white;
   margin-top: 0px;
   margin-bottom: 7px;
+  width: 30vw;
+  
 }
 .inputs-login input::placeholder{
   color: rgba(255, 255, 255, 0.637);
@@ -529,7 +531,7 @@
 .new-login button{
   border-radius: 25px;
   background-color: #00b174;
-  width: 45%;
+  width: 240px ;
   font-weight: 700;
   margin: 10px auto;
 }
@@ -567,6 +569,7 @@
   justify-content: center;
   margin: 5px 5px !important ;
   
+  
 }
 .google-signIn img{
   justify-content: center;
@@ -574,8 +577,7 @@
 }
 .forgot-pass{
   display: flex;
-  margin-left: auto;
-  margin-right: 18px !important;
+
   color: #00b174 !important;
   font-size: 0.9rem;
   margin-top: 0px !important;
@@ -594,6 +596,11 @@
   margin-left: 10px;
 }
 
+@media only screen and (min-width: 1600px) {
+  .inputs-login input{
+    width: 22vw;
+  }
+}
 @media only screen and (max-width: 1400px) {
   .new-login{
     width: 45vw;
