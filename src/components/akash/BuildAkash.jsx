@@ -1,5 +1,5 @@
 import Select from "@/commons/Select";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/router";
 import Spinner from "@/commons/Spinner";
@@ -27,13 +27,14 @@ const stripePromise = loadStripe(
 );
 
 export default function BuildAkash({ darkMode, image }) {
+  const [activeStep, setActiveStep] = useState(3);
   const [deploymentName, setDeploymentName] = useState("");
   const [editingPortIndex, setEditingPortIndex] = useState(null);
   const [serviceName, setServiceName] = useState("service-grid");
   const [cpu, setCpu] = useState(0.5);
   const [memory, setMemory] = useState(512);
   const [ephemeralStorage, setEphemeralStorage] = useState(512);
-  const [serviceCount, setServiceCount] = useState(1);
+  const [serviceCount, setServiceCount] = useState(3);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
@@ -65,6 +66,10 @@ export default function BuildAkash({ darkMode, image }) {
   const [summary, setSummary] = useState(false);
   const [agree, setAgree] = useState(false);
 
+  const servicesRef = useRef(null);
+  const deployRef = useRef(null);
+  const envRef = useRef(null);
+
   const handleYamlChange = (newYaml) => {
     setYaml(newYaml);
   };
@@ -95,6 +100,10 @@ export default function BuildAkash({ darkMode, image }) {
     const newName = event.target.value;
     setName(newName);
     setServiceName(`${newName.toLowerCase()}-${uuidv4()}`);
+  };
+  const handleSummary = (state) => {
+    setSummary(true);
+    setActiveStep(4);
   };
 
   const UnitOptions = ["Mb", "Mi", "GB", "Gi", "TB", "Ti"];
@@ -341,9 +350,21 @@ deployment:
     memoryUnit,
     storageUnit,
   ]);
+  useEffect(() => {
+    if (activeStep === 3) {
+      servicesRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (activeStep === 4) {
+      deployRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (activeStep === 5) {
+      envRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [activeStep]);
   return (
     <div>
-      <div className={`deployment-config ${showPayment ? "disabled" : ""}`}>
+      <div
+        ref={servicesRef}
+        className={`deployment-config ${showPayment ? "disabled" : ""}`}
+      >
         <h2>Deployment configuration</h2>
 
         <p>Configure your deployment settings.</p>
@@ -592,10 +613,18 @@ deployment:
                     <input
                       type="text"
                       className={`custom-input ${darkMode ? "dark" : "light"}`}
-                      value={parseFloat(serviceCount)}
-                      onChange={(e) =>
-                        setServiceCount(parseFloat(e.target.value))
-                      }
+                      value={serviceCount}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^\d*\.?\d*$/.test(value)) {
+                          setServiceCount(value);
+                        }
+                      }}
+                      onBlur={() => {
+                        if (parseFloat(serviceCount) < 3) {
+                          setServiceCount("3");
+                        }
+                      }}
                       required
                     />
                   </div>
@@ -622,7 +651,7 @@ deployment:
         <button
           className="add-button4"
           onClick={() => {
-            setSummary(true);
+            handleSummary(true);
           }}
         >
           Continue
@@ -643,7 +672,7 @@ deployment:
         </>
       )}
       {summary && (
-        <div>
+        <div ref={deployRef}>
           <SummaryAkash
             cpu={cpu}
             ram={memory}

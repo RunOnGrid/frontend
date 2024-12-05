@@ -1,7 +1,4 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import ContactForm from "@/components/index/ContactForm";
 import Footer from "@/components/index/Footer";
 import Banner from "@/components/landing-AsicHosting/Banner";
@@ -11,9 +8,7 @@ import BestFeatures from "@/components/BestFeatures/BestFeatures";
 import DeployChoice from "@/components/deployChoice/DeployChoice";
 import InfoLanding from "@/components/Graphs/InfoLanding";
 
-
-
-const DynamicNavbar = dynamic(() => import('../components/index/Navbar'), {
+const DynamicNavbar = dynamic(() => import("../components/index/Navbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });

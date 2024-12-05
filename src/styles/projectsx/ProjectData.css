@@ -725,3 +725,34 @@ span {
   margin: auto;
   margin-right: 10px;
 }
+
+
+
+.input-with-image5 {
+  display: flex;
+  border-radius: 25px;
+  border: 1px solid grey;
+  color: black;
+  height: 40px;
+  width: 90%;
+  margin: 10px auto ;
+  margin-left: 0px;
+
+}
+.input-with-image5 input {
+  background-color: transparent;
+  color: black;
+  margin-left: 10px;
+  width: 90%;
+}
+.input-with-image5.dark input {
+  color: white;
+}
+
+.input-with-image5 input::placeholder {
+  color: grey;
+}
+.input-with-image5 img {
+  margin: auto;
+  margin-right: 10px;
+}

@@ -13,16 +13,16 @@
     pointer-events: none; /* Desactiva cualquier interacción */
     opacity: 0.5;
   }
-  .deployment-config h2{
+  .deployment-config h2, .add-buildpack h2{
     font-size: 0.9rem;
   }
   
-  .deployment-config p{
+  .deployment-config p, .add-buildpack p{
     font-size: 0.8rem;
     color: grey;
     margin: 0px;
   }
-  .deployment-config h3{
+  .deployment-config h3, .add-buildpack h3{
     font-size: 0.8rem;
     color: rgb(0, 0, 0);
     margin: 0px;

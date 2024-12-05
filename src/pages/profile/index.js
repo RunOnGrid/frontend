@@ -1,12 +1,14 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import AppsTable from "@/components/applications2/AppsTable";
+import useAuthCheck from "@/useRefresh";
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
 
 export default function Applications() {
+  // useAuthCheck();
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>

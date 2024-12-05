@@ -1,9 +1,14 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/ThemeContext";
+import CryptoJS from "crypto-js";
+import { TokenService } from "../../tokenHandler";
+
+const SECRET_KEY =
+  process.env.NEXT_PUBLIC_ENCRYPTION_KEY || "fallback-secret-key";
 
 const SideNavbar = ({ abierto, setAbierto }) => {
   const [menu, setMenu] = useState(false);
@@ -19,12 +24,22 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   const isActive = (path) => (currentPath === path ? "active" : "");
   const handleLogout = async () => {
     try {
-      await authService.logout();
+      const { tokens, redirectToLogin } = TokenService.getTokens();
+      const response = await fetch(`/api/logout-proxy`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken: tokens.refreshToken }),
+      });
 
-      router.push("/login");
+      if (response.ok) {
+        TokenService.clearTokens();
+        router.push("/");
+      }
     } catch (error) {
-      console.error("Error during logout:", error);
-
+      console.error("Logout error:", error);
+      TokenService.clearTokens();
       router.push("/login");
     }
   };
@@ -58,48 +73,17 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               <span className="deploy-plus">+</span>
             </li>
           </Link>
-          {/* {showLinks && (
-            <div className="dropdown3">
-              <ul>
-                <Link href="/profile/deployApp">
-                  <li>Deploy app</li>
-                </Link>
-                <Link href="/profile/deploy">
-                  <li>Deploy database</li>
-                </Link>
-              </ul>
-            </div>
-          )} */}
 
-          {/* <Link href="/profile">
-            <li className={`sideNavbar-li ${isActive("/profile")}`}>
-              Applications
-            </li>
-          </Link> */}
           <Link href="/profile">
-            <li className={`sideNavbar-li ${isActive("/profile")}`}>
+            <li
+              className={`sideNavbar-li ${
+                darkMode ? "dark" : "light"
+              } ${isActive("/profile")}`}
+            >
               Applications
             </li>
           </Link>
 
-          {/* <Link href="/profile/sharedAccount">
-            <li
-              className={`sideNavbar-li ${
-                darkMode ? "dark" : "light"
-              } ${isActive("/profile/sharedAccount")}`}
-            >
-              Settings
-            </li>
-          </Link> */}
-          {/* <Link href="/profile/integration">
-            <li
-              className={`sideNavbar-li ${
-                darkMode ? "dark" : "light"
-              } ${isActive("/profile/integration")}`}
-            >
-              Integrations
-            </li>
-          </Link> */}
           <Link href="/profile/billing">
             <li
               className={`sideNavbar-li ${
@@ -109,17 +93,9 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               Billing
             </li>
           </Link>
-          {/* <Link href="/profile/gridOps">
-            <li
-              className={`sideNavbar-li ${
-                darkMode ? "dark" : "light"
-              } ${isActive("/profile/gridOps")}`}
-            >
-              GridOps
-            </li>
-          </Link> */}
+
           <Link href={"/"}>
-            <span onClick={handleLogout} className="logout-sidebar">
+            <span onClick={() => handleLogout()} className="logout-sidebar">
               Log Out
               <Image
                 className="button-logout"
@@ -143,7 +119,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                     height={30}
                   />
                 </Link>
-                <Link href="https://twitter.com" passHref>
+                <Link href="https://x.com/OnGridRun" passHref>
                   <Image
                     src="/xLogo.svg"
                     alt="Twitter"
@@ -151,7 +127,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                     height={30}
                   />
                 </Link>
-                <Link href="https://discord.com" passHref>
+                <Link href="https://discord.gg/yjkPTHjKeZ" passHref>
                   <Image
                     src="/discordLogo.svg"
                     alt="Discord"
@@ -181,7 +157,6 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                 </div>
               </div>
             </div>
-            {/* <span onClick={() => setAbierto(!abierto)}>Contact Support</span> */}
           </div>
         </ul>
       </nav>

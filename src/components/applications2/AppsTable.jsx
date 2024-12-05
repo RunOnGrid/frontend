@@ -27,12 +27,16 @@ const AppsTable = () => {
   //   setShowFilters(!showFilters);
   // };
 
+  // useEffect(()=>{
+
+  // },[])
+
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
         <h2>My applications</h2>
 
-        {/* <div
+        {/* <div  
           className={`notification-icon ${darkMode ? "dark" : "light"}`}
           onClick={toggleNotifications}
         >
@@ -51,8 +55,15 @@ const AppsTable = () => {
         darkMode={darkMode}
       /> */}
       <div className="table-container">
-        <AppsTableHeader />
-        <AppsTableRow type="Web" status="ACTIVE" mode={darkMode} />
+        <div className={`applications-section ${darkMode ? "dark" : "light"}`}>
+          <div className="section-header"></div>
+          <p>It looks like you don&apos;t have any applications running yet</p>
+          <Link href="/profile/deployApp">
+            <button className="section-button">Deploy</button>
+          </Link>
+        </div>
+        {/* <AppsTableHeader />
+        <AppsTableRow type="Web" status="ACTIVE" mode={darkMode} /> */}
       </div>
     </div>
   );

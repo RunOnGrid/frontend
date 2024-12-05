@@ -40,7 +40,7 @@ const BillingScreen = () => {
           <div className="billing-column1 billing-gap-20 ">
             <div style={{ display: "flex" }}>
               <BillOverview />
-              <CurrentPlan darkMode={darkMode} />
+              {/* <CurrentPlan darkMode={darkMode} /> */}
             </div>
             <History darkMode={darkMode} />
           </div>

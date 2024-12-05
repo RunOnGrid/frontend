@@ -6,11 +6,15 @@ import Select from "@/commons/Select";
 import JsonEditor from "@/components/flux/JsonEditor";
 
 const MethodSelectFlux = forwardRef(
-  ({ onNext, darkMode, onClick, value, setImage }, ref) => {
+  (
+    { onDocker, onGit, darkMode, onClick, value, setImage, methodReset },
+    ref
+  ) => {
     const [build, setBuild] = useState(false);
     const [build2, setBuild2] = useState(false);
     const [grid, setGrid] = useState(false);
     const [docker, setDocker] = useState(false);
+    const [git, setGit] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const handleGit = () => {
@@ -18,6 +22,7 @@ const MethodSelectFlux = forwardRef(
       setImage(false);
       setGrid(!grid);
       setDocker(false);
+      methodReset();
     };
     const handleDocker = () => {
       setSelectedMethod("docker");
@@ -25,6 +30,7 @@ const MethodSelectFlux = forwardRef(
       setDocker(true);
       setBuild(false);
       setBuild2(false);
+      methodReset();
     };
     const handleSelect = (option) => {
       setImage(option);
@@ -41,13 +47,14 @@ const MethodSelectFlux = forwardRef(
         </div>
         <div className="deployMethodBox-container">
           <div
-            className={`deployMethodBox ${
-              darkMode ? "dark" : "light"
-            } disabled`}
+            onClick={handleGit}
+            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
+              selectedMethod === "git" ? "selected" : ""
+            } ${selectedMethod === "docker" ? "disabled" : ""}`}
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
-            <p>Available soon.</p>
+            <p>Deploy using source from a git repo</p>
           </div>
           <div
             onClick={handleDocker}
@@ -68,7 +75,7 @@ const MethodSelectFlux = forwardRef(
             <div className="install-github">
               {" "}
               <Image alt="" src="/github3.png" height={15} width={15} />
-              <span onClick={() => setBuild(true)}>
+              <span onClick={() => onGit()}>
                 {build ? "Installed" : "Install the Grid GitHub app"}
               </span>
             </div>
@@ -94,7 +101,7 @@ const MethodSelectFlux = forwardRef(
             </div> */}
             <button
               onClick={() => {
-                onNext();
+                onDocker();
               }}
               className="add-button2"
             >
@@ -104,6 +111,7 @@ const MethodSelectFlux = forwardRef(
         ) : (
           ""
         )}
+
         {/* {build ? (
           <>
             {" "}

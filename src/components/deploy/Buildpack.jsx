@@ -1,38 +1,38 @@
 import Select from "@/commons/Select";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 
-const Buildpack = ({ darkMode, value, onClick }) => {
+const Buildpack = forwardRef(({ onNext, darkMode }, ref) => {
   const [build, setBuild] = useState(false);
   return (
-    <div>
+    <div ref={ref}>
       <div className={`add-buildpack ${darkMode ? "dark" : "light"}`}>
         <div className="databaseSelect-title">
-          <span>Buildpacks</span>
+          <h2>Buildpacks</h2>
           <p>Configure buildpack settings.</p>
         </div>
 
         <div className="buildpack-selects">
           <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-            <span> Build method</span>
+            <h3> Build method</h3>
             <Select
               options={["Buildpack-01", "Buildpack-02", "Buildpack-03"]}
             />
           </div>
           <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-            <span> Builder</span>
+            <h3> Builder</h3>
             <Select
               options={["Elixir", "Go", "Node", "Python3", "Ruby", "Rust"]}
             />
           </div>
         </div>
-        <h4>Buildpack configuration</h4>
-        <span>
+        <h2>Buildpack configuration</h2>
+        <p>
           The following buildpacks were detected at your applications root path.
           You can also manually add, remove or re-order buildpacks here
-        </span>
-        <h4>Selected buildpacks:</h4>
-        <div style={{ display: "flex" }}>
+        </p>
+        <h2>Selected buildpacks:</h2>
+        <div style={{ display: "flex", marginBottom: "20px" }}>
           <span className="buildpack-item">
             <div>
               <Image alt="" src="/node-js.png" height={15} width={15} />
@@ -52,7 +52,7 @@ const Buildpack = ({ darkMode, value, onClick }) => {
             {" "}
             <div className="buildpack-new">
               <div className="buildpacks-available">
-                <span>Available buildpacks:</span>
+                <h2>Available buildpacks:</h2>
                 <span className="buildpack-item2">
                   <div>
                     <Image alt="" src="/node-js.png" height={15} width={15} />
@@ -91,26 +91,30 @@ const Buildpack = ({ darkMode, value, onClick }) => {
                 </span>
               </div>
               <div className="custom-buildpacks">
-                <span>Custom buildpacks:</span>
+                <h2>Custom buildpacks:</h2>
                 <p>
                   You may also add buildpacks by directly providing their Github
                   links or links to ZIP files that contain the buildpack source
                   code.
                 </p>
-                <span style={{ marginTop: "30px" }}>GitHub or ZIP URL</span>
-                <div
-                  className={`input-container3 ${darkMode ? "dark" : "light"}`}
-                >
-                  <input
-                    type="text"
-                    className={`custom-input ${darkMode ? "dark" : "light"}`}
-                    value={value}
-                  />
-                  <button
-                    className={`custom-button ${darkMode ? "dark" : "light"}`}
+                <div className="items-custom-build">
+                  <h2>GitHub or ZIP URL</h2>
+                  <div
+                    className={`input-container3 ${
+                      darkMode ? "dark" : "light"
+                    }`}
                   >
-                    +
-                  </button>
+                    <input
+                      type="text"
+                      className={`custom-input ${darkMode ? "dark" : "light"}`}
+                      // value={value}
+                    />
+                    <button
+                      className={`add-button ${darkMode ? "dark" : "light"}`}
+                    >
+                      +
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -119,12 +123,13 @@ const Buildpack = ({ darkMode, value, onClick }) => {
           ""
         )}
 
-        <button onClick={onClick} className="add-button2">
+        <button onClick={onNext} className="add-button2">
           Continue
         </button>
       </div>
     </div>
   );
-};
+});
 
+Buildpack.displayName = "Buildpack";
 export default Buildpack;

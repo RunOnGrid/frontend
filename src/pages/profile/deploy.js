@@ -1,4 +1,5 @@
 import DeployScreen from "@/components/deploy/database/DeployScreen";
+import useAuthCheck from "@/useRefresh";
 import dynamic from "next/dynamic";
 
 import React, { useState } from "react";
@@ -15,6 +16,7 @@ export async function getServerSideProps() {
   };
 }
 export default function Deploy() {
+  useAuthCheck();
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
     return setVisible(!visible);

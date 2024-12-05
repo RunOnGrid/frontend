@@ -1,11 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-const AppCloudSelect = ({ onNext }) => {
+const AppCloudSelect = ({ onNext, methodReset }) => {
   const [selectedCloud, setSelectedCloud] = useState(null);
 
   const handleCloudSelect = (cloud) => {
     setSelectedCloud(cloud);
+    methodReset();
     if (selectedCloud) {
       onNext(selectedCloud);
     }

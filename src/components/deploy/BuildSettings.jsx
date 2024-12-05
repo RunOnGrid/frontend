@@ -1,20 +1,31 @@
 import Select from "@/commons/Select";
+import Select3 from "@/commons/Select3";
+import Select2 from "@/commons/Select2";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 
-const BuildSettings = ({ darkMode, value, onClick }) => {
+const BuildSettings = forwardRef(({ onNext, darkMode }, ref) => {
   const [build, setBuild] = useState(false);
+  const [gitRepo, setGitRepo] = useState("");
+  const [gitBranch, setGitBranch] = useState("");
+
+  const handleGitRepo = (selectedOption) => {
+    setGitRepo(selectedOption);
+  };
+  const handleGitBranch = (selectedOption) => {
+    setGitBranch(selectedOption);
+  };
   return (
-    <div>
+    <div ref={ref}>
       <div className={`add-buildpack ${darkMode ? "dark" : "light"}`}>
         <div className="databaseSelect-title">
-          <span>Repository Settings</span>
+          <h2>Repository Settings</h2>
           <p>Specify your GitHub repository.</p>
         </div>
 
         <div className="buildpack-selects">
           <div className="buildpack-single">
-            <span> User</span>
+            <h3> User</h3>
             <span className="buildpack-item">
               <div>
                 <Image alt="" src="/githubLogin.png" height={15} width={15} />
@@ -23,45 +34,43 @@ const BuildSettings = ({ darkMode, value, onClick }) => {
             </span>
           </div>
           <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-            <span> GitHub repository</span>
+            <h3> GitHub repository</h3>
             <Select
               options={[
                 "repository-01/Grid-Client",
                 "repository-02/Grid-Client",
                 "repository-03/Grid-Client",
               ]}
+              onSelect={handleGitRepo}
             />
           </div>
         </div>
         <div className="buildpack-selects">
           <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-            <span> GitHub branch</span>
-            <Select options={["Main", "Develop", "Production"]} />
+            <h3> GitHub branch</h3>
+            <Select
+              options={["Main", "Develop", "Production"]}
+              onSelect={handleGitBranch}
+            />
           </div>
           <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-            <span> Application root path</span>
+            <h3> Application root path</h3>
 
-            <div className={`input-container3 ${darkMode ? "dark" : "light"}`}>
+            <div className={`input-with-image5 ${darkMode ? "dark" : "light"}`}>
               <input
-                type="text"
-                className={`custom-input ${darkMode ? "dark" : "light"}`}
+                onChange={(e) => setImage(e.target.value)}
                 placeholder="./"
               />
-              <button
-                className={`custom-button ${darkMode ? "dark" : "light"}`}
-              >
-                +
-              </button>
+              <Image alt="" src="/searchLigth.png" height={20} width={20} />
             </div>
           </div>
         </div>
-
-        <button onClick={onClick} className="add-button2">
+        <button onClick={onNext} className="add-button4">
           Continue
         </button>
       </div>
     </div>
   );
-};
-
+});
+BuildSettings.displayName = "BuildSettings";
 export default BuildSettings;

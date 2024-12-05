@@ -14,7 +14,7 @@ const RegisterScreen = () => {
 
         <h2>Welcome!</h2>
         <span>Please Sign up with your personal info</span>
-        <div className="botonera-login">
+        {/* <div className="botonera-login">
           <button className="google-signIn">
             {" "}
             <Image alt="" src="/googleLogo.png" width={20} height={20} />
@@ -25,10 +25,11 @@ const RegisterScreen = () => {
             <Image alt="" src="/githubLogo.svg" width={20} height={20} /> Sign
             Up with Github
           </button>
-        </div>
+        </div> */}
         <div className="inputs-login">
           <input placeholder="Email" />
           <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm Password" />
         </div>
 
         <Link className="logo-link2" href="/profile">

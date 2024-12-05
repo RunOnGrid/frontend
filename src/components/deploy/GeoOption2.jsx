@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const GeoOption2 = ({ title, darkMode, onLocationsChange2 }) => {
   const [selectedLocations, setSelectedLocations] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState(null);
+  const [currentSelections, setCurrentSelections] = useState([]);
 
   const locations = [
     { name: "North America", code: "NA" },
@@ -11,29 +11,62 @@ const GeoOption2 = ({ title, darkMode, onLocationsChange2 }) => {
     { name: "Europe", code: "EU" },
     { name: "Asia", code: "AS" },
     { name: "Oceania", code: "OC" },
-    { name: "All", code: "ALL" },
+    { name: "None", code: "a!c" },
   ];
 
   useEffect(() => {
     onLocationsChange2(selectedLocations.map((loc) => `a!c${loc.code}`));
   }, [selectedLocations]);
 
-  const handleAddLocation = () => {
-    if (
-      currentLocation &&
-      !selectedLocations.some((loc) => loc.code === currentLocation.code)
-    ) {
-      setSelectedLocations((prevLocations) => [
-        ...prevLocations,
-        currentLocation,
-      ]);
-      setCurrentLocation(null);
+  const handleToggleSelection = (location) => {
+    setCurrentSelections((prev) => {
+      // Si se selecciona "a!c"
+      if (location.code === "a!c") {
+        // Si "a!c" ya estaba seleccionado, lo quitamos
+        if (prev.some((loc) => loc.code === "a!c")) {
+          return [];
+        }
+        // Si "a!c" no estaba seleccionado, solo seleccionamos "a!c"
+        return [location];
+      }
+
+      // Si se selecciona cualquier otra ubicación
+      const withoutAll = prev.filter((loc) => loc.code !== "a!c");
+
+      if (prev.some((loc) => loc.code === location.code)) {
+        return withoutAll.filter((loc) => loc.code !== location.code);
+      } else {
+        return [...withoutAll, location];
+      }
+    });
+  };
+
+  const handleAddLocations = () => {
+    if (currentSelections.length > 0) {
+      // Si estamos agregando "a!c"
+      if (currentSelections.some((loc) => loc.code === "a!c")) {
+        setSelectedLocations([
+          currentSelections.find((loc) => loc.code === "a!c"),
+        ]);
+      } else {
+        // Si estamos agregando otras ubicaciones
+        setSelectedLocations((prev) => {
+          const newLocations = [...prev];
+          currentSelections.forEach((location) => {
+            if (!newLocations.some((loc) => loc.code === location.code)) {
+              newLocations.push(location);
+            }
+          });
+          return newLocations;
+        });
+      }
+      setCurrentSelections([]);
     }
   };
 
   const handleRemoveLocation = (location) => {
-    setSelectedLocations((prevLocations) =>
-      prevLocations.filter((loc) => loc.code !== location.code)
+    setSelectedLocations((prev) =>
+      prev.filter((loc) => loc.code !== location.code)
     );
   };
 
@@ -56,15 +89,30 @@ const GeoOption2 = ({ title, darkMode, onLocationsChange2 }) => {
           <button
             key={index}
             className={`geo-button ${
-              currentLocation?.code === location.code ? "selected" : ""
+              currentSelections.some((loc) => loc.code === location.code)
+                ? "selected"
+                : ""
+            } ${
+              selectedLocations.some((loc) => loc.code === "a!c") &&
+              location.code !== "a!c"
+                ? "disabled"
+                : ""
             }`}
-            onClick={() => setCurrentLocation(location)}
+            onClick={() => handleToggleSelection(location)}
+            disabled={
+              selectedLocations.some((loc) => loc.code === "a!c") &&
+              location.code !== "a!c"
+            }
           >
             {location.name}
           </button>
         ))}
       </div>
-      <button className="add-button" onClick={handleAddLocation}>
+      <button
+        className="add-button"
+        onClick={handleAddLocations}
+        disabled={currentSelections.length === 0}
+      >
         + Add Forbidden
       </button>
     </div>
@@ -72,3 +120,13 @@ const GeoOption2 = ({ title, darkMode, onLocationsChange2 }) => {
 };
 
 export default GeoOption2;
+
+const locations = [
+  { name: "North America", code: "NA" },
+  { name: "South America", code: "SA" },
+  { name: "Africa", code: "AF" },
+  { name: "Europe", code: "EU" },
+  { name: "Asia", code: "AS" },
+  { name: "Oceania", code: "OC" },
+  { name: "All", code: "ALL" },
+];

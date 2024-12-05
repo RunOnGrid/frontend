@@ -13,7 +13,7 @@ const AddComponent = ({
   existingNames,
 }) => {
   const [serviceName, setServiceName] = useState("");
-  const [instances, setInstances] = useState(1);
+  const [instances, setInstances] = useState(3);
   const [cpu, setCpu] = useState(0.1);
   const [ram, setRam] = useState(128);
   const [hdd, setHdd] = useState(1);
@@ -268,7 +268,7 @@ const AddComponent = ({
               <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
                 <input
                   type="range"
-                  min="1"
+                  min="3"
                   max="10"
                   step="1"
                   value={instances}

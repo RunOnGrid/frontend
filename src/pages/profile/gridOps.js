@@ -1,4 +1,5 @@
 import Component from "@/components/ui/ChatScreen";
+import useAuthCheck from "@/useRefresh";
 import dynamic from "next/dynamic";
 
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
@@ -14,6 +15,7 @@ export async function getServerSideProps() {
   };
 }
 export default function GridOps() {
+  useAuthCheck();
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row" }}>

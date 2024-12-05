@@ -1,4 +1,5 @@
 import DeployAppScreen from "@/components/deploy/application/DeployAppScreen";
+import useAuthCheck from "@/useRefresh";
 import dynamic from "next/dynamic";
 
 import React, { useState } from "react";
@@ -8,6 +9,7 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 });
 
 export default function DeployApp() {
+  // useAuthCheck();
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
     return setVisible(!visible);
