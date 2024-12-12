@@ -1,73 +1,79 @@
 import React, { useState, useEffect } from "react";
 
-const GeoOption2 = ({ title, darkMode, onLocationsChange2 }) => {
+const GeoOption2 = ({
+  title,
+  darkMode,
+  onLocationsChange2,
+  disabled,
+  disabledLocations,
+  hasSpecialSelection,
+}) => {
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [currentSelections, setCurrentSelections] = useState([]);
 
   const locations = [
-    { name: "North America", code: "NA" },
-    { name: "South America", code: "SA" },
-    { name: "Africa", code: "AF" },
-    { name: "Europe", code: "EU" },
-    { name: "Asia", code: "AS" },
-    { name: "Oceania", code: "OC" },
-    { name: "None", code: "a!c" },
+    { name: "North America", code: "a!cNA" },
+    { name: "South America", code: "a!cSA" },
+    { name: "Africa", code: "a!cAF" },
+    { name: "Europe", code: "a!cEU" },
+    { name: "Asia", code: "a!cAS" },
+    { name: "Oceania", code: "a!cOC" },
+    { name: "None", code: "" },
   ];
 
   useEffect(() => {
-    onLocationsChange2(selectedLocations.map((loc) => `a!c${loc.code}`));
-  }, [selectedLocations]);
+    if (hasSpecialSelection) {
+      setSelectedLocations([]);
+      setCurrentSelections([]);
+      onLocationsChange2([]);
+    }
+  }, [hasSpecialSelection]);
 
   const handleToggleSelection = (location) => {
     setCurrentSelections((prev) => {
-      // Si se selecciona "a!c"
       if (location.code === "a!c") {
-        // Si "a!c" ya estaba seleccionado, lo quitamos
-        if (prev.some((loc) => loc.code === "a!c")) {
-          return [];
-        }
-        // Si "a!c" no estaba seleccionado, solo seleccionamos "a!c"
-        return [location];
+        return prev.some((loc) => loc.code === "a!c") ? [] : [location];
       }
 
-      // Si se selecciona cualquier otra ubicación
-      const withoutAll = prev.filter((loc) => loc.code !== "a!c");
-
+      const withoutNone = prev.filter((loc) => loc.code !== "a!c");
       if (prev.some((loc) => loc.code === location.code)) {
-        return withoutAll.filter((loc) => loc.code !== location.code);
+        return withoutNone.filter((loc) => loc.code !== location.code);
       } else {
-        return [...withoutAll, location];
+        return [...withoutNone, location];
       }
     });
   };
 
   const handleAddLocations = () => {
     if (currentSelections.length > 0) {
-      // Si estamos agregando "a!c"
+      let newSelectedLocations;
+
       if (currentSelections.some((loc) => loc.code === "a!c")) {
-        setSelectedLocations([
+        newSelectedLocations = [
           currentSelections.find((loc) => loc.code === "a!c"),
-        ]);
+        ];
       } else {
-        // Si estamos agregando otras ubicaciones
-        setSelectedLocations((prev) => {
-          const newLocations = [...prev];
-          currentSelections.forEach((location) => {
-            if (!newLocations.some((loc) => loc.code === location.code)) {
-              newLocations.push(location);
-            }
-          });
-          return newLocations;
-        });
+        newSelectedLocations = [
+          ...selectedLocations,
+          ...currentSelections.filter(
+            (loc) =>
+              !selectedLocations.some((prevLoc) => prevLoc.code === loc.code)
+          ),
+        ];
       }
+
+      setSelectedLocations(newSelectedLocations);
+      onLocationsChange2(newSelectedLocations.map((loc) => loc.code));
       setCurrentSelections([]);
     }
   };
 
   const handleRemoveLocation = (location) => {
-    setSelectedLocations((prev) =>
-      prev.filter((loc) => loc.code !== location.code)
+    const newSelectedLocations = selectedLocations.filter(
+      (loc) => loc.code !== location.code
     );
+    setSelectedLocations(newSelectedLocations);
+    onLocationsChange2(newSelectedLocations.map((loc) => loc.code));
   };
 
   return (
@@ -85,48 +91,40 @@ const GeoOption2 = ({ title, darkMode, onLocationsChange2 }) => {
         ))}
       </div>
       <div className="geo-locations">
-        {locations.map((location, index) => (
-          <button
-            key={index}
-            className={`geo-button ${
-              currentSelections.some((loc) => loc.code === location.code)
-                ? "selected"
-                : ""
-            } ${
-              selectedLocations.some((loc) => loc.code === "a!c") &&
-              location.code !== "a!c"
-                ? "disabled"
-                : ""
-            }`}
-            onClick={() => handleToggleSelection(location)}
-            disabled={
-              selectedLocations.some((loc) => loc.code === "a!c") &&
-              location.code !== "a!c"
-            }
-          >
-            {location.name}
-          </button>
-        ))}
+        {locations.map((location, index) => {
+          const isLocationDisabled =
+            disabled ||
+            disabledLocations.includes(location.code) ||
+            (selectedLocations.some((loc) => loc.code === "a!c") &&
+              location.code !== "a!c") ||
+            (location.code !== "a!c" &&
+              selectedLocations.some((loc) => loc.code === location.code));
+
+          return (
+            <button
+              key={index}
+              className={`geo-button ${
+                currentSelections.some((loc) => loc.code === location.code)
+                  ? "selected"
+                  : ""
+              }`}
+              onClick={() => handleToggleSelection(location)}
+              disabled={isLocationDisabled}
+            >
+              {location.name}
+            </button>
+          );
+        })}
       </div>
       <button
         className="add-button"
         onClick={handleAddLocations}
-        disabled={currentSelections.length === 0}
+        disabled={disabled || currentSelections.length === 0}
       >
-        + Add Forbidden
+        + Add
       </button>
     </div>
   );
 };
 
 export default GeoOption2;
-
-const locations = [
-  { name: "North America", code: "NA" },
-  { name: "South America", code: "SA" },
-  { name: "Africa", code: "AF" },
-  { name: "Europe", code: "EU" },
-  { name: "Asia", code: "AS" },
-  { name: "Oceania", code: "OC" },
-  { name: "All", code: "ALL" },
-];

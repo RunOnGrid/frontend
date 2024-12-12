@@ -361,28 +361,36 @@ deployment:
     storageUnit,
   ]);
   useEffect(() => {
-    if (activeStep === 3) {
+    if (activeStep === 2) {
       settingsRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 4) {
+    } else if (activeStep === 3) {
       buildRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 5) {
+    } else if (activeStep === 4) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 6) {
+    } else if (activeStep === 5) {
       deployRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 7) {
+    } else if (activeStep === 6) {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
 
   return (
     <div>
-      <BuildSettings ref={settingsRef} onNext={() => handleCompleteStep(3)} />
-      {completedSteps.includes(3) && (
+      <BuildSettings
+        darkMode={darkMode}
+        ref={settingsRef}
+        onNext={() => handleCompleteStep(3)}
+      />
+      {/* {completedSteps.includes(3) && (
         <div ref={buildRef}>
-          <Buildpack onNext={() => handleCompleteStep(4)} ref={deployRef} />
+          <Buildpack
+            darkMode={darkMode}
+            onNext={() => handleCompleteStep(4)}
+            ref={deployRef}
+          />
         </div>
-      )}
-      {completedSteps.includes(4) && (
+      )} */}
+      {completedSteps.includes(3) && (
         <div
           ref={servicesRef}
           className={`deployment-config ${showPayment ? "disabled" : ""}`}
@@ -399,14 +407,14 @@ deployment:
             >
               Builder
             </div>
-            <div
+            {/* <div
               className={`billing-tab ${
                 activeTab === "yaml" ? "billing-tab-active" : ""
               } ${darkMode ? "dark" : "light"}`}
               onClick={() => setActiveTab("yaml")}
             >
               Yaml
-            </div>
+            </div> */}
           </div>
           {activeTab === "builder" ? (
             <>
@@ -687,7 +695,7 @@ deployment:
           <button
             className="add-button4"
             onClick={() => {
-              handleCompleteStep(5);
+              handleCompleteStep(4);
             }}
           >
             Continue
@@ -709,7 +717,7 @@ deployment:
             />
           </>
         )}
-        {completedSteps.includes(5) && (
+        {completedSteps.includes(4) && (
           <div ref={deployRef}>
             <SummaryAkash
               cpu={cpu}

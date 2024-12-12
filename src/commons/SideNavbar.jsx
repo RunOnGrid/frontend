@@ -13,6 +13,7 @@ const SECRET_KEY =
 const SideNavbar = ({ abierto, setAbierto }) => {
   const [menu, setMenu] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
+  const [email, setEmail] = useState("");
   const { darkMode, toggleDarkMode } = useTheme();
   const router = useRouter();
 
@@ -44,6 +45,11 @@ const SideNavbar = ({ abierto, setAbierto }) => {
     }
   };
 
+  useEffect(() => {
+    const emailGrid = localStorage.getItem("grid_email");
+    setEmail(emailGrid);
+  }, [email]);
+
   return (
     <>
       <nav className="sideNavbar">
@@ -62,8 +68,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               <span className="status-indicator"></span>
             </div>
             <div className="profile-info">
-              <p className="profile-name">Name</p>
-              <p className="profile-username">@username</p>
+              <p className="profile-username">{email}</p>
             </div>
           </div>
 
@@ -84,7 +89,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </li>
           </Link>
 
-          <Link href="/profile/billing">
+          {/* <Link href="/profile/billing">
             <li
               className={`sideNavbar-li ${
                 darkMode ? "dark" : "light"
@@ -92,7 +97,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             >
               Billing
             </li>
-          </Link>
+          </Link> */}
 
           <Link href={"/"}>
             <span onClick={() => handleLogout()} className="logout-sidebar">
@@ -137,24 +142,17 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                 </Link>
               </div>
               <div className="contact-options">
-                <div className="contact-item">
-                  <Image
-                    src="/contactLogo.svg"
-                    alt="Contact Us"
-                    width={24}
-                    height={24}
-                  />
-                  <span>Contact us</span>
-                </div>
-                <div className="contact-item">
-                  <Image
-                    src="/suppLogo.svg"
-                    alt="Support"
-                    width={24}
-                    height={24}
-                  />
-                  <span>Support</span>
-                </div>
+                <Link href="https://discord.com/channels/1281650505462054952/1281652398930002010">
+                  <div className="contact-item">
+                    <Image
+                      src="/suppLogo.svg"
+                      alt="Support"
+                      width={24}
+                      height={24}
+                    />
+                    <span>Support</span>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

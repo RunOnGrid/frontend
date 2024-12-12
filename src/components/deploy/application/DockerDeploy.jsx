@@ -133,30 +133,30 @@ const DockerDeploy = ({ databaseName, setDatabaseName, image }) => {
 
     try {
       const deploymentConfig = {
-        name: componentData.name,
-        description: componentData.description || "grid-default-description",
+        name: serviceName,
+        description:  "Application deployed on Grid",
         owner: process.env.owner,
         compose: [
           {
-            name: componentData.name,
+            name: serviceName,
             description:
-              componentData.description || "grid-default-description",
-            repotag: image || "gridcloud/hello-app:2.0",
-            ports: componentData.ports || [36522],
-            domains: componentData.domains || [""],
-            environmentParameters: componentData.envVariables || [],
-            commands: componentData.commands || [],
+               "Application deployed on Grid",
+            repotag: image ,
+            ports: ports || [36522],
+            domains: ports.accept || [""],
+            environmentParameters: env || [],
+            commands: commands || [],
             containerPorts: componentData.contPorts || [8080],
             containerData: "/data",
-            cpu: parseFloat(componentData.cpu) || 0.1,
-            ram: parseInt(componentData.ram) || 128,
-            hdd: parseInt(componentData.hdd) || 1,
+            cpu: cpu,
+            ram: memory,
+            hdd: ephemeralStorage,
             tiered: false,
             secrets: "",
             repoauth: "",
           },
         ],
-        instances: parseInt(componentData.instances),
+        instances: serviceCount,
         geolocation: [...allowedLocations, ...forbiddenLocations],
         staticip: staticIp,
       };
@@ -174,11 +174,6 @@ const DockerDeploy = ({ databaseName, setDatabaseName, image }) => {
       }
 
       const data = await response.json();
-      if (data.name && data.uri) {
-        localStorage.setItem("DeploymentName", data.name);
-        localStorage.setItem("DeploymentUri", data.uri);
-        localStorage.setItem("DeploymentDate", new Date().toLocaleDateString());
-      }
 
       router.push("/profile");
     } catch (error) {

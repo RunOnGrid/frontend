@@ -61,15 +61,15 @@ const GithubFlux = ({ image, databaseName }) => {
   }, []);
 
   useEffect(() => {
-    if (activeStep === 3) {
+    if (activeStep === 2) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 4) {
+    } else if (activeStep === 3) {
       deployRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 5) {
+    } else if (activeStep === 4) {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 6) {
+    } else if (activeStep === 5) {
       serviceRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 7) {
+    } else if (activeStep === 6) {
       summaryRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
@@ -193,27 +193,35 @@ const GithubFlux = ({ image, databaseName }) => {
   };
   return (
     <div>
-      <BuildSettings ref={servicesRef} onNext={() => handleCompleteStep(3)} />
-      {completedSteps.includes(3) && (
+      <BuildSettings
+        darkMode={darkMode}
+        ref={servicesRef}
+        onNext={() => handleCompleteStep(3)}
+      />
+      {/* {completedSteps.includes(3) && (
         <div ref={deployRef}>
-          <Buildpack onNext={() => handleCompleteStep(4)} ref={deployRef} />
+          <Buildpack
+            darkMode={darkMode}
+            onNext={() => handleCompleteStep(4)}
+            ref={deployRef}
+          />
         </div>
-      )}
+      )} */}
 
-      {completedSteps.includes(4) && (
+      {completedSteps.includes(3) && (
         <AppGeoSelect
           darkMode={darkMode}
-          onNext={() => handleCompleteStep(5)}
+          onNext={() => handleCompleteStep(4)}
           ref={envRef}
           onLocationsChange={handleAllowedLocationsChange}
           onLocationsChange2={handleForbiddenLocationsChange}
           onStaticIp={handleStaticIp}
         />
       )}
-      {completedSteps.includes(5) && (
+      {completedSteps.includes(4) && (
         <AppComponentSelect
           darkMode={darkMode}
-          onNext={() => handleCompleteStep(6)}
+          onNext={() => handleCompleteStep(5)}
           onSaveComponentData={setComponentData}
           ref={serviceRef}
           price={price}
@@ -221,7 +229,7 @@ const GithubFlux = ({ image, databaseName }) => {
           existingNames={existingNames}
         />
       )}
-      {completedSteps.includes(6) && (
+      {completedSteps.includes(5) && (
         <div ref={summaryRef}>
           <Summary componentData={componentData} mode={darkMode} />
           <div className="termService">

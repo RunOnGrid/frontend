@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Botonera2 = ({ titulo, setAgree, agree }) => {
   const [isOn, setIsOn] = useState(false);
@@ -6,6 +6,11 @@ const Botonera2 = ({ titulo, setAgree, agree }) => {
     setIsOn(!isOn);
     setAgree(!agree);
   };
+  useEffect(() => {
+    if (!agree) {
+      setIsOn(false);
+    }
+  }, [agree]);
   return (
     <div className="botonera" style={{ display: "flex" }}>
       <span> {titulo} </span>

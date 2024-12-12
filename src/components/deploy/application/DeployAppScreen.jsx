@@ -9,6 +9,8 @@ import BuildAkash from "@/components/akash/BuildAkash";
 import DockerDeploy from "./DockerDeploy";
 import GithubFlux from "./GithubFlux";
 import GithubAkash from "./GithubAkash";
+import BuildFlux from "@/components/flux/BuildFlux";
+import AppGeoSelect from "./AppGeoSelect";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -126,7 +128,13 @@ const DeployAppScreen = () => {
 
           {selectedCloud === "flux" && deployOption === "dockerFlux" && (
             <>
-              <DockerDeploy image={image} />
+              {/* <AppGeoSelect
+                darkMode={darkMode}
+                // onLocationsChange={handleAllowedLocationsChange}
+                // onLocationsChange2={handleForbiddenLocationsChange}
+                // onStaticIp={handleStaticIp}
+              /> */}
+              <BuildFlux />
             </>
           )}
 

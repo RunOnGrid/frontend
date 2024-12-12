@@ -1,6 +1,6 @@
 .deployment-config {
 
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding: 25px;
     border: 1px solid rgba(128, 128, 128, 0.5);
@@ -11,7 +11,7 @@
   }
   .deployment-config.disabled{
     pointer-events: none; /* Desactiva cualquier interacción */
-    opacity: 0.5;
+    opacity: 0.4;
   }
   .deployment-config h2, .add-buildpack h2{
     font-size: 0.9rem;
@@ -29,7 +29,7 @@
   }
   
   
-  .input-group, .slider-group, .section, .slider-group2 {
+  .input-group, .slider-group,  .slider-group2 {
     margin-bottom: 50px;
     display: flex;
   }
@@ -104,6 +104,8 @@
     padding: 15px;
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.24);
+    margin-bottom: 10px;
+    margin-top: 10px;
     
   }
   .section.light {
@@ -167,18 +169,19 @@
     width: 100%;
   }
   .sections-akash{
-    width: 48%;
+    height: auto;
+    width: 95%;
     padding: 10px 20px;
+    align-content: center;
   }
 
   .section2 {
     display: flex;
-    justify-content: space-between;
     padding: 15px;
     border-radius: 15px;
     border: 1px solid rgba(0, 0, 0, 0.24);
     width: 90%;
-    height: 18vh;
+    height: 30vh;
     justify-content: space-between;
   }
   
@@ -209,8 +212,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: center;
-    align-content: center;
+  
+    margin: auto;
   }
   .akash-persistent{
     width: 40%;
@@ -316,7 +319,7 @@
   }
   .stripe-form{
     position: fixed;
-    top: 44%;
+    top: 24%;
     right:22%;
     background-color: white;
     border-radius: 20px;
@@ -324,6 +327,7 @@
     margin: 40px auto;
     padding: 20px;
     width: 50vw;
+    z-index: 9999;
     
   }
   .close-form{
@@ -344,4 +348,14 @@
     display: flex;
     color: white;
     
+  }
+  @media only screen and (min-height: 800px) {
+    .section2 {
+      height: 25vh;
+    }
+  }
+  @media only screen and (max-height: 600px) {
+    .section2 {
+      height: 35vh;
+    }
   }

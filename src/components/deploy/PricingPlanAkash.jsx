@@ -29,29 +29,25 @@ const plans = [
 
 const PricingPlanAkash = ({
   setMemory,
-  setMemoryUnit,
   setCpu,
   setEphemeralStorage,
-  setStorageUnit,
   setServiceCount,
   mode,
 }) => {
-  const [selectedPlan, setSelectedPlan] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState("STANDARD");
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan.title);
     setMemory(plan.values[0]);
-    setMemoryUnit(plan.values[1]);
     setCpu(plan.values[2]);
     setEphemeralStorage(plan.values[3]);
-    setStorageUnit(plan.values[4]);
     setServiceCount(plan.values[5]);
   };
 
   return (
     <div>
       <h3 className="pricing-title">Use recommended configuration</h3>
-      <div className={`plans-container ${mode ? "dark" : "light"}`}>
+      <div className={`plans-container2 ${mode ? "dark" : "light"}`}>
         {plans.map((plan) => (
           <div
             key={plan.title}

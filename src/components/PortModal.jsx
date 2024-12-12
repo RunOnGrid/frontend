@@ -5,6 +5,7 @@ const PortModal = ({ onSave, onCancel, initialPort, darkMode }) => {
   const [as, setAs] = useState(initialPort?.as);
   const [accept, setAccept] = useState(initialPort?.accept || []);
   const [protocol, setProtocol] = useState(initialPort?.protocol);
+  const [contPort, setContPort] = useState(initialPort?.contPorts || "[]");
   const [newAccept, setNewAccept] = useState("");
 
   const handleSave = () => {
@@ -14,6 +15,7 @@ const PortModal = ({ onSave, onCancel, initialPort, darkMode }) => {
         as: Number(as),
         protocol: protocol,
         accept,
+        contPorts: contPort,
       });
     }
   };
@@ -58,6 +60,13 @@ const PortModal = ({ onSave, onCancel, initialPort, darkMode }) => {
             <input
               value={protocol}
               onChange={(e) => setProtocol(e.target.value)}
+            />
+          </div>
+          <div className="modal-input">
+            <label>Container Ports</label>
+            <input
+              value={contPort}
+              onChange={(e) => setContPort(e.target.value)}
             />
           </div>
         </div>

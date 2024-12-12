@@ -1,7 +1,5 @@
 import Image from "next/image";
 import React, { forwardRef, useState } from "react";
-import Buildpack from "../Buildpack";
-import BuildSettings from "../BuildSettings";
 
 const MethodSelectAkash = forwardRef(
   (
@@ -9,10 +7,11 @@ const MethodSelectAkash = forwardRef(
     ref
   ) => {
     const [build, setBuild] = useState(false);
-    const [build2, setBuild2] = useState(false);
     const [grid, setGrid] = useState(false);
     const [docker, setDocker] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState("");
+
+
     const handleGit = () => {
       setSelectedMethod("git");
       setImage(false);
@@ -20,14 +19,23 @@ const MethodSelectAkash = forwardRef(
       setDocker(false);
       methodReset();
     };
+
     const handleDocker = () => {
       setSelectedMethod("docker");
       setGrid(false);
       setDocker(true);
-      setBuild(false);
-      setBuild2(false);
-      methodReset();
+      onDocker();
     };
+
+    // const handleContinue = () => {
+    //   if (!imageURL.trim()) {
+    //     setError("This field is required.");
+    //     return;
+    //   }
+    //   setError("");
+    //   setImage(imageURL);
+    //   onDocker();
+    // };
 
     return (
       <div ref={ref} className="databaseSelect">
@@ -40,14 +48,12 @@ const MethodSelectAkash = forwardRef(
         </div>
         <div className="deployMethodBox-container">
           <div
-            onClick={handleGit}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-              selectedMethod === "git" ? "selected" : ""
-            } ${selectedMethod === "docker" ? "disabled" : ""}`}
+           
+            className={`deployMethodBox ${darkMode ? "dark" : "light"} disabled`}
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
-            <p>Deploy using source from a git repo</p>
+            <p>Available soon</p>
           </div>
           <div
             onClick={handleDocker}
@@ -60,70 +66,65 @@ const MethodSelectAkash = forwardRef(
             <p>Deploy a container from an image registry.</p>
           </div>
         </div>
-        {grid ? (
+        {grid && (
           <>
-            {" "}
             <span> Build settings</span>
             <p className="span-deploy">Specify your GitHub repository.</p>
             <div className="install-github">
-              {" "}
               <Image alt="" src="/github3.png" height={15} width={15} />
               <span onClick={() => onGit()}>
                 {build ? "Installed" : "Install the Grid GitHub app"}
               </span>
             </div>
           </>
-        ) : (
-          ""
         )}
-        {docker ? (
-          <>
-            {" "}
-            <span> Image settings</span>
-            <p className="span-deploy">Specify your image URL.</p>
-            <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
-              <input
-                onChange={(e) => setImage(e.target.value)}
-                placeholder="Default: gridcloud/aptos-app:v.1"
-              />
-              <Image alt="" src="/searchLigth.png" height={20} width={20} />
-            </div>
-            <button
-              onClick={() => {
-                onDocker();
-              }}
-              className="add-button2"
-            >
-              Continue
-            </button>
-          </>
-        ) : (
-          ""
-        )}
-        {/* {build ? (
-          <>
-            {" "}
-            <BuildSettings
-              onClick={() => setBuild2(true)}
-              value={build2}
-              darkMode={darkMode}
-            />{" "}
-          </>
-        ) : (
-          ""
-        )}
-
-        {build2 ? (
-          <>
-            {" "}
-            <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
-          </>
-        ) : (
-          ""
-        )} */}
       </div>
     );
   }
 );
+
 MethodSelectAkash.displayName = "MethodSelectAkash";
 export default MethodSelectAkash;
+
+{
+  /* {build ? (
+  <>
+    {" "}
+    <BuildSettings
+      onClick={() => setBuild2(true)}
+      value={build2}
+      darkMode={darkMode}
+    />{" "}
+  </>
+) : (
+  ""
+)}
+
+{build2 ? (
+  <>
+    {" "}
+    <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
+  </>
+) : (
+  ""
+)} */
+}
+// {docker && (
+//   <>
+//     <span> Image settings</span>
+//     <p className="span-deploy">Specify your image URL.</p>
+//     {error && <span className="error-message">{error}</span>}{" "}
+//     <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
+//       <input
+//         onChange={(e) => setImageURL(e.target.value)}
+//         value={imageURL}
+//         placeholder="ex: gridcloud/aptos-app:v.1"
+//       />
+//       <Image alt="" src="/searchLigth.png" height={20} width={20} />
+//     </div>
+//     {/* Mostrar mensaje de error */}
+//     <button onClick={handleContinue} className="add-button2">
+//       Continue
+//     </button>
+//   </>
+// )}

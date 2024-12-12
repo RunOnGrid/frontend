@@ -30,7 +30,7 @@ const MethodSelectFlux = forwardRef(
       setDocker(true);
       setBuild(false);
       setBuild2(false);
-      methodReset();
+      onDocker();
     };
     const handleSelect = (option) => {
       setImage(option);
@@ -47,14 +47,13 @@ const MethodSelectFlux = forwardRef(
         </div>
         <div className="deployMethodBox-container">
           <div
-            onClick={handleGit}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-              selectedMethod === "git" ? "selected" : ""
-            } ${selectedMethod === "docker" ? "disabled" : ""}`}
+            className={`deployMethodBox ${
+              darkMode ? "dark" : "light"
+            } disabled`}
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
-            <p>Deploy using source from a git repo</p>
+            <p>Available soon</p>
           </div>
           <div
             onClick={handleDocker}
@@ -83,7 +82,7 @@ const MethodSelectFlux = forwardRef(
         ) : (
           ""
         )}
-        {docker ? (
+        {/* {docker ? (
           <>
             <span> Image settings</span>
             <p className="span-deploy">Select our whitelisted images URL.</p>
@@ -92,13 +91,6 @@ const MethodSelectFlux = forwardRef(
               options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
               onSelect={handleSelect}
             />
-            {/* <div className="input-with-image4">
-              <input
-                onChange={(e) => setImage(e.target.value)}
-                placeholder="Default: gridcloud/aptos-app:v.1"
-              />
-              <Image alt="" src="/searchLigth.png" height={20} width={20} />
-            </div> */}
             <button
               onClick={() => {
                 onDocker();
@@ -110,28 +102,6 @@ const MethodSelectFlux = forwardRef(
           </>
         ) : (
           ""
-        )}
-
-        {/* {build ? (
-          <>
-            {" "}
-            <BuildSettings
-              onClick={() => setBuild2(true)}
-              value={build2}
-              darkMode={darkMode}
-            />{" "}
-          </>
-        ) : (
-          ""
-        )}
-
-        {build2 ? (
-          <>
-            {" "}
-            <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
-          </>
-        ) : (
-          ""
         )} */}
       </div>
     );
@@ -139,3 +109,37 @@ const MethodSelectFlux = forwardRef(
 );
 MethodSelectFlux.displayName = "MethodSelectFlux";
 export default MethodSelectFlux;
+
+{
+  /* <div className="input-with-image4">
+  <input
+    onChange={(e) => setImage(e.target.value)}
+    placeholder="Default: gridcloud/aptos-app:v.1"
+  />
+  <Image alt="" src="/searchLigth.png" height={20} width={20} />
+</div> */
+}
+
+{
+  /* {build ? (
+  <>
+    {" "}
+    <BuildSettings
+      onClick={() => setBuild2(true)}
+      value={build2}
+      darkMode={darkMode}
+    />{" "}
+  </>
+) : (
+  ""
+)}
+
+{build2 ? (
+  <>
+    {" "}
+    <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
+  </>
+) : (
+  ""
+)} */
+}

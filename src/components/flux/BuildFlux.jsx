@@ -5,23 +5,21 @@ import EnvModal from "../EnvModal";
 import PayModal from "../PayModal";
 import CommModal from "../CommModal";
 import PortModal from "../PortModal";
-import Select2 from "@/commons/Select2";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../stripe/StripeScreen";
 import PricingPlanAkash from "../deploy/PricingPlanAkash";
 import Botonera2 from "@/commons/Botonera2";
 import SummaryAkash from "../deploy/SummaryAkash";
-import Select3 from "@/commons/Select3";
-import HoverInfo from "@/commons/HoverInfo";
 import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
+import AppGeoSelect from "../deploy/application/AppGeoSelect";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
-export default function BuildAkash({ darkMode, image }) {
+export default function BuildFlux({ darkMode, image }) {
   const [activeStep, setActiveStep] = useState(3);
   const [editingPortIndex, setEditingPortIndex] = useState(null);
   const [serviceName, setServiceName] = useState("service-grid");
@@ -43,12 +41,9 @@ export default function BuildAkash({ darkMode, image }) {
     as: 80,
     accept: [],
     protocol: "http",
+    contPorts: "[]",
   });
-  const [accept, setAccept] = useState("");
-  const [memoryUnit, setMemoryUnit] = useState("Mi");
-  const [storageUnit, setStorageUnit] = useState("Mi");
-  const [persistUnit, setPersistUnit] = useState("Mi");
-  const [typeUnit, setTypeUnit] = useState("hdd");
+
   const [showEnv, setShowEnv] = useState(false);
   const [showComm, setShowComm] = useState(false);
   const [showPorts, setShowPorts] = useState(false);
@@ -60,10 +55,13 @@ export default function BuildAkash({ darkMode, image }) {
   const [agree, setAgree] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorImage, setErrorImage] = useState("");
+  const [imageURL, setImageURL] = useState("");
+  const [allowedLocations, setAllowedLocations] = useState([]);
+  const [forbiddenLocations, setForbiddenLocations] = useState([]);
+
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
   const envRef = useRef(null);
-  const [imageURL, setImageURL] = useState("");
 
   const handleYamlChange = (newYaml) => {
     setYaml(newYaml);
@@ -102,11 +100,10 @@ export default function BuildAkash({ darkMode, image }) {
       return;
     }
     if (!imageURL.trim()) {
-      setErrorImage("This field is required.");
+      setErrorMessage("This field is required.");
       return;
     }
     setErrorMessage("");
-    setErrorImage("");
     setSummary(true);
     setActiveStep(4);
   };
@@ -114,15 +111,6 @@ export default function BuildAkash({ darkMode, image }) {
   const UnitOptions = ["Mb", "Mi", "GB", "Gi", "TB", "Ti"];
   const MemoryUnits = ["hdd", "ssd", "NVMe"];
 
-  const handleStorageUnit = (selectedOption) => {
-    setStorageUnit(selectedOption);
-  };
-  const handlePersistUnit = (selectedOption) => {
-    setPersistUnit(selectedOption);
-  };
-  const handleMemoryUnit = (selectedOption) => {
-    setMemoryUnit(selectedOption);
-  };
   const handleTypeUnit = (selectedOption) => {
     setTypeUnit(selectedOption);
   };
@@ -188,8 +176,6 @@ export default function BuildAkash({ darkMode, image }) {
       const data = await response.json();
       setClientSecret(data.clientSecret);
       setShowPayment(true);
-      console.log(data, "respo0sne stripe");
-      console.log("funciona log");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -200,59 +186,55 @@ export default function BuildAkash({ darkMode, image }) {
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
     setShowPayment(false);
-    setIsLoading(true);
+    const portsInput = ports.contPorts;
+    const portsArray = JSON.parse(portsInput);
 
     try {
-      let response;
-      if (activeTab === "builder") {
-        response = await fetch("/api/akash-deploy", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+      const deploymentConfig = {
+        name: serviceName,
+        description: "Application deployed on Grid",
+        owner: process.env.owner,
+        compose: [
+          {
+            name: serviceName,
+            description: "Application deployed on Grid",
+            repotag: imageURL,
+            ports: ports || [36522],
+            domains: ports.accept || [""],
+            environmentParameters: env || [],
+            commands: commands || [],
+            containerPorts: portsArray || [8080],
+            containerData: "/data",
+            cpu: cpu,
+            ram: memory,
+            hdd: ephemeralStorage,
+            tiered: false,
+            secrets: "",
+            repoauth: "",
           },
-          body: JSON.stringify({
-            serviceName,
-            cpu,
-            memory,
-            ephemeralStorage,
-            serviceCount,
-            image: imageURL,
-            ports,
-            storageUnit,
-            memoryUnit,
-            commands,
-            env,
-            accept,
-          }),
-        });
-      } else {
-        response = await fetch("/api/akash-deploy-yaml", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            yamlContent: yaml,
-          }),
-        });
-      }
+        ],
+        instances: serviceCount,
+        geolocation: [...allowedLocations, ...forbiddenLocations],
+        staticip: true,
+      };
+
+      const response = await fetch("/api/flux-deploy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(deploymentConfig),
+      });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
 
-      if (data.name && data.uri) {
-        localStorage.setItem("DeploymentName", data.name);
-        localStorage.setItem("DeploymentUri", data.uri);
-        localStorage.setItem("DeploymentDate", currentDate);
-      }
       router.push("/profile");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+    } catch (error) {
+      console.error("Deployment error:", error);
     }
   };
 
@@ -282,7 +264,7 @@ export default function BuildAkash({ darkMode, image }) {
     <div>
       <div
         ref={servicesRef}
-        className={`deployment-config ${showPayment ? "disabled" : ""}`}
+        className={`deployment-config ${summary ? "disabled" : ""}`}
       >
         <h2>Deployment configuration</h2>
 
@@ -299,7 +281,6 @@ export default function BuildAkash({ darkMode, image }) {
         </div>
         {activeTab === "builder" ? (
           <>
-            {" "}
             <h3> Specify your image URL</h3>
             {errorImage && <h3 className="error-message">{errorImage}</h3>}{" "}
             <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
@@ -333,10 +314,8 @@ export default function BuildAkash({ darkMode, image }) {
             </div>
             <PricingPlanAkash
               setMemory={setMemory}
-              setMemoryUnit={setMemoryUnit}
               setCpu={setCpu}
               setEphemeralStorage={setEphemeralStorage}
-              setStorageUnit={setStorageUnit}
               setServiceCount={setServiceCount}
               mode={darkMode}
             />
@@ -358,6 +337,7 @@ export default function BuildAkash({ darkMode, image }) {
                     </p>
                     <p>Global: True</p>
                     <p>Accept: {ports.accept}</p>
+                    <p>Cont Ports:</p>
                   </div>
                   <span
                     onClick={() => {
@@ -467,7 +447,13 @@ export default function BuildAkash({ darkMode, image }) {
         ) : (
           ""
         )}
-
+        <AppGeoSelect
+          allowedLocations={allowedLocations}
+          setAllowedLocations={setAllowedLocations}
+          forbiddenLocations={forbiddenLocations}
+          setForbiddenLocations={setForbiddenLocations}
+          darkMode={darkMode}
+        />
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
         <button
@@ -501,6 +487,8 @@ export default function BuildAkash({ darkMode, image }) {
             hdd={ephemeralStorage}
             mode={darkMode}
             name={serviceName}
+            setSummary={setSummary}
+            setAgree={setAgree}
           />
           <div className="termService">
             <Botonera2 setAgree={setAgree} agree={agree} />
@@ -544,263 +532,4 @@ export default function BuildAkash({ darkMode, image }) {
       )}
     </div>
   );
-}
-
-{
-  /* <div className="akash-persistent">
-              <h3>Persistent Storage</h3>
-              <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                <input
-                  type="range"
-                  min="1"
-                  max="1024"
-                  value={persistentStorage}
-                  onChange={(e) =>
-                    setPersistentStorage(parseInt(e.target.value))
-                  }
-                />
-                <span>{persistentStorage} </span>
-                <Select2
-                  options={UnitOptions}
-                  onSelect={handlePersistUnit}
-                  initialValue={persistUnit}
-                />
-              </div>
-              <div className="checkbox-group">
-                <label htmlFor="readonly">Read only</label>
-                <input
-                  type="checkbox"
-                  id="readonly"
-                  checked={readOnly}
-                  onChange={(e) => setReadOnly(e.target.checked)}
-                />
-              </div>
-
-              <div className="buildpack-single">
-                <h3> Persistent Name</h3>
-                <div
-                  className={`input-container5 ${darkMode ? "dark" : "light"}`}
-                >
-                  <input
-                    type="text"
-                    className={`custom-input ${darkMode ? "dark" : "light"}`}
-                    value={persistentName}
-                    onChange={(e) => setPersistentName(e.target.value)}
-                    required
-                    placeholder=""
-                  />
-                </div>
-              </div>
-              <div style={{ display: "flex" }}>
-                <div className="buildpack-single">
-                  <h3> Type</h3>
-                  <Select2
-                    options={MemoryUnits}
-                    onSelect={handleTypeUnit}
-                    initialValue={typeUnit}
-                  />
-                </div>
-
-                <div className="buildpack-single">
-                  <h3> Mount</h3>
-                  <div
-                    className={`input-container5 ${
-                      darkMode ? "dark" : "light"
-                    }`}
-                  >
-                    <input
-                      type="text"
-                      className={`custom-input ${darkMode ? "dark" : "light"}`}
-                      value={mount}
-                      onChange={(e) => setMount(e.target.value)}
-                      required
-                      placeholder="Example: /mnt/data"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div> */
-}
-{
-  /* <YamlEditor yaml={yaml} onChange={handleYamlChange} /> */
-}
-// const updateYamlFromBuilder = () => {
-//   const exposeSection = ports
-//     ? `
-//   expose:
-//     - port: ${ports.port}
-//       as: ${ports.as}${
-//         ports.accept.length > 0
-//           ? `
-//       accept:
-//         - ${ports.accept.join("\n          - ")}`
-//           : ""
-//       }${
-//         ports.protocol !== "http"
-//           ? `
-//       proto: ${ports.protocol}`
-//           : ""
-//       }
-//       to:
-//         - global: true`
-//     : "";
-
-//   const commandSection =
-//     commands.length > 1
-//       ? `
-//   command:
-//     - ${commands.join("\n      - ")}`
-//       : "";
-
-//   const argsSection =
-//     args.length > 0
-//       ? `
-//   args:
-//     - ${args.join("\n      - ")}`
-//       : "";
-
-//   const envSection =
-//     Object.keys(env).length > 0
-//       ? `
-//   env:
-//     - ${Object.entries(env)
-//       .map(([key, value]) => `${key}=${value}`)
-//       .join("\n      - ")}`
-//       : "";
-
-//   const newYaml = `---
-// version: "2.0"
-// services:
-// ${serviceName}:
-//   image: ${image}${exposeSection}${commandSection}${argsSection}${envSection}
-// profiles:
-// compute:
-//   ${serviceName}:
-//     resources:
-//       cpu:
-//         units:
-//           - ${cpu}
-//       memory:
-//         size: ${memory}${memoryUnit}
-//       storage:
-//         - size: ${ephemeralStorage}${storageUnit}
-// placement:
-//   dcloud:
-//     pricing:
-//       ${serviceName}:
-//         denom: uakt
-//         amount: 10000
-// deployment:
-// ${serviceName}:
-//   dcloud:
-//     profile: ${serviceName}
-//     count: ${serviceCount}`;
-
-//   setYaml(newYaml.trim());
-// };
-//   useEffect(() => {
-//   updateYamlFromBuilder();
-// }, [
-//   serviceName,
-//   cpu,
-//   memory,
-//   ephemeralStorage,
-//   serviceCount,
-//   image,
-//   ports,
-//   commands,
-//   args,
-//   env,
-//   memoryUnit,
-//   storageUnit,
-// ]);
-{
-  /* <div
-className={`buildpack-single ${darkMode ? "dark" : "light"}`}
->
-<h3> Instances</h3>
-<div
-  className={`input-container5 ${
-    darkMode ? "dark" : "light"
-  }`}
->
-  <input
-    type="text"
-    className={`custom-input ${darkMode ? "dark" : "light"}`}
-    value={serviceCount}
-    onChange={(e) => {
-      const value = e.target.value;
-      if (/^\d*\.?\d*$/.test(value)) {
-        setServiceCount(value);
-      }
-    }}
-    onBlur={() => {
-      if (parseFloat(serviceCount) < 3) {
-        setServiceCount("3");
-      }
-    }}
-    required
-  />
-</div>
-</div> */
-}
-
-{
-  /* <div className="sliders-akash">
-                <h3>CPU</h3>
-                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                  <input
-                    type="range"
-                    min="0.1"
-                    max="384"
-                    step="1"
-                    value={cpu}
-                    onChange={(e) => setCpu(parseFloat(e.target.value))}
-                  />
-                  <span>{cpu}</span>
-                  <HoverInfo text={cpuText} />
-                </div>
-
-                <h3>Memory</h3>
-                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                  <input
-                    type="range"
-                    min="1"
-                    max="5120"
-                    step="1"
-                    value={memory}
-                    onChange={(e) => setMemory(parseInt(e.target.value))}
-                  />
-                  <span>{memory} </span>
-                  <Select2
-                    darkMode={darkMode}
-                    options={UnitOptions}
-                    onSelect={handleMemoryUnit}
-                    initialValue={memoryUnit}
-                  />
-                  <HoverInfo text={memoryText} />
-                </div>
-
-                <h3>Ephemeral Storage</h3>
-                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                  <input
-                    type="range"
-                    min="1"
-                    max="5120"
-                    step="1"
-                    value={ephemeralStorage}
-                    onChange={(e) =>
-                      setEphemeralStorage(parseInt(e.target.value))
-                    }
-                  />
-                  <span>{ephemeralStorage} </span>
-                  <Select3
-                    darkMode={darkMode}
-                    options={UnitOptions}
-                    onSelect={handleStorageUnit}
-                    initialValue={storageUnit}
-                  />
-                  <HoverInfo text={ephemeralText} />
-                </div>
-              </div> */
 }

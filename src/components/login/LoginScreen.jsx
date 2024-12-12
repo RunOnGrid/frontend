@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
+import SharedPopUp from "../SharedPopUp";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,13 +37,13 @@ const LoginScreen = () => {
           refreshExpiresAt: Date.now() + data.refresh_expires_in * 1000,
           usernameGrid: email,
         });
+        localStorage.setItem("grid_email", email);
 
-        // Redirect to profile
         router.push("/profile");
       } else {
         // Handle login error
         const errorData = await response.json();
-        alert("Login failed: " + (errorData.message || "Invalid credentials"));
+        setError("Invalid Credentials!");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -69,6 +71,7 @@ const LoginScreen = () => {
             Sign In with Github
           </button>
         </div> */}
+        {error ? <h4 className="error-message-login"> {error}</h4> : ""}
         <form onSubmit={handleLogin} className="inputs-login">
           <input
             placeholder="Email"
@@ -84,7 +87,7 @@ const LoginScreen = () => {
             required
           />
         </form>
-        <p className="forgot-pass">Forgot password?</p>
+        {/* <p className="forgot-pass">Forgot password?</p> */}
 
         <button onClick={handleLogin}>Sign In</button>
         <p>

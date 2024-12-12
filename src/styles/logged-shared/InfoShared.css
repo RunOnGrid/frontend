@@ -424,12 +424,15 @@
   color: #0c13179a;
 }
 .popup-container {
+  position: absolute;
   background-color: #0c1317;
   border-radius: 10px;
   padding: 20px;
   color: white;
   width: 35vw;
+  margin: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
 
 .popup-container h2 {

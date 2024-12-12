@@ -4,7 +4,7 @@ import Select2 from "@/commons/Select2";
 import Image from "next/image";
 import React, { forwardRef, useState } from "react";
 
-const BuildSettings = forwardRef(({ onNext, darkMode }, ref) => {
+const BuildSettings = forwardRef(({ onNext, darkMode, setImage }, ref) => {
   const [build, setBuild] = useState(false);
   const [gitRepo, setGitRepo] = useState("");
   const [gitBranch, setGitBranch] = useState("");
@@ -46,14 +46,15 @@ const BuildSettings = forwardRef(({ onNext, darkMode }, ref) => {
           </div>
         </div>
         <div className="buildpack-selects">
-          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+          <div className={`buildpack-single3 ${darkMode ? "dark" : "light"}`}>
             <h3> GitHub branch</h3>
             <Select
+              darkMode={darkMode}
               options={["Main", "Develop", "Production"]}
               onSelect={handleGitBranch}
             />
           </div>
-          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+          {/* <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <h3> Application root path</h3>
 
             <div className={`input-with-image5 ${darkMode ? "dark" : "light"}`}>
@@ -63,7 +64,7 @@ const BuildSettings = forwardRef(({ onNext, darkMode }, ref) => {
               />
               <Image alt="" src="/searchLigth.png" height={20} width={20} />
             </div>
-          </div>
+          </div> */}
         </div>
         <button onClick={onNext} className="add-button4">
           Continue

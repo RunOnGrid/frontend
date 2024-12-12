@@ -36,10 +36,14 @@ import { ThemeProvider } from "@/ThemeContext";
 import "../components/billing/billing.css";
 import "../components/akash/akash.css";
 import "../commons/commons.css";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   return (
     <ThemeProvider>
+      <Head>
+        <link rel="icon" href="/favicon-new.ico" />
+      </Head>
       <Component {...pageProps} />
     </ThemeProvider>
   );

@@ -3,7 +3,6 @@ import React from "react";
 const SharedPopUp = ({ handleClose }) => {
   return (
     <div className="popup-container">
-      <h2>Update invite for benja.aguirre2599@gmail.com</h2>
       <span>Specify a different role for this user:</span>
       <div className="shared-options">
         <label>

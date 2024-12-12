@@ -703,8 +703,10 @@ span {
   border-radius: 25px;
   border: 1px solid grey;
   color: black;
-  height: 40px;
-  width: 90%;
+  height: 25px;
+  width: 95%;
+  padding: 5px;
+  margin-top: 10px;
 
 
 }
