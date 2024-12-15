@@ -1,4 +1,4 @@
-FROM --platform=amd64 node:18-alpine
+FROM --platform=amd64 node:18
 
 WORKDIR /app
 COPY package*.json ./
