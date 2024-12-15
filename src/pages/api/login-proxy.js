@@ -3,10 +3,10 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     try {
-      // Extract the login data from the request body
+     
       const { username, password } = req.body;
 
-      // Forward the login request to the external API
+    
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {

@@ -55,7 +55,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
       <nav className="sideNavbar">
         <ul className="sideNavbar-ul">
           <Link href="/profile">
-            <img className="icono-sideBar-grid" src="/logo7.svg" />
+            <img className="icono-sideBar-grid" src="/AlphaLogo.svg" />
           </Link>
           <div className="user-profile">
             <div className="profile-pic">

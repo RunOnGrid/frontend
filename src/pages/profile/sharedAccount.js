@@ -6,16 +6,16 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
-export async function getServerSideProps() {
-  return {
-    redirect: {
-      destination: "/",
-      permanent: false,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   return {
+//     redirect: {
+//       destination: "/",
+//       permanent: false,
+//     },
+//   };
+// }
 export default function SharedAccount() {
-  useAuthCheck();
+  // useAuthCheck();
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
     return setVisible(!visible);

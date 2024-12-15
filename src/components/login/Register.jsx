@@ -27,7 +27,7 @@ const RegisterScreen = () => {
       return;
     }
     try {
-      const response = await fetch("/api/user", {
+      const response = await fetch("/api/register-proxy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,9 +87,9 @@ const RegisterScreen = () => {
               aria-label="Toggle password visibility"
             >
               {passwordVisible ? (
-                <Image src="/view.png" height={22} width={22} />
+                <Image alt="" src="/view.png" height={22} width={22} />
               ) : (
-                <Image src="/hide.png" height={22} width={22} />
+                <Image alt="" src="/hide.png" height={22} width={22} />
               )}
             </span>
           </div>
@@ -107,9 +107,9 @@ const RegisterScreen = () => {
               aria-label="Toggle password visibility"
             >
               {passwordVisible2 ? (
-                <Image src="/view.png" height={22} width={22} />
+                <Image alt="" src="/view.png" height={22} width={22} />
               ) : (
-                <Image src="/hide.png" height={22} width={22} />
+                <Image alt="" src="/hide.png" height={22} width={22} />
               )}
             </span>
           </div>

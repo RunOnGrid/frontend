@@ -36,7 +36,7 @@ function Navbar({ scrollToContactForm }) {
       <nav className={`navbar ${isSticky ? "sticky" : ""}  `}>
         <div className="nav-items">
           <Link href="/">
-            <img className="navbar-logo" src="/logoLanding.svg" />
+            <img className="navbar-logo" src="/AlphaLogo.svg" />
           </Link>
           {/* <div onClick={() => toggleMenu()} className="hamburguer-navbar">
             {" "}

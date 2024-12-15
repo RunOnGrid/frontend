@@ -39,6 +39,7 @@ export const TokenService = {
 
   clearTokens() {
     localStorage.removeItem("auth_tokens");
+    localStorage.removeItem("grid_email");
   },
 
   isAuthenticated() {
