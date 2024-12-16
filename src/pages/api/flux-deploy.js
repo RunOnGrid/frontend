@@ -1,7 +1,8 @@
 export default async function handler(req, res) {
-  const API_URL = process.env.GRID_API;
+  const API_URL = process.env.API_CLOUD_URL;
   if (req.method === "POST") {
     try {
+      console.log(req.body);
       const response = await fetch(`${API_URL}/flux/deploy`, {
         method: "POST",
         headers: {
@@ -11,6 +12,7 @@ export default async function handler(req, res) {
       });
 
       if (!response.ok) {
+        console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 

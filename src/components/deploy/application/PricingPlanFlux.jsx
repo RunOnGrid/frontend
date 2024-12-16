@@ -4,17 +4,17 @@ const plans = [
   {
     title: "TEST",
     subtitle: "Starter",
-    specs: ["256 MB (RAM)", "0.1 CPU", "1 GB (STORAGE)", "1 INSTANCE (NODES)"],
-    price: "$0,80",
-    values: [256, "Mi", 0.1, 1, "Gi", 1, 80],
+    specs: ["256 MB (RAM)", "0.1 CPU", "1 GB (STORAGE)", "3 INSTANCES (NODES)"],
+    price: "$0,60",
+    values: [256, "Mi", 0.1, 1, "Gi", 3, 60],
     soon: false,
   },
   {
     title: "STANDARD",
     subtitle: "Standard",
-    specs: ["1 GB (RAM)", "1 CPU", "5 GB (STORAGE)", "1 INSTANCE (NODES)"],
-    price: "$5,50",
-    values: [1, "Gi", 1, 5, "Gi", 1, 550],
+    specs: ["1 GB (RAM)", "1 CPU", "5 GB (STORAGE)", "3 INSTANCES (NODES)"],
+    price: "$4,00",
+    values: [1, "Gi", 1, 5, "Gi", 3, 400],
     soon: false,
   },
   {
@@ -35,7 +35,7 @@ const plans = [
   },
 ];
 
-const PricingPlanAkash = ({
+const PricingPlanFlux = ({
   setMemory,
   setCpu,
   setEphemeralStorage,
@@ -73,7 +73,6 @@ const PricingPlanAkash = ({
               <h3>{plan.title}</h3>
               <h4>{plan.subtitle}</h4>
               <h2>{plan.price}</h2>
-              {plan.soon ? <h4>Soon..</h4> : ""}
             </div>
             <div>
               <ul className="specs">
@@ -94,4 +93,4 @@ const PricingPlanAkash = ({
   );
 };
 
-export default PricingPlanAkash;
+export default PricingPlanFlux;

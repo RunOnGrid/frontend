@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import EnvModal from "../EnvModal";
 import PayModal from "../PayModal";
 import CommModal from "../CommModal";
-import PortModal from "../PortModal";
+import PortModal from "../PortFlux";
 import Select2 from "@/commons/Select2";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -16,6 +16,7 @@ import Select3 from "@/commons/Select3";
 import HoverInfo from "@/commons/HoverInfo";
 import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
+import { TokenService } from "../../../tokenHandler";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -39,14 +40,14 @@ export default function BuildAkash({ darkMode, image }) {
   const [env, setEnv] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [ports, setPorts] = useState({
-    port: 8080,
+    port: 80,
     as: 80,
     accept: [],
     protocol: "http",
   });
   const [accept, setAccept] = useState("");
   const [memoryUnit, setMemoryUnit] = useState("Mi");
-  const [storageUnit, setStorageUnit] = useState("Mi");
+  const [storageUnit, setStorageUnit] = useState("Gi");
   const [persistUnit, setPersistUnit] = useState("Mi");
   const [typeUnit, setTypeUnit] = useState("hdd");
   const [showEnv, setShowEnv] = useState(false);
@@ -64,6 +65,9 @@ export default function BuildAkash({ darkMode, image }) {
   const deployRef = useRef(null);
   const envRef = useRef(null);
   const [imageURL, setImageURL] = useState("");
+  const [orderId, setOrderId] = useState(1);
+  const [appPrice, setAppPrice] = useState(0);
+  const [accessToken, setAccessToken] = useState("");
 
   const handleYamlChange = (newYaml) => {
     setYaml(newYaml);
@@ -171,14 +175,17 @@ export default function BuildAkash({ darkMode, image }) {
     setShowModal(false);
 
     try {
-      const price = 100;
-
       const response = await fetch("/api/create-payment-intent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount: price * 100, customer: "tuvieja" }),
+        body: JSON.stringify({
+          amount: appPrice,
+          currency: "usd",
+          orderId: orderId,
+          accessToken: accessToken,
+        }),
       });
 
       if (!response.ok) {
@@ -186,10 +193,9 @@ export default function BuildAkash({ darkMode, image }) {
       }
 
       const data = await response.json();
-      setClientSecret(data.clientSecret);
-      setShowPayment(true);
-      console.log(data, "respo0sne stripe");
-      console.log("funciona log");
+
+      // setClientSecret(data.client_secret);
+      // setShowPayment(true);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -199,7 +205,6 @@ export default function BuildAkash({ darkMode, image }) {
 
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
-    setShowPayment(false);
     setIsLoading(true);
 
     try {
@@ -209,6 +214,7 @@ export default function BuildAkash({ darkMode, image }) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             serviceName,
@@ -223,6 +229,7 @@ export default function BuildAkash({ darkMode, image }) {
             commands,
             env,
             accept,
+            accessToken,
           }),
         });
       } else {
@@ -241,13 +248,6 @@ export default function BuildAkash({ darkMode, image }) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
-      const data = await response.json();
-
-      if (data.name && data.uri) {
-        localStorage.setItem("DeploymentName", data.name);
-        localStorage.setItem("DeploymentUri", data.uri);
-        localStorage.setItem("DeploymentDate", currentDate);
-      }
       router.push("/profile");
     } catch (err) {
       setError(err.message);
@@ -267,7 +267,9 @@ export default function BuildAkash({ darkMode, image }) {
       return date.toLocaleDateString("en-US", options);
     };
     setCurrentDate(formatDate(new Date()));
-  }, []);
+    const tokens = TokenService.getTokens();
+    setAccessToken(tokens.tokens.accessToken);
+  }, [accessToken]);
 
   useEffect(() => {
     if (activeStep === 3) {
@@ -278,14 +280,14 @@ export default function BuildAkash({ darkMode, image }) {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
+
   return (
     <div>
       <div
         ref={servicesRef}
-        className={`deployment-config ${showPayment ? "disabled" : ""}`}
+        className={`deployment-config ${summary ? "disabled" : ""}`}
       >
         <h2>Deployment configuration</h2>
-
         <p>Configure your deployment settings.</p>
         <div className="billing-tabs">
           <div
@@ -339,6 +341,7 @@ export default function BuildAkash({ darkMode, image }) {
               setStorageUnit={setStorageUnit}
               setServiceCount={setServiceCount}
               mode={darkMode}
+              setPrice={setAppPrice}
             />
             {showPorts && (
               <PortModal
@@ -480,19 +483,6 @@ export default function BuildAkash({ darkMode, image }) {
         </button>
       </div>
 
-      {showModal && (
-        <>
-          <PayModal
-            darkMode={darkMode}
-            onClick={() => {
-              setShowModal(false);
-            }}
-            pay={() => {
-              handleContinue();
-            }}
-          />
-        </>
-      )}
       {summary && (
         <div ref={deployRef}>
           <SummaryAkash
@@ -501,6 +491,8 @@ export default function BuildAkash({ darkMode, image }) {
             hdd={ephemeralStorage}
             mode={darkMode}
             name={serviceName}
+            setSummary={setSummary}
+            setAgree={setAgree}
           />
           <div className="termService">
             <Botonera2 setAgree={setAgree} agree={agree} />
@@ -521,31 +513,43 @@ export default function BuildAkash({ darkMode, image }) {
                 <button
                   className="deploy-button"
                   onClick={() => {
-                    handleContinue();
+                    handlePaymentSuccess();
                   }}
-                  disabled={isLoading || paymentCompleted}
+                  disabled={isLoading}
                 >
-                  {paymentCompleted
-                    ? "Deployment in progress"
-                    : "Continue to payment"}
+                  Deploy
                 </button>
               </>
             )}
           </div>
         </div>
       )}
-      {showPayment && clientSecret && (
-        <Elements options={{ clientSecret }} stripe={stripePromise}>
-          <CheckoutForm
-            onClick={setShowPayment}
-            onPaymentSuccess={handlePaymentSuccess}
-          />
-        </Elements>
-      )}
     </div>
   );
 }
-
+// {showModal && (
+//   <>
+//     <PayModal
+//       darkMode={darkMode}
+//       onClick={() => {
+//         setShowModal(false);
+//       }}
+//       pay={() => {
+//         handleContinue();
+//       }}
+//     />
+//   </>
+// )}
+{
+  /* {showPayment && clientSecret && (
+  <Elements options={{ clientSecret }} stripe={stripePromise}>
+    <CheckoutForm
+      onClick={setShowPayment}
+      onPaymentSuccess={handlePaymentSuccess}
+    />
+  </Elements>
+)} */
+}
 {
   /* <div className="akash-persistent">
               <h3>Persistent Storage</h3>

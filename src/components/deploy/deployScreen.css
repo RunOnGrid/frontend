@@ -250,6 +250,13 @@
   cursor: pointer;
   justify-content: space-between;
 }
+.plan-card.disabled{
+  cursor: inherit;
+  opacity: 0.3;
+}
+.li-disabled{
+  cursor: inherit;
+}
 .plan-card.dark.active {
   background-color: #003c28;
 }
@@ -277,6 +284,10 @@
 .plan-card h3 {
   margin: 0;
   font-size: 0.9rem;
+}
+.plan-card h2{
+  margin: 0;
+  font-size: 1.3rem !important; 
 }
 
 .plan-card h4 {

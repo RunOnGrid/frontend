@@ -109,6 +109,11 @@
 .profile-username {
   font-size: 14px;
   color: grey;
+  display: block;
+  max-width: 100px;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
 }
 .icon-sideNavbarAsicHosting {
   display: flex;

@@ -17,7 +17,7 @@ import SummaryAkash from "../SummaryAkash";
 import PayModal from "@/components/PayModal";
 import YamlEditor from "@/components/akash/YamlEditor";
 import PricingPlanAkash from "../PricingPlanAkash";
-import PortModal from "@/components/PortModal";
+import PortModal from "@/components/PortFlux";
 import CommModal from "@/components/CommModal";
 import EnvModal from "@/components/EnvModal";
 import HoverInfo from "@/commons/HoverInfo";

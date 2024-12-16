@@ -59,7 +59,7 @@ const RegisterScreen = () => {
       <TrianglesLeft />
       <div className="new-login">
         <Link className="logo-link" href="/">
-          <img src="/logoLanding.svg" alt="Logo" />
+          <img src="/LogoAlpha.svg" alt="Logo" />
         </Link>
 
         <h2>Welcome!</h2>

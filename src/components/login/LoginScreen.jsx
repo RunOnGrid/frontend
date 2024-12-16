@@ -56,7 +56,7 @@ const LoginScreen = () => {
       <TrianglesLeft />
       <div className="new-login">
         <Link className="logo-link" href="/">
-          <img src="/AlphaLogo.svg" alt="Logo" />
+          <img src="/LogoAlpha.svg" alt="Logo" />
         </Link>
 
         <h2>Welcome back!</h2>

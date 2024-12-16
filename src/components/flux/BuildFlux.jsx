@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import EnvModal from "../EnvModal";
 import PayModal from "../PayModal";
 import CommModal from "../CommModal";
-import PortModal from "../PortModal";
+
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../stripe/StripeScreen";
@@ -14,10 +14,14 @@ import SummaryAkash from "../deploy/SummaryAkash";
 import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
 import AppGeoSelect from "../deploy/application/AppGeoSelect";
+import PricingPlanFlux from "../deploy/application/PricingPlanFlux";
+import { TokenService } from "../../../tokenHandler";
+import PortFlux from "../PortFlux";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
+const ownerFlux = process.env.OWNER_FLUX
 
 export default function BuildFlux({ darkMode, image }) {
   const [activeStep, setActiveStep] = useState(3);
@@ -34,13 +38,11 @@ export default function BuildFlux({ darkMode, image }) {
   const [currentDate, setCurrentDate] = useState("");
   const [commands, setCommands] = useState([]);
   const [args, setArgs] = useState([]);
-  const [env, setEnv] = useState({});
+  const [env, setEnv] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [ports, setPorts] = useState({
-    port: 8080,
-    as: 80,
+    port: 39470,
     accept: [],
-    protocol: "http",
     contPorts: "[]",
   });
 
@@ -58,6 +60,9 @@ export default function BuildFlux({ darkMode, image }) {
   const [imageURL, setImageURL] = useState("");
   const [allowedLocations, setAllowedLocations] = useState([]);
   const [forbiddenLocations, setForbiddenLocations] = useState([]);
+  const [orderId, setOrderId] = useState(1);
+  const [appPrice, setAppPrice] = useState(0);
+  const [accessToken, setAccessToken] = useState("");
 
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
@@ -92,7 +97,7 @@ export default function BuildFlux({ darkMode, image }) {
   const handleNameChange = (event) => {
     const newName = event.target.value;
     setName(newName);
-    setServiceName(`${newName.toLowerCase()}-${uuidv4()}`);
+    setServiceName(name);
   };
   const handleSummary = (state) => {
     if (!name.trim()) {
@@ -117,7 +122,7 @@ export default function BuildFlux({ darkMode, image }) {
   const handleDelete = (keyToDelete) => {
     setEnv((prevEnv) => {
       const updatedEnv = { ...prevEnv };
-      delete updatedEnv[keyToDelete]; // Elimina el par clave/valor
+      delete updatedEnv[keyToDelete];
       return updatedEnv;
     });
   };
@@ -149,43 +154,11 @@ export default function BuildFlux({ darkMode, image }) {
     "The maximum total multiplied by the count of instances is also 32 Ti",
   ];
 
-  const handleContinue = async () => {
-    if (!agree) {
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-    setShowModal(false);
-
-    try {
-      const price = 100;
-
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: price * 100, customer: "tuvieja" }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-      setShowPayment(true);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // 
 
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
-    setShowPayment(false);
+    
     const portsInput = ports.contPorts;
     const portsArray = JSON.parse(portsInput);
 
@@ -193,17 +166,17 @@ export default function BuildFlux({ darkMode, image }) {
       const deploymentConfig = {
         name: serviceName,
         description: "Application deployed on Grid",
-        owner: process.env.owner,
+        owner:ownerFlux,
         compose: [
           {
             name: serviceName,
             description: "Application deployed on Grid",
             repotag: imageURL,
-            ports: ports || [36522],
-            domains: ports.accept || [""],
+            ports: [36522],
+            domains: [""],
             environmentParameters: env || [],
             commands: commands || [],
-            containerPorts: portsArray || [8080],
+            containerPorts: [8080],
             containerData: "/data",
             cpu: cpu,
             ram: memory,
@@ -215,7 +188,8 @@ export default function BuildFlux({ darkMode, image }) {
         ],
         instances: serviceCount,
         geolocation: [...allowedLocations, ...forbiddenLocations],
-        staticip: true,
+        staticip: false,
+       
       };
 
       const response = await fetch("/api/flux-deploy", {
@@ -224,9 +198,11 @@ export default function BuildFlux({ darkMode, image }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(deploymentConfig),
+
       });
 
       if (!response.ok) {
+        console.log(response)
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -249,7 +225,9 @@ export default function BuildFlux({ darkMode, image }) {
       return date.toLocaleDateString("en-US", options);
     };
     setCurrentDate(formatDate(new Date()));
-  }, []);
+    const tokens = TokenService.getTokens();
+    setAccessToken(tokens.tokens.accessToken);
+  }, [accessToken]);
 
   useEffect(() => {
     if (activeStep === 3) {
@@ -312,15 +290,16 @@ export default function BuildFlux({ darkMode, image }) {
                 </div>
               </div>
             </div>
-            <PricingPlanAkash
+            <PricingPlanFlux
               setMemory={setMemory}
               setCpu={setCpu}
               setEphemeralStorage={setEphemeralStorage}
               setServiceCount={setServiceCount}
               mode={darkMode}
+              setPrice={setAppPrice}
             />
             {showPorts && (
-              <PortModal
+              <PortFlux
                 darkMode={darkMode}
                 onSave={handleSavePort}
                 onCancel={() => setShowPorts(false)}
@@ -466,19 +445,7 @@ export default function BuildFlux({ darkMode, image }) {
         </button>
       </div>
 
-      {showModal && (
-        <>
-          <PayModal
-            darkMode={darkMode}
-            onClick={() => {
-              setShowModal(false);
-            }}
-            pay={() => {
-              handleContinue();
-            }}
-          />
-        </>
-      )}
+     
       {summary && (
         <div ref={deployRef}>
           <SummaryAkash
@@ -509,27 +476,63 @@ export default function BuildFlux({ darkMode, image }) {
                 <button
                   className="deploy-button"
                   onClick={() => {
-                    handleContinue();
+                    handlePaymentSuccess();
                   }}
-                  disabled={isLoading || paymentCompleted}
+                  disabled={isLoading }
                 >
-                  {paymentCompleted
-                    ? "Deployment in progress"
-                    : "Continue to payment"}
+                  Deploy
                 </button>
               </>
             )}
           </div>
         </div>
       )}
-      {showPayment && clientSecret && (
-        <Elements options={{ clientSecret }} stripe={stripePromise}>
-          <CheckoutForm
-            onClick={setShowPayment}
-            onPaymentSuccess={handlePaymentSuccess}
-          />
-        </Elements>
-      )}
     </div>
   );
 }
+
+      // {showPayment && clientSecret && (
+      //   <Elements options={{ clientSecret }} stripe={stripePromise}>
+      //     <CheckoutForm
+      //       onClick={setShowPayment}
+      //       onPaymentSuccess={handlePaymentSuccess}
+      //     />
+      //   </Elements>
+      // )}
+      
+        // const handleContinue = async () => {
+        //   if (!agree) {
+        //     return;
+        //   }
+      
+        //   setIsLoading(true);
+        //   setError(null);
+        //   setShowModal(false);
+      
+        //   try {
+        //     const response = await fetch("/api/create-payment-intent", {
+        //       method: "POST",
+        //       headers: {
+        //         "Content-Type": "application/json",
+        //       },
+        //       body: JSON.stringify({
+        //         amount: appPrice,
+        //         currency: "usd",
+        //         orderId: orderId,
+        //         accessToken: accessToken,
+        //       }),
+        //     });
+      
+        //     if (!response.ok) {
+        //       throw new Error(`Error: ${response.status} ${response.statusText}`);
+        //     }
+      
+        //     const data = await response.json();
+        //     setClientSecret(data.clientSecret);
+        //     setShowPayment(true);
+        //   } catch (err) {
+        //     setError(err.message);
+        //   } finally {
+        //     setIsLoading(false);
+        //   }
+        // };
