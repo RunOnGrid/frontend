@@ -22,7 +22,7 @@ jobs:
       - name: Build Docker image using buildpacks
         run: |
           IMAGE_TAG=${GITHUB_SHA::7}          
-          docker build -t ghcr.io/runongrid/front:${IMAGE_TAG} -f .docker/Dockerfile .           
+          docker build -t ghcr.io/runongrid/front-dev:${IMAGE_TAG} -f .docker/Dockerfile .           
 
       # Paso 4: Inicia sesión en Docker Hub
       - name: Log in to Docker Hub
@@ -36,14 +36,14 @@ jobs:
       - name: Taggins Images
         run:  |
           IMAGE_TAG=${GITHUB_SHA::7}
-          docker tag ghcr.io/runongrid/front:${IMAGE_TAG} ghcr.io/runongrid/front:latest
+          docker tag ghcr.io/runongrid/front-dev:${IMAGE_TAG} ghcr.io/runongrid/front-dev:latest
 
       # Paso 6: Publica la imagen al registro
       - name: Push Docker image
         run:  |
           IMAGE_TAG=${GITHUB_SHA::7}
-          docker push ghcr.io/runongrid/front:${IMAGE_TAG}
-          docker push ghcr.io/runongrid/front:latest
+          docker push ghcr.io/runongrid/front-dev:${IMAGE_TAG}
+          docker push ghcr.io/runongrid/front-dev:latest
 
   deploy-dev:
     runs-on: ubuntu-24.04
