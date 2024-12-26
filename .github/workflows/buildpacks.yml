@@ -3,7 +3,7 @@ name: Buildpacks
 on:
   push:
     branches:
-      - main  # Cambia esto según la rama deseada
+      - develop  # Cambia esto según la rama deseada
 
 jobs:
   build:
