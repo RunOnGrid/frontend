@@ -30,8 +30,8 @@
   margin-right: auto;
   border-radius: 10px;
   border: none;
-  opacity: 0; /* Initially set the opacity to 0 */
-  animation: fade-in-down 1s forwards; /* Apply the fade-in animation */
+  opacity: 0; 
+  animation: fade-in-down 1s forwards; 
 }
 
 .contenedor-cards-buyProd h1 {

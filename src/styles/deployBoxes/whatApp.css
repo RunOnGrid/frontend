@@ -33,6 +33,15 @@
   margin: auto;
   border: 3px solid transparent;
   padding: 10px;
+  color: white;
+}
+.integration-container.dark {
+  background-color: #151e21;
+  color: white;
+}
+.integration-container.light {
+  background-color: #efefef;
+  color: #0c1317;
 }
 .integration-container img {
   margin: 10px;
@@ -42,26 +51,22 @@
 .integration-container button {
   display: flex;
   margin: auto;
-  height: 30px;
+  height: 40px;
   margin-right: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: #36b079;
   align-items: center;
 }
 .integration-container span {
-  color: white;
   font-weight: bold;
   font-size: 1.2rem;
   margin-top: 20px;
 }
 .integration-container p {
-  color: rgba(255, 255, 255, 0.613);
   margin-bottom: 20px;
 }
 
-/* .integration-container:hover{
-    border: 3px solid rgba(255, 255, 255, 0.518);
-} */
+
 .verified-integration {
   display: flex;
   justify-content: center;

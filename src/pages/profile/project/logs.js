@@ -1,5 +1,5 @@
 import DeployedNavbar from '@/commons/DeployedNavbar';
-import ProjectInfo from '@/commons/ProjectInfo';
+
 import LogsScreen from '@/components/projectsx/LogsScreen';
 import dynamic from 'next/dynamic';
 
@@ -8,7 +8,14 @@ const DynamicNavbar = dynamic(() => import('../../../commons/SideNavbar'), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
-
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: "/", // Puedes redirigir a una página de "Próximamente" o similar
+      permanent: false,
+    },
+  };
+}
 export default function Logs() {
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
@@ -17,10 +24,9 @@ export default function Logs() {
 
   return (
     <div className="logged-home-component">
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <DynamicNavbar />
-        <div style={{ width: '100%' }}>
-          <ProjectInfo />
+        <div style={{ width: "100%" }}>
           <DeployedNavbar />
 
           <LogsScreen />

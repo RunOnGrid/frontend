@@ -1,14 +1,2 @@
 @import url('./InfoShared.css');
 
-@font-face {
-  font-family: 'Rouben';
-  src: url(../../../public/fonts/Rouben-Medium.otf) format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Rouben ligth';
-  src: url(../../../public/fonts/Rouben-Light.otf) format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}

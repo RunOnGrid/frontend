@@ -1,0 +1,176 @@
+.noti-buttons2 {
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+    margin-left: auto;
+    
+  }
+  .noti-buttons2 button{
+    padding: 5px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+   
+  }
+  .upgrade-info{
+    width: 90%;
+    margin: auto;
+  }
+ 
+  .upgrade-info ul, .upgrade-info li{
+    list-style-type:disc;
+    color: black;
+
+  }
+  .upgrade-info span{
+    display: flex;
+    color: black;
+    text-align: center;
+    margin: auto 10px ;
+  }
+  .upgrade-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .main-content2 {
+    width: 100%;
+    flex-grow: 0;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(128, 128, 128, 0.171);
+    margin-bottom: 20px;
+  }
+  .main-content2.light{
+    background-color: #fff;
+  }
+
+  .main-content2.dark{
+    background-color: #161F21;
+  }
+  .content2 {
+    display: flex;
+    flex-grow: 0;
+    margin-top: 20px;
+    width: 100%;
+  }
+  .upgradeDiv.dark li, .upgradeDiv.dark p{
+    color: white;
+  }
+  .upgradeDiv li{
+    margin:  20px auto;
+  }
+  .upgradeDiv h4{
+    margin: 0px auto;
+  }
+  .env-input-container{
+    display: flex;
+    width: 100%;
+  }
+  .env-input{
+    width: 100%;
+  }
+  .env-input label{
+    margin-left: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .buttons-environment{
+    display: flex;
+    justify-content: space-between;
+  }
+  .buttons-environment button{
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }
+
+  .secret-info span{
+    display: flex;
+    color: #8a8a8a;
+    font-size: 0.8rem;
+    width: 30%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  .secret-info p{
+    color: #00b174;
+    font-size: 0.8rem;
+    width:max-content;
+    margin-left: 0px;
+    border-bottom: 1px solid #00b174;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  .event-single{
+    display: flex;
+    border: 1px solid grey;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+  .event-single h3{
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin: 5px 5px ;
+  }
+  .event-single span{
+    font-size: 0.8rem;
+    color: rgb(150, 150, 150);
+    margin: 5px 5px ;
+  }
+  .event-texts{
+    display: flex;
+    flex-direction: column;
+  }
+  .event-single img{
+    display: flex;
+    margin: auto 10px;
+  }
+  .team-info-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1.5fr 2fr 0.5fr;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .team-info-header {
+    font-weight: bold;
+  }
+  .team-info{
+    display: flex;
+    border: 1px solid grey;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .userInfo-teams{
+    display: flex;
+    flex-direction: column;
+    margin: auto 10px;
+  }
+  .userInfo-teams h3{
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .userInfo-teams span{
+    font-size: 0.8rem;
+    color: rgb(156, 156, 156);
+  }
+  .team-info span{
+    display: flex;
+    margin: auto ;
+    font-size: 0.9rem;
+
+  }
+  .team-info button{
+    padding: 5px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+  }
+  .team-info img{
+    display: flex;
+    margin: auto 1px;
+    cursor: pointer;
+  }

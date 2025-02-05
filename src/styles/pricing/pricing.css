@@ -9,14 +9,14 @@
   height: 60vh;
   transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 1s ease-out,
     transform 1s ease-out;
-  position: relative; /* Añadir position relative */
+  position: relative; 
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.159) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-  opacity: 0; /* Inicia invisible */
-  transform: translateY(20px); /* Posición inicial para animación */
+  opacity: 0; 
+  transform: translateY(20px); 
 }
 
 .pricing-card.visible {
@@ -36,17 +36,16 @@
 
 .pricing-card h2,
 .pricing-card h1 {
-  font-family: rouben;
   letter-spacing: 1px;
 }
 
 .pricing-card h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: 20px;
 }
 
 .pricing-card h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-top: -20px;
 }
 
@@ -61,14 +60,14 @@
 }
 
 .pricing-card h3 {
-  font-family: rouben ligth;
+
   font-size: 1rem;
   width: 70%;
   margin: auto;
 }
 
 .pricing-card h4 {
-  font-family: rouben ligth;
+
   letter-spacing: 1px;
   margin: 20px auto;
 }
@@ -86,7 +85,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Variaciones específicas */
+
 .pricing-card.free {
   background: linear-gradient(
     135deg,
@@ -95,17 +94,18 @@
   );
   margin-right: -17vw;
   width: 20%;
+  height: 55vh;
 }
 
 .pricing-card.team {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.234) 0%,
+    rgba(255, 255, 255, 0.534) 0%,
     rgba(255, 255, 255, 0) 100%
   );
-  height: 75vh;
-  z-index: 2; /* Añadir z-index para que esté por encima */
-  margin-top: -120px; /* Ajustar el margin-top para que se superponga */
+  height: 55vh;
+  z-index: 2; 
+  margin-top: -50px; 
   width: 22%;
 }
 
@@ -117,6 +117,7 @@
   );
   width: 20%;
   margin-left: -17vw;
+  height: 55vh;
 }
 
 .pricing-card.team button {
@@ -130,13 +131,16 @@
   color: white;
   text-align: center;
   justify-content: center;
-  margin-bottom: 180px;
+  margin-bottom: 70px;
 }
 
 .h1-landing {
   color: white;
-  font-family: rouben ligth;
+
   font-size: 2.5rem;
   justify-content: center;
   text-align: center;
+}
+.plans-section {
+  max-height: 90vh;
 }

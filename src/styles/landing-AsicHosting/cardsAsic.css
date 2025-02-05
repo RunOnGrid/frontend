@@ -75,23 +75,23 @@
 
 @keyframes fade-in-down {
   from {
-    opacity: 0; /* Start with opacity 0 */
-    transform: translateY(50px); /* Start slightly offscreen to the left */
+    opacity: 0; 
+    transform: translateY(50px); 
   }
   to {
-    opacity: 1; /* End with opacity 1 */
-    transform: translateY(0); /* Slide in to the original position */
+    opacity: 1; 
+    transform: translateY(0); 
   }
 }
 
 @keyframes fade-in-left {
   from {
-    opacity: 0; /* Start with opacity 0 */
-    transform: translateX(-100px); /* Start slightly offscreen to the left */
+    opacity: 0; 
+    transform: translateX(-100px); 
   }
   to {
-    opacity: 1; /* End with opacity 1 */
-    transform: translateX(0); /* Slide in to the original position */
+    opacity: 1; 
+    transform: translateX(0); 
   }
 }
 

@@ -3,7 +3,18 @@
   background: #0c1317d9;
   height: 6vh;
   width: 100%;
-  margin: 0 auto; /* Centrar la navbar horizontalmente */
+  margin: 0 auto; 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  z-index: 1000;
+}
+.navbar2 {
+
+  height: 0vh;
+  width: 89%;
+  margin: auto; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,16 +32,50 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
 }
+/* .snap-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
 
+.snap-section {
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+} */
 .navbar-logo {
   display: flex;
   align-items: center;
-  width: 60px;
+  width: 120px;
+  margin-left: 30px;
+}
+.logo-link{
+  display: flex;
+  align-items: center;
+  width: 180px;
+  margin-left: auto;
+  justify-content: flex-end;
+  margin-right: -5vw;
+  margin-bottom: 15vh;
+  margin-top: 20px;
+}
+.logo-link2{
+  display: flex;
+  align-items: center;
+
+}
+
+.navbar-logo2 {
+  display: flex;
+  align-items: center;
+  width: 180px;
+  margin-top: 150px;
+  
 }
 
 .nav-items {
-  width: 80%;
-  margin: 0 auto; /* Centrar la navbar horizontalmente */
+  width: 100%;
+  margin: 0 auto; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -71,15 +116,15 @@
   background: white;
   border-radius: 10px;
   backdrop-filter: blur(0px);
-  transition: opacity 0.4s ease-in-out; /* Add the transition property with a longer duration */
-  opacity: 0; /* Set the initial opacity to 0 */
-  pointer-events: none; /* Disable pointer events when the element is hidden */
+  transition: opacity 0.4s ease-in-out; 
+  opacity: 0; 
+  pointer-events: none; 
 }
 
 .container-productos.show {
   transition: opacity 0.4s ease-in-out;
-  opacity: 1; /* Change the opacity to 1 to show the element */
-  pointer-events: auto; /* Enable pointer events when the element is shown */
+  opacity: 1; 
+  pointer-events: auto; 
   margin-left: 30vw;
 }
 
@@ -146,9 +191,6 @@ button {
   border-radius: 4px;
   border: 2px solid rgb(54, 176, 121);
   font-size: 14px;
-
-  font-weight: 600;
-
   background: transparent;
   color: #fff;
   overflow: hidden;
@@ -156,13 +198,12 @@ button {
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
-  margin-right: 20px;
   cursor: pointer;
 }
 
 button:hover {
   background: rgb(54, 176, 121);
-  box-shadow: 0 0 30px 5px rgba(54, 176, 121, 0.515);
+ 
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
@@ -220,7 +261,14 @@ button:active {
   background-color: #36b079;
 }
 .boton-landing1 {
-  background-color: #36b079;
+  display: flex;
+  color: #36b079;
+  background-color: transparent;
+  border-radius: 25px;
+  margin-right: 10vw;
+}
+.boton-landing1:hover {
+  background: transparent;
 }
 .downNavbar {
   height: 20px;
@@ -365,7 +413,7 @@ button:active {
   .nav-items {
     display: flex;
     flex-direction: row;
-    /* margin-top: 300px; */
+    
   }
   .un-contenedor {
     display: none;
@@ -450,11 +498,12 @@ button:active {
     margin-top: 0px;
     background-color: transparent;
   }
-  button {
-    display: none;
-  }
+  
   i {
     display: none;
+  }
+  .hamburguer-navbar{
+    display: none !important;
   }
 }
 @media only screen and (max-width: 400px) {
@@ -468,9 +517,9 @@ button:active {
   }
 }
 @media only screen and (max-width: 1300px) {
-  .boton-landing1 {
+  /* .boton-landing1 {
     margin-left: 60%;
-  }
+  } */
   .boton-landing {
     margin-left: 60%;
   }

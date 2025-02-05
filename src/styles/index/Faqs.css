@@ -117,7 +117,7 @@
     transform: translateY(0px);
   }
 }
-/*Animation functionality*/
+
 @-webkit-keyframes slide-up {
   0% {
     height: 0;
@@ -164,10 +164,7 @@
     margin: auto;
     margin-left: 12%;
     margin-right: 12%;
-    /* background-image: url('../assets/backgroundNube1.jpg'); 
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat; */
+
   }
 }
 

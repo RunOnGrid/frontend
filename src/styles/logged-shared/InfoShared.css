@@ -18,9 +18,8 @@
 }
 
 .contenedor-nuevo-shared div {
-  color: white;
   font-size: 1.3rem;
-
+  font-weight: bold;
   text-decoration: none;
   margin-bottom: 15px;
 }
@@ -116,15 +115,7 @@
   transition: border-bottom 0.5s ease;
   color: #24f396;
 }
-.selected {
-  display: flex;
-  margin: auto 10px;
-  margin-bottom: 10px !important;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.5s ease;
-  color: #24f396;
-}
+
 .input-shared2 {
   display: flex;
   width: 50%;
@@ -137,7 +128,6 @@
   border: 2px solid rgba(128, 128, 128, 0.66);
 }
 .contenedor-nuevo-shared span {
-  color: rgba(255, 255, 255, 0.698);
   font-size: 1rem;
 
   text-decoration: none;
@@ -157,18 +147,46 @@
 }
 .span-shared {
   display: flex;
-  margin-bottom: 30px !important;
-  color: rgba(255, 255, 255, 0.625) !important;
+  margin-left: 0px;
+  margin-bottom: 30px;
+}
+.span-shared.light {
+  color: #0c1317;
+  margin-bottom: 30px;
+}
+.sharedInfo-span-container.light {
+  display: flex;
+  border-bottom: 2px solid black;
+}
+.sharedInfo-span-container.dark {
+  display: flex;
+  border-bottom: 2px solid white;
+}
+.sharedInfo-span.dark {
+  color: #36b079;
+  margin-bottom: 20px;
+  margin-left: 0px;
+  font-weight: 600;
+}
+.sharedInfo-span.light {
+  color: #0c1317;
+  margin-bottom: 10px;
+  font-weight: 600;
+  margin-left: 0px;
 }
 
 .infoShared-titulo {
   display: flex;
-  color: white;
   z-index: 100;
-
   font-size: 3rem;
-  margin-top: 10px;
-  margin-bottom: 3%;
+  margin-top: -40px;
+  margin-bottom: 10px;
+}
+.infoShared-titulo.light {
+  color: #0c1317;
+}
+.infoShared-titulo.dark {
+  color: white;
 }
 
 .infoShared-titulo-container {
@@ -277,39 +295,57 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #0c1317bc;
   width: 20%;
   border-radius: 10px;
   border: 2px solid transparent;
   margin-right: 20px;
   margin-top: 20px;
 }
-.botones-shared button:hover {
-  border: 2px solid #36b079;
-  background-color: #0c1317;
+
+.botones-shared.light button {
+  background-color: #36b079b5;
 }
+.botones-shared.dark button {
+  background-color: #151e21;
+}
+
 .shared-input {
   display: flex;
   padding: 15px;
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.257);
   color: white;
   width: 70%;
   margin-right: auto;
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.shared-input::placeholder {
-  color: rgba(255, 255, 255, 0.441) !important;
+.shared-input.dark {
+  background-color: rgba(255, 255, 255, 0.257);
+}
+.shared-input.light {
+  background-color: #b1b1b1;
+}
+.shared-input.dark::placeholder {
+  color: rgba(255, 255, 255, 0.441);
+}
+.shared-input.light::placeholder {
+  color: black;
 }
 .shared-columnas {
   display: flex;
   width: 80%;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
   padding: 10px;
   align-items: center;
   justify-content: space-between;
+}
+.shared-columnas.dark {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+.shared-columnas.light {
+  border-top: 1px solid #0c1317;
+  border-bottom: 1px solid #0c1317;
+  color: #0c1317;
 }
 
 .shared-columnas span {
@@ -325,12 +361,14 @@
   align-items: center;
   justify-content: space-between;
 }
-
+.shared-columnas2.dark span {
+  color: rgba(255, 255, 255, 0.765);
+}
+.shared-columnas2.light span {
+  color: #0c1317;
+}
 .shared-columnas2 span {
   display: flex;
-
-  color: rgba(255, 255, 255, 0.765);
-
   width: 250px;
 }
 
@@ -350,36 +388,51 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #0c1317bc;
   width: 20%;
   border-radius: 10px;
   border: 2px solid transparent;
   margin-right: 20px;
   margin-top: 20px;
 }
-.shared-box:hover {
+.shared-box.light {
+  background-color: #efefef;
+  color: #0c1317 !important;
+}
+.shared-box.dark {
+  background-color: #151e21;
+  color: white !important;
+}
+.shared-box.dark:hover {
   border: 2px solid #36b079;
   background-color: #0c1317;
 }
+.shared-box.light:hover {
+  border: 2px solid #36b079;
+  background-color: #bdbbbb;
+}
 .shared-box span {
   display: flex;
-
+  margin-left: 0px;
   margin-top: 10px;
 }
 .shared-box div {
   display: flex;
-  color: rgba(255, 255, 255, 0.646);
-
   font-size: 1rem;
   margin-top: 15px;
 }
+.shared-box.light div {
+  color: #0c13179a;
+}
 .popup-container {
+  position: absolute;
   background-color: #0c1317;
   border-radius: 10px;
   padding: 20px;
   color: white;
   width: 35vw;
+  margin: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
 }
 
 .popup-container h2 {
@@ -455,11 +508,7 @@
 .save-button:hover {
   opacity: 0.9;
 }
-/* .divisor-shared {
-  width: 1px;
-  background-color: white;
-  height: auto;
-} */
+
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -479,6 +528,11 @@
   }
   .infoShared-container {
     margin-left: 30%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .shared-columnas2, .shared-columnas{
+    width: 100%;
   }
 }
 
