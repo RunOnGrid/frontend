@@ -137,28 +137,11 @@ export default function BuildFlux({ darkMode, image }) {
     );
   };
 
-  const cpuText = [
-    "The amount of vCPU's required for this workload.",
-    "The maximum for a single instance is 384 vCPU's.",
-    "The maximum total multiplied by the count of instances is 512 vCPU's.",
-  ];
-  const memoryText = [
-    "The amount of memory required for this workload.",
-    "The maximum for a single instance is 512 Gi.",
-    "The maximum total multiplied by the count of instances is 1024 Gi.",
-  ];
-  const ephemeralText = [
-    "The amount of ephemeral disk storage required for this workload.",
-    "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
-    "The maximum for a single instance is 32 Ti.",
-    "The maximum total multiplied by the count of instances is also 32 Ti",
-  ];
 
-  // 
 
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
-    
+
     const portsInput = ports.contPorts;
     const portsArray = JSON.parse(portsInput);
 
@@ -166,7 +149,7 @@ export default function BuildFlux({ darkMode, image }) {
       const deploymentConfig = {
         name: serviceName,
         description: "Application deployed on Grid",
-        owner:ownerFlux,
+        owner: ownerFlux,
         compose: [
           {
             name: serviceName,
@@ -186,23 +169,22 @@ export default function BuildFlux({ darkMode, image }) {
             repoauth: "",
           },
         ],
-        instances: serviceCount,
+        instances: serviceCount || 3,
         geolocation: [...allowedLocations, ...forbiddenLocations],
         staticip: false,
-       
       };
 
       const response = await fetch("/api/flux-deploy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(deploymentConfig),
-
       });
-
+      console.log(deploymentConfig);
       if (!response.ok) {
-        console.log(response)
+        console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -214,20 +196,10 @@ export default function BuildFlux({ darkMode, image }) {
     }
   };
 
-  useEffect(() => {
-    const formatDate = (date) => {
-      const options = {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      return date.toLocaleDateString("en-US", options);
-    };
-    setCurrentDate(formatDate(new Date()));
-    const tokens = TokenService.getTokens();
-    setAccessToken(tokens.tokens.accessToken);
-  }, [accessToken]);
+  // useEffect(() => {
+  //   const tokens = TokenService.getTokens();
+  //   setAccessToken(tokens.tokens.accessToken);
+  // }, [accessToken]);
 
   useEffect(() => {
     if (activeStep === 3) {
@@ -445,7 +417,6 @@ export default function BuildFlux({ darkMode, image }) {
         </button>
       </div>
 
-     
       {summary && (
         <div ref={deployRef}>
           <SummaryAkash
@@ -478,7 +449,7 @@ export default function BuildFlux({ darkMode, image }) {
                   onClick={() => {
                     handlePaymentSuccess();
                   }}
-                  disabled={isLoading }
+                  disabled={isLoading}
                 >
                   Deploy
                 </button>

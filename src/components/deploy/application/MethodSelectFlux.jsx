@@ -1,13 +1,23 @@
 import Image from "next/image";
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import Buildpack from "../Buildpack";
 import BuildSettings from "../BuildSettings";
 import Select from "@/commons/Select";
 import JsonEditor from "@/components/flux/JsonEditor";
+import Link from "next/link";
 
 const MethodSelectFlux = forwardRef(
   (
-    { onDocker, onGit, darkMode, onClick, value, setImage, methodReset },
+    {
+      onDocker,
+      onGit,
+      darkMode,
+      onClick,
+      value,
+      setImage,
+      methodReset,
+      installed,
+    },
     ref
   ) => {
     const [build, setBuild] = useState(false);
@@ -17,6 +27,7 @@ const MethodSelectFlux = forwardRef(
     const [git, setGit] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
+    const [email, setEmail] = useState("");
     const handleGit = () => {
       setSelectedMethod("git");
       setImage(false);
@@ -35,6 +46,15 @@ const MethodSelectFlux = forwardRef(
     const handleSelect = (option) => {
       setImage(option);
     };
+    useEffect(() => {
+      const emailGrid = localStorage.getItem("grid_email");
+      setEmail(emailGrid);
+    }, [email]);
+    useEffect(() => {
+      if (installed) {
+        setBuild(true);
+      }
+    }, [installed]);
 
     return (
       <div ref={ref} className="databaseSelect">
@@ -47,9 +67,10 @@ const MethodSelectFlux = forwardRef(
         </div>
         <div className="deployMethodBox-container">
           <div
-            className={`deployMethodBox ${
-              darkMode ? "dark" : "light"
-            } disabled`}
+            onClick={handleGit}
+            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
+              selectedMethod === "git" ? "selected" : ""
+            } ${selectedMethod === "docker" ? "disabled" : ""}`}
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
@@ -71,13 +92,24 @@ const MethodSelectFlux = forwardRef(
             {" "}
             <span> Build settings</span>
             <p className="span-deploy">Specify your GitHub repository.</p>
-            <div className="install-github">
-              {" "}
-              <Image alt="" src="/github3.png" height={15} width={15} />
-              <span onClick={() => onGit()}>
-                {build ? "Installed" : "Install the Grid GitHub app"}
-              </span>
-            </div>
+            {build ? (
+              <div className="install-github2">
+                <Image alt="" src="/github3.png" height={15} width={15} />
+                <span>Installed</span>
+              </div>
+            ) : (
+              <Link
+                target="blank"
+                href={`https://github.com/apps/runongrid-api-git-providers-github/installations/new?state=${email}`}
+              >
+                <div className="install-github">
+                  <Image alt="" src="/github3.png" height={15} width={15} />
+                  <span onClick={() => onGit()}>
+                    Install the Grid GitHub app
+                  </span>
+                </div>
+              </Link>
+            )}
           </>
         ) : (
           ""

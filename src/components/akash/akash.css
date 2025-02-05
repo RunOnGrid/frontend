@@ -353,6 +353,66 @@
     .section2 {
       height: 25vh;
     }
+    .deployment-config{
+      width: 80%;
+      margin: auto 10px;
+      margin-bottom: 90px;
+    }
+    .second-akash {
+     display: flex;
+     flex-direction: column;
+    }
+    .sections-akash{
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      padding: 10px;
+      width: 95%;
+    }
+    .section2{
+      width: 85%;
+      margin: auto;
+    }
+    .databaseSelect{
+      width: 95%;
+      padding: 10px;
+      margin: auto;
+    }
+    .geo-option{
+      padding: 15px;
+    }
+    .card2{
+      width: 80%;
+      right: 25px;
+    }
+    .card2 input{
+      width: 90%;
+      margin-bottom: 10px;
+    }
+    .card2 label{
+      margin-left: 0px;
+      margin-bottom: 10px;
+    }
+    .card2 h3{
+      margin-top: 10px;
+    }
+    .add-domains button{
+      margin-right: 0px;
+    }
+    .modal-input input{
+      margin-right: auto;
+    }
+    .modal-input textarea{
+      width: 90%;
+      margin-left: 0px;
+      margin-right: auto;
+    }
+    .summary-container{
+      padding: 10px;
+    }
+    .deploy-button{
+      width: 120px;
+    }
   }
   @media only screen and (max-height: 600px) {
     .section2 {

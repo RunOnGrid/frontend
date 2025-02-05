@@ -2,52 +2,27 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-function AppsTableRow({ type, status, creationDate, mode }) {
+function AppsTableRow({ type, status, creationDate, mode, name }) {
   const [deploymentName, setDeploymentName] = useState("");
   const [deploymentUri, setDeploymentUri] = useState("");
   const [deploymentDate, setDeploymentDate] = useState("");
-  useEffect(() => {
-    const name = localStorage.getItem("DeploymentName");
-    const uri = localStorage.getItem("DeploymentUri");
-    const date = localStorage.getItem("DeploymentDate");
-    if (name) {
-      setDeploymentName(name);
-    }
-    if (uri) {
-      setDeploymentUri(uri);
-    }
-    if (date) {
-      setDeploymentDate(date);
-    }
-  }, []);
+
   return (
     <>
       <div className={`table-row ${mode ? "dark" : "light"}`}>
-        <h3>{deploymentName ? deploymentName : "---"}</h3>
-        <h4>{type}</h4>
-
-        <Link
-          rel="noopener noreferrer"
-          target="_blank"
-          href={deploymentUri ? `http://${deploymentUri}` : "/applications"}
-        >
-          {" "}
-          {deploymentUri ? deploymentUri : "---"}{" "}
-        </Link>
-
+        <h3>{name || "---"}</h3>
+        <h4>{type}</h4> {deploymentUri ? deploymentUri : "---"}{" "}
         <div className="status">
           {" "}
           <div className="circle3"></div>
           {status}
         </div>
-
         <h5>
           {" "}
           <Image alt="" src="/calendar.png" height={15} width={15} />
-          {deploymentDate}
+          {creationDate}
         </h5>
-
-        <Image alt="" src="/edit.png" height={20} width={20} />
+        {/* <Image alt="" src="/edit.png" height={20} width={20} /> */}
       </div>
     </>
   );

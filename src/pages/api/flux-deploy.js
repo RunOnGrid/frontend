@@ -1,16 +1,17 @@
 export default async function handler(req, res) {
-  const API_URL = process.env.API_CLOUD_URL;
+  const API_URL = process.env.GRID_API;
   if (req.method === "POST") {
+    console.log(req.body);
     try {
-      console.log(req.body);
-      const response = await fetch(`${API_URL}/flux/deploy`, {
+      const response = await fetch(`${API_URL}/flux`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: req.headers.authorization,
         },
         body: JSON.stringify(req.body),
       });
-
+      console.log(req.body);
       if (!response.ok) {
         console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);

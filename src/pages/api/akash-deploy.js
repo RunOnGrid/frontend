@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log("Request body:", req.body);
+ 
 
     const {
       serviceName,
@@ -93,10 +93,10 @@ export default async function handler(req, res) {
     };
 
     const yamlString = yaml.dump(yamlStructure);
-    console.log("Generated YAML:", yamlString);
-    const API_URL = process.env.API_CLOUD_URL;
+    console.log(yamlString);
+    const API_URL = process.env.GRID_API;
 
-    const akashResponse = await fetch(`${API_URL}/akash/deploy`, {
+    const akashResponse = await fetch(`${API_URL}/akash`, {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
@@ -104,9 +104,9 @@ export default async function handler(req, res) {
       },
       body: yamlString,
     });
-    console.log("Akash response status:", akashResponse.status);
+
     const responseText = await akashResponse.text();
-    console.log(akashResponse, "ESSSTO ES RESSPONSE");
+ 
     console.log("Akash response body:", responseText);
     if (!akashResponse.ok) {
       throw new Error(

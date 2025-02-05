@@ -5,8 +5,6 @@ export default async function handler(req, res) {
     try {
      
       const { username, password } = req.body;
-
-    
       const response = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
@@ -17,6 +15,7 @@ export default async function handler(req, res) {
 
       if (response.ok) {
         const data = await response.json();
+
         // Respond to the client with the data from the external API
         res.status(200).json(data);
       } else {

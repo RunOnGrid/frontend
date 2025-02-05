@@ -758,6 +758,10 @@
       width: 80% !important;
       margin: 10px auto !important;
     }
+    .inputs-login input{
+      width: 214px;
+      margin: 10px auto;
+    }
 }
 
 @media only screen and (max-width: 1500px) {

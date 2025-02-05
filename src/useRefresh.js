@@ -9,6 +9,7 @@ const useAuthCheck = () => {
     const { redirectToLogin } = TokenService.getTokens();
 
     if (redirectToLogin) {
+      TokenService.clearTokens();
       router.push("/login");
     }
   }, [router]);

@@ -905,7 +905,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 25px;
-  width: 80%;
+  width: 90%;
   margin: auto;
   margin-left: 4%;
   margin-top: 30px;
@@ -1051,18 +1051,29 @@
   width: max-content;
   cursor: pointer;
 }
-.install-github span{
+.install-github2{
+  display: flex;
+  background-color: #00b174;
+ 
+  padding: px;
+  text-align: center;
+  border-radius: 25px;
+  width: max-content;
+  
+}
+.install-github span, .install-github2 span{
   color: white;
   font-weight: 400;
   width: 100%;
 
 }
-.install-github img{
+.install-github img, .install-github2 img{
 
   text-align: center;
   margin: auto 10px ;
  
 }
+
 
 .select-container {
   appearance: none !important;
@@ -1239,4 +1250,27 @@
   background-color: white;
   min-height: 100vh !important;
   margin: auto;
+}
+
+@media only screen and (max-width:800px) {
+  .deployMethodBox-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .plans-container2 {
+   flex-direction: column;
+  
+  }
+  .deploy-button-wrapper, .deploy-button-wrapper-disabled {
+    margin-bottom: 100px;
+  }
+  .cloudSelect {
+  
+    
+    padding: 10px;
+    width: 90%;
+    margin:  auto;
+  }
+  
 }

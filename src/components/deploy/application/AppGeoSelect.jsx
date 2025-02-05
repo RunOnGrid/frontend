@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import GeoOptionContainer from "../GeoOptionContainer";
+import Botonera3 from "@/commons/Botonera3";
 
 const AppGeoSelect = ({
   allowedLocations,
   setAllowedLocations,
   forbiddenLocations,
   setForbiddenLocations,
+  onNext,
 }) => {
   return (
     <div className="databaseSelect">
@@ -25,12 +27,12 @@ export default AppGeoSelect;
 
 {
   /* <div className="geo-options">
-  <Botonera3 titulo="STATIC IP" onClick={onStaticIp} />
+  <Botonera3 titulo="STATIC IP" />
   <button onClick={onNext} className="add-button4">
-  {" "}
-  Continue
+    {" "}
+    Continue
   </button>
-  </div> */
+</div> */
 }
 {
   /* <div style={{ display: "flex" }}>

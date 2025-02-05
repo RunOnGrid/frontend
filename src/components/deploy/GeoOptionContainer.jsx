@@ -7,6 +7,8 @@ const GeoOptionContainer = ({
   setAllowedLocations,
   forbiddenLocations,
   setForbiddenLocations,
+  onLocationsChange,
+  onLocationsChange2,
   darkMode,
 }) => {
   const handleAllowedChange = (newLocations) => {
@@ -23,8 +25,12 @@ const GeoOptionContainer = ({
     }
   };
 
-  const isAllowedDisabled = forbiddenLocations.some((loc) => loc === "a!c");
-  const isForbiddenDisabled = allowedLocations.some((loc) => loc === "ac");
+  const isAllowedDisabled = (forbiddenLocations || []).some(
+    (loc) => loc === "a!c"
+  );
+  const isForbiddenDisabled = (allowedLocations || []).some(
+    (loc) => loc === "ac"
+  );
 
   const allowedSet = new Set(allowedLocations);
   const forbiddenSet = new Set(forbiddenLocations);

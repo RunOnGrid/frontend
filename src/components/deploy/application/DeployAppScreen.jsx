@@ -11,6 +11,7 @@ import GithubFlux from "./GithubFlux";
 import GithubAkash from "./GithubAkash";
 import BuildFlux from "@/components/flux/BuildFlux";
 import AppGeoSelect from "./AppGeoSelect";
+import MobileFooterBar from "@/components/applications2/ProfileFooter";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -28,7 +29,9 @@ const DeployAppScreen = () => {
   const [currentDate, setCurrentDate] = useState("");
   const [deployOption, setDeployOption] = useState("");
   const [agree, setAgree] = useState(false);
-  const [image, setImage] = useState("gridcloud/aptos-app:v.1");
+  const [image, setImage] = useState("gridcloud/hello-app:2.0");
+  const [installed, setInstalled] = useState(false);
+
   const nameRef = useRef(null);
   const detailsRef = useRef(null);
   const servicesRef = useRef(null);
@@ -108,6 +111,7 @@ const DeployAppScreen = () => {
                 setImage={setImage}
                 ref={detailsRef}
                 methodReset={() => setDeployOption("")}
+                installed={installed}
               />
             </>
           )}
@@ -147,7 +151,11 @@ const DeployAppScreen = () => {
           )}
           {selectedCloud === "flux" && deployOption === "githubFlux" && (
             <>
-              <GithubFlux image={image} databaseName={databaseName} />
+              <GithubFlux
+                image={image}
+                databaseName={databaseName}
+                setInstalled={setInstalled}
+              />
             </>
           )}
           {selectedCloud === "akash" && deployOption === "githubAkash" && (
@@ -157,6 +165,7 @@ const DeployAppScreen = () => {
           )}
         </div>
       </div>
+      <MobileFooterBar />
     </div>
   );
 };

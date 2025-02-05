@@ -44,7 +44,7 @@
 }
 
 .applications-section button {
-  margin-left: 20px;
+
   border-radius: 20px !important;
   font-size: 1rem;
   font-weight: 500;
@@ -859,6 +859,12 @@ input:checked + .slider:before {
     width: 15vw;
   }
  }
+ @media only screen and (max-width:700px) {
+  .section-button {
+    margin: auto;
+  }
+ }
+
 
  .button-gridOps{
   background-color: #00b174;

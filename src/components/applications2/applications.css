@@ -579,6 +579,87 @@
   .noti-button4:hover{
     background-color: white;
   }
+  .footer-bar {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--background);
+  border-top: 1px solid var(--border);
+}
+
+.footer-bar.dark {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  flex-shrink: 0;
+}
+
+.footer-nav ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav li {
+  margin-right: 1rem;
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.footer-actions {
+  display: flex;
+  align-items: center;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.footer-support {
+  display: flex;
+  align-items: center;
+}
+
+.support-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .footer-nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+  
   @media only screen and (max-width: 1250px) {
     .table-header{
       font-size: 0.9rem;
