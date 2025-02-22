@@ -5,6 +5,7 @@ import BuildSettings from "../BuildSettings";
 import Select from "@/commons/Select";
 import JsonEditor from "@/components/flux/JsonEditor";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const MethodSelectFlux = forwardRef(
   (
@@ -28,6 +29,8 @@ const MethodSelectFlux = forwardRef(
     const [selectedMethod, setSelectedMethod] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [email, setEmail] = useState("");
+    const router = useRouter();
+    const { installation_id } = router.query;
     const handleGit = () => {
       setSelectedMethod("git");
       setImage(false);
@@ -100,7 +103,7 @@ const MethodSelectFlux = forwardRef(
             ) : (
               <Link
                 target="blank"
-                href={`https://github.com/apps/runongrid-api-git-providers-github/installations/new?state=${email}`}
+                href={`https://github.com/apps/grid-connector-for-github-beta/installations/select_target?state=`}
               >
                 <div className="install-github">
                   <Image alt="" src="/github3.png" height={15} width={15} />

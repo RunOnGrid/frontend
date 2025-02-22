@@ -9,7 +9,7 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 });
 
 export default function DeployApp() {
-  useAuthCheck();
+  // useAuthCheck();
   const [visible, setVisible] = useState(true);
   const toggleSideBar = () => {
     return setVisible(!visible);

@@ -3,34 +3,33 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const API_URL = process.env.GRID_API;
-  const { username } = req.query; // Obtener parámetros de consulta desde la URL
-  const accessToken = req.headers.authorization?.split(" ")[1]; // Extraer el token del encabezado
-
-  if (!username || !accessToken) {
-    return res.status(400).json({ error: "Username or access token missing" });
-  }
+  const API_URL = "https://git-app-dev.ongrid.run/repos/getList";
 
   try {
+    const { installationId } = req.query;
+
+    if (!installationId) {
+      return res.status(400).json({ error: "Installation ID is required" });
+    }
+
     const response = await fetch(
-      `${API_URL}/deployments?username=${encodeURIComponent(username)}`,
+      `${API_URL}?installationId=${installationId}`,
       {
         method: "GET",
         headers: {
-          accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
         },
       }
     );
 
     if (!response.ok) {
-      throw new Error(`Error fetching data: ${response.statusText}`);
+      throw new Error(`Error fetching repositories: ${response.statusText}`);
     }
 
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {
-    console.error("Error fetching deployments:", error);
-    res.status(500).json({ error: "Failed to fetch deployments" });
+    console.error("Error fetching repositories:", error);
+    res.status(500).json({ error: "Failed to fetch repositories" });
   }
 }

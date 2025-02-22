@@ -23,7 +23,7 @@ const LoginScreen = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: email,
+          email: email,
           password: password,
         }),
       });
@@ -32,11 +32,10 @@ const LoginScreen = () => {
         const data = await response.json();
 
         TokenService.setTokens({
-          accessToken: data.access_token,
-          refreshToken: data.refresh_token,
+          accessToken: data.token,
           expiresAt: Date.now() + data.expires_in * 1000,
           refreshExpiresAt: Date.now() + data.refresh_expires_in * 1000,
-          usernameGrid: email,
+          gridId: data.userId,
         });
         localStorage.setItem("grid_email", email);
 

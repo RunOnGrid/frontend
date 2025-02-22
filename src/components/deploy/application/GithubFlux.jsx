@@ -16,6 +16,7 @@ import CommModal from "@/components/CommModal";
 import EnvModal from "@/components/EnvModal";
 import PortFlux from "@/components/PortFlux";
 import PricingPlanFlux from "./PricingPlanFlux";
+import InstallTemplates from "./InstallTemplates";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -50,6 +51,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [showComm, setShowComm] = useState(false);
   const [summary, setSummary] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  const [showBuildSettings, setShowBuildSettings] = useState(false);
 
   // Missing handler functions
   const handleNameChange = (e) => {
@@ -104,7 +106,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [email, setEmail] = useState(null);
-  const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState([0, 1]);
   const [error, setError] = useState(null);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
@@ -297,6 +299,12 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           <Spinner />
         </div>
       ) : (
+        <InstallTemplates
+          darkMode={darkMode}
+          onNext={() => setShowBuildSettings(true)}
+        />
+      )}
+      {showBuildSettings && (
         <BuildSettings
           repositories={repositories}
           darkMode={darkMode}

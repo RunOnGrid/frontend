@@ -4,15 +4,16 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
      
-      const { username, password } = req.body;
-      const response = await fetch(`${API_URL}/login`, {
+      const { email, password } = req.body;
+
+      const response = await fetch(`${API_URL}auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
-
+      
       if (response.ok) {
         const data = await response.json();
 
