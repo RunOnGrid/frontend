@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const API_URL = "https://git-app-dev.ongrid.run/repos/getList";
+  const API_URL = process.env.GIT_API;
 
   try {
     const { installationId } = req.query;
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      `${API_URL}?installationId=${installationId}`,
+      `${API_URL}/getList/?installationId=${installationId}`,
       {
         method: "GET",
         headers: {

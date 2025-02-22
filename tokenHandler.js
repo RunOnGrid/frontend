@@ -20,7 +20,7 @@ export const TokenService = {
     try {
       const bytes = CryptoJS.AES.decrypt(encryptedTokens, SECRET_KEY);
       const decryptedTokens = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-      console.log(decryptedTokens);
+
       const isAccessTokenExpired = decryptedTokens.expiresAt < Date.now();
       const isRefreshTokenExpired =
         decryptedTokens.refreshExpiresAt < Date.now();
@@ -39,7 +39,7 @@ export const TokenService = {
 
   isAuthenticated() {
     const tokens = this.getTokens();
-    return !!tokens && tokens.expiresAt > Date.now();
+    return tokens; 
   },
 
   async refreshTokens() {
