@@ -25,10 +25,6 @@ export const TokenService = {
       const isRefreshTokenExpired =
         decryptedTokens.refreshExpiresAt < Date.now();
 
-      if (isAccessTokenExpired) {
-        return { tokens: null, redirectToLogin: true };
-      }
-
       return { tokens: decryptedTokens, redirectToLogin: false };
     } catch (error) {
       console.error("Token decryption failed", error);
