@@ -24,25 +24,8 @@ const SideNavbar = ({ abierto, setAbierto }) => {
 
   const isActive = (path) => (currentPath === path ? "active" : "");
   const handleLogout = async () => {
-    try {
-      const { tokens, redirectToLogin } = TokenService.getTokens();
-      const response = await fetch(`/api/logout-proxy`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refreshToken: tokens.refreshToken }),
-      });
-
-      if (response.ok) {
-        TokenService.clearTokens();
-        router.push("/");
-      }
-    } catch (error) {
-      console.error("Logout error:", error);
-      TokenService.clearTokens();
-      router.push("/login");
-    }
+    TokenService.clearTokens();
+    router.push("/");
   };
 
   useEffect(() => {

@@ -1,8 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { TokenService } from "../../../../tokenHandler";
+import { useRouter } from "next/router";
 
 const AppCloudSelect = ({ onNext, methodReset }) => {
   const [selectedCloud, setSelectedCloud] = useState(null);
+  const router = useRouter();
+  const { installationId } = router.query;
 
   const handleCloudSelect = (cloud) => {
     setSelectedCloud(cloud);
@@ -22,6 +26,14 @@ const AppCloudSelect = ({ onNext, methodReset }) => {
       onNext(selectedCloud);
     }
   }, [selectedCloud]);
+  useEffect(() => {
+    if (installationId) {
+      const response = TokenService.getTokens();
+      if (response) {
+        console.log(response.tokens.gridId);
+      }
+    }
+  }, []);
 
   return (
     <div className="cloudSelect">
