@@ -1,0 +1,17 @@
+name: Deploy alpha
+
+on:
+  push:
+    tags:
+      - '*-alpha'
+      
+jobs:
+  deploy-alpha:
+    uses: RunOnGrid/deploy-workflow/.github/workflows/deploy-alpha.yml@main
+    secrets:
+      GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+      VM_PATH_ALPHA: ${{ secrets.VM_PATH_ALPHA }}
+      VM_HOST_ALPHA: ${{ secrets.VM_HOST_ALPHA }}
+      VM_USER_ALPHA: ${{ secrets.VM_USER_ALPHA }}
+      VM_PASSWORD_ALPHA: ${{ secrets.VM_PASSWORD_ALPHA }}
+
