@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  memo,
+  use,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Image from "next/image"; // Missing import for Image component
 import BuildSettings from "../BuildSettings";
 import Buildpack from "../Buildpack";
@@ -17,6 +24,7 @@ import EnvModal from "@/components/EnvModal";
 import PortFlux from "@/components/PortFlux";
 import PricingPlanFlux from "./PricingPlanFlux";
 import InstallTemplates from "./InstallTemplates";
+import { TokenService } from "../../../../tokenHandler";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -52,6 +60,11 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [summary, setSummary] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
+  const [repoTag, setRepoTag] = useState("");
+
+  const handleShowConfig = () => {
+    setShowConfig(true);
+  };
 
   // Missing handler functions
   const handleNameChange = (e) => {
@@ -108,6 +121,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [email, setEmail] = useState(null);
   const [repositories, setRepositories] = useState([0, 1]);
   const [error, setError] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
   const envRef = useRef(null);
@@ -135,6 +149,15 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     setEmail(emailGrid);
     fetchExistingNames();
   }, [email]);
+  useEffect(() => {
+    if (repoTag) {
+      console.log(repoTag);
+    }
+  }, [repoTag]);
+  useEffect(() => {
+    const response = TokenService.getTokens();
+    setAccessToken(response.tokens.accessToken);
+  }, []);
 
   useEffect(() => {
     const fetchRepositories = async () => {
@@ -245,38 +268,35 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
 
     try {
       const deploymentConfig = {
-        name: componentData.name,
-        description: componentData.description || "grid-default-description",
+        name: name,
+        description: componentData.description || "griddefaultdescription",
         owner: process.env.owner,
         compose: [
           {
-            name: componentData.name,
-            description:
-              componentData.description || "grid-default-description",
-            repotag: image || "gridcloud/hello-app:2.0",
-            ports: componentData.ports || [36522],
+            name: name,
+            description: componentData.description || "griddefaultdescription",
+            repotag: "gridcloud/hello-app:2.0",
+            ports: [36522],
             domains: componentData.domains || [""],
-            environmentParameters: componentData.envVariables || [],
-            commands: componentData.commands || [],
-            containerPorts: componentData.contPorts || [8080],
+            environmentParameters: [""],
+            commands: commands || [""],
+            containerPorts: [8080],
             containerData: "/data",
-            cpu: parseFloat(componentData.cpu) || 0.1,
-            ram: parseInt(componentData.ram) || 128,
-            hdd: parseInt(componentData.hdd) || 1,
+            cpu: parseFloat(cpu) || 0.1,
+            ram: parseInt(memory) || 128,
+            hdd: parseInt(ephemeralStorage) || 1,
             tiered: false,
             secrets: "",
             repoauth: "",
           },
         ],
-        instances: parseInt(componentData.instances) || 3,
-        geolocation: [...allowedLocations, ...forbiddenLocations],
-        staticip: staticIp,
       };
 
       const response = await fetch("/api/flux-deploy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify(deploymentConfig),
       });
@@ -286,8 +306,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
       }
 
       const data = await response.json();
-
-      router.push("/profile");
+      console.log(data);
     } catch (error) {
       console.error("Deployment error:", error);
     }
@@ -309,6 +328,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           repositories={repositories}
           darkMode={darkMode}
           ref={servicesRef}
+          setRepoTag={setRepoTag}
           onNext={() => setShowConfig(true)}
         />
       )}
@@ -522,7 +542,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
                 ram={memory}
                 hdd={ephemeralStorage}
                 mode={darkMode}
-                name={serviceName}
+                name={name}
                 setSummary={setSummary}
                 setAgree={setAgree}
               />

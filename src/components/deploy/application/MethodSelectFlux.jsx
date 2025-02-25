@@ -6,7 +6,7 @@ import Select from "@/commons/Select";
 import JsonEditor from "@/components/flux/JsonEditor";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectFlux = forwardRef(
   (
     {
@@ -30,6 +30,7 @@ const MethodSelectFlux = forwardRef(
     const [selectedOption, setSelectedOption] = useState("");
     const [email, setEmail] = useState("");
     const router = useRouter();
+
     const { installation_id } = router.query;
     const handleGit = () => {
       setSelectedMethod("git");
@@ -54,10 +55,12 @@ const MethodSelectFlux = forwardRef(
       setEmail(emailGrid);
     }, [email]);
     useEffect(() => {
-      if (installed) {
+      const installed = localStorage.getItem("gridInstalled");
+      if (installed && grid) {
         setBuild(true);
+        onGit();
       }
-    }, [installed]);
+    }, [grid]);
 
     return (
       <div ref={ref} className="databaseSelect">
@@ -90,6 +93,7 @@ const MethodSelectFlux = forwardRef(
             <p>Deploy a container from an image registry.</p>
           </div>
         </div>
+
         {grid ? (
           <>
             {" "}
@@ -101,10 +105,7 @@ const MethodSelectFlux = forwardRef(
                 <span>Installed</span>
               </div>
             ) : (
-              <Link
-                target="blank"
-                href={`https://github.com/apps/grid-connector-for-github-beta/installations/select_target?state=`}
-              >
+              <Link href={gitUrl}>
                 <div className="install-github">
                   <Image alt="" src="/github3.png" height={15} width={15} />
                   <span onClick={() => onGit()}>
@@ -117,27 +118,6 @@ const MethodSelectFlux = forwardRef(
         ) : (
           ""
         )}
-        {/* {docker ? (
-          <>
-            <span> Image settings</span>
-            <p className="span-deploy">Select our whitelisted images URL.</p>
-            <Select
-              darkMode={darkMode}
-              options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
-              onSelect={handleSelect}
-            />
-            <button
-              onClick={() => {
-                onDocker();
-              }}
-              className="add-button2"
-            >
-              Continue
-            </button>
-          </>
-        ) : (
-          ""
-        )} */}
       </div>
     );
   }
@@ -177,4 +157,27 @@ export default MethodSelectFlux;
 ) : (
   ""
 )} */
+}
+{
+  /* {docker ? (
+          <>
+            <span> Image settings</span>
+            <p className="span-deploy">Select our whitelisted images URL.</p>
+            <Select
+              darkMode={darkMode}
+              options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
+              onSelect={handleSelect}
+            />
+            <button
+              onClick={() => {
+                onDocker();
+              }}
+              className="add-button2"
+            >
+              Continue
+            </button>
+          </>
+        ) : (
+          ""
+        )} */
 }

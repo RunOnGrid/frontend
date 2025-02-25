@@ -9,48 +9,48 @@ import MobileFooterBar from "./ProfileFooter";
 
 const AppsTable = () => {
   const { darkMode } = useTheme();
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken2, setAccessToken2] = useState(null);
   const [email, setEmail] = useState("");
   const [apps, setApps] = useState([]); // Estado para almacenar las aplicaciones.
   const router = useRouter();
 
   useEffect(() => {
     const tokens = TokenService.getTokens();
-    setAccessToken(tokens.accessToken);
+
+    if (tokens.tokens.accessToken) {
+      setAccessToken2(tokens.tokens.accessToken);
+    }
     const userMail = localStorage.getItem("grid_email");
     setEmail(userMail);
   }, []);
 
   useEffect(() => {
-    const fetchRepos = async () => {
-      if (!accessToken || !email) return;
+    if (accessToken2) {
+      console.log("entra al if");
+      const fetchRepos = async () => {
+        try {
+          const response = await fetch(`/api/deployments-proxy`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken2}`,
+            },
+          });
 
-      try {
-        const queryParams = new URLSearchParams({
-          username: email,
-        }).toString();
+          if (!response.ok) {
+            throw new Error(`Error fetching data: ${response.statusText}`);
+          }
 
-        const response = await fetch(`/api/repositories-proxy?${queryParams}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.statusText}`);
+          const data = await response.json();
+          console.log("Existing apps:", data);
+          setApps(data); // Actualiza el estado con el array de objetos.
+        } catch (err) {
+          console.error("Error loading existing app names:", err);
         }
+      };
 
-        const data = await response.json();
-        console.log("Existing apps:", data);
-        setApps(data.deployList); // Actualiza el estado con el array de objetos.
-      } catch (err) {
-        console.error("Error loading existing app names:", err);
-      }
-    };
-
-    fetchRepos();
-  }, [accessToken, email]);
+      fetchRepos();
+    }
+  }, [accessToken2]);
 
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
@@ -58,7 +58,7 @@ const AppsTable = () => {
         <h2>My applications</h2>
       </div>
       <div className="table-container">
-        {apps.length === 0 ? ( // Muestra `applications-section` si no hay aplicaciones.
+        {apps.length === 0 ? (
           <div
             className={`applications-section ${darkMode ? "dark" : "light"}`}
           >
@@ -76,10 +76,10 @@ const AppsTable = () => {
             {apps.map((app, index) => (
               <AppsTableRow
                 key={index}
-                status={app.status}
-                creationDate={app.createdAt} // Cambia `status` según los datos de tu objeto.
+                status={app.status} // Cambia `status` según los datos de tu objeto
+                // Cambia `status` según los datos de tu objeto.
                 mode={darkMode}
-                name={app.description}
+                name={app.id}
               />
             ))}
           </>
