@@ -93,29 +93,33 @@ export default async function handler(req, res) {
     };
 
     const yamlString = yaml.dump(yamlStructure);
-    console.log(yamlString);
+    console.log(req.headers.authorization);
     const API_URL = process.env.GRID_API;
 
     const akashResponse = await fetch(`${API_URL}/akash`, {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: req.headers.authorization,
       },
       body: yamlString,
     });
 
     const responseText = await akashResponse.text();
- 
-    console.log("Akash response body:", responseText);
+
     if (!akashResponse.ok) {
       throw new Error(
         `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`
       );
     }
-    
-    const akashResult = await akashResponse.json();
-    res.status(200).json(akashResult);
+    // Parse the text to JSON if needed
+    let akashResult;
+    try {
+      akashResult = JSON.parse(responseText);
+    } catch (e) {
+      console.error("Failed to parse response as JSON:", e);
+    }
+    res.status(200).json(responseText);
   } catch (error) {
     console.error("Full error details:", error);
     res

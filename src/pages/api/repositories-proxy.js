@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     const response = await fetch(
-      `${API_URL}/getList/?installationId=${installationId}`,
+      `${API_URL}/repos/getRepositories?gridUserId=${installationId}`,
       {
         method: "GET",
         headers: {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     if (!response.ok) {
       throw new Error(`Error fetching repositories: ${response.statusText}`);
     }
-
+    
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {

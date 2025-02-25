@@ -17,10 +17,8 @@ export default async function handler(req, res) {
       if (response.ok) {
         const data = await response.json();
 
-        // Respond to the client with the data from the external API
         res.status(200).json(data);
       } else {
-        // Pass along the error response from the external API
         const errorData = await response.json();
         res.status(response.status).json(errorData);
       }

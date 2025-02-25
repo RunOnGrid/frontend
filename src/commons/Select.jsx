@@ -27,8 +27,8 @@ const Select = ({ options, onSelect, darkMode }) => {
       {isOpen && (
         <ul className={`dropdown-list ${darkMode ? "dark" : "light"}`}>
           {options.map((option, index) => (
-            <li key={index} onClick={() => selectOption(option)}>
-              {option}
+            <li key={index} onClick={() => selectOption(option.fullName)}>
+              {option.fullName}
             </li>
           ))}
         </ul>
