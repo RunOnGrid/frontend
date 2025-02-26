@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({ email, password }),
       });
-      console.log(response);
+
       if (response.ok) {
         const data = await response.json();
 

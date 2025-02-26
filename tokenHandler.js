@@ -40,42 +40,12 @@ export const TokenService = {
 
   isAuthenticated() {
     const tokens = this.getTokens();
-    return tokens; 
+    return tokens;
   },
 
-  async refreshTokens() {
+  isExpired() {
     const tokens = this.getTokens();
-
-    const refreshToken = tokens.refreshToken;
-    try {
-      const response = await fetch("/api/refresh-proxy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ refreshToken }),
-      });
-
-      if (!response.ok) {
-        this.clearTokens();
-        return null;
-      }
-
-      const newTokens = await response.json();
-
-      const tokenData = {
-        accessToken: newTokens.access_token,
-        refreshToken: newTokens.refresh_token,
-        expiresAt: Date.now() + newTokens.expires_in * 1000,
-        refreshExpiresAt: Date.now() + newTokens.refresh_expires_in * 1000,
-      };
-
-      this.setTokens(tokenData);
-      return tokenData;
-    } catch (error) {
-      console.error("Token refresh failed", error);
-      this.clearTokens();
-      return null;
-    }
+    if (!tokens.tokens) return false;
+    return tokens.tokens.expiresAt < Date.now();
   },
 };

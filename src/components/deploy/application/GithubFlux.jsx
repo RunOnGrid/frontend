@@ -333,7 +333,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
         />
       )}
       {showConfig && (
-        <div>
+        <div className="databaseSelect">
           <div
             ref={servicesRef}
             className={`deployment-config ${summary ? "disabled" : ""}`}

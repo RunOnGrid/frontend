@@ -20,7 +20,7 @@ const plans = [
   {
     title: "PRODUCTION",
     subtitle: "Pro",
-    specs: ["4 GB (RAM)", "2 CPU", "32 GB (STORAGE)", "12 INSTANCES (NODES)"],
+    specs: ["4 GB (RAM)", "2 CPU", "32 GB (STORAGE)", ""],
     price: "---",
     values: [4, "Gi", 2, 32, "Gi", 12, 0],
     soon: true,
@@ -28,7 +28,7 @@ const plans = [
   {
     title: "PRODUCTION2",
     subtitle: "Pro Plus",
-    specs: ["8 GB (RAM)", "4 CPU", "64 GB (STORAGE)", "24 INSTANCES (NODES)"],
+    specs: ["8 GB (RAM)", "4 CPU", "64 GB (STORAGE)", ""],
     price: "---",
     values: [8, "Gi", 4, 64, "Gi", 24, 0],
     soon: true,

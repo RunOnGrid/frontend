@@ -19,14 +19,14 @@ const plans = [
     title: "PRODUCTION",
     subtitle: "Pro",
 
-    specs: ["12 INSTANCES (NODES)", "4 GB (RAM)", "2 CPU", "32 GB (HDD)"],
+    specs: ["", "4 GB (RAM)", "2 CPU", "32 GB (HDD)"],
     values: [12, 4096, 2, 32],
   },
   {
     title: "PRODUCTION2",
     subtitle: "Pro Plus",
 
-    specs: ["24 INSTANCES (NODES)", "8 GB (RAM)", "4 CPU", "64 GB (HDD)"],
+    specs: ["", "8 GB (RAM)", "4 CPU", "64 GB (HDD)"],
     values: [24, 8192, 4, 64],
   },
 ];

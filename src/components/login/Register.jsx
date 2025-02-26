@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import TrianglesLeft from "../landing-AsicHosting/TrianglesLeft";
 import Link from "next/link";
@@ -36,8 +36,10 @@ const RegisterScreen = () => {
       });
       if (response.ok) {
         router.push("/login");
+      } else if (response.status === 409) {
+        setError("Email already in use");
       } else {
-        setError("Failed to register. Please try again.");
+        setError("An unexpected error occurred. Please try again.");
       }
     } catch (error) {
       console.error("An error occurred", error);
@@ -50,9 +52,15 @@ const RegisterScreen = () => {
     if (password && value && password !== value) {
       setError("Passwords do not match");
     } else {
-      setError("");
+      setError(""); // This will clear the error when passwords match
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      setError("");
+    }
+  }, [email]);
 
   return (
     <div className="banner-container2">

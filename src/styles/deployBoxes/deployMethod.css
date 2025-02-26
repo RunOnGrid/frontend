@@ -171,8 +171,12 @@
 .botonera-env-modal{
   display: flex;
   justify-content: center;
-  
   margin-bottom: 2vh;
+}
+.botonera-env-modal button, .botonera-port-modal button{
+  display: flex;
+  align-items: center;
+  height: 30px;
 }
 
 
@@ -243,10 +247,14 @@
 .input-url{
   margin-bottom: 5px !important;
   margin-top: 5px;
+  width: 85% !important;
 }
 .add-domains{
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
+  margin: auto;
+  width: 84%;
 }
 .add-domains button{
   padding: 5px 5px !important;

@@ -66,6 +66,7 @@
   display: grid;
   grid-template-columns: 45% 45%;
   justify-content: flex-start;
+  margin-bottom: 25px;
 }
 .locationSelect {
   display: flex;
@@ -491,6 +492,11 @@
   
 }
 
+.deploy-sub-p{
+  color: #00000065 !important;
+  font-size: 0.8rem !important;
+  font-weight: bold !important;
+}
 
 .databaseSelect-title p{
   font-size: 0.85rem;
@@ -902,14 +908,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 25px;
   border: 1px solid #ccc;
   border-radius: 25px;
   width: 90%;
-  margin: auto;
-  margin-left: 4%;
+  
   margin-top: 30px;
-  margin-bottom: 40px;
+  
 }
 .add-buildpack span{
   font-size: 0.9rem;
@@ -1252,7 +1257,7 @@
   margin: auto;
 }
 
-@media only screen and (max-width:800px) {
+@media only screen and (max-width:1250px) {
   .deployMethodBox-container{
     display: flex;
     flex-direction: column;
@@ -1260,6 +1265,7 @@
   }
   .plans-container2 {
    flex-direction: column;
+    align-items: center;
   
   }
   .deploy-button-wrapper, .deploy-button-wrapper-disabled {

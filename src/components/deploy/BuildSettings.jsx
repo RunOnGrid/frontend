@@ -127,7 +127,7 @@ const BuildSettings = forwardRef(
     // Transform repositories to match Select options
 
     return (
-      <div ref={ref}>
+      <div className="databaseSelect" ref={ref}>
         <div className={`add-buildpack ${darkMode ? "dark" : "light"}`}>
           <div className="databaseSelect-title">
             <h2>Repository Settings</h2>
