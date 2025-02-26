@@ -211,7 +211,7 @@ export default function BuildFlux({ darkMode, image }) {
     }
   }, [activeStep]);
   return (
-    <div>
+    <div className="databaseSelect">
       <div
         ref={servicesRef}
         className={`deployment-config ${summary ? "disabled" : ""}`}

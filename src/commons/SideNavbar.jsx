@@ -14,6 +14,8 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   const [menu, setMenu] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
   const [email, setEmail] = useState("");
+  const [accessToken, setAccessToken] = useState(null);
+  const [balance, setBalance] = useState(0);
   const { darkMode, toggleDarkMode } = useTheme();
   const router = useRouter();
 
@@ -28,10 +30,50 @@ const SideNavbar = ({ abierto, setAbierto }) => {
     router.push("/");
   };
 
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setBalance(data.toFixed(2));
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
+  useEffect(() => {
+    if (accessToken) {
+      getBalance();
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    const tokens = TokenService.getTokens();
+    if (tokens.tokens.accessToken) {
+      setAccessToken(tokens.tokens.accessToken);
+    }
+  }, []);
+
   useEffect(() => {
     const emailGrid = localStorage.getItem("grid_email");
     setEmail(emailGrid);
   }, [email]);
+
+  useEffect(() => {
+    const expired = TokenService.isExpired();
+    if (expired) {
+      handleLogout();
+    }
+  }, []);
 
   return (
     <>
@@ -54,6 +96,16 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               <p className="profile-username">{email}</p>
             </div>
           </div>
+          <Link href="/profile">
+            <span className={`sideNavbar-span ${darkMode ? "dark" : "light"} `}>
+              Balance:
+            </span>
+          </Link>
+          <Link href="/profile">
+            <span className={`sideNavbar-p ${darkMode ? "dark" : "light"} `}>
+              USD ${balance}
+            </span>
+          </Link>
 
           <Link href="/profile/deployApp">
             <li onClick={toggleLinks} className="sideNavbar-li deploy-item">

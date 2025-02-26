@@ -640,6 +640,19 @@
   align-items: center;
   gap: 0.5rem;
 }
+.dashboard-row{
+  display: flex;
+ 
+}
+.dashboard-row img{
+  display: flex;
+  margin: auto;
+  margin-left: 0px;
+  cursor: pointer;
+}
+.dashboard-row img:hover{
+  transform: scale(1.1);
+}
 
 @media (max-width: 768px) {
   .footer-content {

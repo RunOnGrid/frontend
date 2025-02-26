@@ -6,6 +6,7 @@ import AppsTableRow from "./AppsTableRow";
 import AppsTableHeader from "./AppsTableHeader";
 import { useRouter } from "next/router";
 import MobileFooterBar from "./ProfileFooter";
+import Image from "next/image";
 
 const AppsTable = () => {
   const { darkMode } = useTheme();
@@ -14,9 +15,29 @@ const AppsTable = () => {
   const [apps, setApps] = useState([]); // Estado para almacenar las aplicaciones.
   const router = useRouter();
 
+  const fetchRepos = async () => {
+    try {
+      const response = await fetch(`/api/deployments-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken2}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setApps(data); // Actualiza el estado con el array de objetos.
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
+
   useEffect(() => {
     const tokens = TokenService.getTokens();
-
     if (tokens.tokens.accessToken) {
       setAccessToken2(tokens.tokens.accessToken);
     }
@@ -26,31 +47,30 @@ const AppsTable = () => {
 
   useEffect(() => {
     if (accessToken2) {
-      console.log("entra al if");
-      const fetchRepos = async () => {
-        try {
-          const response = await fetch(`/api/deployments-proxy`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${accessToken2}`,
-            },
-          });
-
-          if (!response.ok) {
-            throw new Error(`Error fetching data: ${response.statusText}`);
-          }
-
-          const data = await response.json();
-          console.log("Existing apps:", data);
-          setApps(data); // Actualiza el estado con el array de objetos.
-        } catch (err) {
-          console.error("Error loading existing app names:", err);
-        }
-      };
-
       fetchRepos();
     }
   }, [accessToken2]);
+
+  const deleteRow = async (id) => {
+    try {
+      const response = await fetch(`/api/delete-row-proxy?id=${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken2}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      fetchRepos();
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
 
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
@@ -74,13 +94,22 @@ const AppsTable = () => {
           <>
             <AppsTableHeader />
             {apps.map((app, index) => (
-              <AppsTableRow
-                key={index}
-                status={app.status} // Cambia `status` según los datos de tu objeto
-                // Cambia `status` según los datos de tu objeto.
-                mode={darkMode}
-                name={app.id}
-              />
+              <div className="dashboard-row">
+                <AppsTableRow
+                  key={index}
+                  status={app.status}
+                  mode={darkMode}
+                  name={app.id}
+                  creationDate={app.createdAt}
+                />
+                <Image
+                  onClick={() => deleteRow(app.id)}
+                  alt=""
+                  src="/deleteL.png"
+                  height={22}
+                  width={22}
+                />
+              </div>
             ))}
           </>
         )}

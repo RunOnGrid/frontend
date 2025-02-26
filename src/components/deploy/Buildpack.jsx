@@ -5,7 +5,7 @@ import React, { forwardRef, useState } from "react";
 const Buildpack = forwardRef(({ onNext, darkMode }, ref) => {
   const [build, setBuild] = useState(false);
   return (
-    <div ref={ref}>
+    <div className="databaseSelect" ref={ref}>
       <div className={`add-buildpack ${darkMode ? "dark" : "light"}`}>
         <div className="databaseSelect-title">
           <h2>Buildpacks</h2>

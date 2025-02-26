@@ -282,7 +282,7 @@ export default function BuildAkash({ darkMode, image }) {
   }, [activeStep]);
 
   return (
-    <div>
+    <div className="databaseSelect">
       <div
         ref={servicesRef}
         className={`deployment-config ${summary ? "disabled" : ""}`}

@@ -80,7 +80,7 @@ const MethodSelectFlux = forwardRef(
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
-            <p>Available soon</p>
+            <p>Deploy from a git repository</p>
           </div>
           <div
             onClick={handleDocker}
@@ -90,7 +90,7 @@ const MethodSelectFlux = forwardRef(
           >
             <Image alt="" src="/dockerIcon.png" height={50} width={50} />
             <h4>Docker repository</h4>
-            <p>Deploy a container from an image registry.</p>
+            <p>Specify your image URL : Ex: gridcloud/helloworld:latest</p>
           </div>
         </div>
 

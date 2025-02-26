@@ -30,11 +30,10 @@ const LoginScreen = () => {
 
       if (response.ok) {
         const data = await response.json();
-
+        const oneHourInMilliseconds = 3600000;
         TokenService.setTokens({
           accessToken: data.token,
-          expiresAt: Date.now() + data.expires_in * 1000,
-          refreshExpiresAt: Date.now() + data.refresh_expires_in * 1000,
+          expiresAt: Date.now() + oneHourInMilliseconds,
           gridId: data.userId,
         });
         localStorage.setItem("grid_email", email);
