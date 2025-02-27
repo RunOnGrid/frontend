@@ -17,7 +17,7 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
-const DeployAppScreen = () => {
+const DeployAppScreen = ({ appInstalled }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
   const [databaseName, setDatabaseName] = useState("");
@@ -112,6 +112,7 @@ const DeployAppScreen = () => {
                 ref={detailsRef}
                 methodReset={() => setDeployOption("")}
                 installed={installed}
+                appInstalled={appInstalled}
               />
             </>
           )}
@@ -125,6 +126,7 @@ const DeployAppScreen = () => {
                 onGit={() => setDeployOption("githubAkash")}
                 setImage={setImage}
                 ref={detailsRef}
+                appInstalled={appInstalled}
                 methodReset={() => setDeployOption("")}
               />
             </>

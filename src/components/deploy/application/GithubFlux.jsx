@@ -25,6 +25,7 @@ import PortFlux from "@/components/PortFlux";
 import PricingPlanFlux from "./PricingPlanFlux";
 import InstallTemplates from "./InstallTemplates";
 import { TokenService } from "../../../../tokenHandler";
+import Link from "next/link";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -40,10 +41,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [imageURL, setImageURL] = useState("");
   const [errorImage, setErrorImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [memory, setMemory] = useState(0);
-  const [cpu, setCpu] = useState(0);
-  const [ephemeralStorage, setEphemeralStorage] = useState(0);
-  const [serviceCount, setServiceCount] = useState(1);
+  const [memory, setMemory] = useState(256);
+  const [cpu, setCpu] = useState(0.1);
+  const [ephemeralStorage, setEphemeralStorage] = useState(1);
+  const [serviceCount, setServiceCount] = useState(3);
   const [appPrice, setAppPrice] = useState(0);
   const [ports, setPorts] = useState({
     port: "",
@@ -61,6 +62,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [showConfig, setShowConfig] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [repoTag, setRepoTag] = useState("");
+  const [pat, setPat] = useState("");
 
   const handleShowConfig = () => {
     setShowConfig(true);
@@ -69,6 +71,9 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   // Missing handler functions
   const handleNameChange = (e) => {
     setName(e.target.value);
+  };
+  const handlePat = (e) => {
+    setPat(e.target.value);
   };
 
   const handleSavePort = (portData) => {
@@ -122,6 +127,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [repositories, setRepositories] = useState([0, 1]);
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+  const [owner, setOwner] = useState("");
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
   const envRef = useRef(null);
@@ -149,11 +155,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     setEmail(emailGrid);
     fetchExistingNames();
   }, [email]);
-  useEffect(() => {
-    if (repoTag) {
-      console.log(repoTag);
-    }
-  }, [repoTag]);
+
   useEffect(() => {
     const response = TokenService.getTokens();
     setAccessToken(response.tokens.accessToken);
@@ -161,7 +163,6 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
 
   useEffect(() => {
     const fetchRepositories = async () => {
-      console.log("fetching repositories");
       try {
         const response = await fetch("/api/repositories-proxy");
 
@@ -202,6 +203,12 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
       summaryRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
+
+  useEffect(() => {
+    if (repositories.length > 0) {
+      setShowBuildSettings(true);
+    }
+  }, [repositories]);
 
   // Location and IP handlers
   const handleAllowedLocationsChange = useCallback((locations) => {
@@ -269,13 +276,12 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     try {
       const deploymentConfig = {
         name: name,
-        description: componentData.description || "griddefaultdescription",
-        owner: process.env.owner,
+        description: componentData.description || "gridDefaultDescription",
         compose: [
           {
             name: name,
-            description: componentData.description || "griddefaultdescription",
-            repotag: "gridcloud/hello-app:2.0",
+            description: componentData.description || "gridDefaultDescription",
+            repotag: repoTag,
             ports: [36522],
             domains: componentData.domains || [""],
             environmentParameters: [""],
@@ -283,11 +289,11 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
             containerPorts: [8080],
             containerData: "/data",
             cpu: parseFloat(cpu) || 0.1,
-            ram: parseInt(memory) || 128,
+            ram: parseInt(memory) || 256,
             hdd: parseInt(ephemeralStorage) || 1,
-            tiered: false,
+            tiered: true,
             secrets: "",
-            repoauth: "",
+            repoauth: `${owner.toLowerCase()}:${pat}`,
           },
         ],
       };
@@ -313,15 +319,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   };
   return (
     <div>
-      {repositories.length === 0 ? (
+      {repositories.length === 0 && (
         <div className="spinner-container">
           <Spinner />
         </div>
-      ) : (
-        <InstallTemplates
-          darkMode={darkMode}
-          onNext={() => setShowBuildSettings(true)}
-        />
       )}
       {showBuildSettings && (
         <BuildSettings
@@ -329,6 +330,9 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           darkMode={darkMode}
           ref={servicesRef}
           setRepoTag={setRepoTag}
+          summary={summary}
+          setOwner={setOwner}
+          owner={owner.toLowerCase()}
           onNext={() => setShowConfig(true)}
         />
       )}
@@ -378,6 +382,34 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
                         required
                       />
                     </div>
+                  </div>
+                </div>
+                <div
+                  className={`buildpack-single ${darkMode ? "dark" : "light"}`}
+                >
+                  <h3> Personal Access Token</h3>
+                  <Link
+                    href={
+                      "https://github.com/settings/tokens/new?description=grid%20(pull%20images)&scopes=read:packages"
+                    }
+                  >
+                    <p>Click here to generate it</p>
+                  </Link>
+                  {errorMessage && (
+                    <h3 className="error-message">{errorMessage}</h3>
+                  )}{" "}
+                  <div
+                    className={`input-container5 ${
+                      darkMode ? "dark" : "light"
+                    }`}
+                  >
+                    <input
+                      type="text"
+                      className={`custom-input ${darkMode ? "dark" : "light"}`}
+                      value={pat}
+                      onChange={handlePat}
+                      required
+                    />
                   </div>
                 </div>
                 <PricingPlanFlux
@@ -516,13 +548,13 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
             ) : (
               ""
             )}
-            <AppGeoSelect
+            {/* <AppGeoSelect
               allowedLocations={allowedLocations}
               setAllowedLocations={setAllowedLocations}
               forbiddenLocations={forbiddenLocations}
               setForbiddenLocations={setForbiddenLocations}
               darkMode={darkMode}
-            />
+            /> */}
             {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
             <button

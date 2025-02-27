@@ -4,20 +4,35 @@ import { useRouter } from "next/router";
 import React, { forwardRef, useState, useEffect, use } from "react";
 import { TokenService } from "../../../tokenHandler";
 import Link from "next/link";
+import Select4 from "@/commons/Select4";
 
 const BuildSettings = forwardRef(
-  ({ onNext, darkMode, setImage, repositories, setRepoTag }, ref) => {
+  (
+    {
+      onNext,
+      darkMode,
+      setImage,
+      repositories,
+      setRepoTag,
+      summary,
+      owner,
+      setOwner,
+    },
+    ref
+  ) => {
     const [gitRepo, setGitRepo] = useState("");
-    const [gitBranch, setGitBranch] = useState("");
     const [branches, setBranches] = useState([]);
-    const [gridName, setGridName] = useState("");
     const [workflow, setWorkflow] = useState(false);
     const [workflowUrl, setWorkflowUrl] = useState("");
     const [gridId, setGridId] = useState("");
     const [repos, setRepos] = useState([]);
-    const [owner, setOwner] = useState("");
     const [singleRepo, setSingleRepo] = useState("");
     const [installationId, setInstallationId] = useState("");
+    const [notWorkflow, setNotWorkflow] = useState(false);
+    const [workflowInstalled, setWorkflowInstalled] = useState(false);
+    const [branch, setBranch] = useState("");
+    const [showNext, setShowNext] = useState(false);
+
     const router = useRouter();
 
     useEffect(() => {
@@ -44,6 +59,12 @@ const BuildSettings = forwardRef(
       }
     }, [gitRepo]);
 
+    useEffect(() => {
+      if (installationId && singleRepo) {
+        handleBranches();
+      }
+    }, [singleRepo]);
+
     const handleRepos = async () => {
       try {
         const response = await fetch(
@@ -66,6 +87,28 @@ const BuildSettings = forwardRef(
         console.error("Error fetching branches:", error);
       }
     };
+    const handleBranches = async () => {
+      try {
+        const response = await fetch(
+          `/api/branches-proxy?installationId=${installationId}&repoFullName=${owner}/${singleRepo}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error fetching branches: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setBranches(data.branches);
+      } catch (error) {
+        console.error("Error fetching branches:", error);
+      }
+    };
 
     const handleWorkflow = async () => {
       try {
@@ -79,7 +122,7 @@ const BuildSettings = forwardRef(
             owner: owner,
             repo: singleRepo,
             workflow: "grid-ci.yml",
-            branch: "main",
+            branch: branch,
           }),
         });
 
@@ -91,43 +134,43 @@ const BuildSettings = forwardRef(
         setWorkflowUrl(data.workflow_url);
         setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
         setWorkflow(true);
+        setShowNext(true);
+      } catch (error) {
+        setNotWorkflow(true);
+        console.error("Error fetching branches:", error);
+      }
+    };
+
+    const handleCommit = async () => {
+      try {
+        const response = await fetch(`/api/commit-workflow-proxy`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            installationId: installationId,
+            owner: owner,
+            repo: singleRepo,
+            workflow: "grid-ci.yml",
+            branch: branch,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error fetching branches: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        setNotWorkflow(false);
+        setWorkflowInstalled(true);
       } catch (error) {
         console.error("Error fetching branches:", error);
       }
     };
 
-    // const handleGitRepo = async (selectedOption) => {
-    //   setGitRepo(selectedOption);
-
-    //   const selectedRepo = repositories.find(
-    //     (repo) => repo.fullname === selectedOption
-    //   );
-
-    //   if (selectedRepo) {
-    //     try {
-    //       const response = await fetch(
-    //         `/api/branches-proxy?id=${selectedRepo.id}`
-    //       );
-    //       if (!response.ok) {
-    //         throw new Error(`Error fetching branches: ${response.statusText}`);
-    //       }
-    //       const data = await response.json();
-    //       setBranches(data.map((branch) => branch.name)); // Ajusta según el formato de datos del backend
-    //     } catch (error) {
-    //       console.error("Error fetching branches:", error);
-    //       setBranches([]);
-    //     }
-    //   }
-    // };
-
-    // const handleGitBranch = (selectedOption) => {
-    //   setGitBranch(selectedOption);
-    // };
-
-    // Transform repositories to match Select options
-
     return (
-      <div className="databaseSelect" ref={ref}>
+      <div className={`databaseSelect ${summary ? "disabled" : ""}`} ref={ref}>
         <div className={`add-buildpack ${darkMode ? "dark" : "light"}`}>
           <div className="databaseSelect-title">
             <h2>Repository Settings</h2>
@@ -147,8 +190,28 @@ const BuildSettings = forwardRef(
               <h3> GitHub repository</h3>
               <Select options={repos} onSelect={setGitRepo} />
             </div>
+            <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+              <h3> Branches</h3>
+              <Select4 options={branches} onSelect={setBranch} />
+            </div>
           </div>
-          <p>Once you added the .yml files run the workflow </p>
+          {notWorkflow && (
+            <div>
+              <span>
+                You don't have the workflow committed into your repo, commit it
+                with this button:
+              </span>
+              <button onClick={() => handleCommit()} className="add-button">
+                {" "}
+                Commit grid-ci workflow
+              </button>
+            </div>
+          )}
+          {workflowInstalled && (
+            <>
+              <span>Workflow committed correctly</span>
+            </>
+          )}
           <button
             onClick={() => {
               handleWorkflow();
@@ -158,9 +221,10 @@ const BuildSettings = forwardRef(
             {" "}
             Run Workflow
           </button>
+
           {workflow && (
-            <>
-              <span>
+            <div className="workflow-text">
+              <span className="workflow-text">
                 {" "}
                 Check the progress of the workflow on this url:
                 <Link href={workflowUrl} target="_blank">
@@ -168,7 +232,7 @@ const BuildSettings = forwardRef(
                 </Link>
               </span>
               <p>When the job is done press continue</p>
-            </>
+            </div>
           )}
 
           {/* <div className="buildpack-selects">
@@ -181,9 +245,11 @@ const BuildSettings = forwardRef(
               />
             </div>
           </div> */}
-          <button onClick={onNext} className="add-button4">
-            Continue
-          </button>
+          {showNext && (
+            <button onClick={onNext} className="add-button4">
+              Continue
+            </button>
+          )}
         </div>
       </div>
     );

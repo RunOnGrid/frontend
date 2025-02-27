@@ -2,6 +2,8 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import AppsTable from "@/components/applications2/AppsTable";
 import useAuthCheck from "@/useRefresh";
+import authWrapper from "../../../authWrapper";
+import Spinner from "@/commons/Spinner";
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
@@ -9,6 +11,14 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 
 export default function Applications() {
   useAuthCheck();
+  const { isAuthenticated, isLoading } = authWrapper();
+  if (isLoading) {
+    return <Spinner />; // Or a loading indicator
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>

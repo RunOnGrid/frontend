@@ -58,7 +58,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
 
   useEffect(() => {
     const tokens = TokenService.getTokens();
-    if (tokens.tokens.accessToken) {
+    if (tokens && tokens.tokens && tokens.tokens.accessToken) {
       setAccessToken(tokens.tokens.accessToken);
     }
   }, []);
