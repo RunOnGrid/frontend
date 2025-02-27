@@ -34,7 +34,7 @@ function AppsTableRow({ type, status, creationDate, mode, name }) {
       <div className={`table-row ${mode ? "dark" : "light"}`}>
         <h3>{name || "---"}</h3>
         {deploymentUri ? deploymentUri : "---"}
-        {console.log(status)}
+
         <div>
           {status === "Pending" ? (
             <>

@@ -398,13 +398,13 @@ export default function BuildFlux({ darkMode, image }) {
         ) : (
           ""
         )}
-        <AppGeoSelect
+        {/* <AppGeoSelect
           allowedLocations={allowedLocations}
           setAllowedLocations={setAllowedLocations}
           forbiddenLocations={forbiddenLocations}
           setForbiddenLocations={setForbiddenLocations}
           darkMode={darkMode}
-        />
+        /> */}
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
         <button

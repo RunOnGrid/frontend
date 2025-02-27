@@ -38,7 +38,7 @@ const AppsTable = () => {
 
   useEffect(() => {
     const tokens = TokenService.getTokens();
-    if (tokens.tokens.accessToken) {
+    if (tokens && tokens.tokens && tokens.tokens.accessToken) {
       setAccessToken2(tokens.tokens.accessToken);
     }
     const userMail = localStorage.getItem("grid_email");

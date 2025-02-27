@@ -18,6 +18,7 @@ const MethodSelectFlux = forwardRef(
       setImage,
       methodReset,
       installed,
+      appInstalled,
     },
     ref
   ) => {
@@ -97,9 +98,13 @@ const MethodSelectFlux = forwardRef(
         {grid ? (
           <>
             {" "}
-            <span> Build settings</span>
-            <p className="span-deploy">Specify your GitHub repository.</p>
+            <span> Github App</span>
             {build ? (
+              ""
+            ) : (
+              <p className="span-deploy">Install our github app.</p>
+            )}
+            {build || appInstalled ? (
               <div className="install-github2">
                 <Image alt="" src="/github3.png" height={15} width={15} />
                 <span>Installed</span>
@@ -108,9 +113,7 @@ const MethodSelectFlux = forwardRef(
               <Link href={gitUrl}>
                 <div className="install-github">
                   <Image alt="" src="/github3.png" height={15} width={15} />
-                  <span onClick={() => onGit()}>
-                    Install the Grid GitHub app
-                  </span>
+                  <span>Install the Grid GitHub app</span>
                 </div>
               </Link>
             )}

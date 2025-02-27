@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
 import { TokenService } from "../../../tokenHandler";
+import authWrapper from "../../../authWrapper";
+import Spinner from "@/commons/Spinner";
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
@@ -15,6 +17,8 @@ export default function DeployApp() {
   const [visible, setVisible] = useState(true);
   const [gridUserId, setGridUserId] = useState(null);
   const [installationId, setInstallationId] = useState(null);
+  const [appInstalled, setAppInstalled] = useState(false);
+  const { isAuthenticated, isLoading } = authWrapper();
 
   const toggleSideBar = () => {
     return setVisible(!visible);
@@ -30,9 +34,9 @@ export default function DeployApp() {
         },
         body: JSON.stringify({ installationId, gridUserId }),
       });
-      console.log("entro el try");
+
       if (response.ok) {
-        console.log("User linked successfully");
+        setAppInstalled(true);
       } else {
         console.error("An error occurred", error);
       }
@@ -64,12 +68,19 @@ export default function DeployApp() {
     }
   }, [installationId]);
 
+  if (isLoading) {
+    return <Spinner />; // Or a loading indicator
+  }
+
+  if (!isAuthenticated) {
+    return null;
+  }
   return (
     <>
       <div className="logged-home-component2">
         <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
           <DynamicNavbar />
-          <DeployAppScreen />
+          <DeployAppScreen appInstalled={appInstalled} />
         </div>
       </div>
     </>

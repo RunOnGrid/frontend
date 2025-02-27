@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         const { installationId, owner, repo, workflow, branch } = req.body;
        
         
-        const response = await fetch(`${API_URL}/workflows/run`, {
+        const response = await fetch(`${API_URL}/workflows/install`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -1,24 +1,36 @@
 export default async function handler(req, res) {
-  const { id } = req.query;
-
-  if (!id) {
-    return res.status(400).json({ error: "Repository ID is required" });
+  if (req.method !== "GET") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const GIT_API_PROVIDER = process.env.GIT_API_PROVIDER; // Configura esta variable en tu entorno
-  const url = `https://git-app-dev.ongrid.run/api/repositories/${id}/branches`;
+  const API_URL = process.env.GIT_API;
 
   try {
-    const response = await fetch(url);
+    const { installationId, repoFullName } = req.query;
+
+    if (!installationId) {
+      return res.status(400).json({ error: "Installation ID is required" });
+    }
+
+    const response = await fetch(
+      `${API_URL}/repos/getBranches?installationId=${installationId}&repoFullName=${repoFullName}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) {
-      throw new Error(`Error fetching branches: ${response.statusText}`);
+      throw new Error(`Error fetching repositories: ${response.statusText}`);
     }
 
     const data = await response.json();
+
     res.status(200).json(data);
   } catch (error) {
-    console.error("Error fetching branches:", error);
-    res.status(500).json({ error: "Failed to fetch branches" });
+    console.error("Error fetching repositories:", error);
+    res.status(500).json({ error: "Failed to fetch repositories" });
   }
 }

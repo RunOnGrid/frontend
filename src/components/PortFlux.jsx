@@ -35,16 +35,6 @@ const PortFlux = ({ onSave, onCancel, initialPort, darkMode }) => {
       <div className="portInputs">
         <div className="comm-inputs">
           <div className="modal-input">
-            <label>Port</label>
-            <input
-              type="number"
-              placeholder="Enter port number"
-              value={port}
-              onChange={(e) => setPort(e.target.value)}
-            />
-          </div>
-
-          <div className="modal-input">
             <label>Container Ports</label>
             <input
               value={contPort}

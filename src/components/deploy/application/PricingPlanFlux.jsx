@@ -6,7 +6,7 @@ const plans = [
     subtitle: "Starter",
     specs: ["256 MB (RAM)", "0.1 CPU", "1 GB (STORAGE)", "3 INSTANCES (NODES)"],
     price: "$0,60",
-    values: [100, "Mi", 0.1, 1, "Gi", 3, 60],
+    values: [256, "Mi", 0.1, 1, "Gi", 3, 60],
     soon: false,
   },
   {
