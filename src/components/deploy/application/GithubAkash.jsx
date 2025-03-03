@@ -631,6 +631,7 @@ deployment:
                       </p>
                       <p>Global: True</p>
                       <p>Accept: {ports.accept}</p>
+                      <p>Cont Ports: {ports.contPorts}</p>
                     </div>
                     <span
                       onClick={() => {

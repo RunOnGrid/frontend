@@ -44,6 +44,7 @@ export default function BuildAkash({ darkMode, image }) {
     as: 80,
     accept: [],
     protocol: "http",
+    contPorts: [],
   });
   const [accept, setAccept] = useState("");
   const [memoryUnit, setMemoryUnit] = useState("Mi");
@@ -361,6 +362,7 @@ export default function BuildAkash({ darkMode, image }) {
                     </p>
                     <p>Global: True</p>
                     <p>Accept: {ports.accept}</p>
+                    <p>Cont Ports: {ports.contPorts}</p>
                   </div>
                   <span
                     onClick={() => {

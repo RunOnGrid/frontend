@@ -6,23 +6,20 @@ export default async function handler(req, res) {
     const API_URL = process.env.GRID_API;
   
     try {
-      
-      const response = await fetch(
-        `${API_URL}/deployments`,
-        {
-          method: "GET",
-          headers: {
-           "Content-Type": "application/json",
+      const response = await fetch(`${API_URL}/deployments`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
           Authorization: req.headers.authorization,
-          },
-        }
-      );
-     
+        },
+      });
+
       if (!response.ok) {
         throw new Error(`Error fetching repositories: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
+
       res.status(200).json(data);
     } catch (error) {
       console.error("Error fetching repositories:", error);

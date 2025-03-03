@@ -30,7 +30,7 @@ const AppsTable = () => {
 
       const data = await response.json();
 
-      setApps(data); // Actualiza el estado con el array de objetos.
+      setApps(data);
     } catch (err) {
       console.error("Error loading existing app names:", err);
     }
@@ -65,7 +65,7 @@ const AppsTable = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+
       fetchRepos();
     } catch (err) {
       console.error("Error loading existing app names:", err);
@@ -100,6 +100,8 @@ const AppsTable = () => {
                   status={app.status}
                   mode={darkMode}
                   name={app.id}
+                  type={app.cloudProvider}
+                  uri={app.uri}
                   creationDate={app.createdAt}
                 />
                 <Image

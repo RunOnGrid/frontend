@@ -18,6 +18,15 @@ const PortFlux = ({ onSave, onCancel, initialPort, darkMode }) => {
     }
   };
 
+  const handleContPort = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+
+    // Solo permite números en el input
+    if (/^\d*$/.test(value)) {
+      setContPort([Number(value)]);
+    }
+  };
   const handleAddAccept = () => {
     if (newAccept && !accept.includes(newAccept)) {
       setAccept([...accept, newAccept]);
@@ -36,14 +45,11 @@ const PortFlux = ({ onSave, onCancel, initialPort, darkMode }) => {
         <div className="comm-inputs">
           <div className="modal-input">
             <label>Container Ports</label>
-            <input
-              value={contPort}
-              onChange={(e) => setContPort(e.target.value)}
-            />
+            <input value={contPort} onChange={(e) => handleContPort(e)} />
           </div>
         </div>
       </div>
-
+      {/* 
       <div className="accept-ports">
         {accept.map((domain, index) => (
           <div className="urls-cont" key={index}>
@@ -61,7 +67,7 @@ const PortFlux = ({ onSave, onCancel, initialPort, darkMode }) => {
           />
           <button onClick={handleAddAccept}>+</button>
         </div>
-      </div>
+      </div> */}
 
       <div className="botonera-port-modal">
         <button onClick={handleSave}>Save</button>

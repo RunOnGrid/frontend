@@ -7,14 +7,26 @@ const PortAkash = ({ onSave, onCancel, initialPort, darkMode }) => {
   const [protocol, setProtocol] = useState(initialPort?.protocol);
   const [newAccept, setNewAccept] = useState("");
 
+
   const handleSave = () => {
-    if (port && as) {
+    if (port) {
       onSave({
         port: Number(port),
         as: Number(as),
-        protocol: protocol,
         accept,
+        protocol,
+        contPorts: contPort,
       });
+    }
+  };
+
+  const handleContPort = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
+
+    // Solo permite números en el input
+    if (/^\d*$/.test(value)) {
+      setContPort([Number(value)]);
     }
   };
 
@@ -53,7 +65,7 @@ const PortAkash = ({ onSave, onCancel, initialPort, darkMode }) => {
         </div>
       </div>
 
-      <div className="accept-ports">
+      {/* <div className="accept-ports">
         {accept.map((domain, index) => (
           <div className="urls-cont" key={index}>
             <h4>{domain}</h4>
@@ -70,7 +82,7 @@ const PortAkash = ({ onSave, onCancel, initialPort, darkMode }) => {
           />
           <button onClick={handleAddAccept}>+</button>
         </div>
-      </div>
+      </div> */}
 
       <div className="botonera-port-modal">
         <button onClick={handleSave}>Save</button>

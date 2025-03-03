@@ -66,7 +66,7 @@ export default function DeployApp() {
     if (installationId && gridUserId) {
       handleSubmit();
     }
-  }, [installationId]);
+  }, [installationId, router.query]);
 
   if (isLoading) {
     return <Spinner />; // Or a loading indicator

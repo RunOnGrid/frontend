@@ -47,10 +47,9 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [serviceCount, setServiceCount] = useState(3);
   const [appPrice, setAppPrice] = useState(0);
   const [ports, setPorts] = useState({
-    port: "",
-    as: "",
-    protocol: "",
-    accept: "",
+    port: 39470,
+    accept: [],
+    contPorts: [],
   });
   const [showPorts, setShowPorts] = useState(false);
   const [env, setEnv] = useState({});
@@ -286,7 +285,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
             domains: componentData.domains || [""],
             environmentParameters: [""],
             commands: commands || [""],
-            containerPorts: [8080],
+            containerPorts: ports.contPorts || [""],
             containerData: "/data",
             cpu: parseFloat(cpu) || 0.1,
             ram: parseInt(memory) || 256,
@@ -297,7 +296,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           },
         ],
       };
-
+      console.log(deploymentConfig, "esto es compose");
       const response = await fetch("/api/flux-deploy", {
         method: "POST",
         headers: {
@@ -392,6 +391,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
                     href={
                       "https://github.com/settings/tokens/new?description=grid%20(pull%20images)&scopes=read:packages"
                     }
+                    target="_blank"
                   >
                     <p>Click here to generate it</p>
                   </Link>
@@ -437,8 +437,8 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
                           Port: {ports.port} : {ports.as} ({ports.protocol})
                         </p>
                         <p>Global: True</p>
-                        <p>Accept: {ports.accept}</p>
-                        <p>Cont Ports:</p>
+
+                        <p>Cont Ports: {ports.contPorts}</p>
                       </div>
                       <span
                         onClick={() => {
