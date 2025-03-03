@@ -31,8 +31,8 @@ const SummaryAkash = ({
         <strong>Resources:</strong>
         <ul>
           <li>CPU: {cpu} Units</li>
-          <li>Memory: {ram} Mi</li>
-          <li>Ephemeral Storage: {hdd} Mi</li>
+          <li>Memory: {ram} </li>
+          <li>Ephemeral Storage: {hdd} </li>
         </ul>
       </p>
       <button onClick={() => handleReturn()} className="add-button4">

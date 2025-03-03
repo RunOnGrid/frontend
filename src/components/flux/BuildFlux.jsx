@@ -43,7 +43,7 @@ export default function BuildFlux({ darkMode, image }) {
   const [ports, setPorts] = useState({
     port: 39470,
     accept: [],
-    contPorts: "[]",
+    contPorts: [],
   });
 
   const [showEnv, setShowEnv] = useState(false);
@@ -137,8 +137,6 @@ export default function BuildFlux({ darkMode, image }) {
     );
   };
 
-
-
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
 
@@ -182,7 +180,7 @@ export default function BuildFlux({ darkMode, image }) {
         },
         body: JSON.stringify(deploymentConfig),
       });
-      console.log(deploymentConfig);
+
       if (!response.ok) {
         console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -196,10 +194,10 @@ export default function BuildFlux({ darkMode, image }) {
     }
   };
 
-  // useEffect(() => {
-  //   const tokens = TokenService.getTokens();
-  //   setAccessToken(tokens.tokens.accessToken);
-  // }, [accessToken]);
+  useEffect(() => {
+    const tokens = TokenService.getTokens();
+    setAccessToken(tokens.tokens.accessToken);
+  }, [accessToken]);
 
   useEffect(() => {
     if (activeStep === 3) {
@@ -287,8 +285,8 @@ export default function BuildFlux({ darkMode, image }) {
                       Port: {ports.port} : {ports.as} ({ports.protocol})
                     </p>
                     <p>Global: True</p>
-                    <p>Accept: {ports.accept}</p>
-                    <p>Cont Ports:</p>
+
+                    <p>Cont Ports:{ports.contPorts}</p>
                   </div>
                   <span
                     onClick={() => {

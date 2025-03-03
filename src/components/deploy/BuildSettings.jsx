@@ -5,6 +5,7 @@ import React, { forwardRef, useState, useEffect, use } from "react";
 import { TokenService } from "../../../tokenHandler";
 import Link from "next/link";
 import Select4 from "@/commons/Select4";
+import Spinner from "@/commons/Spinner";
 
 const BuildSettings = forwardRef(
   (
@@ -32,6 +33,7 @@ const BuildSettings = forwardRef(
     const [workflowInstalled, setWorkflowInstalled] = useState(false);
     const [branch, setBranch] = useState("");
     const [showNext, setShowNext] = useState(false);
+    const [loadingWorkflow, setLoadingWorkflow] = useState(false);
 
     const router = useRouter();
 
@@ -111,6 +113,7 @@ const BuildSettings = forwardRef(
     };
 
     const handleWorkflow = async () => {
+      setLoadingWorkflow(true);
       try {
         const response = await fetch(`/api/workflows-proxy`, {
           method: "POST",
@@ -135,6 +138,7 @@ const BuildSettings = forwardRef(
         setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
         setWorkflow(true);
         setShowNext(true);
+        setLoadingWorkflow(false);
       } catch (error) {
         setNotWorkflow(true);
         console.error("Error fetching branches:", error);
@@ -212,15 +216,19 @@ const BuildSettings = forwardRef(
               <span>Workflow committed correctly</span>
             </>
           )}
-          <button
-            onClick={() => {
-              handleWorkflow();
-            }}
-            className="add-button"
-          >
-            {" "}
-            Run Workflow
-          </button>
+          {loadingWorkflow ? (
+            <Spinner />
+          ) : (
+            <button
+              onClick={() => {
+                handleWorkflow();
+              }}
+              className="add-button"
+            >
+              {" "}
+              Run Workflow
+            </button>
+          )}
 
           {workflow && (
             <div className="workflow-text">

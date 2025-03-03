@@ -602,12 +602,14 @@
   justify-content: center;
 }
 .google-signIn{
+  width: 50px !important;
   background-color: white !important;
   color: black;
   border: 1px solid transparent;
   display: flex;
   justify-content: center;
-  margin: 5px 5px !important ;
+  align-items: center;
+  margin: 10px !important;
   
   
 }

@@ -64,7 +64,7 @@ const MethodSelectAkash = forwardRef(
           >
             <Image alt="" src="/dockerIcon.png" height={50} width={50} />
             <h4>Docker repository</h4>
-            <p>Specify your image URL : Ex: gridcloud/helloworld:2.0</p>
+            <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
             <p className="deploy-sub-p">
               :latest tag is not recommended on akash deploys
             </p>

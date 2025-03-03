@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-function AppsTableRow({ type, status, creationDate, mode, name }) {
+function AppsTableRow({ type, status, creationDate, mode, name, uri }) {
   const [deploymentName, setDeploymentName] = useState("");
   const [deploymentUri, setDeploymentUri] = useState("");
   const [deploymentDate, setDeploymentDate] = useState("");
@@ -28,22 +28,25 @@ function AppsTableRow({ type, status, creationDate, mode, name }) {
 
   // Fecha formateada para mostrar
   const formattedCreationDate = formatDate(creationDate);
+  const ensureProtocol = (url) => {
+    return url.startsWith("http://") || url.startsWith("https://")
+      ? url
+      : `https://${url}`;
+  };
 
   return (
     <>
       <div className={`table-row ${mode ? "dark" : "light"}`}>
         <h3>{name || "---"}</h3>
-        {deploymentUri ? deploymentUri : "---"}
+        <h3>{type || "---"}</h3>
 
-        <div>
-          {status === "Pending" ? (
-            <>
-              <button className="add-button"> Try again </button>
-            </>
-          ) : (
-            ""
-          )}
-        </div>
+        {uri ? (
+          <Link target="_blank" href={ensureProtocol(uri)}>
+            <span>{uri}</span>
+          </Link>
+        ) : (
+          <span>---</span>
+        )}
         <div className="status">
           {" "}
           <div className={status === "Deployed" ? "circle3" : "circle5"}></div>

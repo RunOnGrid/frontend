@@ -62,6 +62,12 @@ const MethodSelectFlux = forwardRef(
         onGit();
       }
     }, [grid]);
+    useEffect(() => {
+      if (appInstalled && grid) {
+        setBuild(true);
+        onGit();
+      }
+    }, [grid]);
 
     return (
       <div ref={ref} className="databaseSelect">
@@ -91,7 +97,7 @@ const MethodSelectFlux = forwardRef(
           >
             <Image alt="" src="/dockerIcon.png" height={50} width={50} />
             <h4>Docker repository</h4>
-            <p>Specify your image URL : Ex: gridcloud/helloworld:latest</p>
+            <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
           </div>
         </div>
 
@@ -106,6 +112,7 @@ const MethodSelectFlux = forwardRef(
             )}
             {build || appInstalled ? (
               <div className="install-github2">
+                {console.log(build, appInstalled, "esto es el log")}
                 <Image alt="" src="/github3.png" height={15} width={15} />
                 <span>Installed</span>
               </div>
