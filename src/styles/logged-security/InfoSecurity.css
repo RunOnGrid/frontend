@@ -1,125 +1,110 @@
-.infoSecurity-container{
-   min-height: 100vh;
- 
-   width: 100%;
+.infoSecurity-container {
+  min-height: 100vh;
+
+  width: 100%;
 }
 
+.infoSecurity-titulo-container {
+  display: flex;
+  align-items: center;
 
-
-.infoSecurity-titulo-container{
-    display: flex;
-    align-items: center;
-    font-family: rouben;
-    background-color: #0c1317;
-    padding: 10px  30px;
-    width: 100%;
-    height: 50px;
-    border: 2px solid rgba(128, 128, 128, 0.56);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    color: white;
-    font-size: 1.2rem;
-   
+  background-color: #0c1317;
+  padding: 10px 30px;
+  width: 100%;
+  height: 50px;
+  border: 2px solid rgba(128, 128, 128, 0.56);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+  font-size: 1.2rem;
 }
-.infoSecurity-iconoPrincipal{
-    height: 30px;
-    margin-right: 10px;
+.infoSecurity-iconoPrincipal {
+  height: 30px;
+  margin-right: 10px;
 }
 
-.infoSecurity-permisos{
-    
-    width: 30vw;
-  
-  
+.infoSecurity-permisos {
+  width: 30vw;
 }
-.infoSecurity-renglones-permisos{
-    background-color: #0c1317;
-    display:flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    font-family: rouben;
-    
-    width: 100%;
-    height: 180px;
-    padding: 10px  30px;
-    border: 2px solid rgba(128, 128, 128, 0.56);
-    border-top: none;
-    cursor: pointer;
+.infoSecurity-renglones-permisos {
+  background-color: #0c1317;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 180px;
+  padding: 10px 30px;
+  border: 2px solid rgba(128, 128, 128, 0.56);
+  border-top: none;
+  cursor: pointer;
 }
 
-.span2-permisos-security{
-    font-family: rouben ligth;
-    color: white;
-    padding: 10px 10px;
-    width: 100%;
-    height: 50%;
-    
+.span2-permisos-security {
+  color: white;
+  padding: 10px 10px;
+  width: 100%;
+  height: 50%;
 }
-.permisos-container-security{
-    
-    display: grid;
-    grid-template-columns: 40% 40%;
-    
-   
-    margin-left: 300px;
+.permisos-container-security {
+  display: grid;
+  grid-template-columns: 40% 40%;
+
+  margin-left: 300px;
 }
-.infoSecurity-boton{
-    display: flex;
-    margin-left: auto;
-    align-items: flex-end;
-    margin-top: 3%;
-    font-weight: lighter;
+.infoSecurity-boton {
+  display: flex;
+  margin-left: auto;
+  align-items: flex-end;
+  margin-top: 3%;
+  font-weight: lighter;
 }
 @media only screen and (max-width: 550px) {
-    .permisos-container-security{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin-left: 0px;
-    }
+  .permisos-container-security {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0px;
+  }
 
-    .infoSecurity-permisos{
-        display: flex;
-        flex-direction: column;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 50px;
-    }
+  .infoSecurity-permisos {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+  }
 
-    .infoSecurity-titulo-container{
-        padding:0;
-        width: 100%;
-        height: 60px;
-        font-size: 1.1rem;
-        justify-content: center;
-        text-align: center;
-       
-    }
+  .infoSecurity-titulo-container {
+    padding: 0;
+    width: 100%;
+    height: 60px;
+    font-size: 1.1rem;
+    justify-content: center;
+    text-align: center;
+  }
 
-    .infoSecurity-renglones-permisos{
-        height: 200px;
-        padding: 0;
-        border: 2px solid rgba(128, 128, 128, 0.56);
-        border-top: none;
-        font-size: 0.9rem;
-        
-    }
-    .infoSecurity-iconoPrincipal{
-       display: none;
-    }
-    .span2-permisos-security{
-      
-        padding: 0;
-        margin: auto;
-        width: 80%;
-        height: 60%;   
-    }
+  .infoSecurity-renglones-permisos {
+    height: 200px;
+    padding: 0;
+    border: 2px solid rgba(128, 128, 128, 0.56);
+    border-top: none;
+    font-size: 0.9rem;
+  }
+  .infoSecurity-iconoPrincipal {
+    display: none;
+  }
+  .span2-permisos-security {
+    padding: 0;
+    margin: auto;
+    width: 80%;
+    height: 60%;
+  }
 
-    .infoSecurity-boton{
-        margin-top: 0%;
-        margin-bottom: 20px;
-        
-    }
+  .infoSecurity-boton {
+    margin-top: 0%;
+    margin-bottom: 20px;
+  }
 }

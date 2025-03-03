@@ -1,11 +1,11 @@
-import Form from "@/components/login/Form";
-import Navbar from "@/components/login/Navbar";
+import checkAuth from "@/checkAuth";
+import LoginScreen from "@/components/login/LoginScreen";
 
 export default function Login() {
-    return (
-      <>
-      <Navbar/>
-      <Form/>
-      </>
-    )
-  }
+  checkAuth();
+  return (
+    <div className="container-homePrincipal2">
+      <LoginScreen />
+    </div>
+  );
+}

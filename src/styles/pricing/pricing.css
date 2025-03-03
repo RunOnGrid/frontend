@@ -1,44 +1,146 @@
-.pricing-card{
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(255, 255, 255, 0.178);
-    border-radius: 15px;
-    border: 2px solid white;
-    padding: 15px;
-    margin: auto;
-    width: 30%;
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.407);
+  padding: 15px;
+  margin: auto;
+  width: 380px;
+  height: 60vh;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 1s ease-out,
+    transform 1s ease-out;
+  position: relative; 
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.159) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: 0; 
+  transform: translateY(20px); 
 }
-.pricing-card h2{
-    font-family: rouben ligth;
-    color: white;
-    letter-spacing: 1px;
-    text-align: center;
+
+.pricing-card.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
-.pricing-card h1{
-    font-family: rouben;
-    color: white;
+
+.pricing-card h2,
+.pricing-card h1,
+.pricing-card span,
+.pricing-card p,
+.pricing-card h3,
+.pricing-card h4 {
+  color: white;
+  text-align: center;
 }
-.pricing-card span{
-    color: rgba(255, 255, 255, 0.584);
-    font-size: 1.2rem;
+
+.pricing-card h2,
+.pricing-card h1 {
+  letter-spacing: 1px;
 }
-.pricing-card h3{
-    text-align: center;
-    color: rgba(255, 255, 255, 0.702);
-    font-family: rouben ligth;
-    font-size: 1rem;
-    width: 50%;
-    margin: auto;
+
+.pricing-card h2 {
+  font-size: 2rem;
+  margin-top: 20px;
 }
-.pricing-card button{
-    width: 50%;
-    margin: auto;
-    background-color: #36B079;
+
+.pricing-card h1 {
+  font-size: 2rem;
+  margin-top: -20px;
 }
-.pricing-card h4{
-    font-family: rouben ligth;
-    color: white;
-    letter-spacing: 1px;
-    text-align: center;
-    margin: 20px auto ;
+
+.pricing-card span {
+  font-size: 1.2rem;
+}
+
+.pricing-card p {
+  font-size: 0.9rem;
+  justify-content: center;
+  margin: 7px auto;
+}
+
+.pricing-card h3 {
+
+  font-size: 1rem;
+  width: 70%;
+  margin: auto;
+}
+
+.pricing-card h4 {
+
+  letter-spacing: 1px;
+  margin: 20px auto;
+}
+
+.pricing-card button {
+  width: 50%;
+  margin: auto;
+  border-radius: 50px;
+  border: 4px solid #36b079;
+  background-color: transparent !important;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.pricing-card.free {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.234) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  margin-right: -17vw;
+  width: 20%;
+  height: 55vh;
+}
+
+.pricing-card.team {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.534) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  height: 55vh;
+  z-index: 2; 
+  margin-top: -50px; 
+  width: 22%;
+}
+
+.pricing-card.enterprise {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.234) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  width: 20%;
+  margin-left: -17vw;
+  height: 55vh;
+}
+
+.pricing-card.team button {
+  background-color: #36b079 !important;
+  width: 60%;
+  justify-content: center;
+}
+
+.span-landing4 {
+  display: flex;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 70px;
+}
+
+.h1-landing {
+  color: white;
+
+  font-size: 2.5rem;
+  justify-content: center;
+  text-align: center;
+}
+.plans-section {
+  max-height: 90vh;
 }

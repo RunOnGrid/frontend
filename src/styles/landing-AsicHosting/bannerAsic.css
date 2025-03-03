@@ -1,235 +1,842 @@
-
-
-
-
-.textosBanner{
-    justify-content: center;
-    align-content: center;
-    margin-top: 20%;
-    width: 90%;
-}
-.banner-container{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    height: 700px;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.textosBanner {
+  justify-content: center;
+  align-content: center;
+  text-align: start;
+  margin-top: 250px;
+  width: 50%;
+  z-index: 10;
+  margin-left: 10%;
 }
 
-.banner-container3{
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.banner-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.banner-container2 {
+  display: flex;
+  position: relative;
+  width: 100vw !important;
+  height: 100vh;
+  overflow: hidden;
 }
 
-
-.subtituloBanner{
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 85%;
-    color: white;
+.banner-container3 {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
-.subtituloBanner2{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 100%;
-    color: white;
-    justify-content: center;
-    margin-bottom: 50px;
+
+.subtituloBanner {
+  font-size: 1.2rem;
+  width: 90%;
+  color: white;
+  justify-content: center;
+  text-align: start;
+  margin-bottom: 20px;
 }
-.subtituloBanner4{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 40%;
-    color: white;
-    justify-content: center;
+.subtituloBanner5{
+  font-size: 1.2rem;
+  width: 80%;
+  color: white;
+  justify-content: center;
+  text-align: start;
+  margin-bottom: 20px;
 }
-.subtituloBanner3{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 20px;
-    width: 50%;
-    margin: 20px auto;
-    color: rgba(255, 255, 255, 0.657);
-    
-    text-align: center;
+.subtituloBanner2 {
+  display: flex;
+  font-weight: bold;
+  font-size: 1.1rem;
+  width: 100%;
+  margin-top: 15px;
+  color: white;
+ 
+  margin-bottom: 50px;
 }
-.tituloBanner{
-    font-family: rouben;
-    font-size: 3.5rem;
-    width: 100%;
-    font-weight: bold;
-    margin-bottom: 3%;
-    color:white ;
-    margin-top: 10%;
-    background: linear-gradient(225deg, #fff 30%, #36B079 70%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.subtituloBanner4 {
+  display: flex;
 
+  font-size: 20px;
+  width: 40%;
+  color: white;
+  justify-content: center;
 }
-.ilustracion-bannerGrande{
-    display: flex;
-    width: 100%;
-    height: 60%;
-    margin-top: 20%;
-    margin-bottom: auto;
-    margin-left: 5%;
-   
- }
 
+.tituloBanner {
+  font-size: 3rem;
+  width: 100%;
+  
+  margin-bottom: 3%;
+  color: white;
+  justify-content: center;
+  text-align: start;
+}
+.ilustracion-bannerGrande {
+  display: flex;
+  width: 45vw;
+  height: 80%;
+  margin-top: 10%;
+}
 
- .container-botones{
-    display: flex;
-    margin-top: 50px;
-    margin-bottom: 100px;
- }
+.container-botones {
+  display: flex;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+.container-botones2{
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  width: 60%;
+}
+.container-botones2 input{
+  height: 20px;
+  border-radius: 25px;
+  padding: 15px;
+  background-color: #44494a;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 1rem;
+  width: 100%;
+}
+.container-botones2 input::placeholder{
+  color: white;
+}
 
-
- .itemMigration{
-    position:relative;
-    margin-top: 60px;
-    height: auto;
-    background-color: rgba(255, 255, 255, 0.119);
-    border-radius:15px;
-    border: 1px solid rgba(255, 255, 255, 0.068);
-    margin: auto;
-    width: 21vw;
- }
- .itemMigration span{
-    color: white;
-    font-size: 4rem;
-    padding: 5px 30px;
-    font-weight: bold;
-    width: 10px;
-    margin: 0px;
-    width: 80%;
-
- }
- .itemMigration div{
+.itemMigration {
+  position: relative;
+  margin-top: 60px;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.119);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.068);
+  margin: auto;
+  width: 21vw;
+}
+.itemMigration span {
+  color: white;
+  font-size: 4rem;
+  padding: 5px 30px;
+  font-weight: bold;
+  width: 10px;
+  margin: 0px;
+  width: 80%;
+}
+.itemMigration div {
   display: flex;
   color: white;
   opacity: 1;
-  font-family: rouben ligth;
+
   font-size: 1.6rem;
   letter-spacing: 0.3px;
   width: 80%;
   padding: 5px 30px;
-  text-align:start;
+  text-align: start;
 
   margin-right: auto;
   font-weight: lighter !important;
- }
- .itemMigration p{
-    display: flex;
-    font-family: rouben ligth;
-    font-size: 16px;
-    width: 80%;
-    padding: 10px 30px;
-    color: rgba(255, 255, 255, 0.702);
-    margin: auto;
-    text-align:start;
-    padding-bottom: 40px;
-    padding-top: 20px;
+}
+.itemMigration p {
+  display: flex;
 
- }
- .migration-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    background-color: #0c131787;
-    width: 400px;
-    padding: 30px;
-    border-radius: 15px;
-    height: auto;
-    color: white;
-    border: 2px solid white;
- }
- .migration-form h1{
-    font-family: rouben;
-    justify-content: center;
-    margin: auto;
-    margin-bottom: 30px;
- }
- .migration-form label{
-    font-family: rouben ligth;
-    font-size: 0.9rem;
-    margin: 10px auto;
- }
- .migration-form input{
-    height: 25px;
-    border-radius: 10px;
-    padding: 10px;
- }
- .migration-form button{
-    margin:auto;
-    margin-top: 30px;
-    background-color: #36B079;
- }
- .faded {
+  font-size: 16px;
+  width: 80%;
+  padding: 10px 30px;
+  color: rgba(255, 255, 255, 0.702);
+  margin: auto;
+  text-align: start;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
+.migration-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  background-color: #0c131787;
+  width: 400px;
+  padding: 30px;
+  border-radius: 15px;
+  height: auto;
+  color: white;
+  border: 2px solid white;
+}
+.migration-form h1 {
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 30px;
+}
+.migration-form label {
+  font-size: 0.9rem;
+  margin: 10px auto;
+}
+.migration-form input {
+  height: 25px;
+  border-radius: 10px;
+  padding: 10px;
+}
+.migration-form button {
+  margin: auto;
+  margin-top: 30px;
+  background-color: #36b079;
+}
+.faded {
   backdrop-filter: blur(10px);
-  }
+}
 
-  .uno {
-    top: 10px;
-    left:-270px;
+.uno {
+  top: 10px;
+  left: -270px;
+}
+
+.dos {
+  top: -30px; 
+}
+
+.tres {
+  top: -460px;
+  left: 270px;
+}
+.migration-button {
+  display: flex;
+  margin: auto;
+  background-color: #36b079;
+  border-radius: 15px;
+  justify-content: center;
+  width: 15vw;
+  margin-top: -230px;
+}
+.button-landing-1 {
+  background-color: #36b079;
+  border-radius: 50px;
+  width: 38%;
+  height: 60px;
+  font-size: 1.2rem;
+  margin: auto;
+  margin-left: 0px;
+  box-shadow: 1px 1px 10px 1px white;
+}
+.button-landing-4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #36b079;
+  border-radius: 50px;
+  width: 250px;
+  height: 60px;
+  font-size: 1.2rem;
+  margin: auto;
+  margin-bottom: 150px;
+  box-shadow: 1px 1px 10px 1px white;
+}
+.button-landing-5 {
+  background-color: transparent;
+  border-radius: 50px;
+  width: 280px;
+  height: 50px;
+  font-size: 1rem;
+  margin: auto;
+  animation: ease-in 1s ;
+ 
+}
+.button-landing-2 {
+  background-color: transparent;
+  border-radius: 50px;
+  width: 38%;
+  height: 60px;
+  font-size: 1.2rem;
+  margin: auto;
+  margin-left: 0px;
+}
+.button-landing-3 {
+  background-color: #36b079;
+  border-radius: 50px;
+  width: 250px;
+  height: 60px;
+  font-size: 1.2rem;
+
+  margin: auto;
+  box-shadow: 1px 1px 10px 1px white;
+  margin-top: 30px;
+  margin-bottom: 200px;
+}
+@keyframes float {
+  0% {
+    transform: translateY(0);
   }
-  
-  .dos {
-    top: -30px; /* Ajusta esta cantidad para posicionar la segunda tarjeta */
+  50% {
+    transform: translateY(-10px);
   }
+  100% {
+    transform: translateY(0);
+  }
+}
+.triangles-background {
+
+  height: 100%; 
+}
+
+.triangle {
+  position: absolute;
+  animation: float 5s ease-in-out infinite;
+}
+
+.triangle1 {
+  top: 65%;
+  left: 89%;
+  width: 250px; 
+  height: auto;
+  z-index: 10;
+  animation-delay: 0s;
+}
+
+.triangle2 {
+  top: 60%;
+  left: 83%;
+  width: 260px; 
+  height: auto;
+  animation-delay: 1s;
+}
+
+.triangle3 {
+  top: 18%;
+  left: 94%;
+  width: 250px; 
+  height: auto;
+  animation-delay: 2s;
+}
+
+.triangle4 {
+  top: 35%;
+  left: 92%;
+  width: 220px; 
+  height: auto;
+  animation-delay: 3s;
+}
+
+.triangle5 {
+  top: 60%;
+  left: 75%;
+  width: 130px; 
+  height: auto;
+  z-index: 10;
+  animation-delay: 4s;
+}
+
+.triangle6 {
+  top: 52%;
+  left: 70.5%;
+  width: 150px; 
+  height: auto;
+  animation-delay: 5s;
+}
+
+.triangle7 {
+  top: 20%;
+  left: 75%;
+  width: 270px; 
+  height: auto;
+  animation-delay: 6s;
+}
+.triangle8 {
+  top: 20%;
+  left: 68%;
+  width: 220px; 
+  height: auto;
+  animation-delay: 7s;
+}
+.triangle9 {
+  top: 18%;
+  left: 38%;
+  width: 500px; 
+  height: auto;
+  z-index: 0;
+  animation-delay: 8s;
+}
+.triangle10 {
+  top: 47%;
+  left: 60%;
+  width: 200px; 
+  height: auto;
+  z-index: 10;
+  animation-delay: 9s;
+}
+
+.triangle img {
+  width: 100%;
+  height: 100%;
+}
+.triangleL img {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes float270 {
+  0% {
+    transform: rotate(270deg) translateY(0); 
+  }
+  50% {
+    transform: rotate(270deg) translateY(-10px); 
+  }
+  100% {
+    transform: rotate(270deg) translateY(0);
+  }
+}
+@keyframes float90 {
+  0% {
+    transform: rotate(90deg) translateY(0); 
+  }
+  50% {
+    transform: rotate(90deg) translateY(-10px); 
+  }
+  100% {
+    transform: rotate(90deg) translateY(0);
+  }
+}
+@keyframes float180 {
+  0% {
+    transform: rotate(180deg) translateY(0); 
+  }
+  50% {
+    transform: rotate(180deg) translateY(-10px); 
+  }
+  100% {
+    transform: rotate(180deg) translateY(0);
+  }
+}
+
+.triangleL {
+  position: absolute;
   
-  .tres {
-    top: -460px; /* Ajusta esta cantidad para posicionar la tercera tarjeta */
-    left:270px;
+}
+
+.triangle1L {
+  top: 55%;
+  right: 86%;
+  width: 320px; 
+  height: auto;
+  z-index: 10;
+  animation: float270 5s ease-in-out infinite;
+}
+
+.triangle2L {
+  top: 55%;
+  right: 78%;
+  width: 300px; 
+  height: auto;
+  animation: float90 5s ease-in-out infinite;
+}
+
+.triangle3L {
+  top: 10%;
+  right: 92%;
+  width: 300px; 
+  height: auto;
+  animation: float270 5s ease-in-out infinite;
+}
+
+.triangle4L {
+  top: 25%;
+  right: 90%;
+  width: 250px; 
+  height: auto;
+  animation: float270 5s ease-in-out infinite;
+}
+
+.triangle5L {
+  top: 40%;
+  right: 79%;
+  width: 130px; 
+  height: auto;
+  z-index: 10;
+  animation: float90 5s ease-in-out infinite;
+}
+
+.triangle6L {
+  top: 45%;
+  right: 71%;
+  width: 150px; 
+  height: auto;
+  animation: float90 5s ease-in-out infinite;
+}
+
+.triangle7L {
+  top: 5%;
+  right: 70%;
+  width: 340px; 
+  height: auto;
+  animation: float90 5s ease-in-out infinite;
+  
+}
+
+.triangle8L {
+  top: 11%;
+  right: 62%;
+  width: 220px; 
+  height: auto;
+  animation: float270 5s ease-in-out infinite;
+}
+.triangle9L {
+  top: 75%;
+  right: 57%;
+  width: 600px; 
+  height: auto;
+  z-index: 0;
+  animation: float270 5s ease-in-out infinite;
+}
+.triangle10L {
+  top: 40%;
+  right: 60%;
+  width: 200px; 
+  height: auto;
+  z-index: 10;
+  animation: float180 5s ease-in-out infinite;
+}
+
+.new-login{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-left: auto;
+  margin-right: 10%;
+  width: 35vw;
+  margin-top: 0px;
+}
+.inputs-login{
+  display: flex;
+  flex-direction: column;
+}
+.inputs-login input{
+  margin: 10px auto;
+  height: 15px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 7px;
+  width: 30vw;
+  font-size: 16px;
+  
+}
+.inputs-login input::placeholder{
+  color: rgba(255, 255, 255, 0.637);
+}
+.error-message{
+  color: red !important;
+}
+.error-message-login{
+  display: flex;
+  justify-content: center;
+ 
+  color: rgb(253, 43, 43) !important;
+}
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.input-container input {
+  margin: 10px auto;
+  height: 15px;
+  padding: 10px;
+  border-radius: 30px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 7px;
+  width: 30vw;
+  font-size: 16px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 2vw;
+  top: -12px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+  
+}
+.new-login button{
+  border-radius: 25px;
+  background-color: #00b174;
+  width: 240px ;
+  font-weight: 700;
+  margin: 10px auto;
+}
+.new-login p{
+  color: white;
+  margin: 10px auto;
+  font-size: 0.9rem;
+}
+.new-login strong{
+  color:#00b174 ;
+  cursor: pointer;
+}
+.new-login h2{
+  color: white;
+  font-size: 3.5rem;
+  text-align: center;
+  margin-bottom: 0px;
+}
+.new-login span{
+  color: white;
+  text-align: center;
+  margin: 20px auto;
+  margin-bottom: 50px;
+}
+.botonera-login{
+  display: flex;
+  margin-bottom: 50px;
+  justify-content: center;
+}
+.google-signIn{
+  width: 50px !important;
+  background-color: white !important;
+  color: black;
+  border: 1px solid transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px !important;
+  
+  
+}
+.google-signIn img{
+  justify-content: center;
+  margin: 0px 10px ;
+}
+.forgot-pass{
+  display: flex;
+
+  color: #00b174 !important;
+  font-size: 0.9rem;
+  margin-top: 0px !important;
+  cursor: pointer;
+}
+.forgot-pass:hover{
+  color: #22ca8f !important;
+}
+
+.remember-info{
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+.remember-info span{
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 1600px) {
+  .inputs-login input{
+    width: 22vw;
+  }
+  .toggle-password{
+    right: 6vw;
+  }
+}
+@media only screen and (max-width: 1400px) {
+  .new-login{
+    width: 45vw;
+  }
+  .toggle-password{
+    right: 7vw;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .button-landing-4 {
+ 
+
+    width: 68%;
+    height: 40px;
+    font-size: 0.9rem;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    box-shadow: 1px 1px 10px 1px white;
+  }
+  .subtituloBanner2 {
+  font-size: 0.9rem;
+  }
+  .button-landing-1 {
+    background-color: #36b079;
+    border-radius: 50px;
+    width: 68%;
+    height: 40px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    margin-left: 0px;
+  }
+  .button-landing-2 {
+    background-color: transparent;
+    border-radius: 50px;
+    width: 68%;
+    height: 40px;
+    font-size: 0.9rem;
+    margin-left: 0px;
+  }
+  .container-botones {
+   flex-direction: column;
+  }
+  .textosBanner {
+    width: 80%;
+    margin-left: 5%;
+    margin-top: 160px;
+  }
+ 
+  .banner-container {
+      width: 100%;
+      display: flex;
+      height: 100%;
+    }
+
+     .tituloBanner {
+      font-size: 1.8rem;
+      font-weight: 100;
+    }
+    .subtituloBanner {
+      display: flex;
+      justify-content: center;
+      margin: 0 !important;
+      font-size: 1rem;
+    }
+    .container-botones2{
+      margin-top: 10px;
+    }
+    .button-landing-5{
+      width: 100%;
+    }
+    .triangle3 {
+      display: none;
+    }
+    .triangle4, .triangle4L {
+      display: none;
+    }
+    .triangle5, .triangle5L {
+      display: none;
+    }
+    .triangle6 {
+      display: none;
+    }
+    .triangle7 {
+      display: none;
+    }
+    .triangle2, .triangle2L {
+      display: none;
+    }
+    .triangle8 {
+      display: none;
+    }
+    .triangle1L, .triangle7L{
+      display: none;
+    }
+    .triangle6L{
+      top: 16%;
+      right: 65%;
+    }
+    .new-login{
+     width: 75vw;
+     z-index: 9999;
+    }
+    .new-login h2{
+      margin-top: -20px;
+      font-size: 2.2rem;
+    }
+    .botonera-login{
+      flex-direction: column;
+    }
+    .google-signIn{
+      width: 80% !important;
+      margin: 10px auto !important;
+    }
+    .inputs-login input{
+      width: 214px;
+      margin: 10px auto;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+  .subtituloBanner{
+    font-size: 0.9rem;
+    width: 100%;
     
   }
-  .migration-button{
-    display: flex;
-    margin: auto;
-    background-color: #36B079;
-    border-radius: 15px;
-    justify-content: center;
-    width: 15vw;
-    margin-top: -230px;
-  }
+  .subtituloBanner5{
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .button-landing-5{
+      font-size: 0.9rem;
+      
+    }
+}
 
 
+.input-email {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
- @media only screen and (max-width:650px){
-    .ilustracion-bannerGrande{
-        display: none;
-    }
-    .banner-container{
-        width: 100%;
-    }
-    .textosBanner{
-        margin-top: 100px;
-        margin-bottom: -100px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .tituloBanner{
-        font-size: 1.8rem;
-        font-weight: 100;
-       
-    }
-    .banner-container{
-        display: flex;
-        height: 100%;
-    }
-    .subtituloBanner{
-        font-family: rouben;
-        display: flex;
-        justify-content: center;
-        margin: 0 !important;
-        font-size: 1rem;
-    }
+/* Estilos para el círculo verde con el tick blanco */
+.input-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #00b174;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 18px;
+  margin: auto;
+  margin-bottom: 20px;
+}
 
- }
+/* .button-landing-5 {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+} */
+
+.access-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #00b174;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Estilos al cambiar el estado del botón */
+.access-button.thank-you {
+  background-color: #008a5e;
+  transform: scale(1.05); /* Efecto leve de agrandamiento */
+}
+
+/* Transición suave en el cambio de contenido */
+.access-button::after {
+  content: '';
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.access-button:not(.thank-you) {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}

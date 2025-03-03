@@ -1,8 +1,8 @@
-@import url("./CardsHosting.css");
+@import url('./CardsHosting.css');
 
-.logged-hosting-component{
-    background-image: url("../../../public/fondoFinal7.svg");
-    background-size: cover;
-    min-height: 100vh;
-    height: 100%;
-  }
+.logged-hosting-component {
+
+  background-size: cover;
+  min-height: 100vh;
+  height: 100%;
+}

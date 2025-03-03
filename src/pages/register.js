@@ -1,11 +1,9 @@
-import Form from "@/components/register/Form";
-import Navbar from "@/components/login/Navbar";
+import RegisterScreen from "@/components/login/Register";
 
-export default function Register() {
-    return (
-      <>
-      <Navbar/>
-      <Form/>
-      </>
-    )
-  }
+export default function Login() {
+  return (
+    <div className="container-homePrincipal2">
+      <RegisterScreen />
+    </div>
+  );
+}
