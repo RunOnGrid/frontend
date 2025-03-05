@@ -601,6 +601,15 @@
   align-items: center;
   align-content: center;
 }
+.text-container{
+  display: flex;
+  flex-direction: column;
+}
+.texto-pipeline{
+  color: #00b174;
+  justify-content: center;
+  width: 100%;
+}
 .add-button4 {
   display: flex;
   border: 2px solid #00b174 !important;
@@ -1224,7 +1233,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 99.5%;
   border-end-end-radius: 25px;
   border-end-start-radius: 25px;
   list-style: none;
@@ -1233,7 +1242,9 @@
   border:1px solid #ddd;
   border-top: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 900;
+  z-index: 900; 
+  max-height: 120px; /* Aproximadamente 3-4 opciones */
+  overflow-y: auto;
 
 }
 

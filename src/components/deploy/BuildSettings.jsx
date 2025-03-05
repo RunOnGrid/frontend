@@ -154,7 +154,7 @@ const BuildSettings = forwardRef(
             branch: branch,
           }),
         });
-        console.log(response);
+
         if (!response.ok) {
           throw new Error(`Error fetching branches: ${response.statusText}`);
         }
@@ -247,7 +247,7 @@ const BuildSettings = forwardRef(
 
     const handleBranch = (option) => {
       handleCommit(option);
-      setBranch(option)
+      setBranch(option);
     };
 
     return (
@@ -315,6 +315,21 @@ const BuildSettings = forwardRef(
               />
             </div>
           </div> */}
+          {showNext && (
+            <div className="text-container">
+              <span className="texto-pipeline">
+                The pipeline has finished successfully.
+              </span>
+              <Link href={workflowUrl} target="_blank">
+                <span
+                  style={{ marginBottom: "-20px" }}
+                  className="texto-pipeline"
+                >
+                  {workflowUrl}
+                </span>
+              </Link>
+            </div>
+          )}
           {showNext && (
             <button onClick={onNext} className="add-button4">
               Continue

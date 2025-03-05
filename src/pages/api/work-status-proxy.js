@@ -30,8 +30,10 @@ export default async function handler(req, res) {
       if (data.workflow_run.status === 'in_progress') {
         res.status(201).json(data)
       }
-      
-      res.status(200).json(data);
+      if (data.workflow_run.status === "completed") {
+        res.status(200).json(data);
+      }
+      res.status(202).json(data);
     } catch (error) {
       console.error("Error fetching repositories:", error);
       res.status(500).json({ error: "Failed to fetch repositories" });

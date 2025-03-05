@@ -27,14 +27,14 @@ const SummaryAkash = ({
       <p>
         <strong>Service:</strong> {service}
       </p>
-      <p>
-        <strong>Resources:</strong>
-        <ul>
-          <li>CPU: {cpu} Units</li>
-          <li>Memory: {ram} </li>
-          <li>Ephemeral Storage: {hdd} </li>
-        </ul>
-      </p>
+
+      <strong>Resources:</strong>
+      <ul>
+        <li>CPU: {cpu} Units</li>
+        <li>Memory: {ram} </li>
+        <li>Ephemeral Storage: {hdd} </li>
+      </ul>
+
       <button onClick={() => handleReturn()} className="add-button4">
         {" "}
         Return

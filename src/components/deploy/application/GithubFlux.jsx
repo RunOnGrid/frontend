@@ -241,15 +241,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
             name: name,
             description: componentData.description || "gridDefaultDescription",
             repotag: repoTag,
-            ports: [36522],
             domains: componentData.domains || [""],
             environmentParameters: [""],
             commands: commands || [""],
             containerPorts: ports.contPorts || [""],
-            containerData: "/data",
-            cpu: parseFloat(cpu) || 0.1,
-            ram: parseInt(memory) || 256,
-            hdd: parseInt(ephemeralStorage) || 1,
             tiered: true,
             secrets: "",
             repoauth: `${owner.toLowerCase()}:${pat}`,
@@ -271,12 +266,13 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
       }
 
       const data = await response.json();
-      
+
+      router.push("/profile");
     } catch (error) {
       console.error("Deployment error:", error);
     } finally {
-          setIsLoading(false);
-        }
+      setIsLoading(false);
+    }
   };
   return (
     <div>
