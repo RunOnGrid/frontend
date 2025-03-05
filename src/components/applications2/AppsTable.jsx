@@ -71,6 +71,12 @@ const AppsTable = () => {
       console.error("Error loading existing app names:", err);
     }
   };
+  const sortedApps = apps.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+
+    return dateB - dateA;
+  });
 
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
@@ -93,13 +99,13 @@ const AppsTable = () => {
         ) : (
           <>
             <AppsTableHeader />
-            {apps.map((app, index) => (
+            {sortedApps.map((app, index) => (
               <div className="dashboard-row">
                 <AppsTableRow
                   key={index}
                   status={app.status}
                   mode={darkMode}
-                  name={app.id}
+                  name={app.serviceName}
                   type={app.cloudProvider}
                   uri={app.uri}
                   creationDate={app.createdAt}

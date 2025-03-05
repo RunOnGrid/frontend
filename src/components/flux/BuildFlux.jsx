@@ -1,35 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
 import EnvModal from "../EnvModal";
-import PayModal from "../PayModal";
 import CommModal from "../CommModal";
-
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../stripe/StripeScreen";
-import PricingPlanAkash from "../deploy/PricingPlanAkash";
 import Botonera2 from "@/commons/Botonera2";
 import SummaryAkash from "../deploy/SummaryAkash";
-import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
-import AppGeoSelect from "../deploy/application/AppGeoSelect";
 import PricingPlanFlux from "../deploy/application/PricingPlanFlux";
 import { TokenService } from "../../../tokenHandler";
 import PortFlux from "../PortFlux";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
-const ownerFlux = process.env.OWNER_FLUX
+import Spinner from "@/commons/Spinner";
 
 export default function BuildFlux({ darkMode, image }) {
   const [activeStep, setActiveStep] = useState(3);
   const [editingPortIndex, setEditingPortIndex] = useState(null);
-  const [serviceName, setServiceName] = useState("service-grid");
-  const [cpu, setCpu] = useState(0.5);
-  const [memory, setMemory] = useState(512);
-  const [ephemeralStorage, setEphemeralStorage] = useState(512);
+  const [serviceName, setServiceName] = useState("");
+  const [cpu, setCpu] = useState(0.1);
+  const [memory, setMemory] = useState(256);
+  const [ephemeralStorage, setEphemeralStorage] = useState(1);
   const [serviceCount, setServiceCount] = useState(3);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +43,7 @@ export default function BuildFlux({ darkMode, image }) {
   const [summary, setSummary] = useState(false);
   const [agree, setAgree] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage2, setErrorMessage2] = useState("");
   const [errorImage, setErrorImage] = useState("");
   const [imageURL, setImageURL] = useState("");
   const [allowedLocations, setAllowedLocations] = useState([]);
@@ -63,6 +51,7 @@ export default function BuildFlux({ darkMode, image }) {
   const [orderId, setOrderId] = useState(1);
   const [appPrice, setAppPrice] = useState(0);
   const [accessToken, setAccessToken] = useState("");
+  const [existingNames, setExistingNames] = useState([]);
 
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
@@ -94,11 +83,29 @@ export default function BuildFlux({ darkMode, image }) {
     setShowPorts(false);
     setEditingPortIndex(null);
   };
-  const handleNameChange = (event) => {
-    const newName = event.target.value;
-    setName(newName);
-    setServiceName(name);
+
+  const handleNameChange = (e) => {
+    const inputValue = e.target.value;
+
+    // Expresión regular que solo permite letras y números
+    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+
+    // Verificar si el input cumple con la expresión regular
+    if (alphanumericRegex.test(inputValue)) {
+      const lowercaseValue = inputValue.toLowerCase();
+
+      const isNameTaken = existingNames.includes(lowercaseValue);
+
+      setName(lowercaseValue);
+
+      if (isNameTaken) {
+        setErrorMessage2("Service name already in use");
+      } else {
+        setErrorMessage2("");
+      }
+    }
   };
+
   const handleSummary = (state) => {
     if (!name.trim()) {
       setErrorMessage("This field is required.");
@@ -145,31 +152,27 @@ export default function BuildFlux({ darkMode, image }) {
 
     try {
       const deploymentConfig = {
-        name: serviceName,
-        description: "Application deployed on Grid",
-        owner: ownerFlux,
+        name: name,
+        description: componentData.description || "gridDefaultDescription",
         compose: [
           {
-            name: serviceName,
-            description: "Application deployed on Grid",
-            repotag: imageURL,
+            name: name,
+            description: componentData.description || "gridDefaultDescription",
+            repotag: repoTag,
             ports: [36522],
             domains: [""],
-            environmentParameters: env || [],
-            commands: commands || [],
-            containerPorts: [8080],
+            environmentParameters: [""],
+            commands: commands || [""],
+            containerPorts: ports.contPorts || [""],
             containerData: "/data",
-            cpu: cpu,
-            ram: memory,
-            hdd: ephemeralStorage,
+            cpu: parseFloat(cpu) || 0.1,
+            ram: parseInt(memory) || 256,
+            hdd: parseInt(ephemeralStorage) || 1,
             tiered: false,
             secrets: "",
             repoauth: "",
           },
         ],
-        instances: serviceCount || 3,
-        geolocation: [...allowedLocations, ...forbiddenLocations],
-        staticip: false,
       };
 
       const response = await fetch("/api/flux-deploy", {
@@ -182,7 +185,6 @@ export default function BuildFlux({ darkMode, image }) {
       });
 
       if (!response.ok) {
-        console.log(response);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -191,8 +193,29 @@ export default function BuildFlux({ darkMode, image }) {
       router.push("/profile");
     } catch (error) {
       console.error("Deployment error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchExistingNames = async () => {
+      try {
+        const response = await fetch(
+          "https://api.runonflux.io/apps/globalappsspecifications"
+        );
+        const data = await response.json();
+        if (data && data.data) {
+          const names = data.data.map((app) => app.name.toLowerCase());
+          setExistingNames(names);
+        }
+      } catch (err) {
+        console.error("Error loading existing app names");
+      }
+    };
+
+    fetchExistingNames();
+  }, []);
 
   useEffect(() => {
     const tokens = TokenService.getTokens();
@@ -230,7 +253,9 @@ export default function BuildFlux({ darkMode, image }) {
         {activeTab === "builder" ? (
           <>
             <h3> Specify your image URL</h3>
-            {errorImage && <h3 className="error-message">{errorImage}</h3>}{" "}
+            {errorMessage && (
+              <h3 className="error-message">{errorMessage}</h3>
+            )}{" "}
             <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
               <input
                 onChange={(e) => setImageURL(e.target.value)}
@@ -244,8 +269,8 @@ export default function BuildFlux({ darkMode, image }) {
                 className={`buildpack-single ${darkMode ? "dark" : "light"}`}
               >
                 <h3> Service name</h3>
-                {errorMessage && (
-                  <h3 className="error-message">{errorMessage}</h3>
+                {errorMessage2 && (
+                  <h3 className="error-message">{errorMessage2}</h3>
                 )}{" "}
                 <div
                   className={`input-container5 ${darkMode ? "dark" : "light"}`}
@@ -422,7 +447,7 @@ export default function BuildFlux({ darkMode, image }) {
             ram={memory}
             hdd={ephemeralStorage}
             mode={darkMode}
-            name={serviceName}
+            name={name}
             setSummary={setSummary}
             setAgree={setAgree}
           />
@@ -437,9 +462,7 @@ export default function BuildFlux({ darkMode, image }) {
           >
             <div className="line-background"></div>
             {isLoading ? (
-              <div className="loading-container">
-                <LoadingText />
-              </div>
+              <Spinner />
             ) : (
               <>
                 <button

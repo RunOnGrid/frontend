@@ -34,6 +34,7 @@ const BuildSettings = forwardRef(
     const [branch, setBranch] = useState("");
     const [showNext, setShowNext] = useState(false);
     const [loadingWorkflow, setLoadingWorkflow] = useState(false);
+    const [workflowRun, setWorkflowRun] = useState(false);
 
     const router = useRouter();
 
@@ -84,6 +85,7 @@ const BuildSettings = forwardRef(
         }
 
         const data = await response.json();
+
         setRepos(data.message);
       } catch (error) {
         console.error("Error fetching branches:", error);
@@ -112,8 +114,32 @@ const BuildSettings = forwardRef(
       }
     };
 
+    const checkWorkflowStatus = async (installationId, owner, repo, runId) => {
+      try {
+        const response = await fetch(
+          `/api/work-status-proxy?installationId=${installationId}&owner=${owner}&repo=${repo}&runId=${runId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          return true;
+        }
+
+        return false;
+      } catch (error) {
+        console.error("Error checking workflow status:", error);
+        return false;
+      }
+    };
+
     const handleWorkflow = async () => {
       setLoadingWorkflow(true);
+      setWorkflowInstalled(false);
       try {
         const response = await fetch(`/api/workflows-proxy`, {
           method: "POST",
@@ -128,7 +154,7 @@ const BuildSettings = forwardRef(
             branch: branch,
           }),
         });
-
+        console.log(response);
         if (!response.ok) {
           throw new Error(`Error fetching branches: ${response.statusText}`);
         }
@@ -136,16 +162,33 @@ const BuildSettings = forwardRef(
         const data = await response.json();
         setWorkflowUrl(data.workflow_url);
         setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
+        setWorkflowRun(true);
         setWorkflow(true);
-        setShowNext(true);
         setLoadingWorkflow(false);
+
+        // Start polling for workflow status
+        const statusInterval = setInterval(async () => {
+          const isComplete = await checkWorkflowStatus(
+            installationId,
+            owner,
+            singleRepo,
+            data.runId
+          );
+
+          if (isComplete) {
+            clearInterval(statusInterval);
+            setShowNext(true);
+          }
+        }, 10000); // Check every 10 seconds
       } catch (error) {
         setNotWorkflow(true);
         console.error("Error fetching branches:", error);
       }
     };
 
-    const handleCommit = async () => {
+    const handleCommit = async (option) => {
+      setLoadingWorkflow(true);
+      setWorkflowInstalled(false);
       try {
         const response = await fetch(`/api/commit-workflow-proxy`, {
           method: "POST",
@@ -157,20 +200,54 @@ const BuildSettings = forwardRef(
             owner: owner,
             repo: singleRepo,
             workflow: "grid-ci.yml",
-            branch: branch,
+            branch: option,
           }),
         });
 
         if (!response.ok) {
           throw new Error(`Error fetching branches: ${response.statusText}`);
         }
-
-        const data = await response.json();
-        setNotWorkflow(false);
-        setWorkflowInstalled(true);
+        if (response.ok) {
+          const data = await response.json();
+          setWorkflowInstalled(true);
+          setLoadingWorkflow(false);
+        }
       } catch (error) {
         console.error("Error fetching branches:", error);
       }
+    };
+
+    // const handleCommitCheck = async () => {
+    //   try {
+    //     const response = await fetch(`/api/commit-workflow-proxy`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         installationId: installationId,
+    //         owner: owner,
+    //         repo: singleRepo,
+    //         workflow: "grid-ci.yml",
+    //         branch: branch,
+    //       }),
+    //     });
+
+    //     if (!response.ok) {
+    //       throw new Error(`Error fetching branches: ${response.statusText}`);
+    //     }
+
+    //     const data = await response.json();
+    //     setNotWorkflow(false);
+    //     setWorkflowInstalled(true);
+    //   } catch (error) {
+    //     console.error("Error fetching branches:", error);
+    //   }
+    // };
+
+    const handleBranch = (option) => {
+      handleCommit(option);
+      setBranch(option)
     };
 
     return (
@@ -196,29 +273,11 @@ const BuildSettings = forwardRef(
             </div>
             <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
               <h3> Branches</h3>
-              <Select4 options={branches} onSelect={setBranch} />
+              <Select4 options={branches} onSelect={handleBranch} />
             </div>
           </div>
-          {notWorkflow && (
-            <div>
-              <span>
-                You don't have the workflow committed into your repo, commit it
-                with this button:
-              </span>
-              <button onClick={() => handleCommit()} className="add-button">
-                {" "}
-                Commit grid-ci workflow
-              </button>
-            </div>
-          )}
-          {workflowInstalled && (
-            <>
-              <span>Workflow committed correctly</span>
-            </>
-          )}
-          {loadingWorkflow ? (
-            <Spinner />
-          ) : (
+          {loadingWorkflow && <Spinner />}
+          {workflowInstalled ? (
             <button
               onClick={() => {
                 handleWorkflow();
@@ -228,18 +287,21 @@ const BuildSettings = forwardRef(
               {" "}
               Run Workflow
             </button>
+          ) : (
+            ""
           )}
 
-          {workflow && (
+          {workflow && !showNext && (
             <div className="workflow-text">
               <span className="workflow-text">
                 {" "}
                 Check the progress of the workflow on this url:
                 <Link href={workflowUrl} target="_blank">
-                  <h2>{workflowUrl} </h2>
+                  <h2 className="buildpack-item2">
+                    {workflowUrl} <Spinner />{" "}
+                  </h2>
                 </Link>
               </span>
-              <p>When the job is done press continue</p>
             </div>
           )}
 

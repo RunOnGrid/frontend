@@ -1,35 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
 import EnvModal from "../EnvModal";
-import PayModal from "../PayModal";
 import CommModal from "../CommModal";
 import PortModal from "../PortFlux";
-import Select2 from "@/commons/Select2";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "../stripe/StripeScreen";
 import PricingPlanAkash from "../deploy/PricingPlanAkash";
 import Botonera2 from "@/commons/Botonera2";
 import SummaryAkash from "../deploy/SummaryAkash";
-import Select3 from "@/commons/Select3";
-import HoverInfo from "@/commons/HoverInfo";
 import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
 import { TokenService } from "../../../tokenHandler";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
+
 
 export default function BuildAkash({ darkMode, image }) {
   const [activeStep, setActiveStep] = useState(3);
   const [editingPortIndex, setEditingPortIndex] = useState(null);
   const [serviceName, setServiceName] = useState("service-grid");
-  const [cpu, setCpu] = useState(0.5);
-  const [memory, setMemory] = useState(512);
-  const [ephemeralStorage, setEphemeralStorage] = useState(512);
-  const [serviceCount, setServiceCount] = useState(3);
+  const [cpu, setCpu] = useState(0.1);
+  const [memory, setMemory] = useState(256);
+  const [ephemeralStorage, setEphemeralStorage] = useState(1);
+  const [serviceCount, setServiceCount] = useState(1);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
@@ -98,11 +88,11 @@ export default function BuildAkash({ darkMode, image }) {
   };
   const handleNameChange = (event) => {
     const newName = event.target.value;
-    setName(newName);
-    setServiceName(`${newName.toLowerCase()}-${uuidv4()}`);
+    
+    setServiceName(newName);
   };
   const handleSummary = (state) => {
-    if (!name.trim()) {
+    if (!serviceName.trim()) {
       setErrorMessage("This field is required.");
       return;
     }
@@ -149,22 +139,7 @@ export default function BuildAkash({ darkMode, image }) {
     );
   };
 
-  const cpuText = [
-    "The amount of vCPU's required for this workload.",
-    "The maximum for a single instance is 384 vCPU's.",
-    "The maximum total multiplied by the count of instances is 512 vCPU's.",
-  ];
-  const memoryText = [
-    "The amount of memory required for this workload.",
-    "The maximum for a single instance is 512 Gi.",
-    "The maximum total multiplied by the count of instances is 1024 Gi.",
-  ];
-  const ephemeralText = [
-    "The amount of ephemeral disk storage required for this workload.",
-    "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
-    "The maximum for a single instance is 32 Ti.",
-    "The maximum total multiplied by the count of instances is also 32 Ti",
-  ];
+
 
   const handleContinue = async () => {
     if (!agree) {
@@ -327,7 +302,7 @@ export default function BuildAkash({ darkMode, image }) {
                   <input
                     type="text"
                     className={`custom-input ${darkMode ? "dark" : "light"}`}
-                    value={name}
+                    value={serviceName}
                     onChange={handleNameChange}
                     required
                   />
@@ -810,3 +785,20 @@ className={`buildpack-single ${darkMode ? "dark" : "light"}`}
                 </div>
               </div> */
 }
+
+  // const cpuText = [
+  //   "The amount of vCPU's required for this workload.",
+  //   "The maximum for a single instance is 384 vCPU's.",
+  //   "The maximum total multiplied by the count of instances is 512 vCPU's.",
+  // ];
+  // const memoryText = [
+  //   "The amount of memory required for this workload.",
+  //   "The maximum for a single instance is 512 Gi.",
+  //   "The maximum total multiplied by the count of instances is 1024 Gi.",
+  // ];
+  // const ephemeralText = [
+  //   "The amount of ephemeral disk storage required for this workload.",
+  //   "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
+  //   "The maximum for a single instance is 32 Ti.",
+  //   "The maximum total multiplied by the count of instances is also 32 Ti",
+  // ];

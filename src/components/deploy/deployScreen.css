@@ -65,7 +65,7 @@
 .deployMethodBox-container{
   display: grid;
   grid-template-columns: 45% 45%;
-  justify-content: flex-start;
+  justify-content: center;
   margin-bottom: 25px;
 }
 .locationSelect {
@@ -392,7 +392,7 @@
 
 
 .summary-container {
-  padding: 20px;
+  padding: 25px;
   border-radius: 20px;
   width: 90%;
   margin:  auto;
@@ -912,8 +912,8 @@
   border: 1px solid #ccc;
   border-radius: 25px;
   width: 90%;
-  
-  margin-top: 30px;
+  margin: auto;
+  margin-top: 25px;
   
 }
 .add-buildpack span{
@@ -1056,6 +1056,19 @@
   border-radius: 25px;
   width: max-content;
   cursor: pointer;
+}
+.install-container{
+  display: flex;
+  align-items: center;
+}
+.install-container img{
+  display: flex;
+  margin: auto 10px;
+
+}
+.install-container img:hover{
+  transform: rotate(145deg);
+  transition: transform 0.7s ease;
 }
 .install-github2{
   display: flex;

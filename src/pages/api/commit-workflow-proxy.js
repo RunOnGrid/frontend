@@ -4,8 +4,7 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       try {
         const { installationId, owner, repo, workflow, branch } = req.body;
-       
-        
+
         const response = await fetch(`${API_URL}/workflows/install`, {
           method: "POST",
           headers: {
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
             branch,
           }),
         });
-        console.log(response);
+
         if (response.ok) {
           const data = await response.json();
           res.status(200).json(data);
