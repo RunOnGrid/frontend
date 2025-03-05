@@ -1,22 +1,27 @@
-// ThemeContext.js
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-const ThemeContext = createContext();
+// Primero definimos el contexto
+export const ThemeContext = createContext();
 
+// Luego creamos el hook personalizado para usarlo
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      setDarkMode(storedTheme === "dark");
+  // Inicializa el estado con una función para leer localStorage
+  const [darkMode, setDarkMode] = useState(() => {
+    // Verificar si estamos en el navegador (para evitar errores en SSR)
+    if (typeof window !== "undefined") {
+      const storedTheme = localStorage.getItem("theme");
+      return storedTheme === "dark";
     }
-  }, []);
+    return false; // Valor predeterminado para SSR
+  });
 
+  // Actualiza localStorage cuando cambia el modo
   useEffect(() => {
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme", darkMode ? "dark" : "light");
+    }
   }, [darkMode]);
 
   const toggleDarkMode = () => {
