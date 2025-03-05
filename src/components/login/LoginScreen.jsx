@@ -102,7 +102,7 @@ const LoginScreen = () => {
         <h2>Welcome back!</h2>
         <span>Please Sign in with your personal info</span>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Link href={"https://backend-dev.ongrid.run/oauth/google"}>
+          <Link href={"https://backend-alpha.ongrid.run/oauth/google"}>
             <button className="google-signIn">
               {" "}
               <Image alt="" src="/googleLogo.png" width={25} height={25} />
