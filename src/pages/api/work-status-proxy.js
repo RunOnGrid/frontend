@@ -21,17 +21,21 @@ export default async function handler(req, res) {
           },
         }
       );
-  
+      
       if (!response.ok) {
         throw new Error(`Error fetching repositories: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
-      if (data.workflow_run.status === 'in_progress') {
-        res.status(201).json(data)
+      console.log(data);
+      if (data.workflow_run.conclusion === null) {
+        res.status(201).json(data);
       }
-      if (data.workflow_run.status === "completed") {
+      if (data.workflow_run.conclusion === "success") {
         res.status(200).json(data);
+      }
+      if (data.workflow_run.conclusion === "failure") {
+        res.status(500).json(data);
       }
       res.status(202).json(data);
     } catch (error) {

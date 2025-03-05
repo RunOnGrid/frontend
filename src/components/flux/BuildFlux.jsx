@@ -148,17 +148,17 @@ export default function BuildFlux({ darkMode, image }) {
     setPaymentCompleted(true);
 
     const portsInput = ports.contPorts;
-    const portsArray = JSON.parse(portsInput);
+    // const portsArray = portsInput ? JSON.parse(portsInput) : '';
 
     try {
       const deploymentConfig = {
         name: name,
-        description: componentData.description || "gridDefaultDescription",
+        description: "Application deployed by Grid",
         compose: [
           {
             name: name,
-            description: componentData.description || "gridDefaultDescription",
-            repotag: repoTag,
+            description: "Application deployed by Grid",
+            repotag: imageURL,
             domains: [""],
             environmentParameters: [""],
             commands: commands || [""],
@@ -254,8 +254,8 @@ export default function BuildFlux({ darkMode, image }) {
             <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
               <input
                 onChange={(e) => setImageURL(e.target.value)}
-                // value={imageURL}
-                placeholder="ex: gridcloud/aptos-app:v.1"
+                value={imageURL}
+                placeholder="ex: gridcloud/hello-app:1.0"
               />
               <Image alt="" src="/searchLigth.png" height={20} width={20} />
             </div>
@@ -324,7 +324,7 @@ export default function BuildFlux({ darkMode, image }) {
                   <div>
                     <h3>Environment Variables</h3>
 
-                    <p>
+                    <div>
                       {Object.keys(env).length === 0 ? (
                         "None"
                       ) : (
@@ -342,7 +342,7 @@ export default function BuildFlux({ darkMode, image }) {
                           ))}
                         </div>
                       )}
-                    </p>
+                    </div>
                   </div>
                   <span
                     onClick={() => {

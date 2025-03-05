@@ -284,7 +284,7 @@ export default function BuildAkash({ darkMode, image }) {
               <input
                 onChange={(e) => setImageURL(e.target.value)}
                 // value={imageURL}
-                placeholder="ex: gridcloud/aptos-app:v.1"
+                placeholder="ex: gridcloud/hello-app:1.0"
               />
               <Image alt="" src="/searchLigth.png" height={20} width={20} />
             </div>
