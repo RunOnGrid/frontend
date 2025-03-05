@@ -101,8 +101,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     setEnv(newEnv);
   };
 
-  const handleSaveCommand = (commandData) => {
-    setCommands(commandData);
+  const handleSaveCommand = (newData) => {
+    setCommands((prevCommands) => [...prevCommands, newData.command]);
+    setArgs((prevArgs) => [...prevArgs, newData.argument]);
+
     setShowComm(false);
   };
 
@@ -230,16 +232,18 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
     setShowPayment(false);
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
       const deploymentConfig = {
         name: name,
-        description: componentData.description || "gridDefaultDescription",
+        description:
+          componentData.description || "Application deployed by Grid",
         compose: [
           {
             name: name,
-            description: componentData.description || "gridDefaultDescription",
+            description:
+              componentData.description || "Application deployed by Grid",
             repotag: repoTag,
             domains: componentData.domains || [""],
             environmentParameters: [""],

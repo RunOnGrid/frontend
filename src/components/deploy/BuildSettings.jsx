@@ -32,9 +32,11 @@ const BuildSettings = forwardRef(
     const [notWorkflow, setNotWorkflow] = useState(false);
     const [workflowInstalled, setWorkflowInstalled] = useState(false);
     const [branch, setBranch] = useState("");
-    const [showNext, setShowNext] = useState(false);
+    const [showNext, setShowNext] = useState(true);
     const [loadingWorkflow, setLoadingWorkflow] = useState(false);
     const [workflowRun, setWorkflowRun] = useState(false);
+    const [errorWorkflow, setErrorWorkflow] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const router = useRouter();
 
@@ -127,13 +129,16 @@ const BuildSettings = forwardRef(
         );
 
         if (response.status === 200) {
-          return true;
+          return { status: "success" };
         }
 
-        return false;
+        if (response.status === 500) {
+          throw new Error("Failed to run workflow successfully");
+        }
+
+        return { status: "pending" };
       } catch (error) {
-        console.error("Error checking workflow status:", error);
-        return false;
+        throw error;
       }
     };
 
@@ -168,21 +173,35 @@ const BuildSettings = forwardRef(
 
         // Start polling for workflow status
         const statusInterval = setInterval(async () => {
-          const isComplete = await checkWorkflowStatus(
-            installationId,
-            owner,
-            singleRepo,
-            data.runId
-          );
+          try {
+            const result = await checkWorkflowStatus(
+              installationId,
+              owner,
+              singleRepo,
+              data.runId
+            );
 
-          if (isComplete) {
+            if (result.status === "success") {
+              clearInterval(statusInterval);
+              setShowNext(true);
+            }
+          } catch (pollingError) {
+            // This will now catch the 500 status error
             clearInterval(statusInterval);
-            setShowNext(true);
+            setErrorWorkflow(true);
+            setErrorMessage("Failed to run workflow successfully");
+            setNotWorkflow(true);
+            setWorkflow(false);
+            setLoadingWorkflow(false);
+            console.error("Workflow status error:", pollingError);
           }
-        }, 10000); // Check every 10 seconds
+        }, 10000);
       } catch (error) {
         setNotWorkflow(true);
+        setWorkflow(false);
+        setLoadingWorkflow(false);
         console.error("Error fetching branches:", error);
+        alert(error.message);
       }
     };
 
@@ -315,6 +334,19 @@ const BuildSettings = forwardRef(
               />
             </div>
           </div> */}
+          {errorWorkflow && (
+            <div className="text-container">
+              <span className="texto-pipeline2">The pipeline has failed.</span>
+              <Link href={workflowUrl} target="_blank">
+                <span
+                  style={{ marginBottom: "-20px" }}
+                  className="texto-pipeline2"
+                >
+                  {workflowUrl}
+                </span>
+              </Link>
+            </div>
+          )}
           {showNext && (
             <div className="text-container">
               <span className="texto-pipeline">

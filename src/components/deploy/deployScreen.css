@@ -610,6 +610,11 @@
   justify-content: center;
   width: 100%;
 }
+.texto-pipeline2{
+  color: #f12b2b;
+  justify-content: center;
+  width: 100%;
+}
 .add-button4 {
   display: flex;
   border: 2px solid #00b174 !important;
