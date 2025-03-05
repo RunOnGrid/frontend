@@ -111,10 +111,19 @@ const MethodSelectFlux = forwardRef(
               <p className="span-deploy">Install our github app.</p>
             )}
             {build || appInstalled ? (
-              <div className="install-github2">
-                {console.log(build, appInstalled, "esto es el log")}
-                <Image alt="" src="/github3.png" height={15} width={15} />
-                <span>Installed</span>
+              <div className="install-container">
+                <div className="install-github2">
+                  <Image alt="" src="/github3.png" height={15} width={15} />
+                  <span>Installed</span>
+                </div>
+                <Link href={gitUrl} target="_blank">
+                  <Image
+                    alt=""
+                    src="/settingsLigth.png"
+                    width={22}
+                    height={22}
+                  />
+                </Link>
               </div>
             ) : (
               <Link href={gitUrl}>

@@ -6,30 +6,19 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Image from "next/image"; // Missing import for Image component
 import BuildSettings from "../BuildSettings";
-import Buildpack from "../Buildpack";
 import { useRouter } from "next/router";
-import { loadStripe } from "@stripe/stripe-js";
 import { useTheme } from "@/ThemeContext";
-import AppGeoSelect from "./AppGeoSelect";
-import AppComponentSelect from "./AppComponentSelect";
-import Summary from "../Summary";
 import Botonera2 from "@/commons/Botonera2";
 import Spinner from "@/commons/Spinner";
-import LoadingText from "@/commons/LoaderText";
 import SummaryAkash from "../SummaryAkash";
 import CommModal from "@/components/CommModal";
 import EnvModal from "@/components/EnvModal";
 import PortFlux from "@/components/PortFlux";
 import PricingPlanFlux from "./PricingPlanFlux";
-import InstallTemplates from "./InstallTemplates";
 import { TokenService } from "../../../../tokenHandler";
 import Link from "next/link";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
 
 const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const { darkMode } = useTheme();
@@ -41,6 +30,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [imageURL, setImageURL] = useState("");
   const [errorImage, setErrorImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage2, setErrorMessage2] = useState("");
   const [memory, setMemory] = useState(256);
   const [cpu, setCpu] = useState(0.1);
   const [ephemeralStorage, setEphemeralStorage] = useState(1);
@@ -67,9 +57,29 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     setShowConfig(true);
   };
 
-  // Missing handler functions
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    const inputValue = e.target.value;
+    
+    // Expresión regular que solo permite letras y números
+    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+    
+    // Verificar si el input cumple con la expresión regular
+    if (alphanumericRegex.test(inputValue)) {
+      const lowercaseValue = inputValue.toLowerCase();
+      
+      // Verificar si el nombre ya existe
+      const isNameTaken = existingNames.includes(lowercaseValue);
+      
+      // Actualizar el estado del nombre
+      setName(lowercaseValue);
+      
+      // Manejar el estado de error para nombres existentes
+      if (isNameTaken) {
+        setErrorMessage2('Este nombre de aplicación ya está en uso');
+      } else {
+        setErrorMessage2('');
+      }
+    } 
   };
   const handlePat = (e) => {
     setPat(e.target.value);
@@ -104,8 +114,18 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     setArgs(args.filter((_, i) => i !== index));
   };
 
-  const handleSummary = (value) => {
-    setSummary(value);
+  const handleSummary = (state) => {
+    if (!name.trim()) {
+      setErrorMessage2("This field is required.");
+      return;
+    }
+    if (!pat.trim()) {
+      setErrorMessage("This field is required.");
+      return;
+    }
+    setErrorMessage("");
+    setSummary(true);
+    setActiveStep(4);
   };
 
   const [completedSteps, setCompletedSteps] = useState([]);
@@ -178,14 +198,12 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
       }
     };
 
-    // Configurar un intervalo que se ejecute cada 5 segundos
     const intervalId = setInterval(() => {
       if (repositories.length === 0) {
         fetchRepositories();
       }
     }, 4000);
 
-    // Limpiar el intervalo cuando haya datos en repositories
     return () => clearInterval(intervalId);
   }, [repositories]);
 
@@ -209,68 +227,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     }
   }, [repositories]);
 
-  // Location and IP handlers
-  const handleAllowedLocationsChange = useCallback((locations) => {
-    setAllowedLocations(locations);
-  }, []);
-
-  const handleForbiddenLocationsChange = useCallback((locations) => {
-    setForbiddenLocations(locations);
-  }, []);
-
-  const handleStaticIp = (boolean) => {
-    setStaticIp(boolean);
-  };
-
-  // Step completion handler
-  const handleCompleteStep = (step) => {
-    setCompletedSteps((prevSteps) => [...prevSteps, step]);
-    setActiveStep(step + 1);
-  };
-
-  // Tab change handler
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    if (tab === "yaml") {
-      setCompletedSteps((prevSteps) => prevSteps.filter((step) => step <= 2));
-      setActiveStep(2);
-      setComponentData({});
-      setAllowedLocations([]);
-      setForbiddenLocations([]);
-      setStaticIp(null);
-      setPrice(0);
-    }
-  };
-
-  // Payment and deployment handlers
-  const handleContinue = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: price * 100 }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-      setShowPayment(true);
-    } catch (err) {
-      console.error("Payment intent error:", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
     setShowPayment(false);
+    setIsLoading(true)
 
     try {
       const deploymentConfig = {
@@ -296,7 +256,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           },
         ],
       };
-      console.log(deploymentConfig, "esto es compose");
+
       const response = await fetch("/api/flux-deploy", {
         method: "POST",
         headers: {
@@ -311,10 +271,12 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
       }
 
       const data = await response.json();
-      console.log(data);
+      
     } catch (error) {
       console.error("Deployment error:", error);
-    }
+    } finally {
+          setIsLoading(false);
+        }
   };
   return (
     <div>
@@ -341,7 +303,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
             ref={servicesRef}
             className={`deployment-config ${summary ? "disabled" : ""}`}
           >
-            <h2>Deployment configuration</h2>
+            <h2>Deployment configurations</h2>
 
             <p>Configure your deployment settings.</p>
             <div className="billing-tabs">
@@ -363,8 +325,8 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
                     }`}
                   >
                     <h3> Service name</h3>
-                    {errorMessage && (
-                      <h3 className="error-message">{errorMessage}</h3>
+                    {errorMessage2 && (
+                      <h3 className="error-message">{errorMessage2}</h3>
                     )}{" "}
                     <div
                       className={`input-container5 ${
@@ -591,22 +553,20 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
               >
                 <div className="line-background"></div>
                 {isLoading ? (
-                  <div className="loading-container">
-                    <LoadingText />
-                  </div>
-                ) : (
-                  <>
-                    <button
-                      className="deploy-button"
-                      onClick={() => {
-                        handlePaymentSuccess();
-                      }}
-                      disabled={isLoading}
-                    >
-                      Deploy
-                    </button>
-                  </>
-                )}
+              <Spinner/>
+            ) : (
+              <>
+                <button
+                  className="deploy-button"
+                  onClick={() => {
+                    handlePaymentSuccess();
+                  }}
+                  disabled={isLoading}
+                >
+                  Deploy
+                </button>
+              </>
+            )}
               </div>
             </div>
           )}
@@ -617,3 +577,62 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
 };
 
 export default GithubFlux;
+
+// Location and IP handlers
+// const handleAllowedLocationsChange = useCallback((locations) => {
+//   setAllowedLocations(locations);
+// }, []);
+
+// const handleForbiddenLocationsChange = useCallback((locations) => {
+//   setForbiddenLocations(locations);
+// }, []);
+
+// const handleStaticIp = (boolean) => {
+//   setStaticIp(boolean);
+// };
+
+// Step completion handler
+// const handleCompleteStep = (step) => {
+//   setCompletedSteps((prevSteps) => [...prevSteps, step]);
+//   setActiveStep(step + 1);
+// };
+
+// Tab change handler
+// const handleTabChange = (tab) => {
+//   setActiveTab(tab);
+//   if (tab === "yaml") {
+//     setCompletedSteps((prevSteps) => prevSteps.filter((step) => step <= 2));
+//     setActiveStep(2);
+//     setComponentData({});
+//     setAllowedLocations([]);
+//     setForbiddenLocations([]);
+//     setStaticIp(null);
+//     setPrice(0);
+//   }
+// };
+
+// Payment and deployment handlers
+// const handleContinue = async () => {
+//   setIsLoading(true);
+//   try {
+//     const response = await fetch("/api/create-payment-intent", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ amount: price * 100 }),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`Error: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     setClientSecret(data.clientSecret);
+//     setShowPayment(true);
+//   } catch (err) {
+//     console.error("Payment intent error:", err);
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };

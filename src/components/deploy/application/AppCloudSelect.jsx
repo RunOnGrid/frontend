@@ -30,7 +30,6 @@ const AppCloudSelect = ({ onNext, methodReset }) => {
     if (installationId) {
       const response = TokenService.getTokens();
       if (response) {
-        console.log(response.tokens.gridId);
       }
     }
   }, []);
