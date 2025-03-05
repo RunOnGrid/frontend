@@ -7,12 +7,16 @@ import AppsTableHeader from "./AppsTableHeader";
 import { useRouter } from "next/router";
 import MobileFooterBar from "./ProfileFooter";
 import Image from "next/image";
+import DeleteModal from "../DeleteModal";
 
 const AppsTable = () => {
   const { darkMode } = useTheme();
   const [accessToken2, setAccessToken2] = useState(null);
   const [email, setEmail] = useState("");
-  const [apps, setApps] = useState([]); // Estado para almacenar las aplicaciones.
+  const [apps, setApps] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [deleteName, setDeleteName] = useState("");
+  const [deleteId, setDeleteId] = useState("");
   const router = useRouter();
 
   const fetchRepos = async () => {
@@ -65,11 +69,23 @@ const AppsTable = () => {
       }
 
       const data = await response.json();
-
+      setShowModal(false);
       fetchRepos();
     } catch (err) {
       console.error("Error loading existing app names:", err);
     }
+  };
+  const sortedApps = apps.sort((a, b) => {
+    const dateA = new Date(a.createdAt).getTime();
+    const dateB = new Date(b.createdAt).getTime();
+
+    return dateB - dateA;
+  });
+
+  const handleModal = (value, id) => {
+    setShowModal(true);
+    setDeleteName(value);
+    setDeleteId(id);
   };
 
   return (
@@ -77,6 +93,19 @@ const AppsTable = () => {
       <div className="dashboard-header">
         <h2>My applications</h2>
       </div>
+      {showModal && (
+        <>
+          <DeleteModal
+            darkMode={darkMode}
+            onClick={() => {
+              setShowModal(false);
+            }}
+            name={deleteName}
+            onYes={deleteRow}
+            id={deleteId}
+          />
+        </>
+      )}
       <div className="table-container">
         {apps.length === 0 ? (
           <div
@@ -93,19 +122,19 @@ const AppsTable = () => {
         ) : (
           <>
             <AppsTableHeader />
-            {apps.map((app, index) => (
+            {sortedApps.map((app, index) => (
               <div className="dashboard-row">
                 <AppsTableRow
                   key={index}
                   status={app.status}
                   mode={darkMode}
-                  name={app.id}
+                  name={app.serviceName}
                   type={app.cloudProvider}
                   uri={app.uri}
                   creationDate={app.createdAt}
                 />
                 <Image
-                  onClick={() => deleteRow(app.id)}
+                  onClick={() => handleModal(app.serviceName, app.id)}
                   alt=""
                   src="/deleteL.png"
                   height={22}

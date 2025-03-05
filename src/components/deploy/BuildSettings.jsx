@@ -34,6 +34,9 @@ const BuildSettings = forwardRef(
     const [branch, setBranch] = useState("");
     const [showNext, setShowNext] = useState(false);
     const [loadingWorkflow, setLoadingWorkflow] = useState(false);
+    const [workflowRun, setWorkflowRun] = useState(false);
+    const [errorWorkflow, setErrorWorkflow] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const router = useRouter();
 
@@ -84,6 +87,7 @@ const BuildSettings = forwardRef(
         }
 
         const data = await response.json();
+
         setRepos(data.message);
       } catch (error) {
         console.error("Error fetching branches:", error);
@@ -112,8 +116,35 @@ const BuildSettings = forwardRef(
       }
     };
 
+    const checkWorkflowStatus = async (installationId, owner, repo, runId) => {
+      try {
+        const response = await fetch(
+          `/api/work-status-proxy?installationId=${installationId}&owner=${owner}&repo=${repo}&runId=${runId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          return { status: "success" };
+        }
+
+        if (response.status === 500) {
+          throw new Error("Failed to run workflow successfully");
+        }
+
+        return { status: "pending" };
+      } catch (error) {
+        throw error;
+      }
+    };
+
     const handleWorkflow = async () => {
       setLoadingWorkflow(true);
+      setWorkflowInstalled(false);
       try {
         const response = await fetch(`/api/workflows-proxy`, {
           method: "POST",
@@ -136,16 +167,47 @@ const BuildSettings = forwardRef(
         const data = await response.json();
         setWorkflowUrl(data.workflow_url);
         setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
+        setWorkflowRun(true);
         setWorkflow(true);
-        setShowNext(true);
         setLoadingWorkflow(false);
+
+        // Start polling for workflow status
+        const statusInterval = setInterval(async () => {
+          try {
+            const result = await checkWorkflowStatus(
+              installationId,
+              owner,
+              singleRepo,
+              data.runId
+            );
+
+            if (result.status === "success") {
+              clearInterval(statusInterval);
+              setShowNext(true);
+            }
+          } catch (pollingError) {
+            // This will now catch the 500 status error
+            clearInterval(statusInterval);
+            setErrorWorkflow(true);
+            setErrorMessage("Failed to run workflow successfully");
+            setNotWorkflow(true);
+            setWorkflow(false);
+            setLoadingWorkflow(false);
+            console.error("Workflow status error:", pollingError);
+          }
+        }, 10000);
       } catch (error) {
         setNotWorkflow(true);
+        setWorkflow(false);
+        setLoadingWorkflow(false);
         console.error("Error fetching branches:", error);
+        alert(error.message);
       }
     };
 
-    const handleCommit = async () => {
+    const handleCommit = async (option) => {
+      setLoadingWorkflow(true);
+      setWorkflowInstalled(false);
       try {
         const response = await fetch(`/api/commit-workflow-proxy`, {
           method: "POST",
@@ -157,20 +219,54 @@ const BuildSettings = forwardRef(
             owner: owner,
             repo: singleRepo,
             workflow: "grid-ci.yml",
-            branch: branch,
+            branch: option,
           }),
         });
 
         if (!response.ok) {
           throw new Error(`Error fetching branches: ${response.statusText}`);
         }
-
-        const data = await response.json();
-        setNotWorkflow(false);
-        setWorkflowInstalled(true);
+        if (response.ok) {
+          const data = await response.json();
+          setWorkflowInstalled(true);
+          setLoadingWorkflow(false);
+        }
       } catch (error) {
         console.error("Error fetching branches:", error);
       }
+    };
+
+    // const handleCommitCheck = async () => {
+    //   try {
+    //     const response = await fetch(`/api/commit-workflow-proxy`, {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         installationId: installationId,
+    //         owner: owner,
+    //         repo: singleRepo,
+    //         workflow: "grid-ci.yml",
+    //         branch: branch,
+    //       }),
+    //     });
+
+    //     if (!response.ok) {
+    //       throw new Error(`Error fetching branches: ${response.statusText}`);
+    //     }
+
+    //     const data = await response.json();
+    //     setNotWorkflow(false);
+    //     setWorkflowInstalled(true);
+    //   } catch (error) {
+    //     console.error("Error fetching branches:", error);
+    //   }
+    // };
+
+    const handleBranch = (option) => {
+      handleCommit(option);
+      setBranch(option);
     };
 
     return (
@@ -196,29 +292,11 @@ const BuildSettings = forwardRef(
             </div>
             <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
               <h3> Branches</h3>
-              <Select4 options={branches} onSelect={setBranch} />
+              <Select4 options={branches} onSelect={handleBranch} />
             </div>
           </div>
-          {notWorkflow && (
-            <div>
-              <span>
-                You don't have the workflow committed into your repo, commit it
-                with this button:
-              </span>
-              <button onClick={() => handleCommit()} className="add-button">
-                {" "}
-                Commit grid-ci workflow
-              </button>
-            </div>
-          )}
-          {workflowInstalled && (
-            <>
-              <span>Workflow committed correctly</span>
-            </>
-          )}
-          {loadingWorkflow ? (
-            <Spinner />
-          ) : (
+          {loadingWorkflow && <Spinner />}
+          {workflowInstalled ? (
             <button
               onClick={() => {
                 handleWorkflow();
@@ -228,18 +306,21 @@ const BuildSettings = forwardRef(
               {" "}
               Run Workflow
             </button>
+          ) : (
+            ""
           )}
 
-          {workflow && (
+          {workflow && !showNext && (
             <div className="workflow-text">
               <span className="workflow-text">
                 {" "}
                 Check the progress of the workflow on this url:
                 <Link href={workflowUrl} target="_blank">
-                  <h2>{workflowUrl} </h2>
+                  <h2 className="buildpack-item2">
+                    {workflowUrl} <Spinner />{" "}
+                  </h2>
                 </Link>
               </span>
-              <p>When the job is done press continue</p>
             </div>
           )}
 
@@ -253,6 +334,34 @@ const BuildSettings = forwardRef(
               />
             </div>
           </div> */}
+          {errorWorkflow && (
+            <div className="text-container">
+              <span className="texto-pipeline2">The pipeline has failed.</span>
+              <Link href={workflowUrl} target="_blank">
+                <span
+                  style={{ marginBottom: "-20px" }}
+                  className="texto-pipeline2"
+                >
+                  {workflowUrl}
+                </span>
+              </Link>
+            </div>
+          )}
+          {showNext && (
+            <div className="text-container">
+              <span className="texto-pipeline">
+                The pipeline has finished successfully.
+              </span>
+              <Link href={workflowUrl} target="_blank">
+                <span
+                  style={{ marginBottom: "-20px" }}
+                  className="texto-pipeline"
+                >
+                  {workflowUrl}
+                </span>
+              </Link>
+            </div>
+          )}
           {showNext && (
             <button onClick={onNext} className="add-button4">
               Continue

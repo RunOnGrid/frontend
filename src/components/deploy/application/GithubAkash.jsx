@@ -1,20 +1,9 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BuildSettings from "../BuildSettings";
-import Buildpack from "../Buildpack";
 import { useRouter } from "next/router";
-import { loadStripe } from "@stripe/stripe-js";
 import { useTheme } from "@/ThemeContext";
-import AppGeoSelect from "./AppGeoSelect";
-import AppComponentSelect from "./AppComponentSelect";
-import Summary from "../Summary";
 import Botonera2 from "@/commons/Botonera2";
-import Spinner from "@/commons/Spinner";
-import { Elements } from "@stripe/react-stripe-js";
-import CheckoutForm from "@/components/stripe/StripeScreen";
-import Link from "next/link";
-import LoadingText from "@/commons/LoaderText";
 import SummaryAkash from "../SummaryAkash";
-import PayModal from "@/components/PayModal";
 import YamlEditor from "@/components/akash/YamlEditor";
 import PricingPlanAkash from "../PricingPlanAkash";
 import PortModal from "@/components/PortFlux";
@@ -23,10 +12,6 @@ import EnvModal from "@/components/EnvModal";
 import HoverInfo from "@/commons/HoverInfo";
 import Select3 from "@/commons/Select3";
 import Select2 from "@/commons/Select2";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
 
 const GithubAkash = ({ image }) => {
   const { darkMode } = useTheme();
@@ -166,37 +151,37 @@ const GithubAkash = ({ image }) => {
     "The maximum total multiplied by the count of instances is also 32 Ti",
   ];
 
-  const handleContinue = async () => {
-    setIsLoading(true);
-    setError(null);
-    setShowModal(false);
+  // const handleContinue = async () => {
+  //   setIsLoading(true);
+  //   setError(null);
+  //   setShowModal(false);
 
-    try {
-      const price = 100;
+  //   try {
+  //     const price = 100;
 
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount: price * 100, customer: "tuvieja" }),
-      });
+  //     const response = await fetch("/api/create-payment-intent", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ amount: price * 100, customer: "tuvieja" }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
+  //     }
 
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-      setShowPayment(true);
-      console.log(data, "respo0sne stripe");
-      console.log("funciona log");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     const data = await response.json();
+  //     setClientSecret(data.clientSecret);
+  //     setShowPayment(true);
+  //     console.log(data, "respo0sne stripe");
+  //     console.log("funciona log");
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
@@ -705,7 +690,7 @@ deployment:
       )}
 
       <div>
-        {showModal && (
+        {/* {showModal && (
           <>
             <PayModal
               darkMode={darkMode}
@@ -717,7 +702,7 @@ deployment:
               }}
             />
           </>
-        )}
+        )} */}
         {completedSteps.includes(4) && (
           <div ref={deployRef}>
             <SummaryAkash
@@ -739,7 +724,7 @@ deployment:
               }
             >
               <div className="line-background"></div>
-              {isLoading ? (
+              {/* {isLoading ? (
                 <div className="loading-container">
                   <LoadingText />
                 </div>
@@ -759,17 +744,9 @@ deployment:
                     </button>
                   </Link>
                 </>
-              )}
+              )} */}
             </div>
           </div>
-        )}
-        {showPayment && clientSecret && (
-          <Elements options={{ clientSecret }} stripe={stripePromise}>
-            <CheckoutForm
-              onClick={setShowPayment}
-              onPaymentSuccess={handlePaymentSuccess}
-            />
-          </Elements>
         )}
       </div>
     </div>
@@ -777,3 +754,14 @@ deployment:
 };
 
 export default GithubAkash;
+
+{
+  /* {showPayment && clientSecret && (
+          <Elements options={{ clientSecret }} stripe={stripePromise}>
+            <CheckoutForm
+              onClick={setShowPayment}
+              onPaymentSuccess={handlePaymentSuccess}
+            />
+          </Elements>
+        )} */
+}

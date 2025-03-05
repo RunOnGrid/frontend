@@ -93,7 +93,7 @@ export default async function handler(req, res) {
     };
 
     const yamlString = yaml.dump(yamlStructure);
- 
+    console.log(yamlString, "esto es string");
     const API_URL = process.env.GRID_API;
 
     const akashResponse = await fetch(`${API_URL}/akash`, {
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
     });
 
     const responseText = await akashResponse.text();
-
+    console.log(akashResponse);
     if (!akashResponse.ok) {
       throw new Error(
         `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`

@@ -1,21 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/ThemeContext";
 import AppCloudSelect from "./AppCloudSelect";
 import { useRouter } from "next/router";
 import MethodSelectAkash from "./MethodSelectAkash";
 import MethodSelectFlux from "./MethodSelectFlux";
-import { loadStripe } from "@stripe/stripe-js";
 import BuildAkash from "@/components/akash/BuildAkash";
-import DockerDeploy from "./DockerDeploy";
+
 import GithubFlux from "./GithubFlux";
 import GithubAkash from "./GithubAkash";
 import BuildFlux from "@/components/flux/BuildFlux";
-import AppGeoSelect from "./AppGeoSelect";
 import MobileFooterBar from "@/components/applications2/ProfileFooter";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);
 
 const DeployAppScreen = ({ appInstalled }) => {
   const { darkMode } = useTheme();
