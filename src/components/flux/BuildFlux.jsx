@@ -146,7 +146,7 @@ export default function BuildFlux({ darkMode, image }) {
 
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
-
+    setIsLoading(true);
     const portsInput = ports.contPorts;
     // const portsArray = portsInput ? JSON.parse(portsInput) : '';
 
@@ -184,7 +184,7 @@ export default function BuildFlux({ darkMode, image }) {
       }
 
       const data = await response.json();
-
+      setIsLoading(false);
       router.push("/profile");
     } catch (error) {
       console.error("Deployment error:", error);
