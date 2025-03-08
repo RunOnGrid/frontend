@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
 import Image from "next/image";
+const GOOGLE_SSO = process.env.NEXT_PUBLIC_GOOGLE_SSO;
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -102,7 +103,7 @@ const LoginScreen = () => {
         <h2>Welcome back!</h2>
         <span>Please Sign in with your personal info</span>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <Link href={"https://backend-alpha.ongrid.run/oauth/google"}>
+          <Link href={GOOGLE_SSO}>
             <button className="google-signIn">
               {" "}
               <Image alt="" src="/googleLogo.png" width={25} height={25} />
