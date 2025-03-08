@@ -2,11 +2,16 @@ import React, { useState } from "react";
 
 const plans = [
   {
-    title: "TEST",
+    title: "ALPHA",
     subtitle: "Starter",
-    specs: ["256 MB (RAM)", "0.1 CPU", "1 GB (STORAGE)", "3 INSTANCES (NODES)"],
+    specs: [
+      "1000 MB (RAM)",
+      "0.5 CPU",
+      "40 GB (STORAGE)",
+      "3 INSTANCES (NODES)",
+    ],
     price: "---",
-    values: [256, "Mi", 0.1, 1, "Gi", 3, 60],
+    values: [1000, "Mi", 0.5, 40, "Gi", 3, 60],
     soon: false,
   },
   {
@@ -15,7 +20,7 @@ const plans = [
     specs: ["1 GB (RAM)", "1 CPU", "5 GB (STORAGE)", "3 INSTANCES (NODES)"],
     price: "---",
     values: [1, "Gi", 1, 5, "Gi", 3, 400],
-    soon: false,
+    soon: true,
   },
   {
     title: "PRODUCTION",
@@ -26,7 +31,7 @@ const plans = [
     soon: true,
   },
   {
-    title: "PRODUCTION2",
+    title: "PRODUCTION PLUS",
     subtitle: "Pro Plus",
     specs: ["8 GB (RAM)", "4 CPU", "64 GB (STORAGE)", ""],
     price: "---",
@@ -43,7 +48,7 @@ const PricingPlanFlux = ({
   mode,
   setPrice,
 }) => {
-  const [selectedPlan, setSelectedPlan] = useState("TEST");
+  const [selectedPlan, setSelectedPlan] = useState("ALPHA");
 
   const handleSelectPlan = (plan) => {
     if (plan.soon) {
