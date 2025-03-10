@@ -34,8 +34,8 @@ export default function DeployApp() {
         },
         body: JSON.stringify({ installationId, gridUserId }),
       });
-
       if (response.ok) {
+        console.log("corre el post y response ok");
         setAppInstalled(true);
       } else {
         console.error("An error occurred", error);
@@ -53,7 +53,7 @@ export default function DeployApp() {
   }, []);
 
   useEffect(() => {
-    if (!router.isReady) return; // Asegura que los query params están disponibles
+    if (!router.isReady) return;
 
     const { installation_id } = router.query;
 

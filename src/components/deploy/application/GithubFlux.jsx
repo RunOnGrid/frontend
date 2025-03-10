@@ -18,7 +18,7 @@ import PortFlux from "@/components/PortFlux";
 import PricingPlanFlux from "./PricingPlanFlux";
 import { TokenService } from "../../../../tokenHandler";
 import Link from "next/link";
-
+import LoadingText from "@/commons/LoaderText";
 
 const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const { darkMode } = useTheme();
@@ -59,27 +59,27 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
 
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
-    
+
     // Expresión regular que solo permite letras y números
     const alphanumericRegex = /^[a-zA-Z0-9]*$/;
-    
+
     // Verificar si el input cumple con la expresión regular
     if (alphanumericRegex.test(inputValue)) {
       const lowercaseValue = inputValue.toLowerCase();
-      
+
       // Verificar si el nombre ya existe
       const isNameTaken = existingNames.includes(lowercaseValue);
-      
+
       // Actualizar el estado del nombre
       setName(lowercaseValue);
-      
+
       // Manejar el estado de error para nombres existentes
       if (isNameTaken) {
-        setErrorMessage2('Este nombre de aplicación ya está en uso');
+        setErrorMessage2("Este nombre de aplicación ya está en uso");
       } else {
-        setErrorMessage2('');
+        setErrorMessage2("");
       }
-    } 
+    }
   };
   const handlePat = (e) => {
     setPat(e.target.value);
@@ -553,20 +553,22 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
               >
                 <div className="line-background"></div>
                 {isLoading ? (
-              <Spinner/>
-            ) : (
-              <>
-                <button
-                  className="deploy-button"
-                  onClick={() => {
-                    handlePaymentSuccess();
-                  }}
-                  disabled={isLoading}
-                >
-                  Deploy
-                </button>
-              </>
-            )}
+                  <div className="loading-container">
+                    <LoadingText />
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      className="deploy-button"
+                      onClick={() => {
+                        handlePaymentSuccess();
+                      }}
+                      disabled={isLoading}
+                    >
+                      Deploy
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           )}

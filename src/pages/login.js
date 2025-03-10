@@ -1,8 +1,14 @@
-import checkAuth from "@/checkAuth";
+import useCheckAuth from "@/checkAuth";
+import Spinner from "@/commons/Spinner";
 import LoginScreen from "@/components/login/LoginScreen";
 
 export default function Login() {
-  checkAuth();
+  const isLoading = useCheckAuth();
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="container-homePrincipal2">
       <LoginScreen />

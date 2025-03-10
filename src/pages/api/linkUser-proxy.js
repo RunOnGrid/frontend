@@ -3,10 +3,9 @@ export default async function handler(req, res) {
   
     if (req.method === "POST") {
       try {
-        // Extract the login data from the request body
+       
         const { installationId, gridUserId } = req.body;
-  
-        // Forward the login request to the external API
+        console.log("llega el post de link user", installationId, gridUserId);
         const response = await fetch(`${API_URL}/users/linkUser`, {
           method: "POST",
           headers: {
