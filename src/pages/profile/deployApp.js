@@ -49,21 +49,24 @@ export default function DeployApp() {
     const response = TokenService.getTokens();
     if (response.tokens) {
       setGridUserId(response.tokens.gridId);
+      console.log(response.tokens.gridId, "Guarda el gridId bien");
     }
   }, []);
 
   useEffect(() => {
-    if (!router.isReady) return; // Asegura que los query params están disponibles
+    if (!router.isReady) return;
 
     const { installation_id } = router.query;
 
     if (installation_id && gridUserId !== null) {
+      console.log("Entra primer useEffect");
       setInstallationId(installation_id);
     }
   }, [router.isReady, router.query, gridUserId]);
 
   useEffect(() => {
     if (installationId && gridUserId) {
+      console.log("Entra segundo useEffect y tira el post");
       handleSubmit();
     }
   }, [installationId, router.query]);

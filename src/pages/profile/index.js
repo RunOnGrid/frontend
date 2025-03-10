@@ -13,7 +13,7 @@ export default function Applications() {
   useAuthCheck();
   const { isAuthenticated, isLoading } = authWrapper();
   if (isLoading) {
-    return <Spinner />; // Or a loading indicator
+    return <Spinner />; 
   }
 
   if (!isAuthenticated) {
