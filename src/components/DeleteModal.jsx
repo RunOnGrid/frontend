@@ -18,8 +18,14 @@ const DeleteModal = ({ onClick, darkMode, name, onYes, id }) => {
       <h3>You want to delete {name} deploy? </h3>
       <span></span>
       <div className="botonera-pay-modal">
-        <button onClick={()=>{onYes(id)}} >Yes</button>
-        <button>No</button>
+        <button
+          onClick={() => {
+            onYes(id);
+          }}
+        >
+          Yes
+        </button>
+        <button onClick={() => onClick()}>No</button>
       </div>
     </div>
   );

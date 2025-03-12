@@ -54,6 +54,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const [pat, setPat] = useState("");
 
   const handleShowConfig = () => {
+    setActiveStep(2);
     setShowConfig(true);
   };
 
@@ -127,7 +128,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     }
     setErrorMessage("");
     setSummary(true);
-    setActiveStep(4);
+    setActiveStep(3);
   };
 
   const [completedSteps, setCompletedSteps] = useState([]);
@@ -294,7 +295,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           summary={summary}
           setOwner={setOwner}
           owner={owner.toLowerCase()}
-          onNext={() => setShowConfig(true)}
+          onNext={() => handleShowConfig()}
         />
       )}
       {showConfig && (

@@ -79,7 +79,9 @@ export default function DeployApp() {
     <>
       <div className="logged-home-component2">
         <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
-          <DynamicNavbar />
+          <div style={{ width: "200px", minWidth: "200px" }}>
+            <DynamicNavbar />
+          </div>
           <DeployAppScreen appInstalled={appInstalled} />
         </div>
       </div>

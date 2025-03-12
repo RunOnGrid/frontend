@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import MobileFooterBar from "./ProfileFooter";
 import Image from "next/image";
 import DeleteModal from "../DeleteModal";
+import Spinner from "@/commons/Spinner";
+import ProfileLoading from "@/commons/ProfileLoading";
 
 const AppsTable = () => {
   const { darkMode } = useTheme();
@@ -17,9 +19,12 @@ const AppsTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [deleteName, setDeleteName] = useState("");
   const [deleteId, setDeleteId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   const fetchRepos = async () => {
+    const startTime = Date.now();
+
     try {
       const response = await fetch(`/api/deployments-proxy`, {
         method: "GET",
@@ -33,10 +38,17 @@ const AppsTable = () => {
       }
 
       const data = await response.json();
-
       setApps(data);
     } catch (err) {
       console.error("Error loading existing app names:", err);
+    } finally {
+      // Ensure loader displays for at least 700ms to avoid flash
+      const elapsedTime = Date.now() - startTime;
+      const remainingTime = Math.max(0, 700 - elapsedTime);
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, remainingTime);
     }
   };
 
@@ -107,25 +119,29 @@ const AppsTable = () => {
         </>
       )}
       <div className="table-container">
-        {apps.length === 0 ? (
+        {isLoading ? (
+          <ProfileLoading isVisible={isLoading} />
+        ) : apps.length === 0 ? (
           <div
             className={`applications-section ${darkMode ? "dark" : "light"}`}
           >
-            <div className="section-header"></div>
-            <p>
-              It looks like you don&apos;t have any applications running yet
-            </p>
+            <p>It seems that you don&apos;t have any applications yet</p>
+            <span> Start building your application now.</span>
             <Link href="/profile/deployApp">
-              <button className="section-button">Deploy</button>
+              <button
+                className={`section-button ${darkMode ? "dark" : "light"}`}
+              >
+                Deploy
+              </button>
             </Link>
           </div>
         ) : (
           <>
             <AppsTableHeader />
             {sortedApps.map((app, index) => (
-              <div className="dashboard-row">
+              <div className="dashboard-row" key={index}>
                 <AppsTableRow
-                  key={index}
+                  key={`row-${index}`}
                   status={app.status}
                   mode={darkMode}
                   name={app.serviceName}
@@ -136,7 +152,7 @@ const AppsTable = () => {
                 <Image
                   onClick={() => handleModal(app.serviceName, app.id)}
                   alt=""
-                  src="/deleteL.png"
+                  src={darkMode ? "/delete2.png" : "/deleteL.png"}
                   height={22}
                   width={22}
                 />
@@ -151,7 +167,6 @@ const AppsTable = () => {
 };
 
 export default AppsTable;
-
 // const [showNotifications, setShowNotifications] = useState(false);
 // const [showRecents, setShowRecents] = useState(false);
 // const [showFilters, setShowFilters] = useState(false);
