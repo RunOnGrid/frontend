@@ -151,7 +151,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           <div className="footer-sidebar">
             <div className="contact-links">
               <div className="social-icons">
-                <Link href="https://github.com" passHref>
+                <Link href="https://github.com/RunOnGrid" passHref>
                   <Image
                     src="/githubLogoDark.svg"
                     alt="GitHub"

@@ -1,17 +1,31 @@
+import { useState, useEffect } from "react";
 import useCheckAuth from "@/checkAuth";
-import Spinner from "@/commons/Spinner";
+import LoadingOverlay from "@/commons/LoadingOverlay";
 import LoginScreen from "@/components/login/LoginScreen";
 
 export default function Login() {
   const isLoading = useCheckAuth();
+  const [loginVisible, setLoginVisible] = useState(false);
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    if (!isLoading) {
+      setTimeout(() => {
+        setLoginVisible(true);
+      }, 50);
+    }
+  }, [isLoading]);
 
   return (
-    <div className="container-homePrincipal2">
-      <LoginScreen />
+    <div className="login-page-container">
+      <LoadingOverlay isVisible={isLoading} />
+
+      <div
+        className={`container-homePrincipal2 fade-element ${
+          loginVisible ? "visible" : ""
+        }`}
+      >
+        <LoginScreen />
+      </div>
     </div>
   );
 }

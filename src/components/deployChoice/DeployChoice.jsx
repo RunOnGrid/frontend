@@ -105,7 +105,7 @@ const DeployChoice = () => {
         />
       </div>
       <button className="button-landing-4">
-        <Link href="/deploy">DEPLOY NOW </Link>
+        <Link href="/login">DEPLOY NOW </Link>
       </button>
     </div>
   );
