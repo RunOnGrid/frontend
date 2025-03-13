@@ -247,7 +247,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
               componentData.description || "Application deployed by Grid",
             repotag: repoTag,
             domains: componentData.domains || [""],
-            environmentParameters: [""],
+            environmentParameters: [],
             commands: commands || [""],
             containerPorts: ports.contPorts || [""],
             tiered: true,

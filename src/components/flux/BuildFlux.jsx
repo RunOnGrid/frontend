@@ -160,7 +160,7 @@ export default function BuildFlux({ darkMode, image }) {
             description: "Application deployed by Grid",
             repotag: imageURL,
             domains: [""],
-            environmentParameters: [""],
+            environmentParameters: [],
             commands: commands || [""],
             containerPorts: ports.contPorts || [""],
             tiered: false,
