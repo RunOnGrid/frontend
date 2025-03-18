@@ -36,8 +36,8 @@ const GithubAkash = ({ image }) => {
   const [env, setEnv] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [ports, setPorts] = useState({
-    port: 8080,
-    as: 80,
+    port: 80,
+    as: 8080,
     accept: [],
     protocol: "http",
   });
