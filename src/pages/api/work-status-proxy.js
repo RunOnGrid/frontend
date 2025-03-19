@@ -7,8 +7,7 @@ export default async function handler(req, res) {
    
     try {
       const { installationId, owner, repo, runId } = req.query;
-  
-   
+
       if (!installationId) {
         return res.status(400).json({ error: "Installation ID is required" });
       }
@@ -21,13 +20,13 @@ export default async function handler(req, res) {
           },
         }
       );
-      
+
       if (!response.ok) {
         throw new Error(`Error fetching repositories: ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log(data);
+
       if (data.workflow_run.conclusion === null) {
         res.status(201).json(data);
       }

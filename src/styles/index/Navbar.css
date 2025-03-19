@@ -281,6 +281,14 @@ button:active {
 }
 
 @media only screen and (max-width: 650px) {
+  .logo-container img, .logo-container2 img {
+    width: 200px ;
+    height: 200px ;
+  }
+  
+  .logo-link{
+    width: 100px;
+  }
   .categorias-mobile {
     display: grid;
     grid-template-columns: auto auto;

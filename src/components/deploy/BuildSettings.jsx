@@ -18,6 +18,7 @@ const BuildSettings = forwardRef(
       summary,
       owner,
       setOwner,
+      setDisableSelect,
     },
     ref
   ) => {
@@ -129,10 +130,12 @@ const BuildSettings = forwardRef(
         );
 
         if (response.status === 200) {
+          setDisableSelect(false);
           return { status: "success" };
         }
 
         if (response.status === 500) {
+          setDisableSelect(false);
           throw new Error("Failed to run workflow successfully");
         }
 
@@ -144,6 +147,7 @@ const BuildSettings = forwardRef(
 
     const handleWorkflow = async () => {
       setLoadingWorkflow(true);
+      setDisableSelect(true);
       setWorkflowInstalled(false);
       try {
         const response = await fetch(`/api/workflows-proxy`, {
@@ -184,6 +188,7 @@ const BuildSettings = forwardRef(
             if (result.status === "success") {
               clearInterval(statusInterval);
               setShowNext(true);
+              setDisableSelect(false);
             }
           } catch (pollingError) {
             // This will now catch the 500 status error
@@ -193,6 +198,7 @@ const BuildSettings = forwardRef(
             setNotWorkflow(true);
             setWorkflow(false);
             setLoadingWorkflow(false);
+            setDisableSelect(false);
             console.error("Workflow status error:", pollingError);
           }
         }, 10000);
@@ -200,6 +206,7 @@ const BuildSettings = forwardRef(
         setNotWorkflow(true);
         setWorkflow(false);
         setLoadingWorkflow(false);
+        setDisableSelect(false);
         console.error("Error fetching branches:", error);
         alert(error.message);
       }

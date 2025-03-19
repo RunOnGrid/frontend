@@ -20,7 +20,12 @@ import { TokenService } from "../../../../tokenHandler";
 import Link from "next/link";
 import LoadingText from "@/commons/LoaderText";
 
-const GithubFlux = ({ image, databaseName, setInstalled }) => {
+const GithubFlux = ({
+  image,
+  databaseName,
+  setInstalled,
+  setDisableSelect,
+}) => {
   const { darkMode } = useTheme();
   const router = useRouter();
 
@@ -296,6 +301,7 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
           setOwner={setOwner}
           owner={owner.toLowerCase()}
           onNext={() => handleShowConfig()}
+          setDisableSelect={setDisableSelect}
         />
       )}
       {showConfig && (

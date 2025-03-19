@@ -1291,6 +1291,28 @@
   flex-direction: column;
   text-align: start;
 }
+@media only screen and (max-width:700px) {
+  .deployMethodBox p{
+    font-size: 0.7rem ;
+  }
+  .databaseSelect-title p, .databaseSelect-title span, .cloudSelect span{
+    font-size: 0.75rem ;
+  }
+  .deployMethodBox h4{
+    font-size: 0.75rem;
+  }
+  .add-buildpack {
+    width: 70%;
+    margin-bottom: 110px;
+  }
+  .buildpack-selects{
+    display: flex;
+    flex-direction: column;
+  }
+  .dropdown-container {
+    width: 100%;
+  }
+}
 
 @media only screen and (max-width:1250px) {
   .deployMethodBox-container{

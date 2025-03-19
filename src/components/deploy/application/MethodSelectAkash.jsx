@@ -90,45 +90,4 @@ const MethodSelectAkash = forwardRef(
 MethodSelectAkash.displayName = "MethodSelectAkash";
 export default MethodSelectAkash;
 
-{
-  /* {build ? (
-  <>
-    {" "}
-    <BuildSettings
-      onClick={() => setBuild2(true)}
-      value={build2}
-      darkMode={darkMode}
-    />{" "}
-  </>
-) : (
-  ""
-)}
 
-{build2 ? (
-  <>
-    {" "}
-    <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
-  </>
-) : (
-  ""
-)} */
-}
-// {docker && (
-//   <>
-//     <span> Image settings</span>
-//     <p className="span-deploy">Specify your image URL.</p>
-//     {error && <span className="error-message">{error}</span>}{" "}
-//     <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
-//       <input
-//         onChange={(e) => setImageURL(e.target.value)}
-//         value={imageURL}
-//         placeholder="ex: gridcloud/aptos-app:v.1"
-//       />
-//       <Image alt="" src="/searchLigth.png" height={20} width={20} />
-//     </div>
-//     {/* Mostrar mensaje de error */}
-//     <button onClick={handleContinue} className="add-button2">
-//       Continue
-//     </button>
-//   </>
-// )}

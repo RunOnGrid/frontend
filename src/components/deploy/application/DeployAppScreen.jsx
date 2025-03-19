@@ -25,6 +25,7 @@ const DeployAppScreen = ({ appInstalled }) => {
   const [agree, setAgree] = useState(false);
   const [image, setImage] = useState("gridcloud/hello-app:2.0");
   const [installed, setInstalled] = useState(false);
+  const [disableSelect, setDisableSelect] = useState(false);
 
   const nameRef = useRef(null);
   const detailsRef = useRef(null);
@@ -107,6 +108,7 @@ const DeployAppScreen = ({ appInstalled }) => {
                 methodReset={() => setDeployOption("")}
                 installed={installed}
                 appInstalled={appInstalled}
+                disableSelect={disableSelect}
               />
             </>
           )}
@@ -151,6 +153,7 @@ const DeployAppScreen = ({ appInstalled }) => {
                 image={image}
                 databaseName={databaseName}
                 setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
               />
             </>
           )}

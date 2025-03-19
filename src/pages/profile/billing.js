@@ -14,7 +14,9 @@ export default function Billing() {
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <DynamicNavbar />
+        <div className="dskt-sidebar-container">
+          <DynamicNavbar />
+        </div>
         <BillingScreen />
       </div>
     </div>

@@ -25,7 +25,9 @@ const DeleteModal = ({ onClick, darkMode, name, onYes, id }) => {
         >
           Yes
         </button>
-        <button onClick={() => onClick()}>No</button>
+        <button className="no-btn" onClick={() => onClick()}>
+          No
+        </button>
       </div>
     </div>
   );
