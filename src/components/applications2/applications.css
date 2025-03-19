@@ -4,89 +4,133 @@
     width: 100%;
     margin-top: 50px;
   }
-  
-  .table-header, .table-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 3fr 1fr 1fr auto;
+  .desktop-view {
+    display: flex;
     align-items: center;
-    padding: 10px;
+    justify-content: space-between;
   }
   
+ 
+  .mobile-view {
+    display: none;
+  }
+  .table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr; 
+    align-items: center;
+    padding: 10px;
+    width: 90%; 
+    margin: 0 auto; 
+  }
+  
+  .table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr; 
+    align-items: center;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 30px;
+    width: 90%;
+  }
+  
+  /* Estilos generales */
   .table-header {
     font-weight: bold;
     width: 90%;
     margin: auto;
-   
   }
   
-  .table-row {
-    height: auto;
-    margin: 10px auto;
-    border-radius: 30px;
-    width: 90%;
-    padding: 15px;
-
+ 
+  
+ 
+  .name-link {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s;
   }
-  .table-row a{
+  
+  .name-link:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+  
+  
+  .type-status-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .circle3, .circle5 {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  
+  .circle3 {
+    background-color: #4CAF50; /* Verde para Deployed */
+  }
+  
+  .circle5 {
+    background-color: #FFC107; /* Amarillo para Pending */
+  }
+  
+  /* Estilos para textos */
+  .table-row h3 {
     font-size: 0.8rem;
-    width: 90%;
-    
-    
+    font-weight: 700;
+    margin: 0;
   }
-  .table-row.light a{
-    color: black;
-    font-weight: bold;
+  
+  .table-row h5 {
+    display: flex;
+    font-size: 0.9rem;
+    font-weight: 500;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0;
   }
+  
+  .date-actions-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .action-icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+ 
+  
+ 
+  
+  /* Temas claro/oscuro */
   .table-row.dark {
     background-color: #161F21;
   }
+  
   .table-row.light {
     background-color: #f5f6f6;
     color: black;
   }
-  .table-row h3{
-    font-size: 0.8rem;
-  font-weight: 700;
-  padding: 10px;
-  }
-  .table-row h4{
-    font-size: 0.9rem;
-  font-weight: 500;
-  }
-  .table-row h5{
-    display: flex;
-    font-size: 0.9rem;
-  font-weight: 500;
-  gap: 10px;
+  
+  .table-row.light a {
+    color: black;
+    font-weight: bold;
   }
 
-  .status{
-    display: flex;
-    gap: 10px;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  .status2{
-    display: flex;
-    gap: 10px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    height: 25px ;
-    border: 1px solid black;
-    border-radius: 50px;
-    padding: 0px 10px;
-    margin: auto;
-  }
-  .status2 span{
-    display: flex;
-    font-size: 0.8rem !important;
-    
-  }
- 
   
-  .edit-icon {
-    cursor: pointer;
-  }
   .filters-container {
     display: flex;
     gap: 10px;
@@ -648,8 +692,8 @@
 .dashboard-row img{
   display: flex;
   margin: auto;
-  margin-left: 0px;
   cursor: pointer;
+  margin-right: 5px;
 }
 .dashboard-row img:hover{
   transform: scale(1.1);
@@ -685,4 +729,59 @@
       gap: 2px;
     }
    
+  }
+  @media screen and (max-width: 768px) {
+    .table-row {
+      grid-template-columns: 1fr; 
+      gap: 10px;
+      width: 75%;
+      height: 25vh;
+      padding: 25px;
+    }
+    .table-header{
+      display: none;
+    }
+    .table-container{
+      margin-top: 10px;
+    }
+    .action-icons img{
+      display: flex;
+      margin: auto !important;
+    }
+    .provider-status-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      grid-area: provider-status;
+    }
+    
+    .provider-status-mobile h3 {
+      margin-right: 10px;
+    }
+    
+
+    .date-actions-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      grid-area: date-actions;
+    }
+    
+ 
+    .status {
+      display: flex;
+      align-items: center;
+      
+      padding: 4px 8px;
+      border-radius: 15px;
+      padding-left: 0px;
+    }
+    
+    .card3{
+      width: 80vw;
+      right: 6%;
+      top: 30%;
+      height: 20vh;
+    }
+  
   }

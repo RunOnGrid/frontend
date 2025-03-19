@@ -19,6 +19,7 @@ const MethodSelectFlux = forwardRef(
       methodReset,
       installed,
       appInstalled,
+      disableSelect,
     },
     ref
   ) => {
@@ -70,7 +71,11 @@ const MethodSelectFlux = forwardRef(
     }, [grid]);
 
     return (
-      <div ref={ref} className="databaseSelect">
+      <div
+        ref={ref}
+        className={`databaseSelect ${disableSelect ? "disabled" : ""}`}
+      >
+        {console.log(disableSelect)}
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
@@ -144,59 +149,5 @@ const MethodSelectFlux = forwardRef(
 MethodSelectFlux.displayName = "MethodSelectFlux";
 export default MethodSelectFlux;
 
-{
-  /* <div className="input-with-image4">
-  <input
-    onChange={(e) => setImage(e.target.value)}
-    placeholder="Default: gridcloud/aptos-app:v.1"
-  />
-  <Image alt="" src="/searchLigth.png" height={20} width={20} />
-</div> */
-}
 
-{
-  /* {build ? (
-  <>
-    {" "}
-    <BuildSettings
-      onClick={() => setBuild2(true)}
-      value={build2}
-      darkMode={darkMode}
-    />{" "}
-  </>
-) : (
-  ""
-)}
 
-{build2 ? (
-  <>
-    {" "}
-    <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
-  </>
-) : (
-  ""
-)} */
-}
-{
-  /* {docker ? (
-          <>
-            <span> Image settings</span>
-            <p className="span-deploy">Select our whitelisted images URL.</p>
-            <Select
-              darkMode={darkMode}
-              options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
-              onSelect={handleSelect}
-            />
-            <button
-              onClick={() => {
-                onDocker();
-              }}
-              className="add-button2"
-            >
-              Continue
-            </button>
-          </>
-        ) : (
-          ""
-        )} */
-}

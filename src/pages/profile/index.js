@@ -21,7 +21,7 @@ export default function Applications() {
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
-        <div style={{ width: "200px", minWidth: "200px" }}>
+        <div className="dskt-sidebar-container">
           <DynamicNavbar />
         </div>
         <AppsTable />

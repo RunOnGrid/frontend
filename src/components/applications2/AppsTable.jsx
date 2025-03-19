@@ -122,18 +122,14 @@ const AppsTable = () => {
         {isLoading ? (
           <ProfileLoading isVisible={isLoading} />
         ) : apps.length === 0 ? (
-          <div
-            className={`applications-section ${darkMode ? "dark" : "light"}`}
-          >
+          <div className={`applications-section`}>
             <p>It seems that you don&apos;t have any applications yet</p>
             <span> Start building your application now.</span>
-            <Link href="/profile/deployApp">
-              <button
-                className={`section-button ${darkMode ? "dark" : "light"}`}
-              >
-                Deploy
-              </button>
-            </Link>
+
+            <button className={`section-button`}>
+              {" "}
+              <Link href="/profile/deployApp">Deploy </Link>
+            </button>
           </div>
         ) : (
           <>
@@ -148,13 +144,9 @@ const AppsTable = () => {
                   type={app.cloudProvider}
                   uri={app.uri}
                   creationDate={app.createdAt}
-                />
-                <Image
-                  onClick={() => handleModal(app.serviceName, app.id)}
-                  alt=""
-                  src={darkMode ? "/delete2.png" : "/deleteL.png"}
-                  height={22}
-                  width={22}
+                  darkMode={darkMode}
+                  handleModal={handleModal}
+                  app={app}
                 />
               </div>
             ))}

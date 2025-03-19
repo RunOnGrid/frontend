@@ -192,6 +192,10 @@
   height: 30px;
 }
 
+.no-btn{
+  color: rgb(255, 48, 48) !important;
+  border: 2px solid rgb(255, 48, 48) !important;
+}
 
 .envInputs {
   display: flex;

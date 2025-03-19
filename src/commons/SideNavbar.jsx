@@ -27,7 +27,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   const isActive = (path) => (currentPath === path ? "active" : "");
   const handleLogout = async () => {
     TokenService.clearTokens();
-    router.push("/");
+    router.push("/login");
   };
 
   const getBalance = async () => {
