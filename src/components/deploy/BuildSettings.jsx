@@ -149,6 +149,7 @@ const BuildSettings = forwardRef(
       setLoadingWorkflow(true);
       setDisableSelect(true);
       setWorkflowInstalled(false);
+
       try {
         const response = await fetch(`/api/workflows-proxy`, {
           method: "POST",
@@ -171,6 +172,7 @@ const BuildSettings = forwardRef(
         const data = await response.json();
         setWorkflowUrl(data.workflow_url);
         setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
+
         setWorkflowRun(true);
         setWorkflow(true);
         setLoadingWorkflow(false);

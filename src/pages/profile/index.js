@@ -3,6 +3,7 @@ import AppsTable from "@/components/applications2/AppsTable";
 import useAuthCheck from "@/useRefresh";
 import authWrapper from "../../../authWrapper";
 import LoadingOverlay from "@/commons/LoadingOverlay";
+
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
@@ -10,7 +11,9 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 
 export default function Applications() {
   useAuthCheck();
+
   const { isAuthenticated, isLoading } = authWrapper();
+
   if (isLoading) {
     return <LoadingOverlay isVisible={true} />;
   }
@@ -18,6 +21,7 @@ export default function Applications() {
   if (!isAuthenticated) {
     return null;
   }
+
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>

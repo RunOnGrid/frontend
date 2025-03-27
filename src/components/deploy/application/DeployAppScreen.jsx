@@ -124,6 +124,7 @@ const DeployAppScreen = ({ appInstalled }) => {
                 ref={detailsRef}
                 appInstalled={appInstalled}
                 methodReset={() => setDeployOption("")}
+                disableSelect={disableSelect}
               />
             </>
           )}
@@ -159,7 +160,12 @@ const DeployAppScreen = ({ appInstalled }) => {
           )}
           {selectedCloud === "akash" && deployOption === "githubAkash" && (
             <>
-              <GithubAkash image={image} databaseName={databaseName} />
+              <GithubAkash
+                image={image}
+                databaseName={databaseName}
+                setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
+              />
             </>
           )}
         </div>

@@ -1,36 +1,81 @@
+// pages/api/create-payment-intent.js
 export default async function handler(req, res) {
-  const API_URL = process.env.GRID_API;
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method not allowed" });
+  }
 
-  if (req.method === "POST") {
-    try {
-      const { amount, currency, orderId, accessToken } = req.body;
+  try {
+    // Obtener los datos del cuerpo de la solicitud
+    const { amount, currency } = req.body;
 
-      if (!amount || !currency || !orderId) {
-        return res.status(400).json({ message: "Missing required parameters" });
-      }
+    // Obtener el token de autorización
+    const authToken = req.headers.authorization;
 
-      const url = `${API_URL}/stripe/payment-intention?amount=${amount}&currency=${currency}&orderId=${orderId}`;
+    if (!authToken) {
+      return res
+        .status(401)
+        .json({ message: "Token de autorización no proporcionado" });
+    }
 
-      const response = await fetch(url, {
+    // Hacer la solicitud al endpoint externo
+    const response = await fetch(
+      "https://backend-dev.ongrid.run/payment/create-payment-intent",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: authToken,
+          accept: "application/json",
         },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        res.status(200).json(data);
-      } else {
-        res.status(response.status).json({ message: "Unauthorized" });
+        body: JSON.stringify({
+          amount,
+          currency: currency || "USD",
+        }),
       }
-    } catch (error) {
-      console.error("Proxy payment intention error:", error);
-      res.status(500).json({ message: "Internal server error" });
+    );
+
+    const responseText = await response.text();
+
+    if (responseText.includes("_secret_") && responseText.startsWith("pi_")) {
+      return res.status(200).json({ clientSecret: responseText });
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (e) {
+      console.error("Error al parsear la respuesta del backend:", responseText);
+      return res.status(500).json({
+        message: "El servidor devolvió una respuesta no válida",
+      });
+    }
+
+    // Si la respuesta no es exitosa
+    if (!response.ok) {
+      console.error("Error del backend:", data);
+      return res.status(response.status).json({
+        message: data.message || `Error del servidor: ${response.status}`,
+        error: data,
+      });
+    }
+
+    const clientSecret = data;
+
+    if (!clientSecret) {
+      console.error("Respuesta del backend sin clientSecret:", data);
+      return res.status(500).json({
+        message:
+          "No se pudo encontrar el clientSecret en la respuesta del servidor",
+      });
+    }
+
+    // Devolver el clientSecret en el formato esperado por Stripe.js
+    return res.status(200).json({ clientSecret });
+  } catch (error) {
+    console.error("Error en el procesamiento:", error);
+    return res.status(500).json({
+      message: "Error al procesar la solicitud",
+      error: error.message,
+    });
   }
 }

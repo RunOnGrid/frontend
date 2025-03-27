@@ -12,6 +12,7 @@ export default function CheckoutForm({ onPaymentSuccess, onClick }) {
 
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isPaymentComplete, setIsPaymentComplete] = React.useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,9 +37,13 @@ export default function CheckoutForm({ onPaymentSuccess, onClick }) {
       } else {
         setMessage("An unexpected error occurred.");
       }
+      setIsPaymentComplete(false);
     } else {
-      setMessage("Payment successful!");
-      onPaymentSuccess();
+      setMessage("¡Pago realizado con éxito!");
+      setIsPaymentComplete(true);
+      if (onPaymentSuccess) {
+        onPaymentSuccess();
+      }
     }
 
     setIsLoading(false);
@@ -47,6 +52,27 @@ export default function CheckoutForm({ onPaymentSuccess, onClick }) {
   const paymentElementOptions = {
     layout: "tabs",
   };
+
+  if (isPaymentComplete) {
+    return (
+      <div className="stripe-form">
+        <Image
+          className="close-form"
+          onClick={() => {
+            onClick(false);
+          }}
+          alt=""
+          src="/close.png"
+          width={20}
+          height={20}
+        />
+        <div className="payment-success-message">
+          <Image alt="" width={160} height={80} src="/LogoLigth.svg" />
+          <h3>Successful Payment</h3>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form className="stripe-form" id="payment-form" onSubmit={handleSubmit}>

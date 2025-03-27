@@ -9,17 +9,16 @@ import SummaryAkash from "../deploy/SummaryAkash";
 import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
 import { TokenService } from "../../../tokenHandler";
-
-
+import PricingPlanFlux from "../deploy/application/PricingPlanFlux";
 
 export default function BuildAkash({ darkMode, image }) {
   const [activeStep, setActiveStep] = useState(3);
   const [editingPortIndex, setEditingPortIndex] = useState(null);
   const [serviceName, setServiceName] = useState("service-grid");
-  const [cpu, setCpu] = useState(0.1);
-  const [memory, setMemory] = useState(256);
-  const [ephemeralStorage, setEphemeralStorage] = useState(1);
-  const [serviceCount, setServiceCount] = useState(1);
+  const [cpu, setCpu] = useState(0.5);
+  const [memory, setMemory] = useState(1000);
+  const [ephemeralStorage, setEphemeralStorage] = useState(40);
+  const [serviceCount, setServiceCount] = useState(3);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
@@ -88,7 +87,7 @@ export default function BuildAkash({ darkMode, image }) {
   };
   const handleNameChange = (event) => {
     const newName = event.target.value;
-    
+
     setServiceName(newName);
   };
   const handleSummary = (state) => {
@@ -139,45 +138,41 @@ export default function BuildAkash({ darkMode, image }) {
     );
   };
 
+  // const handleContinue = async () => {
+  //   if (!agree) {
+  //     return;
+  //   }
 
+  //   setError(null);
+  //   setShowModal(false);
 
-  const handleContinue = async () => {
-    if (!agree) {
-      return;
-    }
+  //   try {
+  //     const response = await fetch("/api/create-payment-intent", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //       body: JSON.stringify({
+  //         amount: 1000,
+  //         currency: "USD",
+  //       }),
+  //     });
 
-    setIsLoading(true);
-    setError(null);
-    setShowModal(false);
+  //     if (!response.ok) {
+  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
+  //     }
 
-    try {
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: appPrice,
-          currency: "usd",
-          orderId: orderId,
-          accessToken: accessToken,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status} ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      // setClientSecret(data.client_secret);
-      // setShowPayment(true);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     const data = await response.json();
+  //     console.log(data, "esto devuelve el front");
+  //     // setClientSecret(data.client_secret);
+  //     // setShowPayment(true);
+  //   } catch (err) {
+  //     setError(err.message);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
@@ -185,40 +180,40 @@ export default function BuildAkash({ darkMode, image }) {
 
     try {
       let response;
-      if (activeTab === "builder") {
-        response = await fetch("/api/akash-deploy", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            serviceName,
-            cpu,
-            memory,
-            ephemeralStorage,
-            serviceCount,
-            image: imageURL,
-            ports,
-            storageUnit,
-            memoryUnit,
-            commands,
-            env,
-            accept,
-            accessToken,
-          }),
-        });
-      } else {
-        response = await fetch("/api/akash-deploy-yaml", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            yamlContent: yaml,
-          }),
-        });
-      }
+
+      response = await fetch("/api/akash-deploy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          serviceName,
+          cpu,
+          memory,
+          ephemeralStorage,
+          serviceCount,
+          image: imageURL,
+          ports,
+          storageUnit,
+          memoryUnit,
+          commands,
+          env,
+          accept,
+          accessToken,
+        }),
+      });
+      //  else {
+      //   response = await fetch("/api/akash-deploy-yaml", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       yamlContent: yaml,
+      //     }),
+      //   });
+      // }
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -309,12 +304,10 @@ export default function BuildAkash({ darkMode, image }) {
                 </div>
               </div>
             </div>
-            <PricingPlanAkash
+            <PricingPlanFlux
               setMemory={setMemory}
-              setMemoryUnit={setMemoryUnit}
               setCpu={setCpu}
               setEphemeralStorage={setEphemeralStorage}
-              setStorageUnit={setStorageUnit}
               setServiceCount={setServiceCount}
               mode={darkMode}
               setPrice={setAppPrice}
@@ -518,14 +511,16 @@ export default function BuildAkash({ darkMode, image }) {
 //   </>
 // )}
 {
-  /* {showPayment && clientSecret && (
-  <Elements options={{ clientSecret }} stripe={stripePromise}>
-    <CheckoutForm
-      onClick={setShowPayment}
-      onPaymentSuccess={handlePaymentSuccess}
-    />
-  </Elements>
-)} */
+  // {
+  //   showPayment && clientSecret && (
+  //     <Elements options={{ clientSecret }} stripe={stripePromise}>
+  //       <CheckoutForm
+  //         onClick={setShowPayment}
+  //         onPaymentSuccess={handlePaymentSuccess}
+  //       />
+  //     </Elements>
+  //   );
+  // }
 }
 {
   /* <div className="akash-persistent">

@@ -1,16 +1,31 @@
 import Image from "next/image";
-import React, { forwardRef, useState } from "react";
-
+import Link from "next/link";
+import React, { forwardRef, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectAkash = forwardRef(
   (
-    { onDocker, onGit, darkMode, onClick, value, setImage, methodReset },
+    {
+      onDocker,
+      onGit,
+      darkMode,
+      onClick,
+      value,
+      setImage,
+      methodReset,
+      appInstalled,
+      disableSelect,
+    },
     ref
   ) => {
     const [build, setBuild] = useState(false);
+    const [build2, setBuild2] = useState(false);
     const [grid, setGrid] = useState(false);
     const [docker, setDocker] = useState(false);
+    const [git, setGit] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState("");
-
+    const [selectedOption, setSelectedOption] = useState("");
+    const [email, setEmail] = useState("");
 
     const handleGit = () => {
       setSelectedMethod("git");
@@ -27,18 +42,29 @@ const MethodSelectAkash = forwardRef(
       onDocker();
     };
 
-    // const handleContinue = () => {
-    //   if (!imageURL.trim()) {
-    //     setError("This field is required.");
-    //     return;
-    //   }
-    //   setError("");
-    //   setImage(imageURL);
-    //   onDocker();
-    // };
+    useEffect(() => {
+      const emailGrid = localStorage.getItem("grid_email");
+      setEmail(emailGrid);
+    }, [email]);
+    useEffect(() => {
+      const installed = localStorage.getItem("gridInstalled");
+      if (installed && grid) {
+        setBuild(true);
+        onGit();
+      }
+    }, [grid]);
+    useEffect(() => {
+      if (appInstalled && grid) {
+        setBuild(true);
+        onGit();
+      }
+    }, [grid]);
 
     return (
-      <div ref={ref} className="databaseSelect">
+      <div
+        ref={ref}
+        className={`databaseSelect ${disableSelect ? "disabled" : ""}`}
+      >
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
@@ -48,9 +74,8 @@ const MethodSelectAkash = forwardRef(
         </div>
         <div className="deployMethodBox-container">
           <div
-            className={`deployMethodBox ${
-              darkMode ? "dark" : "light"
-            } disabled`}
+            onClick={handleGit}
+            className={`deployMethodBox ${darkMode ? "dark" : "light"}`}
           >
             <Image alt="" src="/iconGit.png" height={50} width={50} />
             <h4>Git repository</h4>
@@ -70,17 +95,41 @@ const MethodSelectAkash = forwardRef(
             </p>
           </div>
         </div>
-        {grid && (
+        {grid ? (
           <>
-            <span> Build settings</span>
-            <p className="span-deploy">Specify your GitHub repository.</p>
-            <div className="install-github">
-              <Image alt="" src="/github3.png" height={15} width={15} />
-              <span onClick={() => onGit()}>
-                {build ? "Installed" : "Install the Grid GitHub app"}
-              </span>
-            </div>
+            {" "}
+            <span> Github App</span>
+            {build ? (
+              ""
+            ) : (
+              <p className="span-deploy">Install our github app.</p>
+            )}
+            {build || appInstalled ? (
+              <div className="install-container">
+                <div className="install-github2">
+                  <Image alt="" src="/github3.png" height={15} width={15} />
+                  <span>Installed</span>
+                </div>
+                <Link href={gitUrl} target="_blank">
+                  <Image
+                    alt=""
+                    src="/settingsLigth.png"
+                    width={22}
+                    height={22}
+                  />
+                </Link>
+              </div>
+            ) : (
+              <Link href={gitUrl}>
+                <div className="install-github">
+                  <Image alt="" src="/github3.png" height={15} width={15} />
+                  <span>Install the Grid GitHub app</span>
+                </div>
+              </Link>
+            )}
           </>
+        ) : (
+          ""
         )}
       </div>
     );

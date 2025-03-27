@@ -29,7 +29,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
     TokenService.clearTokens();
     router.push("/login");
   };
-
+ 
   const getBalance = async () => {
     try {
       const response = await fetch(`/api/balance-proxy`, {
@@ -124,7 +124,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </li>
           </Link>
 
-          {/* <Link href="/profile/billing">
+          <Link href="/profile/billing">
             <li
               className={`sideNavbar-li ${
                 darkMode ? "dark" : "light"
@@ -132,7 +132,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             >
               Billing
             </li>
-          </Link> */}
+          </Link>
 
           <Link href={"/"}>
             <span onClick={() => handleLogout()} className="logout-sidebar">

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
 import Image from "next/image";
 const GOOGLE_SSO = process.env.NEXT_PUBLIC_GOOGLE_SSO;
+const GITHUB_SSO = process.env.NEXT_PUBLIC_GITHUB_SSO;
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -15,10 +16,7 @@ const LoginScreen = () => {
 
   const decodeJWT = (token) => {
     try {
-      // El token tiene 3 partes: header.payload.signature
-      // Nos interesa el payload que está en la posición 1
       const base64Payload = token.split(".")[1];
-      // Decodificar Base64Url a texto
       const payload = JSON.parse(
         atob(base64Payload.replace(/-/g, "+").replace(/_/g, "/"))
       );
@@ -109,12 +107,12 @@ const LoginScreen = () => {
               <Image alt="" src="/googleLogo.png" width={25} height={25} />
             </button>
           </Link>
-          {/* <Link href={"https://backend-dev.ongrid.run/oauth/github"}>
+          <Link href={GITHUB_SSO}>
             <button className="google-signIn">
               {" "}
               <Image alt="" src="/githubLogo.svg" width={25} height={25} />
             </button>
-          </Link> */}
+          </Link>
         </div>
         {error ? <h4 className="error-message-login"> {error}</h4> : null}
         <form onSubmit={handleLogin} className="inputs-login">

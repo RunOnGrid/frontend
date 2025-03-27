@@ -76,12 +76,13 @@
   background-color: white;
   color: #00b174;
 }
+
 .billing-section,
 .envs-section {
   padding: 20px;
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 90%;
   height: 18vh;
   display: flex;
   flex-direction: column;
@@ -128,6 +129,9 @@
 
 .billing-section span {
   font-weight: 400;
+}
+.billing-buttons{
+  display: flex;
 }
 .billing-info {
   display: grid;
