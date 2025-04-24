@@ -100,27 +100,26 @@ try {
   console.log("YAML String:", yamlString);
   const API_URL = process.env.GRID_API;
 
-  // const akashResponse = await fetch(`${API_URL}/akash`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "text/plain",
-  //     Authorization: req.headers.authorization,
-  //   },
-  //   body: yamlString,
-  // });
+  const akashResponse = await fetch(`${API_URL}/akash`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain",
+      Authorization: req.headers.authorization,
+    },
+    body: yamlString,
+  });
 
-  // const responseText = await akashResponse.text();
+  const responseText = await akashResponse.text();
 
-  // if (!akashResponse.ok) {
-  //   throw new Error(
-  //     `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`
-  //   );
-  // }
+  if (!akashResponse.ok) {
+    throw new Error(
+      `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`
+    );
+  }
 
   let akashResult;
   try {
-    console.log("llego try");
-    // akashResult = JSON.parse(responseText);
+    akashResult = JSON.parse(responseText);
   } catch (e) {
     console.error("Failed to parse response as JSON:", e);
   }
