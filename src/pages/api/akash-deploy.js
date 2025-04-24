@@ -13,20 +13,18 @@ try {
     ephemeralStorage,
     serviceCount,
     image,
-    ports,
     storageUnit,
     memoryUnit,
     commands,
-    env,
-    accessToken,
+    envs,
     pat,
     owner,
+    host,
+    protocol,
+    port,
+    as,
   } = req.body;
 
-  // const objetoPort = {
-  //   port: ports && ports[0] && ports[0].port ? ports[0].port : 3000,
-  //   as: ports && ports[0] && ports[0].as ? ports[0].as : 80,
-  // };
   let command = commands && commands.length > 0 ? commands[0] : "";
   let args = commands && commands.length > 1 ? [commands[1]] : "";
 
@@ -43,21 +41,22 @@ try {
       [serviceName]: {
         image: image,
         credentials: {
-          host: "ghcr.io",
+          host: host,
           username: owner,
           password: pat,
         },
         expose: [
           {
-            port: ports.port,
-            as: ports.as,
+            port: parseFloat(port),
+            as: parseFloat(as),
             // accept: Array.isArray(ports.accept) ? ports.accept : [],
+            proto: protocol,
             to: [{ global: true }],
           },
         ],
         // command: "",
         // args: "",
-        // env: Object.entries(env).map(([key, value]) => `${key}=${value}`),
+        env: envs,
       },
     },
     profiles: {
@@ -68,10 +67,10 @@ try {
               units: parseFloat(cpu),
             },
             memory: {
-              size: `${memory}${memoryUnit}`,
+              size: `${memory}Mi`,
             },
             storage: {
-              size: `${ephemeralStorage}${storageUnit}`,
+              size: `${ephemeralStorage}gb`,
             },
           },
         },
@@ -98,34 +97,35 @@ try {
   };
 
   const yamlString = yaml.dump(yamlStructure);
-
+  console.log("YAML String:", yamlString);
   const API_URL = process.env.GRID_API;
 
-  const akashResponse = await fetch(`${API_URL}/akash`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "text/plain",
-      Authorization: req.headers.authorization,
-    },
-    body: yamlString,
-  });
+  // const akashResponse = await fetch(`${API_URL}/akash`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "text/plain",
+  //     Authorization: req.headers.authorization,
+  //   },
+  //   body: yamlString,
+  // });
 
-  const responseText = await akashResponse.text();
+  // const responseText = await akashResponse.text();
 
-  if (!akashResponse.ok) {
-    throw new Error(
-      `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`
-    );
-  }
+  // if (!akashResponse.ok) {
+  //   throw new Error(
+  //     `Akash API Error: ${akashResponse.status} ${akashResponse.statusText}`
+  //   );
+  // }
 
   let akashResult;
   try {
-    akashResult = JSON.parse(responseText);
+    console.log("llego try");
+    // akashResult = JSON.parse(responseText);
   } catch (e) {
     console.error("Failed to parse response as JSON:", e);
   }
-  console.log("Akash response:", akashResult);
-  res.status(200).json(responseText);
+
+  res.status(200);
 } catch (error) {
   console.error("Full error details:", error);
   res

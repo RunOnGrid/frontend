@@ -14,7 +14,6 @@ const EnvModal = ({ onSave, onCancel, darkMode }) => {
 
   return (
     <div className={`card2 ${darkMode ? "dark" : "light"}`}>
-      <h3>Environment Variable</h3>
       <div className="envInputs">
         <div className="modal-input">
           <label>Key</label>
@@ -25,10 +24,9 @@ const EnvModal = ({ onSave, onCancel, darkMode }) => {
           <label>Value</label>
           <input value={value} onChange={(e) => setValue(e.target.value)} />
         </div>
-      </div>
-      <div className="botonera-env-modal">
-        <button onClick={handleSave}>Save</button>
-        <button onClick={onCancel}>Cancel</button>
+        <div className="modal-input2">
+          <button className="add-button2"> Add +</button>
+        </div>
       </div>
     </div>
   );

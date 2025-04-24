@@ -1,110 +1,101 @@
-import Spinner from "@/commons/Spinner";
-import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import PricingPlanSelector from "./PricingSelector";
+import React, { useState } from "react";
+import SliderComp from "../slider/SliderComp";
+import NoBorderSlider from "../slider/NoBorderSlider";
 
-const AddComponent = ({
-  darkMode,
-  onNext,
-  onSaveComponentData,
-  price,
-  setPrice,
-  image,
-  existingNames,
-}) => {
-  const [serviceName, setServiceName] = useState("");
-  const [instances, setInstances] = useState(3);
-  const [cpu, setCpu] = useState(0.1);
-  const [ram, setRam] = useState(128);
-  const [hdd, setHdd] = useState(1);
-  const [selectedService, setSelectedService] = useState("Web");
-  const [activeTab, setActiveTab] = useState("GENERAL");
-  const [ports, setPorts] = useState("");
-  const [name, setName] = useState("");
-  const [existingNames2, setExistingNames2] = useState(existingNames);
-  const [isNameTaken, setIsNameTaken] = useState(false);
-  const [description, setDescription] = useState("");
-  const [domains, setDomains] = useState('[""]');
-  const [contPorts, setContPorts] = useState("");
-  const [envVariables, setEnvVariables] = useState("[]");
-  const [commands, setCommands] = useState("[]");
-  const [contData, setContData] = useState("");
-
-  const [error, setError] = useState(null);
-
-  const handleServiceSelection = (service) => {
-    setSelectedService(service);
+const AddComponent = ({ darkMode, ram, hdd, cpu, setCpu, setRam, setHdd }) => {
+  const [customize, setCustomize] = useState(false);
+  const handleBeta = () => {
+    setCpu(0.5);
+    setHdd(20);
+    setRam(1000);
+    setCustomize(true);
+  };
+  const handleTest = () => {
+    setCpu(2);
+    setHdd(20);
+    setRam(4000);
+    setCustomize(true);
   };
 
-  const handleInputChange = (setter) => (e) => {
-    const value = e.target.value;
-    if (value === "" || isNaN(value)) return;
-    setter(parseFloat(value));
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const portArray = ports
-      .split(",")
-      .map((port) => parseInt(port.trim(), 10))
-      .filter((port) => !isNaN(port));
-
-    const contPortArray = contPorts
-      .split(",")
-      .map((contPort) => parseInt(contPort.trim(), 10))
-      .filter((contPort) => !isNaN(contPort));
-
-    const domainsArray = domains
-      .slice(1, -1)
-      .split(",")
-      .map((domain) => domain.trim().replace(/['"]+/g, ""));
-
-    const envsArray = envVariables
-      .slice(1, -1)
-      .split(",")
-      .map((env) => env.trim().replace(/['"]+/g, ""));
-    const commandsArray = commands
-      .slice(1, -1)
-      .split(",")
-      .map((comm) => comm.trim().replace(/['"]+/g, ""));
-
-    onSaveComponentData({
-      cpu,
-      ram,
-      hdd,
-      name,
-      image,
-      instances,
-      description,
-      ports: portArray,
-      domains: domainsArray,
-      contPorts: contPortArray,
-      envVariables: envsArray,
-      commands: commandsArray,
-    });
-
-    onNext();
-  };
-
-  const handleNameChange = (event) => {
-    const newName = event.target.value;
-    if (/^[a-zA-Z0-9]*$/.test(newName)) {
-      setName(newName);
-      if (existingNames2.includes(newName.toLowerCase())) {
-        setIsNameTaken(true);
-      } else {
-        setIsNameTaken(false);
-      }
-    }
-  };
-  const handlePortChange = (e) => {
-    setPorts(e.target.value);
+  const handleCustomize = () => {
+    setCpu(0.1);
+    setHdd(1);
+    setRam(100);
+    setCustomize(false);
   };
 
   return (
-    <div>
-      <div style={{ display: "flex" }}>
-        <div className={`add-component ${darkMode ? "dark" : "light"}`}>
+    <div className="sub-component-container">
+      <div className="databaseSelect-title">
+        <span>Resources</span>
+      </div>
+      <div className="options-container">
+        <button onClick={() => handleCustomize()} className="add-button">
+          Customize
+        </button>
+        <button
+          onClick={() => {
+            handleBeta();
+          }}
+          className="add-button"
+        >
+          Beta Config
+        </button>
+        <button
+          onClick={() => {
+            handleTest();
+          }}
+          className="add-button"
+        >
+          Test Config
+        </button>
+      </div>
+      <div className="instance-config">
+        <>
+          <SliderComp min={3} max={100} initialDuration={3} label="Instances" />
+
+          <div className="akash-sliders">
+            <div className="sliders-flux">
+              {" "}
+              <NoBorderSlider
+                label="CPU"
+                initialDuration={cpu}
+                min={0.1}
+                max={15}
+                step={0.1}
+                onChange={setCpu}
+                customize={customize}
+              />
+              <NoBorderSlider
+                label="RAM"
+                initialDuration={ram}
+                min={100}
+                max={59000}
+                step={100}
+                onChange={setRam}
+                customize={customize}
+              />
+              <NoBorderSlider
+                label="SSD"
+                initialDuration={hdd}
+                min={1}
+                max={820}
+                step={1}
+                onChange={setHdd}
+                customize={customize}
+              />
+            </div>
+          </div>
+        </>
+      </div>
+    </div>
+  );
+};
+
+export default AddComponent;
+
+{
+  /* <div className={`add-component ${darkMode ? "dark" : "light"}`}>
           <form onSubmit={handleSubmit} className="form">
             <h2>Add a Service</h2>
             <div className="service-type">
@@ -260,85 +251,5 @@ const AddComponent = ({
               )}
             </div>
           </form>
-        </div>
-        <div className="instance-config">
-          <>
-            <h4>
-              INSTANCES:{" "}
-              <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                <input
-                  type="range"
-                  min="3"
-                  max="10"
-                  step="1"
-                  value={instances}
-                  onChange={(e) => setInstances(parseInt(e.target.value))}
-                />
-                <span>{instances}</span>
-              </div>
-            </h4>
-            <h4>RESOURCES:</h4>
-            <div className="akash-sliders">
-              <div className="sliders-flux">
-                <h3>CPU</h3>
-                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                  <input
-                    type="range"
-                    min="0.1"
-                    max="1"
-                    step="0.1"
-                    value={cpu}
-                    onChange={(e) => setCpu(parseFloat(e.target.value))}
-                  />
-                  <span>{cpu}</span>
-                </div>
-
-                <h3>RAM</h3>
-                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                  <input
-                    type="range"
-                    min="128"
-                    max="1024"
-                    step="128"
-                    value={ram}
-                    onChange={(e) => setRam(parseInt(e.target.value))}
-                  />
-                  <span>{ram} Mi</span>
-                </div>
-
-                <h3>HDD</h3>
-                <div className={`slider-group ${darkMode ? "dark" : "light"}`}>
-                  <input
-                    type="range"
-                    min="1"
-                    max="2"
-                    step="1"
-                    value={hdd}
-                    onChange={(e) => setHdd(parseInt(e.target.value))}
-                  />
-                  <span>{hdd} </span>
-                </div>
-              </div>
-            </div>
-          </>
-        </div>
-      </div>
-      <PricingPlanSelector
-        setInstances={setInstances}
-        setCpu={setCpu}
-        setRam={setRam}
-        setHdd={setHdd}
-        mode={darkMode}
-      />
-      {isNameTaken ? (
-        <span className="error-text"> Please select a valid name</span>
-      ) : (
-        <button className="add-button4" onClick={handleSubmit}>
-          Done
-        </button>
-      )}
-    </div>
-  );
-};
-
-export default AddComponent;
+        </div> */
+}

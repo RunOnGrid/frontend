@@ -1,7 +1,8 @@
+import BuildAkash from "@/components/akash/BuildAkash";
 import Image from "next/image";
 import Link from "next/link";
 import React, { forwardRef, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import GithubAkash from "./GithubAkash";
 const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectAkash = forwardRef(
   (
@@ -13,8 +14,15 @@ const MethodSelectAkash = forwardRef(
       value,
       setImage,
       methodReset,
+      installed,
       appInstalled,
       disableSelect,
+      image,
+      databaseName,
+      setInstalled,
+      setDisableSelect,
+      selectedCloud,
+      deployOption,
     },
     ref
   ) => {
@@ -61,76 +69,91 @@ const MethodSelectAkash = forwardRef(
     }, [grid]);
 
     return (
-      <div
-        ref={ref}
-        className={`databaseSelect ${disableSelect ? "disabled" : ""}`}
-      >
+      <div ref={ref} className={`databaseSelect `}>
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
-            <span>Select a deployment method</span>
-            <p>Deploy from a Git repository or a Docker registry</p>
+            <span>Component</span>
           </div>
         </div>
-        <div className="deployMethodBox-container">
+        <div className="component-container">
           <div
-            onClick={handleGit}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"}`}
+            className={`deployMethodBox-container ${
+              disableSelect ? "disabled" : ""
+            }`}
           >
-            <Image alt="" src="/iconGit.png" height={50} width={50} />
-            <h4>Git repository</h4>
-            <p>Available soon</p>
+            <div
+              onClick={handleGit}
+              className={`deployMethodBox ${darkMode ? "dark" : "light"}`}
+            >
+              <Image alt="" src="/iconGit.png" height={50} width={50} />
+              <h4>Git repository</h4>
+              <p>Available soon</p>
+            </div>
+            <div
+              onClick={handleDocker}
+              className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
+                selectedMethod === "docker" ? "selected" : ""
+              } ${selectedMethod === "git" ? "disabled" : ""}`}
+            >
+              <Image alt="" src="/dockerIcon.png" height={50} width={50} />
+              <h4>Container registry</h4>
+              <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
+              <p className="deploy-sub-p">
+                :latest tag is not recommended on akash deploys
+              </p>
+            </div>
           </div>
-          <div
-            onClick={handleDocker}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-              selectedMethod === "docker" ? "selected" : ""
-            } ${selectedMethod === "git" ? "disabled" : ""}`}
-          >
-            <Image alt="" src="/dockerIcon.png" height={50} width={50} />
-            <h4>Docker repository</h4>
-            <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
-            <p className="deploy-sub-p">
-              :latest tag is not recommended on akash deploys
-            </p>
-          </div>
-        </div>
-        {grid ? (
-          <>
-            {" "}
-            <span> Github App</span>
-            {build ? (
-              ""
-            ) : (
-              <p className="span-deploy">Install our github app.</p>
-            )}
-            {build || appInstalled ? (
-              <div className="install-container">
-                <div className="install-github2">
-                  <Image alt="" src="/github3.png" height={15} width={15} />
-                  <span>Installed</span>
+          {grid ? (
+            <>
+              {" "}
+              {build ? (
+                ""
+              ) : (
+                <p className="span-deploy">Install our github app.</p>
+              )}
+              {build || appInstalled ? (
+                <div className="install-container">
+                  <div className="install-github2">
+                    <Image alt="" src="/github3.png" height={15} width={15} />
+                    <span>Installed</span>
+                  </div>
+                  <Link href={gitUrl} target="_blank">
+                    <Image
+                      alt=""
+                      src="/settingsLigth.png"
+                      width={22}
+                      height={22}
+                    />
+                  </Link>
                 </div>
-                <Link href={gitUrl} target="_blank">
-                  <Image
-                    alt=""
-                    src="/settingsLigth.png"
-                    width={22}
-                    height={22}
-                  />
+              ) : (
+                <Link href={gitUrl}>
+                  <div className="install-github">
+                    <Image alt="" src="/github3.png" height={15} width={15} />
+                    <span>Install the Grid GitHub app</span>
+                  </div>
                 </Link>
-              </div>
-            ) : (
-              <Link href={gitUrl}>
-                <div className="install-github">
-                  <Image alt="" src="/github3.png" height={15} width={15} />
-                  <span>Install the Grid GitHub app</span>
-                </div>
-              </Link>
-            )}
-          </>
-        ) : (
-          ""
-        )}
+              )}
+            </>
+          ) : (
+            ""
+          )}
+          {selectedCloud === "akash" && deployOption === "dockerAkash" && (
+            <BuildAkash darkMode={darkMode} image={image} />
+          )}
+
+          {selectedCloud === "akash" && deployOption === "githubAkash" && (
+            <>
+              <GithubAkash
+                image={image}
+                databaseName={databaseName}
+                setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
+              />
+            </>
+          )}
+        </div>
       </div>
     );
   }
@@ -138,5 +161,3 @@ const MethodSelectAkash = forwardRef(
 
 MethodSelectAkash.displayName = "MethodSelectAkash";
 export default MethodSelectAkash;
-
-

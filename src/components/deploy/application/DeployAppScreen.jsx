@@ -88,6 +88,9 @@ const DeployAppScreen = ({ appInstalled }) => {
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="deploy-container2">
+        <div className="deploy-header">
+          <h2>Deploy application</h2>
+        </div>
         <div>
           <AppCloudSelect
             onNext={handleCloudSelect}
@@ -109,6 +112,12 @@ const DeployAppScreen = ({ appInstalled }) => {
                 installed={installed}
                 appInstalled={appInstalled}
                 disableSelect={disableSelect}
+                image={image}
+                databaseName={databaseName}
+                setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
+                deployOption={deployOption}
               />
             </>
           )}
@@ -122,49 +131,16 @@ const DeployAppScreen = ({ appInstalled }) => {
                 onGit={() => setDeployOption("githubAkash")}
                 setImage={setImage}
                 ref={detailsRef}
-                appInstalled={appInstalled}
                 methodReset={() => setDeployOption("")}
+                installed={installed}
+                appInstalled={appInstalled}
                 disableSelect={disableSelect}
-              />
-            </>
-          )}
-
-          {selectedCloud === "flux" && deployOption === "dockerFlux" && (
-            <>
-              {/* <AppGeoSelect
-                darkMode={darkMode}
-                // onLocationsChange={handleAllowedLocationsChange}
-                // onLocationsChange2={handleForbiddenLocationsChange}
-                // onStaticIp={handleStaticIp}
-              /> */}
-              <BuildFlux />
-            </>
-          )}
-
-          {selectedCloud === "akash" && deployOption === "dockerAkash" && (
-            <BuildAkash
-              darkMode={darkMode}
-              onSaveComponentData={handleSaveComponentData}
-              image={image}
-            />
-          )}
-          {selectedCloud === "flux" && deployOption === "githubFlux" && (
-            <>
-              <GithubFlux
                 image={image}
                 databaseName={databaseName}
                 setInstalled={setInstalled}
                 setDisableSelect={setDisableSelect}
-              />
-            </>
-          )}
-          {selectedCloud === "akash" && deployOption === "githubAkash" && (
-            <>
-              <GithubAkash
-                image={image}
-                databaseName={databaseName}
-                setInstalled={setInstalled}
-                setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
+                deployOption={deployOption}
               />
             </>
           )}

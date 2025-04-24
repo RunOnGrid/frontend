@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import EnvModal from "../EnvModal";
 import CommModal from "../CommModal";
@@ -10,172 +10,73 @@ import LoadingText from "@/commons/LoaderText";
 import Image from "next/image";
 import { TokenService } from "../../../tokenHandler";
 import PricingPlanFlux from "../deploy/application/PricingPlanFlux";
+import DockerSettings from "../flux/DockerSettings";
+import AddComponent from "../deploy/AddComponent";
+import EnvFlux from "../flux/EnvFlux";
+import NetAkash from "./NetAkash";
 
-export default function BuildAkash({ darkMode, image }) {
+export default function BuildAkash({ darkMode }) {
   const [activeStep, setActiveStep] = useState(3);
-  const [editingPortIndex, setEditingPortIndex] = useState(null);
-  const [serviceName, setServiceName] = useState("service-grid");
+  const [currentDate, setCurrentDate] = useState("");
   const [cpu, setCpu] = useState(0.5);
   const [memory, setMemory] = useState(1000);
+  const [memoryUnit, setMemoryUnit] = useState("Mi");
+  const [storageUnit, setStorageUnit] = useState("Gi");
   const [ephemeralStorage, setEphemeralStorage] = useState(40);
-  const [serviceCount, setServiceCount] = useState(3);
+  const [serviceCount, setServiceCount] = useState(1);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [activeTab, setActiveTab] = useState("builder");
-  const [currentDate, setCurrentDate] = useState("");
   const [commands, setCommands] = useState([]);
-  const [args, setArgs] = useState([]);
-  const [env, setEnv] = useState({});
-  const [showModal, setShowModal] = useState(false);
+
+  const [protocol, setProtocol] = useState("http");
   const [ports, setPorts] = useState({
     port: 80,
-    as: 80,
+    as: 8080,
     accept: [],
     protocol: "http",
-    contPorts: [],
   });
   const [accept, setAccept] = useState("");
-  const [memoryUnit, setMemoryUnit] = useState("Mi");
-  const [storageUnit, setStorageUnit] = useState("Gi");
-  const [persistUnit, setPersistUnit] = useState("Mi");
-  const [typeUnit, setTypeUnit] = useState("hdd");
-  const [showEnv, setShowEnv] = useState(false);
-  const [showComm, setShowComm] = useState(false);
-  const [showPorts, setShowPorts] = useState(false);
-  const [yaml, setYaml] = useState("");
-  const [clientSecret, setClientSecret] = useState("");
-  const [showPayment, setShowPayment] = useState(false);
-  const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [summary, setSummary] = useState(false);
   const [agree, setAgree] = useState(false);
+  const [repositories, setRepositories] = useState([0, 1]);
+  const [repoTag, setRepoTag] = useState("");
+  const [owner, setOwner] = useState("");
+  const [showConfig, setShowConfig] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const [errorImage, setErrorImage] = useState("");
+  const [errorMessage2, setErrorMessage2] = useState("");
+  const [errorMessage3, setErrorMessage3] = useState("");
+  const [accessToken, setAccessToken] = useState("");
+  const [pat, setPat] = useState("");
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-  const envRef = useRef(null);
-  const [imageURL, setImageURL] = useState("");
-  const [orderId, setOrderId] = useState(1);
-  const [appPrice, setAppPrice] = useState(0);
-  const [accessToken, setAccessToken] = useState("");
-
-  const handleYamlChange = (newYaml) => {
-    setYaml(newYaml);
-  };
+  const [port, setPort] = useState(8080);
+  const [envs, setEnvs] = useState([]);
+  const [domain, setDomain] = useState("domain.com");
+  const [host, setHost] = useState("ghcr.io");
+  const [as, setAs] = useState(80);
+  const [priv, setPriv] = useState(false);
   const router = useRouter();
 
-  const handleShowEnv = (newEnv) => {
-    setEnv((prevEnv) => ({ ...prevEnv, ...newEnv }));
-    setShowEnv(false);
-  };
-  const handleSaveCommand = (newData) => {
-    setCommands((prevCommands) => [...prevCommands, newData.command]);
-    setArgs((prevArgs) => [...prevArgs, newData.argument]);
-
-    setShowComm(false);
-  };
-  const handleOpenPortModal = (index = null) => {
-    setEditingPortIndex(index);
-    setShowPorts(true);
-  };
-  const handleSavePort = (newPort) => {
-    const newPorts = newPort;
-
-    setPorts(newPorts);
-    setShowPorts(false);
-    setEditingPortIndex(null);
-  };
-  const handleNameChange = (event) => {
-    const newName = event.target.value;
-
-    setServiceName(newName);
-  };
   const handleSummary = (state) => {
-    if (!serviceName.trim()) {
+    if (!name.trim()) {
       setErrorMessage("This field is required.");
       return;
     }
-    if (!imageURL.trim()) {
-      setErrorImage("This field is required.");
+    if (!repoTag.trim()) {
+      setErrorMessage2("This field is required.");
       return;
     }
     setErrorMessage("");
-    setErrorImage("");
+    setErrorMessage2("");
     setSummary(true);
     setActiveStep(4);
   };
 
-  const UnitOptions = ["Mb", "Mi", "GB", "Gi", "TB", "Ti"];
-  const MemoryUnits = ["hdd", "ssd", "NVMe"];
-
-  const handleStorageUnit = (selectedOption) => {
-    setStorageUnit(selectedOption);
-  };
-  const handlePersistUnit = (selectedOption) => {
-    setPersistUnit(selectedOption);
-  };
-  const handleMemoryUnit = (selectedOption) => {
-    setMemoryUnit(selectedOption);
-  };
-  const handleTypeUnit = (selectedOption) => {
-    setTypeUnit(selectedOption);
-  };
-  const handleDelete = (keyToDelete) => {
-    setEnv((prevEnv) => {
-      const updatedEnv = { ...prevEnv };
-      delete updatedEnv[keyToDelete]; // Elimina el par clave/valor
-      return updatedEnv;
-    });
-  };
-  const handleDeleteCommand = (indexToDelete) => {
-    setCommands((prevCommands) =>
-      prevCommands.filter((_, index) => index !== indexToDelete)
-    );
-  };
-  const handleDeleteArgs = (indexToDelete) => {
-    setArgs((prevArgs) =>
-      prevArgs.filter((_, index) => index !== indexToDelete)
-    );
-  };
-
-  // const handleContinue = async () => {
-  //   if (!agree) {
-  //     return;
-  //   }
-
-  //   setError(null);
-  //   setShowModal(false);
-
-  //   try {
-  //     const response = await fetch("/api/create-payment-intent", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //       body: JSON.stringify({
-  //         amount: 1000,
-  //         currency: "USD",
-  //       }),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`Error: ${response.status} ${response.statusText}`);
-  //     }
-
-  //     const data = await response.json();
-  //     console.log(data, "esto devuelve el front");
-  //     // setClientSecret(data.client_secret);
-  //     // setShowPayment(true);
-  //   } catch (err) {
-  //     setError(err.message);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
   // };
 
   const handlePaymentSuccess = async () => {
-    setPaymentCompleted(true);
     setIsLoading(true);
 
     try {
@@ -188,37 +89,32 @@ export default function BuildAkash({ darkMode, image }) {
           Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          serviceName,
+          serviceName: name,
           cpu,
           memory,
           ephemeralStorage,
           serviceCount,
-          image: imageURL,
+          image: repoTag,
           ports,
-          storageUnit,
-          memoryUnit,
           commands,
-          env,
+          envs,
           accept,
-          accessToken,
+          pat,
+          owner,
+          memoryUnit,
+          storageUnit,
+          host,
+          protocol,
+          port,
+          as,
         }),
       });
-      //  else {
-      //   response = await fetch("/api/akash-deploy-yaml", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       yamlContent: yaml,
-      //     }),
-      //   });
-      // }
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
+      await response.json();
       router.push("/profile");
     } catch (err) {
       setError(err.message);
@@ -254,205 +150,60 @@ export default function BuildAkash({ darkMode, image }) {
 
   return (
     <div className="databaseSelect">
-      <div
-        ref={servicesRef}
-        className={`deployment-config ${summary ? "disabled" : ""}`}
-      >
-        <h2>Deployment configuration</h2>
-        <p>Configure your deployment settings.</p>
-        <div className="billing-tabs">
-          <div
-            className={`billing-tab ${
-              activeTab === "builder" ? "billing-tab-active" : ""
-            }  ${darkMode ? "dark" : "light"}`}
-            onClick={() => setActiveTab("builder")}
-          >
-            Builder
-          </div>
-        </div>
-        {activeTab === "builder" ? (
-          <>
-            {" "}
-            <h3> Specify your image URL</h3>
-            {errorImage && <h3 className="error-message">{errorImage}</h3>}{" "}
-            <div className={`input-with-image4 ${darkMode ? "dark" : "light"}`}>
-              <input
-                onChange={(e) => setImageURL(e.target.value)}
-                // value={imageURL}
-                placeholder="ex: gridcloud/hello-app:1.0"
-              />
-              <Image alt="" src="/searchLigth.png" height={20} width={20} />
-            </div>
-            <div className="buildpack-selects">
-              <div
-                className={`buildpack-single ${darkMode ? "dark" : "light"}`}
-              >
-                <h3> Service name</h3>
-                {errorMessage && (
-                  <h3 className="error-message">{errorMessage}</h3>
-                )}{" "}
-                <div
-                  className={`input-container5 ${darkMode ? "dark" : "light"}`}
-                >
-                  <input
-                    type="text"
-                    className={`custom-input ${darkMode ? "dark" : "light"}`}
-                    value={serviceName}
-                    onChange={handleNameChange}
-                    required
-                  />
-                </div>
-              </div>
-            </div>
-            <PricingPlanFlux
-              setMemory={setMemory}
-              setCpu={setCpu}
-              setEphemeralStorage={setEphemeralStorage}
-              setServiceCount={setServiceCount}
-              mode={darkMode}
-              setPrice={setAppPrice}
-            />
-            {showPorts && (
-              <PortModal
-                darkMode={darkMode}
-                onSave={handleSavePort}
-                onCancel={() => setShowPorts(false)}
-                initialPort={ports}
-              />
-            )}
-            <div className="second-akash">
-              <div className="akash-expose">
-                <div className={`section2 ${darkMode ? "dark" : "light"}`}>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <h3>Expose</h3>
-                    <p>
-                      Port: {ports.port} : {ports.as} ({ports.protocol})
-                    </p>
-                    <p>Global: True</p>
-                    <p>Accept: {ports.accept}</p>
-                    <p>Cont Ports: {ports.contPorts}</p>
-                  </div>
-                  <span
-                    onClick={() => {
-                      setShowPorts(true);
-                    }}
-                    className="edit-button"
-                  >
-                    Edit
-                  </span>
-                </div>
-              </div>
-
-              <div className="sections-akash">
-                <div className={`section ${darkMode ? "dark" : "light"}`}>
-                  <div>
-                    <h3>Environment Variables</h3>
-
-                    <p>
-                      {Object.keys(env).length === 0 ? (
-                        "None"
-                      ) : (
-                        <div>
-                          {Object.entries(env).map(([key, value]) => (
-                            <p key={key}>
-                              {key}={value}
-                              <button
-                                className="add-button3"
-                                onClick={() => handleDelete(key)}
-                              >
-                                Delete
-                              </button>
-                            </p>
-                          ))}
-                        </div>
-                      )}
-                    </p>
-                  </div>
-                  <span
-                    onClick={() => {
-                      setShowEnv(true);
-                    }}
-                    className="edit-button"
-                  >
-                    Edit
-                  </span>
-                </div>
-                {showEnv && (
-                  <EnvModal
-                    darkMode={darkMode}
-                    onSave={handleShowEnv}
-                    onCancel={() => setShowEnv(false)}
-                  />
-                )}
-                {showComm && (
-                  <CommModal
-                    darkMode={darkMode}
-                    onSave={handleSaveCommand}
-                    onCancel={() => setShowComm(false)}
-                  />
-                )}
-                <div className={`section ${darkMode ? "dark" : "light"}`}>
-                  <div>
-                    <h3>Commands</h3>
-                    {commands.length === 0 ? (
-                      <p>None</p>
-                    ) : (
-                      commands.map((cmd, index) => (
-                        <div key={index}>
-                          <h5>
-                            {cmd}
-                            <button
-                              className="add-button3"
-                              onClick={() => handleDeleteCommand(index)}
-                            >
-                              Delete
-                            </button>
-                          </h5>
-                        </div>
-                      ))
-                    )}
-                    {args.length === 0
-                      ? ""
-                      : args.map((cmd, index) => (
-                          <div key={index}>
-                            <p>
-                              {cmd}
-                              <button
-                                className="add-button3"
-                                onClick={() => handleDeleteArgs(index)}
-                              >
-                                Delete
-                              </button>
-                            </p>
-                          </div>
-                        ))}
-                  </div>
-                  <span
-                    onClick={() => setShowComm(true)}
-                    className="edit-button"
-                  >
-                    Edit
-                  </span>
-                </div>
-              </div>
-            </div>
-          </>
-        ) : (
-          ""
-        )}
-
-        {error && <p style={{ color: "red" }}>Error: {error}</p>}
-
-        <button
-          className="add-button4"
-          onClick={() => {
-            handleSummary(true);
-          }}
-        >
-          Continue
-        </button>
+      <div className="components-display">
+        <DockerSettings
+          repoTag={repoTag}
+          setRepoTag={setRepoTag}
+          name={name}
+          setName={setName}
+          darkMode={darkMode}
+          owner={owner}
+          setOwner={setOwner}
+          setPat={setPat}
+          pat={pat}
+          priv={priv}
+          setPriv={setPriv}
+          errorMessage2={errorMessage2}
+          errorMessage={errorMessage}
+          errorMessage3={errorMessage3}
+          setHost={setHost}
+        />
+        <AddComponent
+          darkMode={darkMode}
+          cpu={cpu}
+          setCpu={setCpu}
+          ram={memory}
+          setRam={setMemory}
+          hdd={ephemeralStorage}
+          setHdd={setEphemeralStorage}
+        />
       </div>
 
+      <>
+        <h3> Settings</h3>
+        <div style={{ display: "flex" }}>
+          <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
+          <NetAkash
+            setPort={setPort}
+            port={port}
+            domain={domain}
+            setDomain={setDomain}
+            as={as}
+            setAs={setAs}
+            darkMode={darkMode}
+            setProtocol={setProtocol}
+          />
+        </div>
+      </>
+      <button
+        className="add-button4"
+        onClick={() => {
+          handleSummary(true);
+        }}
+      >
+        Continue
+      </button>
+      {/* <ComponentsTable /> */}
       {summary && (
         <div ref={deployRef}>
           <SummaryAkash
@@ -460,7 +211,7 @@ export default function BuildAkash({ darkMode, image }) {
             ram={memory}
             hdd={ephemeralStorage}
             mode={darkMode}
-            name={serviceName}
+            name={name}
             setSummary={setSummary}
             setAgree={setAgree}
           />
@@ -781,19 +532,19 @@ className={`buildpack-single ${darkMode ? "dark" : "light"}`}
               </div> */
 }
 
-  // const cpuText = [
-  //   "The amount of vCPU's required for this workload.",
-  //   "The maximum for a single instance is 384 vCPU's.",
-  //   "The maximum total multiplied by the count of instances is 512 vCPU's.",
-  // ];
-  // const memoryText = [
-  //   "The amount of memory required for this workload.",
-  //   "The maximum for a single instance is 512 Gi.",
-  //   "The maximum total multiplied by the count of instances is 1024 Gi.",
-  // ];
-  // const ephemeralText = [
-  //   "The amount of ephemeral disk storage required for this workload.",
-  //   "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
-  //   "The maximum for a single instance is 32 Ti.",
-  //   "The maximum total multiplied by the count of instances is also 32 Ti",
-  // ];
+// const cpuText = [
+//   "The amount of vCPU's required for this workload.",
+//   "The maximum for a single instance is 384 vCPU's.",
+//   "The maximum total multiplied by the count of instances is 512 vCPU's.",
+// ];
+// const memoryText = [
+//   "The amount of memory required for this workload.",
+//   "The maximum for a single instance is 512 Gi.",
+//   "The maximum total multiplied by the count of instances is 1024 Gi.",
+// ];
+// const ephemeralText = [
+//   "The amount of ephemeral disk storage required for this workload.",
+//   "This disk storage is ephemeral, meaning it will be wiped out on every deployment update or provider reboot.",
+//   "The maximum for a single instance is 32 Ti.",
+//   "The maximum total multiplied by the count of instances is also 32 Ti",
+// ];
