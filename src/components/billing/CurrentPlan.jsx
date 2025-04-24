@@ -48,6 +48,15 @@ const CurrentPlan = ({ darkMode, onClick }) => {
       <div className="billing-buttons">
         <button
           onClick={() => {
+            onClick(1);
+          }}
+          className="billing3"
+        >
+          {" "}
+          Add $1
+        </button>
+        <button
+          onClick={() => {
             onClick(5);
           }}
           className="billing3"
