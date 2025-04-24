@@ -15,7 +15,7 @@
     max-width: 100vw;
     overflow-x: hidden;
   }
-  .deployment-config.disabled, .databaseSelect.disabled, .dashboard-container.disabled{
+  .deployment-config.disabled, .databaseSelect.disabled, .dashboard-container.disabled, .deployMethodBox-container.disabled{
     pointer-events: none; /* Desactiva cualquier interacción */
     opacity: 0.4;
   }
@@ -50,12 +50,11 @@
     border: 1px solid #ddd;
     border-radius: 25px;
     padding: 5px;
-  
-    width: 95%;
+    width: 98%;
     margin-top: 10px;
     min-height: 25px;
     max-height: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     
   }
 
@@ -95,22 +94,19 @@
   .checkbox-group {
     display: flex;
     align-items: center;
-    margin-top: -40px;
+    
   }
   
   .checkbox-group input[type="checkbox"] {
-    margin-right: 5px;
+    margin-top: 15px;
+    
+    cursor: pointer;
   }
   
   .section {
     display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 15px;
-    border-radius: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.24);
-    margin-bottom: 10px;
-    margin-top: 10px;
+   
+    
     
     
   }
@@ -176,8 +172,11 @@
   }
   .sections-akash{
     height: auto;
-    width: 95%;
-    padding: 10px 20px;
+    width: 45%;
+    border: 2px solid #e0e0e0;
+    padding: 20px;
+    border-radius: 25px;
+    margin: 10px auto;
     align-content: center;
   }
 
@@ -367,6 +366,113 @@
     color: white;
     
   }
+  .env-variables-list {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .env-variable-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    background-color: #f5f5f5;
+  }
+  
+  .env-variable-item.dark {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+  }
+  
+  .env-variable-content {
+    flex-grow: 1;
+    font-family: monospace;
+  }
+  
+  .env-variable-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-button, .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: color 0.2s;
+  }
+  
+  .network-configs-list {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .network-config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+    border-radius: 25px;
+    margin-bottom: 5px;
+    background-color: #f5f5f5;
+  }
+
+  
+  .network-config-content {
+    flex-grow: 1;
+    font-family: monospace;
+    display: flex;
+    align-items: center;
+  }
+  
+  .protocol {
+    font-weight: 500;
+  }
+  
+
+
+  
+  
+
+  
+  .network-config-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-button, .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: color 0.2s;
+  }
+  
+
+  
+  
+  
+  .network-config-item.dark .edit-button,
+  .network-config-item.dark .delete-button {
+    color: #aaa;
+  }
+  
+
+  
+ 
+  
   @media only screen and (max-width: 1200px) {
     .second-akash {
       display: flex;

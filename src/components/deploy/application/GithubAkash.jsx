@@ -11,6 +11,10 @@ import CommModal from "@/components/CommModal";
 import Link from "next/link";
 import LoadingText from "@/commons/LoaderText";
 import { TokenService } from "../../../../tokenHandler";
+import EnvFlux from "@/components/flux/EnvFlux";
+import NetFlux from "@/components/flux/NetFlux";
+import FluxInputs from "@/components/flux/FluxInputs";
+import NetAkash from "@/components/akash/NetAkash";
 
 const GithubAkash = ({
   image,
@@ -21,22 +25,20 @@ const GithubAkash = ({
   const { darkMode } = useTheme();
   const router = useRouter();
 
-  const [completedSteps, setCompletedSteps] = useState([]);
   const [activeStep, setActiveStep] = useState(3);
   const [cpu, setCpu] = useState(0.5);
   const [memory, setMemory] = useState(1000);
   const [memoryUnit, setMemoryUnit] = useState("Mi");
   const [storageUnit, setStorageUnit] = useState("Gi");
   const [ephemeralStorage, setEphemeralStorage] = useState(40);
-  const [serviceCount, setServiceCount] = useState(3);
+  const [serviceCount, setServiceCount] = useState(1);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [activeTab, setActiveTab] = useState("builder");
   const [commands, setCommands] = useState([]);
-  const [args, setArgs] = useState([]);
   const [env, setEnv] = useState({});
-  const [showPorts, setShowPorts] = useState(false);
+  const [protocol, setProtocol] = useState("http");
   const [ports, setPorts] = useState({
     port: 80,
     as: 8080,
@@ -44,80 +46,48 @@ const GithubAkash = ({
     protocol: "http",
   });
   const [accept, setAccept] = useState("");
-  const [showEnv, setShowEnv] = useState(false);
-  const [showComm, setShowComm] = useState(false);
-  const [yaml, setYaml] = useState("");
   const [summary, setSummary] = useState(false);
   const [agree, setAgree] = useState(false);
   const [repositories, setRepositories] = useState([0, 1]);
   const [repoTag, setRepoTag] = useState("");
   const [owner, setOwner] = useState("");
-  const [showConfig, setShowConfig] = useState(false);
+  const [showConfig, setShowConfig] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
-  const [appPrice, setAppPrice] = useState(0);
   const [accessToken, setAccessToken] = useState("");
   const [pat, setPat] = useState("");
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-
+  const [port, setPort] = useState(8080);
+  const [envs, setEnvs] = useState([]);
+  const [domain, setDomain] = useState("domain.com");
+  const [host, setHost] = useState("ghcr.io");
+  const [as, setAs] = useState(80);
   const handleNameChange = (event) => {
     const newName = event.target.value;
     setName(newName);
   };
-  
+
   const handlePat = (e) => {
     setPat(e.target.value);
   };
-  
-  const handleShowEnv = (newEnv) => {
-    setEnv((prevEnv) => ({ ...prevEnv, ...newEnv }));
-    setShowEnv(false);
-  };
-  
-  const handleSaveCommand = (newData) => {
-    setCommands((prevCommands) => [...prevCommands, newData.command]);
-    setArgs((prevArgs) => [...prevArgs, newData.argument]);
-    setShowComm(false);
-  };
-  
-  const handleOpenPortModal = (index = null) => {
-    setShowPorts(true);
-  };
-  
-  const handleSavePort = (newPort) => {
-    setPorts(newPort);
-    setShowPorts(false);
-  };
-  
+
   const handleSummary = () => {
     setSummary(true);
     setActiveStep(4);
   };
-  
+
   const handleShowConfig = () => {
     setActiveStep(2);
     setShowConfig(true);
   };
-  
+
   const handleDelete = (keyToDelete) => {
     setEnv((prevEnv) => {
       const updatedEnv = { ...prevEnv };
       delete updatedEnv[keyToDelete];
       return updatedEnv;
     });
-  };
-
-  const handleDeleteCommand = (indexToDelete) => {
-    setCommands((prevCommands) =>
-      prevCommands.filter((_, index) => index !== indexToDelete)
-    );
-  };
-  
-  const handleDeleteArgs = (indexToDelete) => {
-    setArgs((prevArgs) =>
-      prevArgs.filter((_, index) => index !== indexToDelete)
-    );
   };
 
   const handlePaymentSuccess = async () => {
@@ -130,7 +100,7 @@ const GithubAkash = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
             serviceName: name,
@@ -141,22 +111,16 @@ const GithubAkash = ({
             image: repoTag,
             ports,
             commands,
-            env,
+            envs,
             accept,
             pat,
             owner,
             memoryUnit,
-            storageUnit
-          }),
-        });
-      } else {
-        response = await fetch("/api/akash-deploy-yaml", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            yamlContent: yaml,
+            storageUnit,
+            host,
+            protocol,
+            port,
+            as,
           }),
         });
       }
@@ -173,12 +137,12 @@ const GithubAkash = ({
       setIsLoading(false);
     }
   };
-     useEffect(() => {
-        const tokens = TokenService.getTokens();
-        if (tokens && tokens.tokens && tokens.tokens.accessToken) {
-          setAccessToken(tokens.tokens.accessToken);
-        }
-      }, []);
+  useEffect(() => {
+    const tokens = TokenService.getTokens();
+    if (tokens && tokens.tokens && tokens.tokens.accessToken) {
+      setAccessToken(tokens.tokens.accessToken);
+    }
+  }, []);
 
   useEffect(() => {
     if (activeStep === 2) {
@@ -200,214 +164,46 @@ const GithubAkash = ({
         owner={owner.toLowerCase()}
         onNext={() => handleShowConfig()}
         setDisableSelect={setDisableSelect}
+        existingNames={{}}
+        image={image}
+        setPat={setPat}
+        cpu={cpu}
+        setCpu={setCpu}
+        ram={memory}
+        setRam={setMemory}
+        hdd={ephemeralStorage}
+        setHdd={setEphemeralStorage}
       />
       {showConfig && (
         <div className="databaseSelect">
-          <div
-            ref={servicesRef}
-            className={`deployment-config ${summary ? "disabled" : ""}`}
-          >
-            <h2>Deployment configurations</h2>
+          <div ref={servicesRef} className={` ${summary ? "disabled" : ""}`}>
+            {/* <h2>Deployment configurations</h2>
 
-            <p>Configure your deployment settings.</p>
-            <div className="billing-tabs">
-              <div
-                className={`billing-tab ${
-                  activeTab === "builder" ? "billing-tab-active" : ""
-                }  ${darkMode ? "dark" : "light"}`}
-                onClick={() => setActiveTab("builder")}
-              >
-                Builder
-              </div>
-            </div>
+            <p>Configure your deployment settings.</p> */}
+
             {activeTab === "builder" ? (
               <>
-                <div className="buildpack-selects">
-                  <div
-                    className={`buildpack-single ${
-                      darkMode ? "dark" : "light"
-                    }`}
-                  >
-                    <h3> Service name</h3>
-                    {errorMessage2 && (
-                      <h3 className="error-message">{errorMessage2}</h3>
-                    )}{" "}
-                    <div
-                      className={`input-container5 ${
-                        darkMode ? "dark" : "light"
-                      }`}
-                    >
-                      <input
-                        type="text"
-                        className={`custom-input ${
-                          darkMode ? "dark" : "light"
-                        }`}
-                        value={name}
-                        onChange={handleNameChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`buildpack-single ${darkMode ? "dark" : "light"}`}
-                >
-                  <h3> Personal Access Token</h3>
-                  <Link
-                    href={
-                      "https://github.com/settings/tokens/new?description=grid%20(pull%20images)&scopes=read:packages"
-                    }
-                    target="_blank"
-                  >
-                    <p>Click here to generate it</p>
-                  </Link>
-                  {errorMessage && (
-                    <h3 className="error-message">{errorMessage}</h3>
-                  )}{" "}
-                  <div
-                    className={`input-container5 ${
-                      darkMode ? "dark" : "light"
-                    }`}
-                  >
-                    <input
-                      type="text"
-                      className={`custom-input ${darkMode ? "dark" : "light"}`}
-                      value={pat}
-                      onChange={handlePat}
-                      required
-                    />
-                  </div>
-                </div>
-                <PricingPlanFlux
-                  setMemory={setMemory}
-                  setCpu={setCpu}
-                  setEphemeralStorage={setEphemeralStorage}
-                  setServiceCount={setServiceCount}
-                  mode={darkMode}
-                  setPrice={setAppPrice}
+                <FluxInputs
+                  name={name}
+                  handleNameChange={handleNameChange}
+                  darkMode={darkMode}
+                  errorMessage2={errorMessage2}
+                  errorMessage={errorMessage}
+                  pat={pat}
+                  handlePat={handlePat}
                 />
-                {showPorts && (
-                  <PortFlux
+                <div style={{ display: "flex" }}>
+                  <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
+                  <NetAkash
+                    setPort={setPort}
+                    port={port}
+                    domain={domain}
+                    setDomain={setDomain}
+                    as={as}
+                    setAs={setAs}
                     darkMode={darkMode}
-                    onSave={handleSavePort}
-                    onCancel={() => setShowPorts(false)}
-                    initialPort={ports}
+                    setProtocol={setProtocol}
                   />
-                )}
-                <div className="second-akash">
-                  <div className="akash-expose">
-                    <div className={`section2 ${darkMode ? "dark" : "light"}`}>
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <h3>Expose</h3>
-                        <p>
-                          Port: {ports.port} : {ports.as} ({ports.protocol})
-                        </p>
-                        <p>Global: True</p>
-                        {ports.contPorts && <p>Cont Ports: {ports.contPorts}</p>}
-                      </div>
-                      <span
-                        onClick={() => {
-                          setShowPorts(true);
-                        }}
-                        className="edit-button"
-                      >
-                        Edit
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="sections-akash">
-                    <div className={`section ${darkMode ? "dark" : "light"}`}>
-                      <div>
-                        <h3>Environment Variables</h3>
-
-                        <p>
-                          {Object.keys(env).length === 0 ? (
-                            "None"
-                          ) : (
-                            <div>
-                              {Object.entries(env).map(([key, value]) => (
-                                <p key={key}>
-                                  {key}={value}
-                                  <button
-                                    className="add-button3"
-                                    onClick={() => handleDelete(key)}
-                                  >
-                                    Delete
-                                  </button>
-                                </p>
-                              ))}
-                            </div>
-                          )}
-                        </p>
-                      </div>
-                      <span
-                        onClick={() => {
-                          setShowEnv(true);
-                        }}
-                        className="edit-button"
-                      >
-                        Edit
-                      </span>
-                    </div>
-                    {showEnv && (
-                      <EnvModal
-                        darkMode={darkMode}
-                        onSave={handleShowEnv}
-                        onCancel={() => setShowEnv(false)}
-                      />
-                    )}
-                    {showComm && (
-                      <CommModal
-                        darkMode={darkMode}
-                        onSave={handleSaveCommand}
-                        onCancel={() => setShowComm(false)}
-                      />
-                    )}
-                    <div className={`section ${darkMode ? "dark" : "light"}`}>
-                      <div>
-                        <h3>Commands</h3>
-                        {commands.length === 0 ? (
-                          <p>None</p>
-                        ) : (
-                          commands.map((cmd, index) => (
-                            <div key={index}>
-                              <h5>
-                                {cmd}
-                                <button
-                                  className="add-button3"
-                                  onClick={() => handleDeleteCommand(index)}
-                                >
-                                  Delete
-                                </button>
-                              </h5>
-                            </div>
-                          ))
-                        )}
-                        {args.length === 0
-                          ? ""
-                          : args.map((cmd, index) => (
-                              <div key={index}>
-                                <p>
-                                  {cmd}
-                                  <button
-                                    className="add-button3"
-                                    onClick={() => handleDeleteArgs(index)}
-                                  >
-                                    Delete
-                                  </button>
-                                </p>
-                              </div>
-                            ))}
-                      </div>
-                      <span
-                        onClick={() => setShowComm(true)}
-                        className="edit-button"
-                      >
-                        Edit
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </>
             ) : (
@@ -419,7 +215,7 @@ const GithubAkash = ({
             <button
               className="add-button4"
               onClick={() => {
-                handleSummary();
+                handleSummary(true);
               }}
             >
               Continue

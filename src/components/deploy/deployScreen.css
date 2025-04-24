@@ -4,8 +4,8 @@
   text-align: center;
 
   
-  padding: 20px;
-  width: 92%;
+  padding: 20px 0px;
+  width: 100%;
   margin: 10px auto;
 }
 .cloudSelect button,
@@ -39,16 +39,17 @@
 .databaseSelect h3,
 .locationSelect h3 {
   display: flex;
-  margin: 0px;
+  align-items: center;
   margin-right: 10px;
+  font-size: 0.9rem;
 }
 .databaseSelect {
   display: flex;
   flex-direction: column;
-  padding: 25px;
-  width: 90%;
-  margin: 10px auto;
- 
+  padding: 20px 0px;
+  width: 100%;
+  margin: 5px auto;
+  
 }
 .databaseSelect button {
   padding: 0px 15px;
@@ -62,11 +63,34 @@
   border: 2px solid #00b174;
   background-color: #d6eee3;
 }
+.options-container{
+  display: flex;
+}
+.component-container{
+  border: 2px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 25px;
+}
+.components-display{
+  display: flex;
+  justify-content: space-around;
+}
+.sub-component-container{
+  border: 2px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 25px;
+  width: 45%;
+}
+.component-container h3{
+  margin-top: 10px;
+  padding: 10px;
+}
 .deployMethodBox-container{
   display: grid;
-  grid-template-columns: 45% 45%;
+  grid-template-columns: 50% 50%;
   justify-content: center;
   margin-bottom: 25px;
+  
 }
 .locationSelect {
   display: flex;
@@ -385,6 +409,10 @@
  color: black;
  
 }
+.deploy-container2{
+  width: 90%;
+  margin: 0px auto;
+}
 .akash-faucet.dark a{
   color: white;
   border-bottom: 1px solid white;
@@ -520,6 +548,8 @@
 
 .deployMethodBox h4{
   font-size: 0.9rem;
+  margin: 10px;
+
 }
 .deployMethodBox img{
   margin:  auto;
@@ -572,9 +602,11 @@
   border: 2px solid #00b174;
   background-color: #d6eee3;
 }
-
+.button-display{
+  display: flex;
+  justify-content: center;
+}
 .add-button {
-  
   border: 2px solid #00b174 !important;
   border-radius: 20px;
   color: #00b174;
@@ -582,6 +614,7 @@
   margin-top: 10px;
   font-weight: 600 !important;
   cursor: pointer;
+
 }
 .add-button:hover{
   background-color: #d6eee3;
@@ -608,7 +641,11 @@
 .texto-pipeline{
   color: #00b174;
   justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
   width: 100%;
+  
 }
 .texto-pipeline2{
   color: #f12b2b;
@@ -721,12 +758,11 @@
 
 .instance-config {
   flex: 1;
-  margin-left: 20px;
+
   justify-content: center;
   align-items: center;
   margin: auto;
-  margin-right: 0px;
-  margin-left: 50px;
+
 }
 
 .instance-buttons {
@@ -751,9 +787,9 @@
   color: #00b174;
 }
 
-.slider {
+/* .slider {
   margin-bottom: 10px;
-}
+} */
 
 .slider label {
   display: block;
@@ -922,12 +958,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 25px;
-  border: 1px solid #ccc;
+  padding: 0px;
   border-radius: 25px;
-  width: 90%;
+  width: 100%;
   margin: auto;
   margin-top: 25px;
+  border: 2px solid #e0e0e0;
   
 }
 .add-buildpack span{
@@ -946,14 +982,22 @@
 }
 .buildpack-selects{
   display: flex;
+  flex-direction: column;
   width: 100%;
-  margin-bottom: 40px;
+ 
 }
 .buildpack-single{
   flex-direction: column;
   display: flex;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 0px;
+  
+}
+.buildpack-single p{
+  font-size: 0.9rem;
+  color: #00b174;
+  border-bottom: 1px solid #00b174;
+  width: 175px;
 }
 .buildpack-single.light h3{
   color: black;
@@ -1007,7 +1051,9 @@
   margin-left: 0px;
   background-color: #f5f6f6;
 }
-
+.buildpack-item2 {
+  font-size: 0.8rem;
+}
 .buildpack-item2 > div:first-child {
   display: flex;
   align-items: center;
@@ -1064,16 +1110,46 @@
 .install-github {
   display: flex;
   background-color: #00b174;
- 
-  padding: px;
   text-align: center;
   border-radius: 25px;
-  width: max-content;
+  width: 100%;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  margin-top: 15px;
+  padding: 0px;
+}
+
+.git-install-cont{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 280px;
+  margin-top: 20px;
+}
+.git-install-cont p{
+  padding: 10px;
+  margin: auto ;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.git-install-cont a{
+  display: flex;
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+
 }
 .install-container{
   display: flex;
   align-items: center;
+  width: 180px;
+  justify-content: center;
+  margin: auto;
 }
 .install-container img{
   display: flex;
@@ -1087,8 +1163,6 @@
 .install-github2{
   display: flex;
   background-color: #00b174;
- 
-  padding: px;
   text-align: center;
   border-radius: 25px;
   width: max-content;
@@ -1097,7 +1171,7 @@
 .install-github span, .install-github2 span{
   color: white;
   font-weight: 400;
-  width: 100%;
+  
 
 }
 .install-github img, .install-github2 img{
@@ -1132,8 +1206,8 @@
   margin-top: 10px;
   color: black;
   justify-content: space-between;
-  font-size: 0.9rem;
-  z-index: 1;
+  font-size: 0.8rem;
+  
 }
 .dropdown-container2{
   position: relative;
@@ -1143,7 +1217,7 @@
   justify-content: space-between;
   font-size: 0.9rem;
   margin-left: 10px;
-  z-index: 100;
+  
   margin-right: 5px;
 }
 .dropdown-container3{
@@ -1170,11 +1244,11 @@
 .dropdown-header {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 8px;
   height: 20px;
   cursor: pointer;
   border-radius: 25px;
-  z-index: 1  !important;
+  
   
 }
 .dropdown-header.openHeader {
@@ -1247,8 +1321,8 @@
   border:1px solid #ddd;
   border-top: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 900; 
-  max-height: 120px; /* Aproximadamente 3-4 opciones */
+  z-index: 999; 
+  max-height: 120px; 
   overflow-y: auto;
 
 }
@@ -1258,7 +1332,7 @@
   cursor: pointer;
   transition: background-color 0.2s;
   font-size: 0.8rem;
-  z-index: 900;
+  z-index: 900 !important;
 }
 .dropdown-list li:last-child {
   border-bottom-left-radius: 25px;
