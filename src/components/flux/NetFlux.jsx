@@ -15,19 +15,19 @@ const NetFlux = ({ darkMode,setDomain, domain, port, setPort }) => {
           <div className="envInputs">
             <div className="modal-input">
               <label>Protocol</label>
-              <input 
-                placeholder="HTTP" 
-                disabled 
+              <input
+                placeholder="HTTP"
+                disabled
                 style={{ opacity: isEditing ? 1 : 0.5 }}
               />
             </div>
 
             <div className="modal-input">
               <label>Port</label>
-              <input 
-                type="number" 
-                value={port}
-                onChange={(e) => setPort(e.target.value)} 
+              <input
+                type="number"
+                value={port[0]}
+                onChange={(e) => setPort([parseInt(e.target.value)])}
                 disabled={!isEditing}
                 style={{ opacity: isEditing ? 1 : 0.5 }}
               />
@@ -35,19 +35,16 @@ const NetFlux = ({ darkMode,setDomain, domain, port, setPort }) => {
 
             <div className="modal-input">
               <label>Domain</label>
-              <input 
+              <input
                 value={domain}
-                onChange={(e) => setDomain(e.target.value)} 
+                onChange={(e) => setDomain([e.target.value])}
                 disabled={!isEditing}
                 style={{ opacity: isEditing ? 1 : 0.5 }}
               />
             </div>
 
             <div className="modal-input2">
-              <button 
-                className="add-button3" 
-                onClick={handleToggleEdit}
-              >
+              <button className="add-button3" onClick={handleToggleEdit}>
                 {isEditing ? "Save" : "Edit"}
               </button>
             </div>

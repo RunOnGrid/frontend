@@ -2,64 +2,45 @@ import React, { useState } from "react";
 
 const plans = [
   {
-    title: "TEST",
+    title: "BETA",
     subtitle: "Starter",
-    specs: ["256 MB (RAM)", "0.1 CPU", "1 GB (STORAGE)", "1 INSTANCE (NODES)"],
+    specs: [
+      "1000 MB (RAM)",
+      "0.5 CPU",
+      "20 GB (STORAGE)",
+      "3 INSTANCES (NODES)",
+    ],
     price: "---",
-    values: [256, "Mi", 0.1, 1, "Gi", 1, 80],
-    soon: false,
+    values: [1000, "Mb", 0.5, 20, "Gi", 1, 80],
+    plan: "beta",
   },
   {
-    title: "STANDARD",
+    title: "TEST",
     subtitle: "Standard",
-    specs: ["1 GB (RAM)", "1 CPU", "5 GB (STORAGE)", "1 INSTANCE (NODES)"],
+    specs: ["4000 MB (RAM)", "2 CPU", "20 GB (STORAGE)", "3 INSTANCES (NODES)"],
     price: "---",
-    values: [1, "Gi", 1, 5, "Gi", 1, 550],
-    soon: false,
-  },
-  {
-    title: "PRODUCTION",
-    subtitle: "Pro",
-    specs: ["4 GB (RAM)", "2 CPU", "32 GB (STORAGE)", ""],
-    price: "---",
-    values: [4, "Gi", 2, 32, "Gi", 12, 0],
-    soon: true,
-  },
-  {
-    title: "PRODUCTION2",
-    subtitle: "Pro Plus",
-    specs: ["8 GB (RAM)", "4 CPU", "64 GB (STORAGE)", ""],
-    price: "---",
-    values: [8, "Gi", 4, 64, "Gi", 24, 0],
-    soon: true,
+    values: [1, "Mb", 1, 5, "Gi", 1, 550],
+    plan: "test",
   },
 ];
 
-const PricingPlanAkash = ({
-  setMemory,
-  setCpu,
-  setEphemeralStorage,
-  setServiceCount,
-  mode,
-  setPrice,
-}) => {
+const PricingPlanAkash = ({ handleBeta, handleTest, mode, setPrice }) => {
   const [selectedPlan, setSelectedPlan] = useState("TEST");
 
   const handleSelectPlan = (plan) => {
-    if (plan.soon) {
+    setSelectedPlan(plan.title);
+    if (plan.plan === "test") {
+      handleTest();
+      return;
+    } else if (plan.plan === "beta") {
+      handleBeta();
       return;
     }
-    setSelectedPlan(plan.title);
-    setMemory(plan.values[0]);
-    setCpu(plan.values[2]);
-    setEphemeralStorage(plan.values[3]);
-    setServiceCount(plan.values[5]);
-    setPrice(plan.values[6]);
   };
 
   return (
     <div>
-      <h3 className="pricing-title">Use recommended configuration</h3>
+      {/* <h3 className="pricing-title">Use recommended configuration</h3> */}
       <div className={`plans-container2 ${mode ? "dark" : "light"}`}>
         {plans.map((plan) => (
           <div

@@ -11,20 +11,20 @@ import ComponentsTable from "./ComponentTable";
 import SummaryAkash from "../deploy/SummaryAkash";
 import Botonera2 from "@/commons/Botonera2";
 import LoadingText from "@/commons/LoaderText";
+import Spinner from "@/commons/Spinner";
 
-export default function BuildFlux({ darkMode, image }) {
+export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   const [activeStep, setActiveStep] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [commands, setCommands] = useState([]);
-  const [port, setPort] = useState(8080);
+  const [port, setPort] = useState([8080]);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [repoTag, setRepoTag] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [existingNames, setExistingNames] = useState([]);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-  const envRef = useRef(null);
   const [envs, setEnvs] = useState([]);
   const [cpu, setCpu] = useState(0.5);
   const [ram, setRam] = useState(100);
@@ -33,16 +33,127 @@ export default function BuildFlux({ darkMode, image }) {
   const [pat, setPat] = useState("");
   const [summary, setSummary] = useState(false);
   const [agree, setAgree] = useState(false);
-  const [domain, setDomain] = useState("");
+  const [domain, setDomain] = useState([""]);
   const [priv, setPriv] = useState(false);
   const [errorMessage2, setErrorMessage2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage3, setErrorMessage3] = useState("");
-
+  const [balance, setBalance] = useState(0);
+  const [compPrice, setCompPrice] = useState(0);
+  const [instances, setInstances] = useState(3);
+  const [insufficient, setInsufficient] = useState(false);
+  const [fundsError, setFundsError] = useState(true);
+  const [priceLoader, setPriceLoader] = useState(false);
   const router = useRouter();
+  const handleSummary = async () => {
+    // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
+
+    if (!name.trim()) {
+      setErrorMessage2("This field is required.");
+
+      return;
+    }
+    if (priv) {
+      if (!pat.trim()) {
+        setErrorMessage("This field is required.");
+
+        return;
+      }
+    }
+
+    const price = await checkPrice();
+
+    if (price) {
+      setPriceLoader(false);
+      setErrorMessage("");
+      setErrorMessage2("");
+      setSummary(true);
+      setActiveStep(4);
+    }
+  };
+
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setBalance(data);
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
+
+  const checkPrice = async () => {
+    getBalance();
+    setPriceLoader(true);
+    const response = await fetch(
+      `/api/get-price?cloudProvider=${encodeURIComponent(
+        selectedCloud.toUpperCase()
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          configurationDetails: {
+            deploymentDetails: {
+              name: name,
+              description: "Application deployed by Grid",
+
+              compose: [
+                {
+                  name: name,
+                  description: "Application deployed by Grid",
+                  repotag: repoTag,
+                  ports: [36522],
+                  domains: domain || [""],
+                  environmentParameters: envs || [],
+                  commands: commands || [""],
+                  containerPorts: port || [""],
+                  containerData: "/data",
+                  cpu: cpu,
+                  ram: ram,
+                  hdd: hdd,
+                  tiered: false,
+                  secrets: "",
+                  repoauth: `${owner.toLowerCase()}:${pat}`,
+                },
+              ],
+              expire: compDuration,
+              instances: instances,
+            },
+          },
+        }),
+      }
+    );
+    const data = await response.json();
+    setCompPrice(data.price.toFixed(2));
+    if (data.price > balance) {
+      setInsufficient(true);
+    }
+
+    return true;
+  };
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
     setIsLoading(true);
+    if (insufficient) {
+      setFundsError("Insufficient funds");
+      setIsLoading(false);
+      return;
+    }
     // const portsArray = portsInput ? JSON.parse(portsInput) : '';
 
     try {
@@ -66,6 +177,8 @@ export default function BuildFlux({ darkMode, image }) {
             repoauth: `${owner.toLowerCase()}:${pat}`,
           },
         ],
+        expire: compDuration,
+        instances: instances,
       };
 
       const response = await fetch("/api/flux-deploy", {
@@ -90,24 +203,7 @@ export default function BuildFlux({ darkMode, image }) {
       setIsLoading(false);
     }
   };
-  const handleSummary = () => {
-    if (!name.trim()) {
-      setErrorMessage2("This field is required.");
-      return;
-    }
-    if (!repoTag.trim()) {
-      setErrorMessage3("This field is required.");
-      return;
-    }
-    if (priv && !pat.trim()) {
-      setErrorMessage("This field is required.");
-      return;
-    }
-    setErrorMessage("");
-    setErrorMessage2("");
-    setErrorMessage3("");
-    setSummary(true);
-  };
+
   useEffect(() => {
     const fetchExistingNames = async () => {
       try {
@@ -137,12 +233,10 @@ export default function BuildFlux({ darkMode, image }) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 4) {
       deployRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 5) {
-      envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
   return (
-    <div className="databaseSelect">
+    <div ref={servicesRef} className="databaseSelect">
       <div className="components-display">
         <DockerSettings
           repoTag={repoTag}
@@ -168,6 +262,7 @@ export default function BuildFlux({ darkMode, image }) {
           setRam={setRam}
           hdd={hdd}
           setHdd={setHdd}
+          setInstances={setInstances}
         />
       </div>
 
@@ -184,14 +279,18 @@ export default function BuildFlux({ darkMode, image }) {
           />
         </div>
       </>
-      <button
-        className="add-button4"
-        onClick={() => {
-          handleSummary(true);
-        }}
-      >
-        Continue
-      </button>
+      {priceLoader ? (
+        <Spinner />
+      ) : (
+        <button
+          className="add-button4"
+          onClick={() => {
+            handleSummary(true);
+          }}
+        >
+          Continue
+        </button>
+      )}
       {/* <ComponentsTable /> */}
       {summary && (
         <div ref={deployRef}>
@@ -203,11 +302,20 @@ export default function BuildFlux({ darkMode, image }) {
             name={name}
             setSummary={setSummary}
             setAgree={setAgree}
+            price={compPrice}
+            setActiveStep={setActiveStep}
+            summaryStep={3}
           />
           <div className="termService">
             <Botonera2 setAgree={setAgree} agree={agree} />
             <h4>I agree with Terms of Service</h4>
           </div>
+          {fundsError !== "" ? (
+            <h3 className="error-message-login">{fundsError}</h3>
+          ) : (
+            ""
+          )}
+
           <div
             className={
               agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"

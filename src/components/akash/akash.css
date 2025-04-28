@@ -15,7 +15,7 @@
     max-width: 100vw;
     overflow-x: hidden;
   }
-  .deployment-config.disabled, .databaseSelect.disabled, .dashboard-container.disabled, .deployMethodBox-container.disabled{
+  .deployment-config.disabled, .databaseSelect.disabled, .dashboard-container.disabled,  .slider-container.disabled{
     pointer-events: none; /* Desactiva cualquier interacción */
     opacity: 0.4;
   }

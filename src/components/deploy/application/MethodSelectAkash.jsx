@@ -140,7 +140,7 @@ const MethodSelectAkash = forwardRef(
             ""
           )}
           {selectedCloud === "akash" && deployOption === "dockerAkash" && (
-            <BuildAkash darkMode={darkMode} image={image} />
+            <BuildAkash selectedCloud={selectedCloud} darkMode={darkMode} />
           )}
 
           {selectedCloud === "akash" && deployOption === "githubAkash" && (
@@ -150,6 +150,7 @@ const MethodSelectAkash = forwardRef(
                 databaseName={databaseName}
                 setInstalled={setInstalled}
                 setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
               />
             </>
           )}

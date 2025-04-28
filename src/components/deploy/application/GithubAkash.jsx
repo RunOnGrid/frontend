@@ -15,12 +15,14 @@ import EnvFlux from "@/components/flux/EnvFlux";
 import NetFlux from "@/components/flux/NetFlux";
 import FluxInputs from "@/components/flux/FluxInputs";
 import NetAkash from "@/components/akash/NetAkash";
+import Spinner from "@/commons/Spinner";
 
 const GithubAkash = ({
   image,
   databaseName,
   setInstalled,
   setDisableSelect,
+  selectedCloud,
 }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
@@ -51,7 +53,7 @@ const GithubAkash = ({
   const [repositories, setRepositories] = useState([0, 1]);
   const [repoTag, setRepoTag] = useState("");
   const [owner, setOwner] = useState("");
-  const [showConfig, setShowConfig] = useState(true);
+  const [showConfig, setShowConfig] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
   const [accessToken, setAccessToken] = useState("");
@@ -63,6 +65,149 @@ const GithubAkash = ({
   const [domain, setDomain] = useState("domain.com");
   const [host, setHost] = useState("ghcr.io");
   const [as, setAs] = useState(80);
+  const [balance, setBalance] = useState(0);
+  const [insufficient, setInsufficient] = useState(false);
+  const [fundsError, setFundsError] = useState(true);
+  const [instances, setInstances] = useState(1);
+  const [compPrice, setCompPrice] = useState(0);
+  const [validatorMsg, setValidatorMsg] = useState("");
+  const [imageError, setImageError] = useState(false);
+  const [imagePath, setImagePath] = useState("");
+  const [priceLoader, setPriceLoader] = useState(false);
+
+  const handleSummary = async () => {
+    // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
+    const isImageValid = await imageValidator();
+
+    if (!isImageValid) {
+      setValidatorMsg("Wrong credentials, please check PAT");
+      return;
+    }
+
+    if (!name.trim()) {
+      setErrorMessage2("This field is required.");
+      return;
+    }
+
+    if (!pat.trim()) {
+      setErrorMessage("This field is required.");
+      return;
+    }
+
+    if (isImageValid) {
+      const price = await checkPrice();
+      if (price) {
+        setPriceLoader(false);
+        setErrorMessage("");
+        setErrorMessage2("");
+        setSummary(true);
+        setActiveStep(3);
+        setValidatorMsg("");
+        setImageError(false);
+      }
+    }
+  };
+
+  const imageValidator = async () => {
+    try {
+      const response = await fetch("/api/image-validator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          username: owner,
+          pat: pat,
+          imagePath: imagePath.toLowerCase(),
+        }),
+      });
+      if (!response.ok) {
+        setImageError(true);
+        setError(err.message);
+        return false;
+      }
+      const data = await response.json();
+      setValidatorMsg("");
+      setImageError(false);
+
+      return true;
+    } catch (err) {
+      setImageError(true);
+      setError(err.message);
+
+      return false;
+    }
+  };
+
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setBalance(data);
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
+
+  const checkPrice = async () => {
+    getBalance();
+    setPriceLoader(true);
+    const response = await fetch(
+      `/api/get-price?cloudProvider=${encodeURIComponent(
+        selectedCloud.toUpperCase()
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          configurationDetails: {
+            serviceName: name,
+            cpu,
+            memory,
+            ephemeralStorage,
+            serviceCount,
+            image: repoTag,
+            ports,
+            commands,
+            envs,
+            accept,
+            pat,
+            owner,
+            memoryUnit,
+            storageUnit,
+            host,
+            protocol,
+            port,
+            as,
+            count: instances,
+          },
+        }),
+      }
+    );
+    const data = await response.json();
+    setCompPrice(data.price.toFixed(2));
+    if (data.price > balance) {
+      setInsufficient(true);
+    }
+
+    return true;
+  };
+
   const handleNameChange = (event) => {
     const newName = event.target.value;
     setName(newName);
@@ -70,11 +215,6 @@ const GithubAkash = ({
 
   const handlePat = (e) => {
     setPat(e.target.value);
-  };
-
-  const handleSummary = () => {
-    setSummary(true);
-    setActiveStep(4);
   };
 
   const handleShowConfig = () => {
@@ -92,7 +232,11 @@ const GithubAkash = ({
 
   const handlePaymentSuccess = async () => {
     setIsLoading(true);
-
+    if (insufficient) {
+      setFundsError("Insufficient funds");
+      setIsLoading(false);
+      return;
+    }
     try {
       let response;
       if (activeTab === "builder") {
@@ -121,6 +265,7 @@ const GithubAkash = ({
             protocol,
             port,
             as,
+            count: instances,
           }),
         });
       }
@@ -173,6 +318,8 @@ const GithubAkash = ({
         setRam={setMemory}
         hdd={ephemeralStorage}
         setHdd={setEphemeralStorage}
+        setInstances={setInstances}
+        setImagePath={setImagePath}
       />
       {showConfig && (
         <div className="databaseSelect">
@@ -210,16 +357,24 @@ const GithubAkash = ({
               ""
             )}
 
-            {error && <p style={{ color: "red" }}>Error: {error}</p>}
+            {validatorMsg !== "" ? (
+              <span className="error-message-login">{validatorMsg}</span>
+            ) : (
+              ""
+            )}
 
-            <button
-              className="add-button4"
-              onClick={() => {
-                handleSummary(true);
-              }}
-            >
-              Continue
-            </button>
+            {priceLoader ? (
+              <Spinner />
+            ) : (
+              <button
+                className="add-button4"
+                onClick={() => {
+                  handleSummary(true);
+                }}
+              >
+                Continue
+              </button>
+            )}
           </div>
 
           {summary && (
@@ -232,11 +387,19 @@ const GithubAkash = ({
                 name={name}
                 setSummary={setSummary}
                 setAgree={setAgree}
+                price={compPrice}
+                setActiveStep={setActiveStep}
+                summaryStep={2}
               />
               <div className="termService">
                 <Botonera2 setAgree={setAgree} agree={agree} />
                 <h4>I agree with Terms of Service</h4>
               </div>
+              {fundsError !== "" ? (
+                <h3 className="error-message-login">{fundsError}</h3>
+              ) : (
+                ""
+              )}
               <div
                 className={
                   agree
