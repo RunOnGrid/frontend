@@ -1,26 +1,41 @@
 import React, { useState } from "react";
 import SliderComp from "../slider/SliderComp";
 import NoBorderSlider from "../slider/NoBorderSlider";
+import PricingPlanAkash from "./PricingPlanAkash";
 
-const AddComponent = ({ darkMode, ram, hdd, cpu, setCpu, setRam, setHdd }) => {
+const AddComponent = ({
+  darkMode,
+  ram,
+  hdd,
+  cpu,
+  setCpu,
+  setRam,
+  setHdd,
+  setInstances,
+}) => {
   const [customize, setCustomize] = useState(false);
+  const [pricingCards, setPricingCards] = useState(false);
   const handleBeta = () => {
     setCpu(0.5);
     setHdd(20);
     setRam(1000);
+    setInstances(3);
     setCustomize(true);
   };
   const handleTest = () => {
     setCpu(2);
     setHdd(20);
     setRam(4000);
+    setInstances(3);
     setCustomize(true);
   };
 
   const handleCustomize = () => {
+    setPricingCards(false);
     setCpu(0.1);
     setHdd(1);
     setRam(100);
+    setInstances(1);
     setCustomize(false);
   };
 
@@ -33,61 +48,61 @@ const AddComponent = ({ darkMode, ram, hdd, cpu, setCpu, setRam, setHdd }) => {
         <button onClick={() => handleCustomize()} className="add-button">
           Customize
         </button>
-        <button
-          onClick={() => {
-            handleBeta();
-          }}
-          className="add-button"
-        >
-          Beta Config
-        </button>
-        <button
-          onClick={() => {
-            handleTest();
-          }}
-          className="add-button"
-        >
-          Test Config
+        <button onClick={() => setPricingCards(true)} className="add-button">
+          Recommended configurations
         </button>
       </div>
-      <div className="instance-config">
+      {pricingCards ? (
         <>
-          <SliderComp min={3} max={100} initialDuration={3} label="Instances" />
-
-          <div className="akash-sliders">
-            <div className="sliders-flux">
-              {" "}
-              <NoBorderSlider
-                label="CPU"
-                initialDuration={cpu}
-                min={0.1}
-                max={15}
-                step={0.1}
-                onChange={setCpu}
-                customize={customize}
-              />
-              <NoBorderSlider
-                label="RAM"
-                initialDuration={ram}
-                min={100}
-                max={59000}
-                step={100}
-                onChange={setRam}
-                customize={customize}
-              />
-              <NoBorderSlider
-                label="SSD"
-                initialDuration={hdd}
-                min={1}
-                max={820}
-                step={1}
-                onChange={setHdd}
-                customize={customize}
-              />
-            </div>
-          </div>
+          {" "}
+          <PricingPlanAkash handleBeta={handleBeta} handleTest={handleTest} />
         </>
-      </div>
+      ) : (
+        <div className="instance-config">
+          <>
+            <SliderComp
+              min={3}
+              max={100}
+              initialDuration={3}
+              label="Instances"
+              setInstances={setInstances}
+            />
+
+            <div className="akash-sliders">
+              <div className="sliders-flux">
+                {" "}
+                <NoBorderSlider
+                  label="CPU"
+                  initialDuration={cpu}
+                  min={0.1}
+                  max={15}
+                  step={0.1}
+                  onChange={setCpu}
+                  customize={customize}
+                />
+                <NoBorderSlider
+                  label="RAM"
+                  initialDuration={ram}
+                  min={100}
+                  max={59000}
+                  step={100}
+                  onChange={setRam}
+                  customize={customize}
+                />
+                <NoBorderSlider
+                  label="SSD"
+                  initialDuration={hdd}
+                  min={1}
+                  max={820}
+                  step={1}
+                  onChange={setHdd}
+                  customize={customize}
+                />
+              </div>
+            </div>
+          </>
+        </div>
+      )}
     </div>
   );
 };

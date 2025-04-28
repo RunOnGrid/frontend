@@ -11,7 +11,7 @@ try {
     cpu,
     memory,
     ephemeralStorage,
-    serviceCount,
+    count,
     image,
     storageUnit,
     memoryUnit,
@@ -90,14 +90,13 @@ try {
       [serviceName]: {
         dcloud: {
           profile: serviceName,
-          count: serviceCount,
+          count: count,
         },
       },
     },
   };
 
   const yamlString = yaml.dump(yamlStructure);
-  console.log("YAML String:", yamlString);
   const API_URL = process.env.GRID_API;
 
   const akashResponse = await fetch(`${API_URL}/akash`, {

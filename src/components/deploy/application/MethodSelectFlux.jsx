@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import SliderComp from "@/components/slider/SliderComp";
 import GithubFlux from "./GithubFlux";
 import BuildFlux from "@/components/flux/BuildFlux";
+import FluxSlider from "@/components/slider/FluxSlider";
 const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectFlux = forwardRef(
   (
@@ -36,6 +37,7 @@ const MethodSelectFlux = forwardRef(
     const [selectedMethod, setSelectedMethod] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [email, setEmail] = useState("");
+    const [compDuration, setCompDuration] = useState(20160);
     const router = useRouter();
 
     const { installation_id } = router.query;
@@ -85,7 +87,10 @@ const MethodSelectFlux = forwardRef(
         </div>
         <div className="component-container">
           <h3>Establish a global duration for all components </h3>
-          <SliderComp unit="week" unitPlural="weeks" label="Duration" />
+          <FluxSlider
+            disableSelect={disableSelect}
+            setCompDuration={setCompDuration}
+          />
           <div
             className={`deployMethodBox-container ${
               disableSelect ? "disabled" : ""
@@ -151,12 +156,17 @@ const MethodSelectFlux = forwardRef(
                 databaseName={databaseName}
                 setInstalled={setInstalled}
                 setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
+                compDuration={compDuration}
               />
             </>
           )}
           {selectedCloud === "flux" && deployOption === "dockerFlux" && (
             <>
-              <BuildFlux />
+              <BuildFlux
+                compDuration={compDuration}
+                selectedCloud={selectedCloud}
+              />
             </>
           )}
         </div>

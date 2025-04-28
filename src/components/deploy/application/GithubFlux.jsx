@@ -13,9 +13,10 @@ import NetFlux from "@/components/flux/NetFlux";
 
 const GithubFlux = ({
   image,
-  databaseName,
   setInstalled,
   setDisableSelect,
+  selectedCloud,
+  compDuration,
 }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
@@ -28,7 +29,7 @@ const GithubFlux = ({
   const [cpu, setCpu] = useState(0.5);
   const [ram, setRam] = useState(100);
   const [hdd, setHdd] = useState(100);
-  const [port, setPort] = useState(8080);
+  const [port, setPort] = useState([8080]);
   const [showEnv, setShowEnv] = useState(false);
   const [commands, setCommands] = useState([]);
   const [summary, setSummary] = useState(false);
@@ -36,9 +37,9 @@ const GithubFlux = ({
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [repoTag, setRepoTag] = useState("");
   const [pat, setPat] = useState("");
-  const [activeStep, setActiveStep] = useState(3);
+  const [activeStep, setActiveStep] = useState(1);
   const [activeTab, setActiveTab] = useState("builder");
-  const [domain, setDomain] = useState("domain.com");
+  const [domain, setDomain] = useState(["domain.com"]);
   const [existingNames, setExistingNames] = useState([]);
   const [agree, setAgree] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,13 +49,162 @@ const GithubFlux = ({
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [owner, setOwner] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [insufficient, setInsufficient] = useState(false);
+  const [fundsError, setFundsError] = useState(true);
+  const [imageError, setImageError] = useState(false);
+  const [validatorMsg, setValidatorMsg] = useState("");
+  const [imagePath, setImagePath] = useState("");
+  const [instances, setInstances] = useState(3);
+  const [compPrice, setCompPrice] = useState(0);
+  const [priceLoader, setPriceLoader] = useState(false);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
   const envRef = useRef(null);
   const serviceRef = useRef(null);
   const summaryRef = useRef(null);
+
+  const imageValidator = async () => {
+    try {
+      const response = await fetch("/api/image-validator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          username: owner,
+          pat: pat,
+          imagePath: imagePath.toLowerCase(),
+        }),
+      });
+      if (!response.ok) {
+        setImageError(true);
+        setError(err.message);
+        return false;
+      }
+      const data = await response.json();
+      setValidatorMsg("");
+      setImageError(false);
+
+      return true;
+    } catch (err) {
+      setImageError(true);
+      setError(err.message);
+
+      return false;
+    }
+  };
+  const handleSummary = async () => {
+    // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
+    const isImageValid = await imageValidator();
+
+    if (!isImageValid) {
+      setValidatorMsg("Wrong credentials, please check PAT");
+      return;
+    }
+
+    if (!name.trim()) {
+      setErrorMessage2("This field is required.");
+      return;
+    }
+
+    if (!pat.trim()) {
+      setErrorMessage("This field is required.");
+      return;
+    }
+
+    if (isImageValid) {
+      const price = await checkPrice();
+      if (price) {
+        setPriceLoader(false);
+        setErrorMessage("");
+        setErrorMessage2("");
+        setSummary(true);
+        setActiveStep(5);
+        setValidatorMsg("");
+        setImageError(false);
+      }
+    }
+  };
+
   const handleShowConfig = () => {
+    setActiveStep(3);
     setShowConfig(true);
+  };
+
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setBalance(data);
+    } catch (err) {
+      console.error("Error validating credentials:", err);
+    }
+  };
+
+  const checkPrice = async () => {
+    getBalance();
+    setPriceLoader(true);
+    const response = await fetch(
+      `/api/get-price?cloudProvider=${encodeURIComponent(
+        selectedCloud.toUpperCase()
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          configurationDetails: {
+            deploymentDetails: {
+              name: name,
+              description: "Application deployed by Grid",
+
+              compose: [
+                {
+                  name: name,
+                  description: "Application deployed by Grid",
+                  repotag: repoTag,
+                  ports: [36522],
+                  domains: domain || [""],
+                  environmentParameters: envs || [],
+                  commands: commands || [""],
+                  containerPorts: port || [""],
+                  containerData: "/data",
+                  cpu: cpu,
+                  ram: ram,
+                  hdd: hdd,
+                  tiered: true,
+                  secrets: "",
+                  repoauth: `${owner.toLowerCase()}:${pat}`,
+                },
+              ],
+              expire: compDuration,
+              instances: instances,
+            },
+          },
+        }),
+      }
+    );
+    const data = await response.json();
+    setCompPrice(data.price.toFixed(2));
+    if (data.price > balance) {
+      setInsufficient(true);
+    }
+
+    return true;
   };
 
   const handleNameChange = (e) => {
@@ -80,21 +230,6 @@ const GithubFlux = ({
   };
   const handlePat = (e) => {
     setPat(e.target.value);
-  };
-
-  const handleSummary = (state) => {
-    if (!name.trim()) {
-      setErrorMessage2("This field is required.");
-      return;
-    }
-    if (!pat.trim()) {
-      setErrorMessage("This field is required.");
-      return;
-    }
-    setErrorMessage("");
-    setErrorMessage2("");
-    setSummary(true);
-    setActiveStep(3);
   };
 
   // Fetch existing names on component mount
@@ -151,14 +286,16 @@ const GithubFlux = ({
   }, [repositories]);
 
   useEffect(() => {
-    if (activeStep === 2) {
+    if (activeStep === 1) {
+      setActiveStep(2);
+    } else if (activeStep === 2) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 3) {
-      deployRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 4) {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (activeStep === 4) {
+      deployRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 5) {
-      serviceRef.current?.scrollIntoView({ behavior: "smooth" });
+      deployRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 6) {
       summaryRef.current?.scrollIntoView({ behavior: "smooth" });
     }
@@ -172,7 +309,11 @@ const GithubFlux = ({
 
   const handlePaymentSuccess = async () => {
     setIsLoading(true);
-
+    if (insufficient) {
+      setFundsError("Insufficient funds");
+      setIsLoading(false);
+      return;
+    }
     try {
       const deploymentConfig = {
         name: name,
@@ -194,6 +335,8 @@ const GithubFlux = ({
             repoauth: `${owner.toLowerCase()}:${pat}`,
           },
         ],
+        expire: compDuration,
+        instances: instances,
       };
 
       const response = await fetch("/api/flux-deploy", {
@@ -226,30 +369,33 @@ const GithubFlux = ({
         </div>
       )}
       {showBuildSettings && (
-        <BuildSettings
-          repositories={repositories}
-          darkMode={darkMode}
-          ref={servicesRef}
-          setRepoTag={setRepoTag}
-          summary={summary}
-          setOwner={setOwner}
-          owner={owner.toLowerCase()}
-          onNext={() => handleShowConfig()}
-          setDisableSelect={setDisableSelect}
-          existingNames={existingNames}
-          image={image}
-          setPat={setPat}
-          cpu={cpu}
-          setCpu={setCpu}
-          ram={ram}
-          setRam={setRam}
-          hdd={hdd}
-          setHdd={setHdd}
-        />
+        <div ref={servicesRef}>
+          <BuildSettings
+            repositories={repositories}
+            darkMode={darkMode}
+            setRepoTag={setRepoTag}
+            summary={summary}
+            setOwner={setOwner}
+            owner={owner.toLowerCase()}
+            onNext={() => handleShowConfig()}
+            setDisableSelect={setDisableSelect}
+            existingNames={existingNames}
+            image={image}
+            setPat={setPat}
+            cpu={cpu}
+            setCpu={setCpu}
+            ram={ram}
+            setRam={setRam}
+            hdd={hdd}
+            setHdd={setHdd}
+            setImagePath={setImagePath}
+            setInstances={setInstances}
+          />
+        </div>
       )}
       {showConfig && (
-        <div className="databaseSelect">
-          <div ref={servicesRef} className={` ${summary ? "disabled" : ""}`}>
+        <div ref={envRef} className="databaseSelect">
+          <div className={` ${summary ? "disabled" : ""}`}>
             {/* <h2>Deployment configurations</h2>
 
             <p>Configure your deployment settings.</p> */}
@@ -280,16 +426,23 @@ const GithubFlux = ({
               ""
             )}
 
-            {error && <p style={{ color: "red" }}>Error: {error}</p>}
-
-            <button
-              className="add-button4"
-              onClick={() => {
-                handleSummary(true);
-              }}
-            >
-              Continue
-            </button>
+            {validatorMsg !== "" ? (
+              <span className="error-message-login">{validatorMsg}</span>
+            ) : (
+              ""
+            )}
+            {priceLoader ? (
+              <Spinner />
+            ) : (
+              <button
+                className="add-button4"
+                onClick={() => {
+                  handleSummary(true);
+                }}
+              >
+                Continue
+              </button>
+            )}
           </div>
 
           {summary && (
@@ -302,11 +455,19 @@ const GithubFlux = ({
                 name={name}
                 setSummary={setSummary}
                 setAgree={setAgree}
+                price={compPrice}
+                setActiveStep={setActiveStep}
+                summaryStep={4}
               />
               <div className="termService">
                 <Botonera2 setAgree={setAgree} agree={agree} />
                 <h4>I agree with Terms of Service</h4>
               </div>
+              {fundsError !== "" ? (
+                <h3 className="error-message-login">{fundsError}</h3>
+              ) : (
+                ""
+              )}
               <div
                 className={
                   agree

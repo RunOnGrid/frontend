@@ -14,8 +14,9 @@ import DockerSettings from "../flux/DockerSettings";
 import AddComponent from "../deploy/AddComponent";
 import EnvFlux from "../flux/EnvFlux";
 import NetAkash from "./NetAkash";
+import Spinner from "@/commons/Spinner";
 
-export default function BuildAkash({ darkMode }) {
+export default function BuildAkash({ darkMode, selectedCloud }) {
   const [activeStep, setActiveStep] = useState(3);
   const [currentDate, setCurrentDate] = useState("");
   const [cpu, setCpu] = useState(0.5);
@@ -57,28 +58,118 @@ export default function BuildAkash({ darkMode }) {
   const [host, setHost] = useState("ghcr.io");
   const [as, setAs] = useState(80);
   const [priv, setPriv] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [insufficient, setInsufficient] = useState(false);
+  const [fundsError, setFundsError] = useState(true);
+  const [compPrice, setCompPrice] = useState(0);
+  const [instances, setInstances] = useState(1);
+  const [priceLoader, setPriceLoader] = useState(false);
   const router = useRouter();
 
-  const handleSummary = (state) => {
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setBalance(data);
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
+
+  const checkPrice = async () => {
+    getBalance();
+    setPriceLoader(true);
+    const response = await fetch(
+      `/api/get-price?cloudProvider=${encodeURIComponent(
+        selectedCloud.toUpperCase()
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          configurationDetails: {
+            serviceName: name,
+            cpu,
+            memory,
+            ephemeralStorage,
+            serviceCount,
+            image: repoTag,
+            ports,
+            commands,
+            envs,
+            accept,
+            pat,
+            owner,
+            memoryUnit,
+            storageUnit,
+            host,
+            protocol,
+            port,
+            as,
+            count: instances,
+          },
+        }),
+      }
+    );
+    const data = await response.json();
+    setCompPrice(data.price.toFixed(2));
+    if (data.price > balance) {
+      setInsufficient(true);
+    }
+
+    return true;
+  };
+
+  const handleSummary = async () => {
+    // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
+
     if (!name.trim()) {
-      setErrorMessage("This field is required.");
-      return;
-    }
-    if (!repoTag.trim()) {
       setErrorMessage2("This field is required.");
+
       return;
     }
-    setErrorMessage("");
-    setErrorMessage2("");
-    setSummary(true);
-    setActiveStep(4);
+    if (priv) {
+      if (!pat.trim()) {
+        setErrorMessage("This field is required.");
+
+        return;
+      }
+    }
+
+    const price = await checkPrice();
+
+    if (price) {
+      setPriceLoader(false);
+      setErrorMessage("");
+      setErrorMessage2("");
+      setSummary(true);
+      setActiveStep(4);
+    }
   };
 
   // };
 
   const handlePaymentSuccess = async () => {
     setIsLoading(true);
-
+    if (insufficient) {
+      setFundsError("Insufficient funds");
+      setIsLoading(false);
+      return;
+    }
     try {
       let response;
 
@@ -107,6 +198,7 @@ export default function BuildAkash({ darkMode }) {
           protocol,
           port,
           as,
+          count: instances,
         }),
       });
 
@@ -176,6 +268,7 @@ export default function BuildAkash({ darkMode }) {
           setRam={setMemory}
           hdd={ephemeralStorage}
           setHdd={setEphemeralStorage}
+          setInstances={setInstances}
         />
       </div>
 
@@ -195,14 +288,18 @@ export default function BuildAkash({ darkMode }) {
           />
         </div>
       </>
-      <button
-        className="add-button4"
-        onClick={() => {
-          handleSummary(true);
-        }}
-      >
-        Continue
-      </button>
+      {priceLoader ? (
+        <Spinner />
+      ) : (
+        <button
+          className="add-button4"
+          onClick={() => {
+            handleSummary(true);
+          }}
+        >
+          Continue
+        </button>
+      )}
       {/* <ComponentsTable /> */}
       {summary && (
         <div ref={deployRef}>
@@ -214,11 +311,19 @@ export default function BuildAkash({ darkMode }) {
             name={name}
             setSummary={setSummary}
             setAgree={setAgree}
+            price={compPrice}
+            setActiveStep={setActiveStep}
+            summaryStep={3}
           />
           <div className="termService">
             <Botonera2 setAgree={setAgree} agree={agree} />
             <h4>I agree with Terms of Service</h4>
           </div>
+          {fundsError !== "" ? (
+            <h3 className="error-message-login">{fundsError}</h3>
+          ) : (
+            ""
+          )}
           <div
             className={
               agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"

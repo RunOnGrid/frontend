@@ -4,31 +4,30 @@ import RepositorySettings from "../RepoSettings";
 import AddComponent from "./AddComponent";
 
 const BuildSettings = forwardRef(
-  (
-    {
-      onNext,
-      darkMode,
-      setImage,
-      repositories,
-      setRepoTag,
-      summary,
-      owner,
-      setOwner,
-      setDisableSelect,
-      existingNames,
-      image,
-      setPat,
-      ram,
-      hdd,
-      cpu,
-      setCpu,
-      setRam,
-      setHdd,
-    },
-    ref
-  ) => {
+  ({
+    onNext,
+    darkMode,
+    setImage,
+    repositories,
+    setRepoTag,
+    summary,
+    owner,
+    setOwner,
+    setDisableSelect,
+    existingNames,
+    image,
+    setPat,
+    ram,
+    hdd,
+    cpu,
+    setCpu,
+    setRam,
+    setHdd,
+    setImagePath,
+    setInstances,
+  }) => {
     return (
-      <div className={`databaseSelect ${summary ? "disabled" : ""}`} ref={ref}>
+      <div className={`databaseSelect ${summary ? "disabled" : ""}`}>
         <div className="components-display">
           <RepositorySettings
             darkMode={darkMode}
@@ -36,6 +35,7 @@ const BuildSettings = forwardRef(
             owner={owner}
             setOwner={setOwner}
             setRepoTag={setRepoTag}
+            setImagePath={setImagePath}
             setDisableSelect={setDisableSelect}
             onNextStep={onNext}
           />
@@ -50,6 +50,7 @@ const BuildSettings = forwardRef(
             setRam={setRam}
             hdd={hdd}
             setHdd={setHdd}
+            setInstances={setInstances}
           />
         </div>
       </div>

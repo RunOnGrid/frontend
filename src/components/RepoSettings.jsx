@@ -13,7 +13,8 @@ const RepositorySettings = ({
   setOwner,
   setRepoTag,
   setDisableSelect,
-  onNextStep
+  onNextStep,
+  setImagePath,
 }) => {
   const [gitRepo, setGitRepo] = useState("");
   const [branches, setBranches] = useState([]);
@@ -166,6 +167,7 @@ const RepositorySettings = ({
       const data = await response.json();
       setWorkflowUrl(data.workflow_url);
       setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
+      setImagePath(`${owner}/${singleRepo}`);
       setWorkflowRun(true);
       setWorkflow(true);
       setLoadingWorkflow(false);
@@ -254,25 +256,16 @@ const RepositorySettings = ({
           <h3>User</h3>
           <span className="buildpack-item">
             <div>
-              <Image
-                alt=""
-                src="/githubLogin.png"
-                height={15}
-                width={15}
-              />
+              <Image alt="" src="/githubLogin.png" height={15} width={15} />
               {owner ? owner : ""}
             </div>
           </span>
         </div>
-        <div
-          className={`buildpack-single ${darkMode ? "dark" : "light"}`}
-        >
+        <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
           <h3>GitHub repository</h3>
           <Select options={repos} onSelect={setGitRepo} />
         </div>
-        <div
-          className={`buildpack-single ${darkMode ? "dark" : "light"}`}
-        >
+        <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
           <h3>Branches</h3>
           <Select4 options={branches} onSelect={handleBranch} />
         </div>
@@ -280,15 +273,14 @@ const RepositorySettings = ({
       {loadingWorkflow && <Spinner />}
       {workflowInstalled ? (
         <div className="button-display">
-
-        <button
-          onClick={() => {
-            handleWorkflow();
-          }}
-          className="add-button"
-        >
-          Run Workflow
-        </button>
+          <button
+            onClick={() => {
+              handleWorkflow();
+            }}
+            className="add-button"
+          >
+            Run Workflow
+          </button>
         </div>
       ) : (
         ""
@@ -309,14 +301,9 @@ const RepositorySettings = ({
 
       {errorWorkflow && (
         <div className="text-container">
-          <span className="texto-pipeline2">
-            The pipeline has failed.
-          </span>
+          <span className="texto-pipeline2">The pipeline has failed.</span>
           <Link href={workflowUrl} target="_blank">
-            <span
-              style={{ marginBottom: "-20px" }}
-              className="texto-pipeline2"
-            >
+            <span style={{ marginBottom: "-20px" }} className="texto-pipeline2">
               {workflowUrl}
             </span>
           </Link>
@@ -328,10 +315,7 @@ const RepositorySettings = ({
             The pipeline has finished successfully.
           </span>
           <Link href={workflowUrl} target="_blank">
-            <span
-              style={{ marginBottom: "-20px" }}
-              className="texto-pipeline"
-            >
+            <span style={{ marginBottom: "-20px" }} className="texto-pipeline">
               {workflowUrl}
             </span>
           </Link>
