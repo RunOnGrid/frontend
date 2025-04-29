@@ -132,6 +132,10 @@
 }
 .billing-buttons{
   display: flex;
+  gap: 10px;
+  margin: auto;
+  justify-content: center;
+
 }
 .billing-info {
   display: grid;
@@ -162,11 +166,15 @@ span {
   border: none;
 }
 .billing3 {
-  background-color: #00b174;
+  color: #00b174;
   padding: 6px 15px;
-  margin-top: 20px;
+  margin: 10px;
   min-width: 90px;
-  border: none;
+  border-radius: 10px;
+  border: 2px solid #00b174;
+}
+.billing3:hover{
+  background-color: white;
 }
 .billing2 {
   padding: 6px 15px;

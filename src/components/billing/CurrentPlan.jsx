@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { TokenService } from "../../../tokenHandler";
 
-const CurrentPlan = ({ darkMode, onClick }) => {
+const CurrentPlan = ({ darkMode, onClick, handleAmount }) => {
   const [balance, setBalance] = useState(0);
   const [accessToken, setAccessToken] = useState(null);
   const getBalance = async () => {
@@ -48,7 +48,7 @@ const CurrentPlan = ({ darkMode, onClick }) => {
       <div className="billing-buttons">
         <button
           onClick={() => {
-            onClick(1);
+            handleAmount(1);
           }}
           className="billing3"
         >
@@ -57,7 +57,7 @@ const CurrentPlan = ({ darkMode, onClick }) => {
         </button>
         <button
           onClick={() => {
-            onClick(5);
+            handleAmount(5);
           }}
           className="billing3"
         >
@@ -66,7 +66,7 @@ const CurrentPlan = ({ darkMode, onClick }) => {
         </button>
         <button
           onClick={() => {
-            onClick(10);
+            handleAmount(10);
           }}
           className="billing3"
         >
@@ -75,7 +75,7 @@ const CurrentPlan = ({ darkMode, onClick }) => {
         </button>
         <button
           onClick={() => {
-            onClick(20);
+            handleAmount(20);
           }}
           className="billing3"
         >
@@ -84,7 +84,7 @@ const CurrentPlan = ({ darkMode, onClick }) => {
         </button>
         <button
           onClick={() => {
-            onClick(50);
+            handleAmount(50);
           }}
           className="billing3"
         >

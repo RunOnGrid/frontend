@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { TokenService } from "../../../tokenHandler";
 
 const NextPayment = ({ darkMode }) => {
+  const [accessToken, setAccessToken] = useState(null);
+  const [balance, setBalance] = useState(0);
+  useEffect(() => {
+    if (accessToken) {
+      getBalance();
+    }
+  }, [accessToken]);
+
+  useEffect(() => {
+    const tokens = TokenService.getTokens();
+    if (tokens && tokens.tokens && tokens.tokens.accessToken) {
+      setAccessToken(tokens.tokens.accessToken);
+    }
+  }, []);
+
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setBalance(data.toFixed(2));
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
+    }
+  };
+
   return (
-    <div className={`payment-section ${darkMode ? "dark" : "light"}`}>
-      <div className="section-header">
-        <h4>Next Payment</h4>
-      </div>
-      <div className="billing-info">
-        <div>
-          <h1>DEV</h1>
-          <div style={{ display: "flex" }}>
-            <h3>$ 000 </h3>
-            <span> / month</span>
-          </div>
-          <p>NEXT PAYMENT: 6/14/2024</p>
-        </div>
-      </div>
-      <button className="billing3">Manage payment</button>
+    <div className="billing-card3">
+      <div className="billing-heading">Account Balance</div>
+      <div className="billing-text-large">${balance}</div>
     </div>
   );
 };

@@ -6,7 +6,15 @@ import {
 } from "@stripe/react-stripe-js";
 import Image from "next/image";
 
-export default function CheckoutForm({ onPaymentSuccess, onClick }) {
+export default function CheckoutForm({
+  onPaymentSuccess,
+  showPayment,
+  paymentAmount,
+  processingFee,
+  totalAmount,
+  handleAmount,
+  handleIntent,
+}) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -59,7 +67,7 @@ export default function CheckoutForm({ onPaymentSuccess, onClick }) {
         <Image
           className="close-form"
           onClick={() => {
-            onClick(false);
+            showPayment(false);
           }}
           alt=""
           src="/close.png"
@@ -79,24 +87,99 @@ export default function CheckoutForm({ onPaymentSuccess, onClick }) {
       <Image
         className="close-form"
         onClick={() => {
-          onClick(false);
+          showPayment(false);
         }}
         alt=""
         src="/close.png"
         width={20}
         height={20}
       />
+      <h3>Deposit funds with stripe</h3>
+      <div className="billing-buttons">
+        <button
+          type="button"
+          onClick={() => {
+            handleAmount(1);
+          }}
+          className="stripe-button"
+        >
+          {" "}
+          Add $1
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            handleAmount(5);
+          }}
+          className="stripe-button"
+        >
+          {" "}
+          Add $5
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            handleAmount(10);
+          }}
+          className="stripe-button"
+        >
+          {" "}
+          Add $10
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            handleAmount(20);
+          }}
+          className="stripe-button"
+        >
+          {" "}
+          Add $20
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            handleAmount(50);
+          }}
+          className="stripe-button"
+        >
+          {" "}
+          Add $50
+        </button>
+      </div>
+      <div className="payment-summary">
+        <div className="payment-details">
+          <div className="payment-row">
+            <span>Processing Fee:</span>
+            <strong>{processingFee}</strong>
+          </div>
+          <div className="payment-row total">
+            <span>Deposit Amount:</span>
+            <strong>{totalAmount}</strong>
+          </div>
+        </div>
+        <div className="separador"></div>
+        <div className="payment-row total">
+          <span>Amount in USD:</span>
+          <strong>{paymentAmount.toFixed(2)}</strong>
+        </div>
+      </div>
       <PaymentElement id="payment-element" options={paymentElementOptions} />
+
       <button
-        className="add-button4"
+        className="stripe-button"
         disabled={isLoading || !stripe || !elements}
+        onClick={() => handleIntent()}
         id="submit"
       >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div className="spinner" id="spinner"></div>
+          ) : (
+            "Pay via stripe"
+          )}
         </span>
       </button>
-      {message && <div id="payment-message">{message}</div>}
     </form>
   );
 }

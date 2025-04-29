@@ -652,7 +652,7 @@
   justify-content: center;
   width: 100%;
 }
-.add-button4 {
+.add-button4, .add-button5 {
   display: flex;
   border: 2px solid #00b174 !important;
   border-radius: 20px;
@@ -667,6 +667,12 @@
 }
 .add-button2:hover,  .add-button3:hover, .add-button4:hover{
   background-color: #d6eee3;
+}
+.add-button5 {
+  width: auto;
+}
+.add-button5:hover {
+  background-color: white;
 }
 
 .add-button3 {
