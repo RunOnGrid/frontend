@@ -5,6 +5,9 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../stripe/StripeScreen";
 import { TokenService } from "../../../tokenHandler";
 import { loadStripe } from "@stripe/stripe-js";
+import NextPayment from "./NextPayment";
+import SpendingOverview from "./BillOverview";
+import DepositFunds from "./FundsComponent";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
@@ -17,6 +20,9 @@ const BillingScreen = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [showPayment, setShowPayment] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
+  const [paymentAmount, setPaymentAmount] = useState(0);
+  const [processingFee, setProcessingFee] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -25,7 +31,18 @@ const BillingScreen = () => {
       setAccessToken(tokens.tokens.accessToken);
   }, [accessToken]);
 
-  const handleIntent = async (amount) => {
+  const handleAmount = (amount) => {
+    const processingFee = amount * 0.029 + 0.3;
+    const formattedProcessingFee = processingFee.toFixed(2);
+    const totalAmount = amount - processingFee;
+
+    setPaymentAmount(amount);
+    setProcessingFee(formattedProcessingFee);
+    setTotalAmount(totalAmount.toFixed(2));
+  };
+
+  const handleIntent = async (qty) => {
+    console.log(qty, paymentAmount);
     try {
       const response = await fetch("/api/create-payment-intent", {
         method: "POST",
@@ -34,8 +51,10 @@ const BillingScreen = () => {
           Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          amount: amount,
+          amount: qty ? qty : paymentAmount,
           currency: "USD",
+          // Optionally, you could also pass the processing fee to your backend
+          // processingFee: processingFee
         }),
       });
 
@@ -46,6 +65,7 @@ const BillingScreen = () => {
       const data = await response.json();
 
       setClientSecret(data.clientSecret);
+      // Save amount and processing fee in state
       setShowPayment(true);
     } catch (err) {
       setError(err.message);
@@ -64,13 +84,25 @@ const BillingScreen = () => {
         <div className="billing-container">
           <div className="billing-title">Billing</div>
           <div className="billing-container2">
-            <CurrentPlan onClick={handleIntent} darkMode={darkMode} />
+            <NextPayment />
           </div>
+          <DepositFunds
+            handleAmount={handleAmount}
+            handleIntent={handleIntent}
+            showPayment={setShowPayment}
+          />
         </div>
       </div>
       {showPayment && clientSecret && (
         <Elements options={{ clientSecret }} stripe={stripePromise}>
-          <CheckoutForm onClick={setShowPayment} />
+          <CheckoutForm
+            paymentAmount={paymentAmount}
+            processingFee={processingFee}
+            totalAmount={totalAmount}
+            showPayment={setShowPayment}
+            handleAmount={handleAmount}
+            handleIntent={handleIntent}
+          />
         </Elements>
       )}
     </>

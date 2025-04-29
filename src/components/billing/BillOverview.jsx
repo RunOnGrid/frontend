@@ -37,7 +37,8 @@ export default function SpendingOverview() {
           <div className="billing-heading">Total Spending</div>
           <div className="billing-text-large">$3,592.0</div>
         </div>
-        {/* <div className="billing-flex-1 billing-card4">
+      </div>
+      {/* <div className="billing-flex-1 billing-card4">
           <div className="billing-heading">Spending Breakdown</div>
           {spendingData.map((item, index) => (
             <div key={index} className="billing-spending-item">
@@ -54,7 +55,6 @@ export default function SpendingOverview() {
             </div>
           ))}
         </div> */}
-      </div>
     </div>
   );
 }
