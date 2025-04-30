@@ -62,7 +62,7 @@ const GithubAkash = ({
   const deployRef = useRef(null);
   const [port, setPort] = useState(8080);
   const [envs, setEnvs] = useState([]);
-  const [domain, setDomain] = useState("domain.com");
+  const [domain, setDomain] = useState("");
   const [host, setHost] = useState("ghcr.io");
   const [as, setAs] = useState(80);
   const [balance, setBalance] = useState(0);
@@ -287,6 +287,7 @@ const GithubAkash = ({
     if (tokens && tokens.tokens && tokens.tokens.accessToken) {
       setAccessToken(tokens.tokens.accessToken);
     }
+    getBalance();
   }, []);
 
   useEffect(() => {

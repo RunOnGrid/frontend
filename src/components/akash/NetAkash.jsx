@@ -29,10 +29,7 @@ const NetAkash = ({
           <div className="envInputs">
             <div className="modal-input">
               <label>Protocol</label>
-              <Select4
-                  options={["http","tcp"]}
-                  onSelect={handleBranch}
-                />
+              <Select4 options={["http", "tcp"]} onSelect={handleBranch} />
             </div>
 
             <div className="modal-input">
@@ -59,6 +56,7 @@ const NetAkash = ({
               <label>Domain</label>
               <input
                 value={domain}
+                placeholder="domain.com"
                 onChange={(e) => setDomain(e.target.value)}
                 disabled={!isEditing}
                 style={{ opacity: isEditing ? 1 : 0.5 }}

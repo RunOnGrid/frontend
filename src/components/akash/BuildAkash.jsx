@@ -54,7 +54,7 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
   const deployRef = useRef(null);
   const [port, setPort] = useState(8080);
   const [envs, setEnvs] = useState([]);
-  const [domain, setDomain] = useState("domain.com");
+  const [domain, setDomain] = useState("");
   const [host, setHost] = useState("ghcr.io");
   const [as, setAs] = useState(80);
   const [priv, setPriv] = useState(false);
@@ -167,6 +167,7 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
     setIsLoading(true);
     if (insufficient) {
       setFundsError("Insufficient funds");
+
       setIsLoading(false);
       return;
     }
@@ -214,21 +215,13 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
       setIsLoading(false);
     }
   };
-
   useEffect(() => {
-    const formatDate = (date) => {
-      const options = {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      return date.toLocaleDateString("en-US", options);
-    };
-    setCurrentDate(formatDate(new Date()));
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
+    getBalance();
   }, [accessToken]);
+
+
 
   useEffect(() => {
     if (activeStep === 3) {

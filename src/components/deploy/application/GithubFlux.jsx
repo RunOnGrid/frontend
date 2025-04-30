@@ -39,7 +39,7 @@ const GithubFlux = ({
   const [pat, setPat] = useState("");
   const [activeStep, setActiveStep] = useState(1);
   const [activeTab, setActiveTab] = useState("builder");
-  const [domain, setDomain] = useState(["domain.com"]);
+  const [domain, setDomain] = useState([""]);
   const [existingNames, setExistingNames] = useState([]);
   const [agree, setAgree] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -254,9 +254,10 @@ const GithubFlux = ({
   }, [email]);
 
   useEffect(() => {
-    const response = TokenService.getTokens();
-    setAccessToken(response.tokens.accessToken);
-  }, []);
+    const tokens = TokenService.getTokens();
+    setAccessToken(tokens.tokens.accessToken);
+    getBalance();
+  }, [accessToken]);
 
   useEffect(() => {
     const fetchRepositories = async () => {
