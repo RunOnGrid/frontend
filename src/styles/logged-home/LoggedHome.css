@@ -155,7 +155,7 @@
   min-width: 100vw;
 }
 .blureado {
-  filter: blur(5px);
+  filter: blur(6px);
 }
 .dskt-sidebar-container{
   width: 200px;

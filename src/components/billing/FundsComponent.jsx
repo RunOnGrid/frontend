@@ -19,14 +19,14 @@ const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
 
       <div className="payment-options">
         <div onClick={() => handleShow()} className="payment-option">
-          <div className="logo-container stripe">
+          <div className="logo-container2 stripe">
             <img src="/logoStripe.webp" alt="Stripe" />
           </div>
           <h3>Stripe</h3>
           <p>Stripe payment</p>
         </div>
         <div className="payment-option soon">
-          <div className="logo-container flux">
+          <div className="logo-container2 flux">
             <img src="/fluxLogo.svg" alt="Flux" />
           </div>
           <h3>Flux</h3>
@@ -34,7 +34,7 @@ const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
         </div>
 
         <div className="payment-option soon">
-          <div className="logo-container stablecoin">
+          <div className="logo-container2 stablecoin">
             <img src="/usdt.svg" alt="USDT" className="stablecoin-logo" />
             <img src="/usdc.png" alt="USDC" className="stablecoin-logo" />
           </div>
