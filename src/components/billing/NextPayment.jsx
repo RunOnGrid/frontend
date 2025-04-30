@@ -31,7 +31,7 @@ const NextPayment = ({ darkMode }) => {
       }
 
       const data = await response.json();
-      console.log(data);
+
       setBalance(data.toFixed(2));
     } catch (err) {
       console.error("Error loading existing app names:", err);

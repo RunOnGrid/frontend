@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   PaymentElement,
   useStripe,
@@ -14,6 +14,10 @@ export default function CheckoutForm({
   totalAmount,
   handleAmount,
   handleIntent,
+  handleAmountInput,
+  setPaymentAmount,
+  minError,
+  setMinError,
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -21,6 +25,7 @@ export default function CheckoutForm({
   const [message, setMessage] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isPaymentComplete, setIsPaymentComplete] = React.useState(false);
+  const [newAmount, setNewAmount] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,6 +87,18 @@ export default function CheckoutForm({
     );
   }
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter" && newAmount >= 5) {
+      e.preventDefault();
+      setPaymentAmount(newAmount);
+      handleAmount(newAmount);
+      handleIntent(newAmount);
+      setMinError("");
+    } else if (newAmount <= 5 && e.key === "Enter") {
+      setMinError("Minimum deposit is 5 USD");
+    }
+  };
+
   return (
     <form className="stripe-form" id="payment-form" onSubmit={handleSubmit}>
       <Image
@@ -99,17 +116,8 @@ export default function CheckoutForm({
         <button
           type="button"
           onClick={() => {
-            handleAmount(1);
-          }}
-          className="stripe-button"
-        >
-          {" "}
-          Add $1
-        </button>
-        <button
-          type="button"
-          onClick={() => {
             handleAmount(5);
+            handleIntent(5);
           }}
           className="stripe-button"
         >
@@ -120,6 +128,7 @@ export default function CheckoutForm({
           type="button"
           onClick={() => {
             handleAmount(10);
+            handleIntent(10);
           }}
           className="stripe-button"
         >
@@ -130,6 +139,7 @@ export default function CheckoutForm({
           type="button"
           onClick={() => {
             handleAmount(20);
+            handleIntent(20);
           }}
           className="stripe-button"
         >
@@ -140,12 +150,33 @@ export default function CheckoutForm({
           type="button"
           onClick={() => {
             handleAmount(50);
+            handleIntent(50);
           }}
           className="stripe-button"
         >
           {" "}
           Add $50
         </button>
+      </div>
+      <div className="payment-container">
+        <div className="amount-header">
+          <span className="amount-label">Enter the amount</span>
+          <span className="minimum-amount">Minimum amount: $5.00</span>
+        </div>
+        <div className="amount-input">
+          <span className="currency-symbol">$</span>
+          <input
+            onChange={(e) => setNewAmount(Number(e.target.value))}
+            placeholder={paymentAmount}
+            value={newAmount || ""}
+            onKeyDown={handleEnter}
+          />
+        </div>
+        {minError !== "" ? (
+          <span className="error-message-login">{minError}</span>
+        ) : (
+          ""
+        )}
       </div>
       <div className="payment-summary">
         <div className="payment-details">
@@ -169,7 +200,6 @@ export default function CheckoutForm({
       <button
         className="stripe-button"
         disabled={isLoading || !stripe || !elements}
-        onClick={() => handleIntent()}
         id="submit"
       >
         <span id="button-text">
