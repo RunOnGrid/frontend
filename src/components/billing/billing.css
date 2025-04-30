@@ -110,7 +110,7 @@
   /* Typography */
   .billing-title {
     font-size: 32px;
-    
+
     margin-bottom: 20px;
   }
   
@@ -525,48 +525,30 @@ h2 {
   border-color: #3b82f6;
 }
 
-.amount-input-label {
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #ffffff;
+
+
+
+
+.amount-input{
+  color: black !important;
+  border: 1px solid rgba(0, 0, 0, 0.116) !important;
+  border-radius: 5px !important;
+  padding: 8px;
+  font-size: 1rem;
+}
+.amount-input input{
+  font-size: 1rem;
+  font-weight: 600;
+  color: black !important;
+  width: 90%;
+}
+.amount-input input::placeholder{
+
+  color: rgba(0, 0, 0, 0.39) !important;
 }
 
-.minimum-amount {
-  text-align: right;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: 4px;
-}
 
-.amount-input-wrapper {
-  display: flex;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 0 15px;
-  height: 48px;
-}
 
-.currency-symbol {
-  font-size: 18px;
-  margin-right: 8px;
-  color: #ffffff;
-}
-
-.amount-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 18px;
-  outline: none;
-  height: 100%;
-}
-
-.amount-input::placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
 
 .payment-summary {
   margin: 20px 0;
@@ -670,7 +652,78 @@ h2 {
  
 
 }
+/* DisclaimerHover.css */
+.disclaimer-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+}
 
+.disclaimer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #071834;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+.disclaimer-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.info-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #2579ff;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+  cursor: pointer;
+}
+.amount-header{
+  display: flex;
+  color: black !important;
+  font-weight: 600;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+
+.info-icon-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2579ff;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.tooltip-content p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
 /* Responsive adjustments */
 @media (max-width: 500px) {
   .amount-presets {
