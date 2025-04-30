@@ -375,11 +375,10 @@
   border: 2px solid rgba(0, 0, 0, 0.621);
 }
 
-.logo-container {
+.logo-container2 {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -387,20 +386,9 @@
   position: relative;
 }
 
-.badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: #7ed321;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 3px 6px;
-  border-radius: 10px;
-  z-index: 1;
-}
 
-.logo-container img {
+
+.logo-container2 img {
   width: 60%;
   height: auto;
 }
@@ -410,11 +398,11 @@
 }
 
 .stripe {
-  background-color: #f4f4ff;
+  background-color: #f0f4ff;
 }
 
 .paypal {
-  background-color: #f4f8ff;
+  background-color: #f0f4ff;
 }
 
 .stablecoin {
