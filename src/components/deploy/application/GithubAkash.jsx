@@ -288,7 +288,7 @@ const GithubAkash = ({
       setAccessToken(tokens.tokens.accessToken);
     }
     getBalance();
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     if (activeStep === 2) {
