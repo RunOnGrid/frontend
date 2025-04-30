@@ -103,7 +103,7 @@ const AppsTable = () => {
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="dashboard-header">
-        <h2>My applications</h2>
+        <h1>My applications</h1>
       </div>
       {showModal && (
         <>

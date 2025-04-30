@@ -97,7 +97,7 @@ const BillingScreen = () => {
         } `}
       >
         <div className="billing-container">
-          <div className="billing-title">
+          <h1 className="billing-title">
             Billing{" "}
             <HoverInfo
               text={[
@@ -105,7 +105,7 @@ const BillingScreen = () => {
                 "For Deposits Issues please contact support@ongrid.run",
               ]}
             />
-          </div>
+          </h1>
 
           <div className="billing-container2">
             <NextPayment />

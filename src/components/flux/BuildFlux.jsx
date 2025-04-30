@@ -45,9 +45,11 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   const [fundsError, setFundsError] = useState(true);
   const [priceLoader, setPriceLoader] = useState(false);
   const router = useRouter();
-  const handleSummary = async () => {
-    // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
 
+  // useEffect(() => {
+  //   getBalance();
+  // }, []);
+  const handleSummary = async () => {
     if (!name.trim()) {
       setErrorMessage2("This field is required.");
 
@@ -94,7 +96,6 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   };
 
   const checkPrice = async () => {
-    getBalance();
     setPriceLoader(true);
     const response = await fetch(
       `/api/get-price?cloudProvider=${encodeURIComponent(
@@ -140,6 +141,7 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
     );
     const data = await response.json();
     setCompPrice(data.price.toFixed(2));
+
     if (data.price > balance) {
       setInsufficient(true);
     }
@@ -226,6 +228,7 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   useEffect(() => {
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
+    getBalance();
   }, [accessToken]);
 
   useEffect(() => {
