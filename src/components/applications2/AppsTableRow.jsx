@@ -39,7 +39,6 @@ function AppsTableRow({
   return (
     <>
       <div className={`table-row ${mode ? "dark" : "light"}`}>
-        {/* Column 1: Name */}
         {uri ? (
           <h3>
             <Link
@@ -47,23 +46,20 @@ function AppsTableRow({
               target="_blank"
               href={ensureProtocol(uri)}
             >
-              {name || "---"}
+              {uri || "---"}
             </Link>
           </h3>
         ) : (
           <h3>{name || "---"}</h3>
         )}
 
-        {/* Column 2: Provider/Type */}
         <h3>{type || "---"}</h3>
 
-        {/* Column 3: Status */}
         <div className="status">
           <div className={status === "Deployed" ? "circle3" : "circle5"}></div>
           {status}
         </div>
 
-        {/* Column 4: Creation date and action icons */}
         <div className="date-actions-container">
           <h5>
             <Image alt="Reloj" src="/clock.png" height={15} width={15} />
