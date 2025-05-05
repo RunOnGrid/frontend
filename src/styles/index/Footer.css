@@ -134,6 +134,9 @@ a {
 .icon-redes2 {
   height: 25px;
   margin: 10px 10px;
+  background-color: white;
+  border-radius: 4px;
+  padding: 1px;
 
 }
 

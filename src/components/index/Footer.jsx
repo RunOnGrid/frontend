@@ -39,7 +39,7 @@ const Footer = ({ scrollToContactForm }) => {
         <div className="licencias-footer">
           <span>
             {" "}
-            <a href="#"> © 2025 Grid Cloud </a>{" "}
+            <a href="#"> © 2025 Grid </a>{" "}
           </span>
         </div>
       </section>

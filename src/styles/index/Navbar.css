@@ -257,8 +257,19 @@ button:active {
 }
 
 .boton-landing {
-  margin-right: 0px;
-  background-color: #36b079;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 50px;
+  
+}
+.border {
+  border-bottom: 2px solid #00b174;;
+}
+.boton-landing:hover{
+  font-weight: 600;
 }
 .boton-landing1 {
   display: flex;
