@@ -232,10 +232,10 @@
   margin: 10px;
   
 }
-
+.contact-item:hover{
+  font-weight: 600;
+}
 .contact-item img {
-  width: 24px;
-  height: 24px;
   margin: 0px 5px;
 }
 
