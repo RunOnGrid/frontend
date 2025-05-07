@@ -89,7 +89,7 @@ const DeployAppScreen = ({ appInstalled }) => {
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="deploy-container2">
         <div className="deploy-header">
-          <h2>Deploy application</h2>
+          <h1>Deploy </h1>
         </div>
         <div>
           <AppCloudSelect

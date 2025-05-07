@@ -4,40 +4,66 @@ import { useTheme } from "@/ThemeContext";
 import ProfileLoading from "@/commons/ProfileLoading";
 import Spinner from "@/commons/Spinner";
 import { TokenService } from "../../../tokenHandler";
+import DeleteModal from "../DeleteModal";
 import { useRouter } from "next/router";
 
-const Information = ({ isLoading, app }) => {
+const InformationFlux = ({ isLoading, app }) => {
   const { darkMode } = useTheme();
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [deleteName, setDeleteName] = useState("");
+  const [deleteId, setDeleteId] = useState("");
+  const [blureado, setBlureado] = useState(false);
   const router = useRouter();
+
   const tokens = TokenService.getTokens();
   const accessToken = tokens.tokens.accessToken;
-  const handleRefund = async () => {
-    setLoading(true);
+  const handleModal = () => {
+    setShowModal(true);
+    setDeleteName(app.serviceName);
+    setDeleteId(app.id);
+  };
+  const closeModal = () => {
+    setBlureado(false);
+    setShowModal(false);
+  };
+  const deleteRow = async (id) => {
     try {
-      const response = await fetch(`/api/refund-proxy`, {
-        method: "POST",
+      const response = await fetch(`/api/delete-row-proxy?id=${id}`, {
+        method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({
-          deployId: app.id,
-        }),
       });
 
       if (!response.ok) {
-        throw new Error(`Error refunding app: ${response.statusText}`);
+        throw new Error(`Error fetching data: ${response.statusText}`);
       }
 
       const data = await response.json();
-      setLoading(false);
-      router.push("/profile");
-    } catch (error) {
-      console.error("Error fetching branches:", error);
+      setShowModal(false);
+      router.push('/profile')
+      
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
     }
   };
+
   return (
+    <>
+     {showModal && (
+        <>
+          <DeleteModal
+            darkMode={darkMode}
+            onClick={() => {
+             closeModal();
+            }}
+            name={deleteName}
+            onYes={deleteRow}
+            id={deleteId}
+          />
+        </>
+      )}
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       {isLoading ? (
         <ProfileLoading isVisible={isLoading} />
@@ -51,13 +77,13 @@ const Information = ({ isLoading, app }) => {
               style={{ display: "flex", flexDirection: "column", width: "80%" }}
             >
               <General app={app} darkMode={darkMode} />
-              {app.cloudProvider === "AKASH" && loading ? (
+              {app.cloudProvider === "FLUX" && loading ? (
                 <Spinner />
               ) : (
                 <div className="noti-buttons2">
-                  <button className="noti-button3" onClick={handleRefund}>
+                  <button className="noti-button3" onClick={handleModal}>
                     {" "}
-                    Refund App
+                    Delete App
                   </button>
                 </div>
               )}
@@ -66,28 +92,8 @@ const Information = ({ isLoading, app }) => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
-export default Information;
-{
-  /* <Domains darkMode={darkMode} /> */
-}
-
-{
-  /* <a href="https://meet.google.com/jrb-zjea-msu" className="link">
-          https://meet.google.com/jrb-zjea-msu
-        </a> */
-}
-{
-  /* <div className="deployment-info">
-            <div className={`info-box ${darkMode ? "dark" : "light"}`}>
-              <h4>Last deployed</h4>
-              <span>------------</span>
-            </div>
-            <div className={`info-box ${darkMode ? "dark" : "light"}`}>
-              <h4>Renewal date</h4>
-              <span>-------</span>
-            </div>
-          </div> */
-}
+export default InformationFlux;

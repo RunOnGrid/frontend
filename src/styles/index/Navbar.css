@@ -202,7 +202,7 @@ button {
 }
 
 button:hover {
-  background: rgb(54, 176, 121);
+  
  
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;

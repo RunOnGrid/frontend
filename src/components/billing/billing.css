@@ -375,9 +375,9 @@
   border: 2px solid rgba(0, 0, 0, 0.621);
 }
 
-.logo-container2 {
+.logo-container2, .logo-container3 {
   width: 80px;
-  height: 80px;
+  height: 100px;
   border-radius: 50%;
   display: flex;
   align-items: center;

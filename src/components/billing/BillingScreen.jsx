@@ -96,8 +96,8 @@ const BillingScreen = () => {
           darkMode ? "dark" : "light"
         } `}
       >
-        <div className="billing-container">
-          <h1 className="billing-title">
+        <div className="dashboard-header">
+          <h1>
             Billing{" "}
             <HoverInfo
               text={[
@@ -106,7 +106,8 @@ const BillingScreen = () => {
               ]}
             />
           </h1>
-
+        </div>
+        <div className="billing-container">
           <div className="billing-container2">
             <NextPayment />
           </div>

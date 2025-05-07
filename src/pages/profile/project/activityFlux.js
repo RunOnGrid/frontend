@@ -5,13 +5,15 @@ import { useEffect, useState } from "react";
 import authWrapper from "../../../../authWrapper";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../../tokenHandler";
+import InformationFlux from "@/components/applications2/InformationFlux";
+
 
 const DynamicNavbar = dynamic(() => import("../../../commons/SideNavbar"), {
   ssr: false,
   loading: () => <p> Im f</p>,
 });
 
-export default function Activity() {
+export default function ActivityFlux() {
   const [id, setId] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [app, setApp] = useState({});
@@ -67,7 +69,7 @@ export default function Activity() {
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
         <DynamicNavbar />
-        <Information app={app} isLoading={isLoading} />
+        <InformationFlux app={app} isLoading={isLoading} />
       </div>
     </div>
   );

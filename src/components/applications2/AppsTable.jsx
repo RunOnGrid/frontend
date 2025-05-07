@@ -20,7 +20,7 @@ const AppsTable = () => {
   const [deleteName, setDeleteName] = useState("");
   const [deleteId, setDeleteId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  const [blureado, setBlureado] = useState(false);
 
   const fetchRepos = async () => {
     const startTime = Date.now();
@@ -82,6 +82,7 @@ const AppsTable = () => {
 
       const data = await response.json();
       setShowModal(false);
+      setBlureado(false);
       fetchRepos();
     } catch (err) {
       console.error("Error loading existing app names:", err);
@@ -96,21 +97,23 @@ const AppsTable = () => {
 
   const handleModal = (value, id) => {
     setShowModal(true);
+    setBlureado(true);
     setDeleteName(value);
     setDeleteId(id);
   };
+  const closeModal = () => {
+    setBlureado(false);
+    setShowModal(false);
+  };
 
   return (
-    <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
-      <div className="dashboard-header">
-        <h1>My applications</h1>
-      </div>
+    <>
       {showModal && (
         <>
           <DeleteModal
             darkMode={darkMode}
             onClick={() => {
-              setShowModal(false);
+              closeModal();
             }}
             name={deleteName}
             onYes={deleteRow}
@@ -118,43 +121,52 @@ const AppsTable = () => {
           />
         </>
       )}
-      <div className="table-container">
-        {isLoading ? (
-          <ProfileLoading isVisible={isLoading} />
-        ) : apps.length === 0 ? (
-          <div className={`applications-section`}>
-            <p>It seems that you don&apos;t have any applications yet</p>
-            <span> Start building your application now.</span>
+      <div
+        className={`dashboard-container ${darkMode ? "dark" : "light"} ${
+          blureado ? "blureado" : ""
+        }`}
+      >
+        <div className="dashboard-header">
+          <h1>My applications</h1>
+        </div>
+        <div className="table-container">
+          {isLoading ? (
+            <ProfileLoading isVisible={isLoading} />
+          ) : apps.length === 0 ? (
+            <div className={`applications-section`}>
+              <p>It seems that you don&apos;t have any applications yet</p>
+              <span> Start building your application now.</span>
 
-            <button className={`section-button`}>
-              {" "}
-              <Link href="/profile/deployApp">Deploy </Link>
-            </button>
-          </div>
-        ) : (
-          <>
-            <AppsTableHeader />
-            {sortedApps.map((app, index) => (
-              <div className="dashboard-row" key={index}>
-                <AppsTableRow
-                  key={`row-${index}`}
-                  status={app.status}
-                  mode={darkMode}
-                  name={app.serviceName}
-                  type={app.cloudProvider}
-                  uri={app.uri}
-                  creationDate={app.createdAt}
-                  darkMode={darkMode}
-                  handleModal={handleModal}
-                  app={app}
-                />
-              </div>
-            ))}
-          </>
-        )}
+              <button className={`section-button`}>
+                {" "}
+                <Link href="/profile/deployApp">Deploy </Link>
+              </button>
+            </div>
+          ) : (
+            <>
+              <AppsTableHeader />
+              {sortedApps.map((app, index) => (
+                <div className="dashboard-row" key={index}>
+                  <AppsTableRow
+                    key={`row-${index}`}
+                    status={app.status}
+                    mode={darkMode}
+                    name={app.serviceName}
+                    type={app.cloudProvider}
+                    uri={app.uri}
+                    creationDate={app.createdAt}
+                    darkMode={darkMode}
+                    handleModal={handleModal}
+                    app={app}
+                  />
+                </div>
+              ))}
+            </>
+          )}
+        </div>
+        <MobileFooterBar />
       </div>
-      <MobileFooterBar />
-    </div>
+    </>
   );
 };
 

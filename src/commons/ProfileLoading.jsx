@@ -25,19 +25,19 @@ const ProfileLoading = ({ isVisible }) => {
   if (!shouldRender) return null;
 
   return (
-    <div className={`loading-overlay2 ${isVisible ? 'visible' : 'hidden'}`}>
+    <div className={`loading-overlay2 ${isVisible ? "visible" : "hidden"}`}>
       <div className="loading-container2">
-        <div className="logo-container2">
+        <div className="logo-container3">
           <Image
-            src='/logoLigth.svg'
+            src="/LogoLigth.svg"
             alt="Logo"
-            width={300}
-            height={300}
+            width={200}
+            height={200}
             priority
           />
         </div>
         <div className="spinner-container">
-          <BigSpinner/>
+          <BigSpinner />
         </div>
       </div>
     </div>
