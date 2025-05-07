@@ -16,18 +16,7 @@
 .deployMethod-container span {
   color: rgba(255, 255, 255, 0.747);
 }
-.modal-overlay {
-  position: fixed;
-  top: 10%;
-  right: 25%;
-  height: 70vh;
-  width: 700px;
-  background-color: #0c1317;
-  border-radius: 10px;
-  border: 2px solid #36b079;
-  color: white;
-  z-index: 1000;
-}
+
 .card {
   position: fixed;
   top: 82%;
@@ -176,7 +165,7 @@
 
 .botonera-pay-modal{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 30px;
   margin-bottom: 2vh;
 }
@@ -194,6 +183,14 @@
 .no-btn{
   color: rgb(255, 48, 48) !important;
   border: 2px solid rgb(255, 48, 48) !important;
+  margin: 10px;
+  border-radius: 15px;
+}
+.neutro-btn{
+  color: black !important;
+  border: 2px solid black !important;
+  margin: 10px;
+  border-radius: 15px;
 }
 
 .envInputs {

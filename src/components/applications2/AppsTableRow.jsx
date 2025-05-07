@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function AppsTableRow({
@@ -13,6 +14,7 @@ function AppsTableRow({
   handleModal,
   app,
 }) {
+  const router = useRouter();
   const formatDate = (dateString) => {
     if (!dateString) return "---";
 
@@ -30,17 +32,38 @@ function AppsTableRow({
   };
 
   const formattedCreationDate = formatDate(creationDate);
+
   const ensureProtocol = (url) => {
     return url.startsWith("http://") || url.startsWith("https://")
       ? url
       : `https://${url}`;
   };
 
+  const handleRowClick = () => {
+    if (app.cloudProvider === "AKASH") {
+      router.push(`/profile/project/activity?id=${app.id}`);
+    } else {
+      router.push(`/profile/project/activityFlux?id=${app.id}`);
+    }
+  };
+
+  const handleLinkClick = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    handleModal(app.serviceName, app.id);
+  };
+
   return (
     <>
-      <div className={`table-row ${mode ? "dark" : "light"}`}>
+      <div
+        onClick={handleRowClick}
+        className={`table-row ${mode ? "dark" : "light"}`}
+      >
         {uri ? (
-          <h3>
+          <h3 onClick={handleLinkClick}>
             <Link
               className="name-link"
               target="_blank"
@@ -56,7 +79,17 @@ function AppsTableRow({
         <h3>{type || "---"}</h3>
 
         <div className="status">
-          <div className={status === "Deployed" ? "circle3" : "circle5"}></div>
+          <div
+            className={
+              status === "Deployed"
+                ? "circle3"
+                : status === "Failed"
+                ? "circle4"
+                : status === "Pending"
+                ? "circle5"
+                : "circle6"
+            }
+          ></div>
           {status}
         </div>
 
@@ -67,19 +100,22 @@ function AppsTableRow({
           </h5>
         </div>
         <div className="action-icons">
-          <Image
+          {/* <Image
             alt="Editar"
             src={darkMode ? "/edit.png" : "/edit.png"}
             height={18}
             width={18}
-          />
+          /> */}
           <Image
-            onClick={() => handleModal(app.serviceName, app.id)}
+            onClick={handleDeleteClick}
             alt="Eliminar"
             src={darkMode ? "/delete2.png" : "/deleteL.png"}
             height={18}
             width={18}
           />
+          {/* <Link href={`/profile/project/activity?id=${app.id}`}>
+            <Image alt="" src="/settingsLigth.png" width={22} height={22} />
+          </Link> */}
         </div>
       </div>
     </>
