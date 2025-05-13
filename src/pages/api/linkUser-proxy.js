@@ -3,20 +3,19 @@ export default async function handler(req, res) {
   
     if (req.method === "POST") {
       try {
-       
         const { installationId, gridUserId } = req.body;
-        console.log("llega el post de link user", installationId, gridUserId);
+
         const response = await fetch(`${API_URL}/users/linkUser`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ installationId, grid_userId:gridUserId }),
+          body: JSON.stringify({ installationId, grid_userId: gridUserId }),
         });
-      
+
         if (response.ok) {
           const data = await response.json();
-  
+
           res.status(200).json(data);
         } else {
           const errorData = await response.json();

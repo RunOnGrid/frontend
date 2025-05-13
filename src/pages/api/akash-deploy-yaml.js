@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   try {
     const { yamlContent } = req.body;
     const API_URL = process.env.GRID_API;
-    console.log(API_URL);
+
     const akashResponse = await fetch(`${API_URL}/akash/deploy`, {
       method: "POST",
       headers: {

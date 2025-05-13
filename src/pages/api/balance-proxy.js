@@ -4,6 +4,7 @@ export default async function handler(req, res) {
   }
 
   const API_URL = process.env.GRID_API;
+ 
 
   try {
     const response = await fetch(`${API_URL}/user/balance`, {
@@ -15,7 +16,7 @@ export default async function handler(req, res) {
     });
 
     if (!response.ok) {
-      throw new Error(`Error fetching repositories: ${response.statusText}`);
+      throw new Error(`Error getting balance: ${response.statusText}`);
     }
 
     const data = await response.json();

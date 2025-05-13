@@ -38,6 +38,7 @@ const AppsTable = () => {
       }
 
       const data = await response.json();
+
       setApps(data);
     } catch (err) {
       console.error("Error loading existing app names:", err);

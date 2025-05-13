@@ -12,7 +12,7 @@ export default async function handler(req, res) {
           Authorization: req.headers.authorization,
         },
       });
-      console.log(response)
+
       if (!response.ok) {
         const errorData = await response.json();
         res.status(response.status).json(errorData);

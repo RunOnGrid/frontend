@@ -89,7 +89,7 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
 
       const data = await response.json();
 
-      setBalance(data);
+      setBalance(data.toFixed(2));
     } catch (err) {
       console.error("Error loading existing app names:", err);
     }
@@ -139,8 +139,9 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
         }),
       }
     );
+
     const data = await response.json();
-    setCompPrice(data.price.toFixed(2));
+    setCompPrice(data.price);
 
     if (data.price > balance) {
       setInsufficient(true);

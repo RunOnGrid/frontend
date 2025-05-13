@@ -2,28 +2,22 @@ export default async function handler(req, res) {
   const API_URL = process.env.GRID_API;
 
   if (req.method === "POST") {
-    const cloudProvider = req.query.cloudProvider;
-    
     try {
-      const response = await fetch(
-        `${API_URL}/deployments/price?cloudProvider=` + cloudProvider,
-        {
-          method: "POST",
-          headers: {
-            Accept: "*/*",
-            "Content-Type": "application/json",
-            Authorization: req.headers.authorization,
-          },
-          body: JSON.stringify(req.body),
-        }
-      );
+      const response = await fetch(`${API_URL}/auth-web3/keplr`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+       
+        },
+        body: JSON.stringify(req.body),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
+  
       const data = await response.json();
-
+      console.log(data)
       res.status(200).json(data);
     } catch (error) {
       console.error("Error en el servidor:", error);
