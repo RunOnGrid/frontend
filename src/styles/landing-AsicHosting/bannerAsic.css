@@ -629,7 +629,7 @@
   margin-bottom: 50px;
   justify-content: center;
 }
-.google-signIn{
+.google-signIn, .keplr-signIn{
   width: 50px !important;
   background-color: white !important;
   color: black;
@@ -644,6 +644,9 @@
 .google-signIn img{
   justify-content: center;
   margin: 0px 10px ;
+}
+.keplr-signIn img{
+  border-radius: 50%;
 }
 .forgot-pass{
   display: flex;

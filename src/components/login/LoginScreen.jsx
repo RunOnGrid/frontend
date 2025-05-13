@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
 import Image from "next/image";
 import ForgotPassword from "./ForgotForm";
+import ZelcoreLogin from "./ZelcoreLogin";
+
 const GOOGLE_SSO = process.env.NEXT_PUBLIC_GOOGLE_SSO;
 const GITHUB_SSO = process.env.NEXT_PUBLIC_GITHUB_SSO;
 
@@ -19,6 +21,12 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [failed, setFailed] = useState("");
+
+  const [keplrWallet, setKeplrWallet] = useState(null);
+  const [userAddress, setUserAddress] = useState("");
+  const [isConnected, setIsConnected] = useState(false);
+  const chainId = "akashnet-2";
+
   const router = useRouter();
 
   const decodeJWT = (token) => {
@@ -56,6 +64,16 @@ const LoginScreen = () => {
       router.push("/profile");
     }
   }, [router.query, router]);
+
+  useEffect(() => {
+    const checkKeplrInstalled = async () => {
+      if (window.keplr) {
+        setKeplrWallet(window.keplr);
+      }
+    };
+
+    checkKeplrInstalled();
+  }, []);
 
   const handleForgot = async () => {
     setLoading(true);
@@ -126,6 +144,74 @@ const LoginScreen = () => {
     }
   };
 
+  const connectKeplrWallet = async () => {
+    setError("");
+    setIsLoading(true);
+
+    try {
+      if (!keplrWallet) {
+        setError("Please install Keplr wallet extension");
+        return;
+      }
+
+      await keplrWallet.enable(chainId);
+
+      // Obtener la clave y dirección
+      const key = await keplrWallet.getKey(chainId);
+      const address = key.bech32Address;
+      const pubkeyBase64 = btoa(String.fromCharCode(...key.pubKey));
+
+      // Crear el mensaje para firmar
+      const timestamp = Date.now();
+      const message = `Login to Grid at ${timestamp}`;
+
+      // Firmar el mensaje
+      const signature = await keplrWallet.signArbitrary(
+        chainId,
+        address,
+        message
+      );
+
+      // Crear el payload
+      const payload = {
+        address: address,
+        signature: signature.signature,
+        message: message,
+        timestamp: timestamp,
+        publicKeyBase64: pubkeyBase64,
+      };
+
+      setUserAddress(address);
+
+      const response = await fetch("/api/keplr-proxy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const oneHourInMilliseconds = 3600000;
+        TokenService.setTokens({
+          accessToken: data.authResponse.token,
+          expiresAt: Date.now() + oneHourInMilliseconds,
+          gridId: data.authResponse.userId,
+        });
+        localStorage.setItem("grid_email", data.authResponse.userId);
+        router.push("/profile");
+      } else {
+        setError("Failed to verify wallet signature");
+      }
+    } catch (error) {
+      console.error("Error connecting with Keplr:", error);
+      setError("Error connecting with Keplr wallet");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div>
       {showForgot ? (
@@ -151,21 +237,59 @@ const LoginScreen = () => {
           </Link>
           <h2>Welcome back!</h2>
           <span>Please Sign in with your personal info</span>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{ display: "flex", justifyContent: "center", gap: "10px" }}
+          >
             <Link href={GOOGLE_SSO}>
               <button className="google-signIn">
-                {" "}
-                <Image alt="" src="/googleLogo.png" width={25} height={25} />
+                <Image
+                  alt="Sign in with Google"
+                  src="/googleLogo.png"
+                  width={25}
+                  height={25}
+                />
               </button>
             </Link>
             <Link href={GITHUB_SSO}>
               <button className="google-signIn">
-                {" "}
-                <Image alt="" src="/githubLogo.svg" width={25} height={25} />
+                <Image
+                  alt="Sign in with GitHub"
+                  src="/githubLogo.svg"
+                  width={25}
+                  height={25}
+                />
               </button>
             </Link>
+            <button
+              className="keplr-signIn"
+              onClick={connectKeplrWallet}
+              disabled={isLoading || !keplrWallet}
+              title={
+                !keplrWallet
+                  ? "Please install Keplr wallet extension"
+                  : "Sign in with Keplr wallet"
+              }
+            >
+              <Image
+                alt="Sign in with Keplr"
+                src="/keplr.png"
+                width={25}
+                height={25}
+              />
+            </button>
+            <ZelcoreLogin isLoading={isLoading} setIsLoading={setIsLoading} />
           </div>
+
           {error ? <h4 className="error-message-login"> {error}</h4> : null}
+          {isConnected && userAddress ? (
+            <div className="wallet-connected">
+              <p>
+                Connected wallet: {userAddress.substring(0, 8)}...
+                {userAddress.substring(userAddress.length - 6)}
+              </p>
+            </div>
+          ) : null}
+
           <form onSubmit={handleLogin} className="inputs-login">
             <input
               placeholder="Email"

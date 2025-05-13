@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 const convertirSegundosADiasYHoras = (segundos) => {
-  if (!segundos && segundos !== 0) return "No disponible";
+  if (!segundos && segundos !== 0) return "Not available";
   const SEGUNDOS_POR_MINUTO = 60;
   const MINUTOS_POR_HORA = 60;
   const HORAS_POR_DIA = 24;
@@ -30,14 +30,81 @@ const formatDate = (dateString) => {
 
   return `${month}/${day}/${year} ${hours}:${minutes}`;
 };
+const extractConfigDetails = (app) => {
+  const configDetails = {
+    dcloudProfile: "N/A",
+    cpuUnits: "N/A",
+    memorySize: "N/A",
+    storageSize: "N/A",
+    appName: "",
+    repotag: "",
+  };
+
+  if (!app?.configurationDetails) {
+    return configDetails;
+  }
+
+  // Encontramos el nombre de la aplicación dinámicamente
+
+  const deploymentKeys = Object.keys(app.configurationDetails.deployment || {});
+  if (deploymentKeys.length > 0) {
+    configDetails.appName = deploymentKeys[0];
+
+    // Obtenemos el perfil de dcloud con el nombre dinámico
+    configDetails.dcloudProfile =
+      app.configurationDetails.deployment[configDetails.appName]?.dcloud
+        ?.profile || "N/A";
+  }
+
+  // Buscamos en profiles para obtener recursos
+
+  if (app.configurationDetails.profiles?.compute) {
+    if (
+      configDetails.appName &&
+      app.configurationDetails.profiles.compute[configDetails.appName]
+    ) {
+      const resources =
+        app.configurationDetails.profiles.compute[configDetails.appName]
+          .resources || {};
+
+      configDetails.cpuUnits = resources.cpu?.units || "N/A";
+      configDetails.memorySize = resources.memory?.size || "N/A";
+      configDetails.storageSize = resources.storage?.size || "N/A";
+      configDetails.repotag =
+        app.configurationDetails.services[configDetails.appName].image;
+    } else {
+      // Buscamos en todas las keys de compute por si el nombre es diferente
+      const computeKeys = Object.keys(
+        app.configurationDetails.profiles.compute
+      );
+      if (computeKeys.length > 0) {
+        // Si no encontramos el nombre antes, lo establecemos ahora
+        if (!configDetails.appName) {
+          configDetails.appName = computeKeys[0];
+        }
+
+        const resources =
+          app.configurationDetails.profiles.compute[computeKeys[0]].resources ||
+          {};
+        configDetails.cpuUnits = resources.cpu?.units || "N/A";
+        configDetails.memorySize = resources.memory?.size || "N/A";
+        configDetails.storageSize = resources.storage?.size || "N/A";
+      }
+    }
+  }
+
+  return configDetails;
+};
 
 const General = ({ darkMode, app }) => {
+  const configDetails = extractConfigDetails(app);
+
   return (
     <div className={`main-content ${darkMode ? "dark" : "light"}`}>
       <div className="general">
         <div className="general-item">
-          <label>Name</label>
-          <span> {app.uri}</span>
+          <label>Service name</label>
+          <span> {configDetails.dcloudProfile}</span>
           {/* <span className="edit-icon">✏️</span> */}
         </div>
 
@@ -56,8 +123,8 @@ const General = ({ darkMode, app }) => {
           <span>{app.cloudProvider}</span>
         </div>
         <div className="general-item">
-          <label>Created</label>
-          <span>{formatDate(app.createdAt)}</span>
+          <label>Image Name</label>
+          <span>{configDetails.repotag}</span>
         </div>
         <div className="general-item">
           <label>Status</label>
@@ -77,6 +144,19 @@ const General = ({ darkMode, app }) => {
         </div>
 
         <div className="general-item">
+          <label>CPU Units</label>
+          <span>{configDetails.cpuUnits}</span>
+        </div>
+        <div className="general-item">
+          <label>Memory</label>
+          <span>{configDetails.memorySize}</span>
+        </div>
+        <div className="general-item">
+          <label>Storage</label>
+          <span>{configDetails.storageSize}</span>
+        </div>
+
+        <div className="general-item">
           <label>Time Remaining</label>
           <span>{convertirSegundosADiasYHoras(app.timeRemainingSeconds)}</span>
         </div>
@@ -92,6 +172,10 @@ const General = ({ darkMode, app }) => {
           <span>
             USD {app.totalSpentInUsd ? app.totalSpentInUsd.toFixed(5) : ""}
           </span>
+        </div>
+        <div className="general-item">
+          <label>Created</label>
+          <span>{formatDate(app.createdAt)}</span>
         </div>
       </div>
     </div>

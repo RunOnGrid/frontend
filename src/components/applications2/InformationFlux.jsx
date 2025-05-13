@@ -6,6 +6,7 @@ import Spinner from "@/commons/Spinner";
 import { TokenService } from "../../../tokenHandler";
 import DeleteModal from "../DeleteModal";
 import { useRouter } from "next/router";
+import GeneralFlux from "./GeneralFlux";
 
 const InformationFlux = ({ isLoading, app }) => {
   const { darkMode } = useTheme();
@@ -42,8 +43,7 @@ const InformationFlux = ({ isLoading, app }) => {
 
       const data = await response.json();
       setShowModal(false);
-      router.push('/profile')
-      
+      router.push("/profile");
     } catch (err) {
       console.error("Error loading existing app names:", err);
     }
@@ -51,12 +51,12 @@ const InformationFlux = ({ isLoading, app }) => {
 
   return (
     <>
-     {showModal && (
+      {showModal && (
         <>
           <DeleteModal
             darkMode={darkMode}
             onClick={() => {
-             closeModal();
+              closeModal();
             }}
             name={deleteName}
             onYes={deleteRow}
@@ -64,34 +64,38 @@ const InformationFlux = ({ isLoading, app }) => {
           />
         </>
       )}
-    <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
-      {isLoading ? (
-        <ProfileLoading isVisible={isLoading} />
-      ) : (
-        <div className={`application-details ${darkMode ? "dark" : "light"}`}>
-          <div className="header">
-            <h1>General</h1>
-          </div>
-          <div className="content">
-            <div
-              style={{ display: "flex", flexDirection: "column", width: "80%" }}
-            >
-              <General app={app} darkMode={darkMode} />
-              {app.cloudProvider === "FLUX" && loading ? (
-                <Spinner />
-              ) : (
-                <div className="noti-buttons2">
-                  <button className="noti-button3" onClick={handleModal}>
-                    {" "}
-                    Delete App
-                  </button>
-                </div>
-              )}
+      <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
+        {isLoading ? (
+          <ProfileLoading isVisible={isLoading} />
+        ) : (
+          <div className={`application-details ${darkMode ? "dark" : "light"}`}>
+            <div className="header">
+              <h1>General</h1>
+            </div>
+            <div className="content">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "80%",
+                }}
+              >
+                <GeneralFlux app={app} darkMode={darkMode} />
+                {app.cloudProvider === "FLUX" && loading ? (
+                  <Spinner />
+                ) : (
+                  <div className="noti-buttons2">
+                    <button className="noti-button3" onClick={handleModal}>
+                      {" "}
+                      Delete App
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </>
   );
 };
