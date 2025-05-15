@@ -68,16 +68,16 @@ function FormZelcore() {
         <div> Grid Cloud </div>
         <h1> Welcome back to Grid Cloud</h1>
         <span>
-          {' '}
-          <img alt="" src="" /> Read the Grid Cloud docs{' '}
+          {" "}
+          <img alt="" src="" /> Read the Grid Cloud docs{" "}
         </span>
         <span>
-          {' '}
-          <img alt="" src="" /> See whats new with Grid Cloud{' '}
+          {" "}
+          <img alt="" src="" /> See whats new with Grid Cloud{" "}
         </span>
         <span>
-          {' '}
-          <img alt="" src="" /> Join the community{' '}
+          {" "}
+          <img alt="" src="" /> Join the community{" "}
         </span>
 
         <div className="member-login">
@@ -91,41 +91,43 @@ function FormZelcore() {
       <div>
         <h2 className="login-title">Login with your ZelID</h2>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <label
             style={{
-              fontFamily: 'rouben',
-              color: 'white',
-              marginTop: '30px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}>
-            {' '}
+              fontFamily: "rouben",
+              color: "white",
+              marginTop: "30px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            {" "}
             Message
           </label>
           <input
-            style={{ marginLeft: 'auto', marginRight: 'auto' }}
-            placeholder={apiData ? apiData.data : ''}
+            style={{ marginLeft: "auto", marginRight: "auto" }}
+            placeholder={apiData ? apiData.data : ""}
             className="login-input"
-            value={apiData ? apiData.data : ''}
+            value={apiData ? apiData.data : ""}
             readOnly
           />
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <label
             style={{
-              fontFamily: 'rouben',
-              color: 'white',
-              marginTop: '30px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}>
-            {' '}
+              fontFamily: "rouben",
+              color: "white",
+              marginTop: "30px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            {" "}
             Address
           </label>
           <input
-            style={{ marginLeft: 'auto', marginRight: 'auto' }}
+            style={{ marginLeft: "auto", marginRight: "auto" }}
             placeholder="Insert ZellID or Bitcoin address"
             className="login-input"
             value={zelId}
@@ -133,20 +135,21 @@ function FormZelcore() {
           />
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <label
             style={{
-              fontFamily: 'rouben',
-              color: 'white',
-              marginTop: '30px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
-            }}>
-            {' '}
+              fontFamily: "rouben",
+              color: "white",
+              marginTop: "30px",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          >
+            {" "}
             Signature
           </label>
           <input
-            style={{ marginLeft: 'auto', marginRight: 'auto' }}
+            style={{ marginLeft: "auto", marginRight: "auto" }}
             placeholder="Insert Signature"
             className="login-input"
             value={signature}
@@ -155,9 +158,10 @@ function FormZelcore() {
           <div className="link-zelcore">
             <Link
               href={`zel:?action=sign&message=${
-                apiData ? apiData.data : ''
-              }&icon=https%3A%2F%2Fraw.githubusercontent.com%2Frunonflux%2Fflux%2Fmaster%2FzelID.svg&callback=http://localhost:3000/api/post`}>
-              <Image alt="" src="zelID.svg" height={50} width={50} />
+                apiData ? apiData.data : ""
+              }&icon=https%3A%2F%2Fraw.githubusercontent.com%2Frunonflux%2Fflux%2Fmaster%2FzelID.svg&callback=http://localhost:3000/api/post`}
+            >
+              <Image alt="" src="/zelID.svg" height={50} width={50} />
             </Link>
           </div>
 
