@@ -39,21 +39,21 @@
 .sideNavbar-li {
   display: flex;
   align-items: center;
-  width: calc(100% -10px ); /* Restar el padding-left */
+  width: calc(100% -10px ); 
   height: 32px;
-  margin-left: 10px !important; /* Eliminar el margen izquierdo con vw */
+  margin-left: 10px !important; 
   color: white;
   font-size: 0.9rem;
   border-radius: 20px;
-  font-weight: 300;
+  font-weight: 400;
   border-end-end-radius: 0;
   border-start-end-radius: 0;
   margin-bottom: 10px;
   padding-left: 10px;
-  box-sizing: border-box; /* Importante para que el padding no afecte el ancho total */
-  overflow: hidden; /* Para evitar desbordamiento */
-  text-overflow: ellipsis; /* Para mostrar ... si el texto es muy largo */
-  white-space: nowrap; /* Evitar que el texto se envuelva */
+  box-sizing: border-box; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
 }
 
 
@@ -232,17 +232,15 @@
   margin: 10px;
   
 }
-
+.contact-item:hover{
+  font-weight: 600;
+}
 .contact-item img {
-  width: 24px;
-  height: 24px;
   margin: 0px 5px;
 }
 
 
-@media only screen and (max-width: 1400px) {
 
-}
 
 .logout-sidebar {
   display: flex;
@@ -250,11 +248,10 @@
   padding: 2%;
   width: 90%;
   height: 26px;
-  margin-left: 7% !important;
-
+  margin-left: 7% ;
   font-size: 0.9rem;
   border-radius: 20px;
-  font-weight: 300;
+  font-weight: 400;
   border-end-end-radius: 0px;
   border-start-end-radius: 0px;
   margin-bottom: 10px;

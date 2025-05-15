@@ -25,6 +25,7 @@ const DeployAppScreen = ({ appInstalled }) => {
   const [agree, setAgree] = useState(false);
   const [image, setImage] = useState("gridcloud/hello-app:2.0");
   const [installed, setInstalled] = useState(false);
+  const [disableSelect, setDisableSelect] = useState(false);
 
   const nameRef = useRef(null);
   const detailsRef = useRef(null);
@@ -87,6 +88,9 @@ const DeployAppScreen = ({ appInstalled }) => {
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
       <div className="deploy-container2">
+        <div className="deploy-header">
+          <h1>Deploy </h1>
+        </div>
         <div>
           <AppCloudSelect
             onNext={handleCloudSelect}
@@ -107,6 +111,13 @@ const DeployAppScreen = ({ appInstalled }) => {
                 methodReset={() => setDeployOption("")}
                 installed={installed}
                 appInstalled={appInstalled}
+                disableSelect={disableSelect}
+                image={image}
+                databaseName={databaseName}
+                setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
+                deployOption={deployOption}
               />
             </>
           )}
@@ -120,43 +131,17 @@ const DeployAppScreen = ({ appInstalled }) => {
                 onGit={() => setDeployOption("githubAkash")}
                 setImage={setImage}
                 ref={detailsRef}
-                appInstalled={appInstalled}
                 methodReset={() => setDeployOption("")}
-              />
-            </>
-          )}
-
-          {selectedCloud === "flux" && deployOption === "dockerFlux" && (
-            <>
-              {/* <AppGeoSelect
-                darkMode={darkMode}
-                // onLocationsChange={handleAllowedLocationsChange}
-                // onLocationsChange2={handleForbiddenLocationsChange}
-                // onStaticIp={handleStaticIp}
-              /> */}
-              <BuildFlux />
-            </>
-          )}
-
-          {selectedCloud === "akash" && deployOption === "dockerAkash" && (
-            <BuildAkash
-              darkMode={darkMode}
-              onSaveComponentData={handleSaveComponentData}
-              image={image}
-            />
-          )}
-          {selectedCloud === "flux" && deployOption === "githubFlux" && (
-            <>
-              <GithubFlux
+                installed={installed}
+                appInstalled={appInstalled}
+                disableSelect={disableSelect}
                 image={image}
                 databaseName={databaseName}
                 setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
+                deployOption={deployOption}
               />
-            </>
-          )}
-          {selectedCloud === "akash" && deployOption === "githubAkash" && (
-            <>
-              <GithubAkash image={image} databaseName={databaseName} />
             </>
           )}
         </div>

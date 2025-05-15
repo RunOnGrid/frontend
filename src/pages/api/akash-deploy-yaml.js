@@ -1,14 +1,12 @@
-import yaml from "js-yaml";
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
-
+  ("esta llegando aca");
   try {
     const { yamlContent } = req.body;
     const API_URL = process.env.GRID_API;
-    console.log(API_URL);
+
     const akashResponse = await fetch(`${API_URL}/akash/deploy`, {
       method: "POST",
       headers: {
@@ -27,7 +25,7 @@ export default async function handler(req, res) {
 
     res.status(200).json(akashResult);
   } catch (error) {
-    console.error("Error deploying to Akash:", error);
+    console.error("Error deploying to Akashaaaaa:", error);
     res
       .status(500)
       .json({ message: "Error deploying to Akash", error: error.message });

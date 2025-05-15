@@ -1,60 +1,210 @@
-import React, {
-  memo,
-  use,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import BuildSettings from "../BuildSettings";
 import { useRouter } from "next/router";
 import { useTheme } from "@/ThemeContext";
 import Botonera2 from "@/commons/Botonera2";
 import Spinner from "@/commons/Spinner";
 import SummaryAkash from "../SummaryAkash";
-import CommModal from "@/components/CommModal";
-import EnvModal from "@/components/EnvModal";
-import PortFlux from "@/components/PortFlux";
-import PricingPlanFlux from "./PricingPlanFlux";
 import { TokenService } from "../../../../tokenHandler";
-import Link from "next/link";
 import LoadingText from "@/commons/LoaderText";
+import FluxInputs from "@/components/flux/FluxInputs";
+import EnvFlux from "@/components/flux/EnvFlux";
+import NetFlux from "@/components/flux/NetFlux";
 
-const GithubFlux = ({ image, databaseName, setInstalled }) => {
+const GithubFlux = ({
+  image,
+  setInstalled,
+  setDisableSelect,
+  selectedCloud,
+  compDuration,
+}) => {
   const { darkMode } = useTheme();
   const router = useRouter();
 
   // Missing state declarations
-  const [serviceName, setServiceName] = useState("");
   const [name, setName] = useState("");
-  const [imageURL, setImageURL] = useState("");
-  const [errorImage, setErrorImage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
-  const [memory, setMemory] = useState(256);
-  const [cpu, setCpu] = useState(0.1);
-  const [ephemeralStorage, setEphemeralStorage] = useState(1);
-  const [serviceCount, setServiceCount] = useState(3);
-  const [appPrice, setAppPrice] = useState(0);
-  const [ports, setPorts] = useState({
-    port: 39470,
-    accept: [],
-    contPorts: [],
-  });
-  const [showPorts, setShowPorts] = useState(false);
-  const [env, setEnv] = useState({});
+  const [memory, setMemory] = useState(1000);
+  const [cpu, setCpu] = useState(0.5);
+  const [ram, setRam] = useState(100);
+  const [hdd, setHdd] = useState(100);
+  const [port, setPort] = useState([8080]);
   const [showEnv, setShowEnv] = useState(false);
   const [commands, setCommands] = useState([]);
-  const [args, setArgs] = useState([]);
-  const [showComm, setShowComm] = useState(false);
   const [summary, setSummary] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [repoTag, setRepoTag] = useState("");
   const [pat, setPat] = useState("");
+  const [activeStep, setActiveStep] = useState(1);
+  const [activeTab, setActiveTab] = useState("builder");
+  const [domain, setDomain] = useState([""]);
+  const [existingNames, setExistingNames] = useState([]);
+  const [agree, setAgree] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [envs, setEnvs] = useState([]);
+  const [email, setEmail] = useState(null);
+  const [repositories, setRepositories] = useState([0, 1]);
+  const [error, setError] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
+  const [owner, setOwner] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [insufficient, setInsufficient] = useState(false);
+  const [fundsError, setFundsError] = useState(true);
+  const [imageError, setImageError] = useState(false);
+  const [validatorMsg, setValidatorMsg] = useState("");
+  const [imagePath, setImagePath] = useState("");
+  const [instances, setInstances] = useState(3);
+  const [compPrice, setCompPrice] = useState(0);
+  const [priceLoader, setPriceLoader] = useState(false);
+  const servicesRef = useRef(null);
+  const deployRef = useRef(null);
+  const envRef = useRef(null);
+  const serviceRef = useRef(null);
+  const summaryRef = useRef(null);
+
+  const imageValidator = async () => {
+    try {
+      const response = await fetch("/api/image-validator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          username: owner,
+          pat: pat,
+          imagePath: imagePath.toLowerCase(),
+        }),
+      });
+      if (!response.ok) {
+        setImageError(true);
+        setError(err.message);
+        return false;
+      }
+      const data = await response.json();
+      setValidatorMsg("");
+      setImageError(false);
+
+      return true;
+    } catch (err) {
+      setImageError(true);
+      setError(err.message);
+
+      return false;
+    }
+  };
+  const handleSummary = async () => {
+    // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
+    const isImageValid = await imageValidator();
+
+    if (!isImageValid) {
+      setValidatorMsg("Wrong credentials, please check PAT");
+      return;
+    }
+
+    if (!name.trim()) {
+      setErrorMessage2("This field is required.");
+      return;
+    }
+
+    if (!pat.trim()) {
+      setErrorMessage("This field is required.");
+      return;
+    }
+
+    if (isImageValid) {
+      const price = await checkPrice();
+      if (price) {
+        setPriceLoader(false);
+        setErrorMessage("");
+        setErrorMessage2("");
+        setSummary(true);
+        setActiveStep(5);
+        setValidatorMsg("");
+        setImageError(false);
+      }
+    }
+  };
 
   const handleShowConfig = () => {
+    setActiveStep(3);
     setShowConfig(true);
+  };
+
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setBalance(data);
+    } catch (err) {
+      console.error("Error validating credentials:", err);
+    }
+  };
+
+  const checkPrice = async () => {
+    getBalance();
+    setPriceLoader(true);
+    const response = await fetch(
+      `/api/get-price?cloudProvider=${encodeURIComponent(
+        selectedCloud.toUpperCase()
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          configurationDetails: {
+            deploymentDetails: {
+              name: name,
+              description: "Application deployed by Grid",
+
+              compose: [
+                {
+                  name: name,
+                  description: "Application deployed by Grid",
+                  repotag: repoTag,
+                  ports: [36522],
+                  domains: domain || [""],
+                  environmentParameters: envs || [],
+                  commands: commands || [""],
+                  containerPorts: port || [""],
+                  containerData: "/data",
+                  cpu: cpu,
+                  ram: ram,
+                  hdd: hdd,
+                  tiered: true,
+                  secrets: "",
+                  repoauth: `${owner.toLowerCase()}:${pat}`,
+                },
+              ],
+              expire: compDuration,
+              instances: instances,
+            },
+          },
+        }),
+      }
+    );
+    const data = await response.json();
+    setCompPrice(data.price.toFixed(2));
+    if (data.price > balance) {
+      setInsufficient(true);
+    }
+
+    return true;
   };
 
   const handleNameChange = (e) => {
@@ -67,13 +217,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
     if (alphanumericRegex.test(inputValue)) {
       const lowercaseValue = inputValue.toLowerCase();
 
-      // Verificar si el nombre ya existe
       const isNameTaken = existingNames.includes(lowercaseValue);
 
-      // Actualizar el estado del nombre
       setName(lowercaseValue);
 
-      // Manejar el estado de error para nombres existentes
       if (isNameTaken) {
         setErrorMessage2("Este nombre de aplicación ya está en uso");
       } else {
@@ -84,77 +231,6 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   const handlePat = (e) => {
     setPat(e.target.value);
   };
-
-  const handleSavePort = (portData) => {
-    setPorts(portData);
-    setShowPorts(false);
-  };
-
-  const handleShowEnv = (envData) => {
-    setEnv(envData);
-    setShowEnv(false);
-  };
-
-  const handleDelete = (key) => {
-    const newEnv = { ...env };
-    delete newEnv[key];
-    setEnv(newEnv);
-  };
-
-  const handleSaveCommand = (newData) => {
-    setCommands((prevCommands) => [...prevCommands, newData.command]);
-    setArgs((prevArgs) => [...prevArgs, newData.argument]);
-
-    setShowComm(false);
-  };
-
-  const handleDeleteCommand = (index) => {
-    setCommands(commands.filter((_, i) => i !== index));
-  };
-
-  const handleDeleteArgs = (index) => {
-    setArgs(args.filter((_, i) => i !== index));
-  };
-
-  const handleSummary = (state) => {
-    if (!name.trim()) {
-      setErrorMessage2("This field is required.");
-      return;
-    }
-    if (!pat.trim()) {
-      setErrorMessage("This field is required.");
-      return;
-    }
-    setErrorMessage("");
-    setSummary(true);
-    setActiveStep(4);
-  };
-
-  const [completedSteps, setCompletedSteps] = useState([]);
-  const [activeStep, setActiveStep] = useState(3);
-  const [activeTab, setActiveTab] = useState("builder");
-  const [componentData, setComponentData] = useState({});
-  const [price, setPrice] = useState(0);
-  const [existingNames, setExistingNames] = useState([]);
-  const [allowedLocations, setAllowedLocations] = useState([]);
-  const [forbiddenLocations, setForbiddenLocations] = useState([]);
-  const [staticIp, setStaticIp] = useState(null);
-  const [agree, setAgree] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
-  const [paymentCompleted, setPaymentCompleted] = useState(false);
-  const [clientSecret, setClientSecret] = useState("");
-  const [email, setEmail] = useState(null);
-  const [repositories, setRepositories] = useState([0, 1]);
-  const [error, setError] = useState(null);
-  const [accessToken, setAccessToken] = useState(null);
-  const [owner, setOwner] = useState("");
-  const servicesRef = useRef(null);
-  const deployRef = useRef(null);
-  const envRef = useRef(null);
-  const geolocationRef = useRef(null);
-  const serviceRef = useRef(null);
-  const summaryRef = useRef(null);
 
   // Fetch existing names on component mount
   useEffect(() => {
@@ -178,9 +254,10 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   }, [email]);
 
   useEffect(() => {
-    const response = TokenService.getTokens();
-    setAccessToken(response.tokens.accessToken);
-  }, []);
+    const tokens = TokenService.getTokens();
+    setAccessToken(tokens.tokens.accessToken);
+    getBalance();
+  }, [accessToken]);
 
   useEffect(() => {
     const fetchRepositories = async () => {
@@ -210,14 +287,16 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   }, [repositories]);
 
   useEffect(() => {
-    if (activeStep === 2) {
+    if (activeStep === 1) {
+      setActiveStep(2);
+    } else if (activeStep === 2) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 3) {
-      deployRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 4) {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (activeStep === 4) {
+      deployRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 5) {
-      serviceRef.current?.scrollIntoView({ behavior: "smooth" });
+      deployRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 6) {
       summaryRef.current?.scrollIntoView({ behavior: "smooth" });
     }
@@ -230,30 +309,35 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
   }, [repositories]);
 
   const handlePaymentSuccess = async () => {
-    setPaymentCompleted(true);
-    setShowPayment(false);
     setIsLoading(true);
-
+    if (insufficient) {
+      setFundsError("Insufficient funds");
+      setIsLoading(false);
+      return;
+    }
     try {
       const deploymentConfig = {
         name: name,
-        description:
-          componentData.description || "Application deployed by Grid",
+        description: "Application deployed by Grid",
         compose: [
           {
             name: name,
-            description:
-              componentData.description || "Application deployed by Grid",
+            description: "Application deployed by Grid",
             repotag: repoTag,
-            domains: componentData.domains || [""],
-            environmentParameters: [""],
+            domains: domain || [""],
+            environmentParameters: envs || [],
             commands: commands || [""],
-            containerPorts: ports.contPorts || [""],
+            containerPorts: port || [""],
+            cpu: cpu,
+            ram: ram,
+            hdd: hdd,
             tiered: true,
             secrets: "",
             repoauth: `${owner.toLowerCase()}:${pat}`,
           },
         ],
+        expire: compDuration,
+        instances: instances,
       };
 
       const response = await fetch("/api/flux-deploy", {
@@ -286,247 +370,80 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
         </div>
       )}
       {showBuildSettings && (
-        <BuildSettings
-          repositories={repositories}
-          darkMode={darkMode}
-          ref={servicesRef}
-          setRepoTag={setRepoTag}
-          summary={summary}
-          setOwner={setOwner}
-          owner={owner.toLowerCase()}
-          onNext={() => setShowConfig(true)}
-        />
+        <div ref={servicesRef}>
+          <BuildSettings
+            repositories={repositories}
+            darkMode={darkMode}
+            setRepoTag={setRepoTag}
+            summary={summary}
+            setOwner={setOwner}
+            owner={owner.toLowerCase()}
+            onNext={() => handleShowConfig()}
+            setDisableSelect={setDisableSelect}
+            existingNames={existingNames}
+            image={image}
+            setPat={setPat}
+            cpu={cpu}
+            setCpu={setCpu}
+            ram={ram}
+            setRam={setRam}
+            hdd={hdd}
+            setHdd={setHdd}
+            setImagePath={setImagePath}
+            setInstances={setInstances}
+          />
+        </div>
       )}
       {showConfig && (
-        <div className="databaseSelect">
-          <div
-            ref={servicesRef}
-            className={`deployment-config ${summary ? "disabled" : ""}`}
-          >
-            <h2>Deployment configurations</h2>
+        <div ref={envRef} className="databaseSelect">
+          <div className={` ${summary ? "disabled" : ""}`}>
+            {/* <h2>Deployment configurations</h2>
 
-            <p>Configure your deployment settings.</p>
-            <div className="billing-tabs">
-              <div
-                className={`billing-tab ${
-                  activeTab === "builder" ? "billing-tab-active" : ""
-                }  ${darkMode ? "dark" : "light"}`}
-                onClick={() => setActiveTab("builder")}
-              >
-                Builder
-              </div>
-            </div>
+            <p>Configure your deployment settings.</p> */}
+
             {activeTab === "builder" ? (
               <>
-                <div className="buildpack-selects">
-                  <div
-                    className={`buildpack-single ${
-                      darkMode ? "dark" : "light"
-                    }`}
-                  >
-                    <h3> Service name</h3>
-                    {errorMessage2 && (
-                      <h3 className="error-message">{errorMessage2}</h3>
-                    )}{" "}
-                    <div
-                      className={`input-container5 ${
-                        darkMode ? "dark" : "light"
-                      }`}
-                    >
-                      <input
-                        type="text"
-                        className={`custom-input ${
-                          darkMode ? "dark" : "light"
-                        }`}
-                        value={name}
-                        onChange={handleNameChange}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className={`buildpack-single ${darkMode ? "dark" : "light"}`}
-                >
-                  <h3> Personal Access Token</h3>
-                  <Link
-                    href={
-                      "https://github.com/settings/tokens/new?description=grid%20(pull%20images)&scopes=read:packages"
-                    }
-                    target="_blank"
-                  >
-                    <p>Click here to generate it</p>
-                  </Link>
-                  {errorMessage && (
-                    <h3 className="error-message">{errorMessage}</h3>
-                  )}{" "}
-                  <div
-                    className={`input-container5 ${
-                      darkMode ? "dark" : "light"
-                    }`}
-                  >
-                    <input
-                      type="text"
-                      className={`custom-input ${darkMode ? "dark" : "light"}`}
-                      value={pat}
-                      onChange={handlePat}
-                      required
-                    />
-                  </div>
-                </div>
-                <PricingPlanFlux
-                  setMemory={setMemory}
-                  setCpu={setCpu}
-                  setEphemeralStorage={setEphemeralStorage}
-                  setServiceCount={setServiceCount}
-                  mode={darkMode}
-                  setPrice={setAppPrice}
+                <FluxInputs
+                  name={name}
+                  handleNameChange={handleNameChange}
+                  darkMode={darkMode}
+                  errorMessage2={errorMessage2}
+                  errorMessage={errorMessage}
+                  pat={pat}
+                  handlePat={handlePat}
                 />
-                {showPorts && (
-                  <PortFlux
+                <div style={{ display: "flex" }}>
+                  <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
+                  <NetFlux
+                    setPort={setPort}
+                    port={port}
+                    domain={domain}
+                    setDomain={setDomain}
                     darkMode={darkMode}
-                    onSave={handleSavePort}
-                    onCancel={() => setShowPorts(false)}
-                    initialPort={ports}
                   />
-                )}
-                <div className="second-akash">
-                  <div className="akash-expose">
-                    <div className={`section2 ${darkMode ? "dark" : "light"}`}>
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <h3>Expose</h3>
-                        <p>
-                          Port: {ports.port} : {ports.as} ({ports.protocol})
-                        </p>
-                        <p>Global: True</p>
-
-                        <p>Cont Ports: {ports.contPorts}</p>
-                      </div>
-                      <span
-                        onClick={() => {
-                          setShowPorts(true);
-                        }}
-                        className="edit-button"
-                      >
-                        Edit
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="sections-akash">
-                    <div className={`section ${darkMode ? "dark" : "light"}`}>
-                      <div>
-                        <h3>Environment Variables</h3>
-
-                        <p>
-                          {Object.keys(env).length === 0 ? (
-                            "None"
-                          ) : (
-                            <div>
-                              {Object.entries(env).map(([key, value]) => (
-                                <p key={key}>
-                                  {key}={value}
-                                  <button
-                                    className="add-button3"
-                                    onClick={() => handleDelete(key)}
-                                  >
-                                    Delete
-                                  </button>
-                                </p>
-                              ))}
-                            </div>
-                          )}
-                        </p>
-                      </div>
-                      <span
-                        onClick={() => {
-                          setShowEnv(true);
-                        }}
-                        className="edit-button"
-                      >
-                        Edit
-                      </span>
-                    </div>
-                    {showEnv && (
-                      <EnvModal
-                        darkMode={darkMode}
-                        onSave={handleShowEnv}
-                        onCancel={() => setShowEnv(false)}
-                      />
-                    )}
-                    {showComm && (
-                      <CommModal
-                        darkMode={darkMode}
-                        onSave={handleSaveCommand}
-                        onCancel={() => setShowComm(false)}
-                      />
-                    )}
-                    <div className={`section ${darkMode ? "dark" : "light"}`}>
-                      <div>
-                        <h3>Commands</h3>
-                        {commands.length === 0 ? (
-                          <p>None</p>
-                        ) : (
-                          commands.map((cmd, index) => (
-                            <div key={index}>
-                              <h5>
-                                {cmd}
-                                <button
-                                  className="add-button3"
-                                  onClick={() => handleDeleteCommand(index)}
-                                >
-                                  Delete
-                                </button>
-                              </h5>
-                            </div>
-                          ))
-                        )}
-                        {args.length === 0
-                          ? ""
-                          : args.map((cmd, index) => (
-                              <div key={index}>
-                                <p>
-                                  {cmd}
-                                  <button
-                                    className="add-button3"
-                                    onClick={() => handleDeleteArgs(index)}
-                                  >
-                                    Delete
-                                  </button>
-                                </p>
-                              </div>
-                            ))}
-                      </div>
-                      <span
-                        onClick={() => setShowComm(true)}
-                        className="edit-button"
-                      >
-                        Edit
-                      </span>
-                    </div>
-                  </div>
                 </div>
               </>
             ) : (
               ""
             )}
-            {/* <AppGeoSelect
-              allowedLocations={allowedLocations}
-              setAllowedLocations={setAllowedLocations}
-              forbiddenLocations={forbiddenLocations}
-              setForbiddenLocations={setForbiddenLocations}
-              darkMode={darkMode}
-            /> */}
-            {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
-            <button
-              className="add-button4"
-              onClick={() => {
-                handleSummary(true);
-              }}
-            >
-              Continue
-            </button>
+            {validatorMsg !== "" ? (
+              <span className="error-message-login">{validatorMsg}</span>
+            ) : (
+              ""
+            )}
+            {priceLoader ? (
+              <Spinner />
+            ) : (
+              <button
+                className="add-button4"
+                onClick={() => {
+                  handleSummary(true);
+                }}
+              >
+                Continue
+              </button>
+            )}
           </div>
 
           {summary && (
@@ -534,16 +451,24 @@ const GithubFlux = ({ image, databaseName, setInstalled }) => {
               <SummaryAkash
                 cpu={cpu}
                 ram={memory}
-                hdd={ephemeralStorage}
+                hdd={hdd}
                 mode={darkMode}
                 name={name}
                 setSummary={setSummary}
                 setAgree={setAgree}
+                price={compPrice}
+                setActiveStep={setActiveStep}
+                summaryStep={4}
               />
               <div className="termService">
                 <Botonera2 setAgree={setAgree} agree={agree} />
                 <h4>I agree with Terms of Service</h4>
               </div>
+              {fundsError !== "" ? (
+                <h3 className="error-message-login">{fundsError}</h3>
+              ) : (
+                ""
+              )}
               <div
                 className={
                   agree
@@ -638,3 +563,57 @@ export default GithubFlux;
 //     setIsLoading(false);
 //   }
 // };
+{
+  /* <AppGeoSelect
+              allowedLocations={allowedLocations}
+              setAllowedLocations={setAllowedLocations}
+              forbiddenLocations={forbiddenLocations}
+              setForbiddenLocations={setForbiddenLocations}
+              darkMode={darkMode}
+            /> */
+}
+{
+  /* {showPorts && (
+                  <PortFlux
+                    darkMode={darkMode}
+                    onSave={handleSavePort}
+                    onCancel={() => setShowPorts(false)}
+                    initialPort={ports}
+                  />
+                )} */
+}
+{
+  /* <PricingPlanFlux
+                  setMemory={setMemory}
+                  setCpu={setCpu}
+                  setEphemeralStorage={setEphemeralStorage}
+                  setServiceCount={setServiceCount}
+                  mode={darkMode}
+                  setPrice={setAppPrice}
+                /> */
+}
+{
+  /* <div className="second-akash">
+                  <div className="akash-expose">
+                    <div className={`section2 ${darkMode ? "dark" : "light"}`}>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <h3>Expose</h3>
+                        <p>
+                          Port: {ports.port} : {ports.as} ({ports.protocol})
+                        </p>
+                        <p>Global: True</p>
+
+                        <p>Cont Ports: {ports.contPorts}</p>
+                      </div>
+                      <span
+                        onClick={() => {
+                          setShowPorts(true);
+                        }}
+                        className="edit-button"
+                      >
+                        Edit
+                      </span>
+                    </div>
+                  </div>
+                </div> */
+}

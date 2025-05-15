@@ -1,11 +1,14 @@
 /* General styles */
 .billing-container {
-    font-family: Arial, sans-serif;
+
     margin: 0 auto;
     padding: 20px;
     width: 90%;
   }
-  
+  .billing-container2{
+    display: flex;
+    justify-content: center;
+  }
   .billing-flex {
     display: flex;
   }
@@ -107,7 +110,7 @@
   /* Typography */
   .billing-title {
     font-size: 32px;
-    
+
     margin-bottom: 20px;
   }
   
@@ -117,9 +120,9 @@
   }
   
   .billing-heading {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
-    font-weight: 600;
+    font-weight: 400;
   }
   
   .billing-text-center {
@@ -127,8 +130,8 @@
   }
   
   .billing-text-large {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 2.2rem;
+    font-weight: 600;
     margin-bottom: 10px;
   }
   
@@ -284,6 +287,11 @@
     padding: 20px;
     background-color: #161f21;
     color: white;
+    height: 150px;
+    width: 40vw;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-right: auto;
   }
   .billing-card4{
     border-radius: 20px;
@@ -306,3 +314,413 @@
   color: white;
   margin-top: 20px;
   }
+  /* DepositFunds.css */
+
+.deposit-container {
+  width: 100%;
+  
+  margin: 0 auto;
+  margin-left: 0px;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+}
+
+.deposit-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.deposit-header h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.info-icon {
+  color: #4a90e2;
+  cursor: pointer;
+}
+
+.payment-options {
+  display: grid;
+  grid-template-columns: 22% 22% 22% 22%;
+  gap: 20px;
+ 
+}
+
+.payment-option {
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(0, 0, 0, 0.479);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  color: black;
+}
+.payment-option.soon {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.payment-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.621);
+}
+
+.logo-container2, .logo-container3 {
+  width: 80px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+
+
+.logo-container2 img {
+  width: 60%;
+  height: auto;
+}
+
+.flux {
+  background-color: #f0f4ff;
+}
+
+.stripe {
+  background-color: #f0f4ff;
+}
+
+.paypal {
+  background-color: #f0f4ff;
+}
+
+.stablecoin {
+ 
+  display: flex;
+  justify-content: center;
+}
+
+.stablecoin-logo {
+  width: 40% !important;
+  margin: 0 -5px;
+}
+
+.voucher {
+  background-color: rgba(0, 20, 60, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.voucher h3 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.voucher h2 {
+  margin: 5px 0 0 0;
+  font-size: 24px;
+}
+
+.payment-option h3 {
+  font-size: 20px;
+  margin: 0 0 5px 0;
+}
+
+.payment-option p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* For dark mode compatibility */
+@media (prefers-color-scheme: light) {
+  .payment-option {
+    background-color: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .deposit-container {
+    color: #333333;
+  }
+  
+  .voucher {
+    background-color: rgba(220, 230, 245, 0.5);
+  }
+}
+/* DepositStripeVisual.css */
+
+.deposit-stripe-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #ffffff;
+  background-color: #101b2d;
+  border-radius: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 0 0 16px 0;
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 12px 0;
+}
+
+.amount-presets {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.amount-preset-button {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.amount-preset-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.amount-preset-button.active {
+  background-color: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+}
+
+
+
+
+
+.amount-input{
+  color: black !important;
+  border: 1px solid rgba(0, 0, 0, 0.116) !important;
+  border-radius: 5px !important;
+  padding: 8px;
+  font-size: 1rem;
+}
+.amount-input input{
+  font-size: 1rem;
+  font-weight: 600;
+  color: black !important;
+  width: 90%;
+}
+.amount-input input::placeholder{
+
+  color: rgba(0, 0, 0, 0.39) !important;
+}
+
+
+
+
+.payment-summary {
+  margin: 20px 0;
+}
+.payment-row{
+  display: flex;
+  justify-content: space-between;
+}
+.payment-row span{
+  font-weight: 600;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.summary-row:last-child {
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+.amount-usd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.usd-total {
+  display: flex;
+  align-items: center;
+}
+
+.usd-symbol {
+  margin-right: 8px;
+}
+
+.usd-label {
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 8px;
+}
+
+.usd-value {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.vat-text {
+  margin-left: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pay-button {
+  width: 100%;
+  background-color: #5a5ce7;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 14px 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pay-button:hover {
+  background-color: #4a4cd7;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Stripe logo SVG is included directly in the component */
+.stripe-logo {
+  display: flex;
+  align-items: center;
+}
+
+.stripe-button{
+  display: flex;
+  color: #30313d;
+  border: 1px solid rgba(0, 0, 0, 0.116);
+  margin: auto;
+  margin-top: 10px;
+  font-weight: 700;
+
+}
+.stripe-button:hover{
+  background-color: white;
+ 
+
+}
+/* DisclaimerHover.css */
+.disclaimer-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  font-family: 'Arial', sans-serif;
+}
+
+.disclaimer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #071834;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+.disclaimer-title h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.info-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #2579ff;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+  cursor: pointer;
+}
+.amount-header{
+  display: flex;
+  color: black !important;
+  font-weight: 600;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+
+.info-icon-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2579ff;
+  color: white;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.tooltip-content p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .amount-presets {
+    flex-wrap: wrap;
+  }
+  
+  .amount-preset-button {
+    flex: 1 0 30%;
+    min-width: 80px;
+    margin-bottom: 8px;
+  }
+}

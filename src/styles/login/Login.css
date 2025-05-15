@@ -2,3 +2,108 @@
 @import url('./Form.css');
 
 
+.pw-reset__container {
+    display: flex;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    background-color: #161f21;
+    border-radius: 20px;
+    z-index: 999;   
+  }
+  
+  .pw-reset__card {
+    background-color: #161f21;
+    border-radius: 8px;
+    padding: 40px;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    color: white;
+  }
+  
+  .pw-reset__icon {
+
+    margin: auto ;
+    margin-top: -20px;
+  }
+  
+  .pw-reset__title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .pw-reset__description {
+    color: #BFC5D9;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .pw-success {
+    color: #00b174;
+    font-size: 0.9rem;
+  }
+  .pw-failed {
+    color: red;
+    font-size: 0.9rem;
+  }
+  
+  .pw-reset__form-group {
+    margin-bottom: 24px;
+    text-align: left;
+  }
+  
+  .pw-reset__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  .pw-reset__input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #2D3A59;
+    border-radius: 25px;
+    background-color: #f5f6f6;
+    box-sizing: border-box;
+  }
+  
+ 
+  
+  .pw-reset__button-group {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  
+  .pw-reset__button {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    
+  }
+  
+ .disclaimer-span{
+  display: flex;
+  font-size: 0.8rem;
+  color: #BFC5D9;
+  margin: 10px auto ;
+  justify-content: center;
+  margin-bottom: 30px;
+ }
+ 
+  
+  @media (max-width: 480px) {
+    .pw-reset__card {
+      padding: 24px;
+    }
+    
+    .pw-reset__button-group {
+      flex-direction: column;
+    }
+  }

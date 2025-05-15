@@ -15,6 +15,7 @@ const PortFlux = ({ onSave, onCancel, initialPort, darkMode }) => {
         accept,
         contPorts: contPort,
       });
+      console.log(port, contPort);
     }
   };
 

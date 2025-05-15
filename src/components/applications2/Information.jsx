@@ -1,44 +1,86 @@
 import React, { useState } from "react";
 import General from "./General";
-import Domains from "./Domains";
-import Notifications from "./Notifications";
-import ThemeToggle from "../ThemeToggle";
 import { useTheme } from "@/ThemeContext";
-import Notis from "./Notis";
-import InfoSideBar from "./InfoSideBar";
+import ProfileLoading from "@/commons/ProfileLoading";
+import Spinner from "@/commons/Spinner";
+import { TokenService } from "../../../tokenHandler";
+import { useRouter } from "next/router";
 
-const Information = () => {
+const Information = ({ isLoading, app }) => {
   const { darkMode } = useTheme();
-  const [showNotifications, setShowNotifications] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const tokens = TokenService.getTokens();
+  const accessToken = tokens.tokens.accessToken;
+  const handleRefund = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/refund-proxy`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          deployId: app.id,
+        }),
+      });
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
+      if (!response.ok) {
+        throw new Error(`Error refunding app: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setLoading(false);
+      router.push("/profile");
+    } catch (error) {
+      console.error("Error fetching branches:", error);
+    }
   };
-
   return (
     <div className={`dashboard-container ${darkMode ? "dark" : "light"}`}>
-      <div className="dashboard-header">
-        <h2>My applications</h2>
-
-        <div
-          className={`notification-icon ${darkMode ? "dark" : "light"}`}
-          onClick={toggleNotifications}
-        >
-          <img
-            src={`${darkMode ? "/notification2.png" : "/notification.png"}`}
-            alt="Notifications"
-          />
+      {isLoading ? (
+        <ProfileLoading isVisible={isLoading} />
+      ) : (
+        <div className={`application-details ${darkMode ? "dark" : "light"}`}>
+          <div className="header">
+            <h1>General</h1>
+          </div>
+          <div className="content">
+            <div
+              style={{ display: "flex", flexDirection: "column", width: "80%" }}
+            >
+              <General app={app} darkMode={darkMode} />
+              {app.cloudProvider === "AKASH" && loading ? (
+                <Spinner />
+              ) : (
+                <div className="noti-buttons2">
+                  <button className="noti-button3" onClick={handleRefund}>
+                    {" "}
+                    Refund App
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        {showNotifications && <Notis darkMode={darkMode} />}
-      </div>
-      <div className={`application-details ${darkMode ? "dark" : "light"}`}>
-        <div className="header">
-          <h1>grid-application</h1>
-          <span className="subheader">Web service</span>
-          {/* <a href="https://meet.google.com/jrb-zjea-msu" className="link">
+      )}
+    </div>
+  );
+};
+
+export default Information;
+{
+  /* <Domains darkMode={darkMode} /> */
+}
+
+{
+  /* <a href="https://meet.google.com/jrb-zjea-msu" className="link">
           https://meet.google.com/jrb-zjea-msu
-        </a> */}
-          <div className="deployment-info">
+        </a> */
+}
+{
+  /* <div className="deployment-info">
             <div className={`info-box ${darkMode ? "dark" : "light"}`}>
               <h4>Last deployed</h4>
               <span>------------</span>
@@ -47,27 +89,5 @@ const Information = () => {
               <h4>Renewal date</h4>
               <span>-------</span>
             </div>
-          </div>
-        </div>
-        <div className="content">
-          <InfoSideBar darkMode={darkMode} />
-          <div
-            style={{ display: "flex", flexDirection: "column", width: "80%" }}
-          >
-            <General darkMode={darkMode} />
-            <Domains darkMode={darkMode} />
-            <Notifications darkMode={darkMode} />
-            <div>
-              <div className="noti-buttons2">
-                <button className="noti-button3"> Delete web service</button>
-                <button className="noti-button4"> Suspend web service</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Information;
+          </div> */
+}

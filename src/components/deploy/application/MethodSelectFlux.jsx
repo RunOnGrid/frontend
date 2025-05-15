@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React, { forwardRef, useEffect, useState } from "react";
-import Buildpack from "../Buildpack";
-import BuildSettings from "../BuildSettings";
-import Select from "@/commons/Select";
-import JsonEditor from "@/components/flux/JsonEditor";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SliderComp from "@/components/slider/SliderComp";
+import GithubFlux from "./GithubFlux";
+import BuildFlux from "@/components/flux/BuildFlux";
+import FluxSlider from "@/components/slider/FluxSlider";
 const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectFlux = forwardRef(
   (
@@ -19,6 +19,13 @@ const MethodSelectFlux = forwardRef(
       methodReset,
       installed,
       appInstalled,
+      disableSelect,
+      image,
+      databaseName,
+      setInstalled,
+      setDisableSelect,
+      selectedCloud,
+      deployOption,
     },
     ref
   ) => {
@@ -30,6 +37,7 @@ const MethodSelectFlux = forwardRef(
     const [selectedMethod, setSelectedMethod] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [email, setEmail] = useState("");
+    const [compDuration, setCompDuration] = useState(20160);
     const router = useRouter();
 
     const { installation_id } = router.query;
@@ -70,133 +78,101 @@ const MethodSelectFlux = forwardRef(
     }, [grid]);
 
     return (
-      <div ref={ref} className="databaseSelect">
+      <div ref={ref} className={`databaseSelect `}>
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
-            <span>Select a deployment method</span>
-            <p>Deploy from a Git repository or a Docker registry</p>
+            <span>Component</span>
           </div>
         </div>
-        <div className="deployMethodBox-container">
+        <div className="component-container">
+          <h3>Establish a global duration for all components </h3>
+          <FluxSlider
+            disableSelect={disableSelect}
+            setCompDuration={setCompDuration}
+          />
           <div
-            onClick={handleGit}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-              selectedMethod === "git" ? "selected" : ""
-            } ${selectedMethod === "docker" ? "disabled" : ""}`}
+            className={`deployMethodBox-container ${
+              disableSelect ? "disabled" : ""
+            }`}
           >
-            <Image alt="" src="/iconGit.png" height={50} width={50} />
-            <h4>Git repository</h4>
-            <p>Deploy from a git repository</p>
+            <div
+              onClick={handleGit}
+              className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
+                selectedMethod === "git" ? "selected" : ""
+              } ${selectedMethod === "docker" ? "disabled" : ""}`}
+            >
+              <Image alt="" src="/iconGit.png" height={50} width={50} />
+              <h4>Git repository</h4>
+              <p>Deploy from a git repository</p>
+            </div>
+            <div
+              onClick={handleDocker}
+              className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
+                selectedMethod === "docker" ? "selected" : ""
+              } ${selectedMethod === "git" ? "disabled" : ""}`}
+            >
+              <Image alt="" src="/dockerIcon.png" height={50} width={50} />
+              <h4>Container registry </h4>
+              <p>Deploy a container from an image registry</p>
+            </div>
           </div>
-          <div
-            onClick={handleDocker}
-            className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-              selectedMethod === "docker" ? "selected" : ""
-            } ${selectedMethod === "git" ? "disabled" : ""}`}
-          >
-            <Image alt="" src="/dockerIcon.png" height={50} width={50} />
-            <h4>Docker repository</h4>
-            <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
-          </div>
-        </div>
 
-        {grid ? (
-          <>
-            {" "}
-            <span> Github App</span>
-            {build ? (
-              ""
-            ) : (
-              <p className="span-deploy">Install our github app.</p>
-            )}
-            {build || appInstalled ? (
-              <div className="install-container">
-                <div className="install-github2">
-                  <Image alt="" src="/github3.png" height={15} width={15} />
-                  <span>Installed</span>
+          {grid ? (
+            <div className="git-install-cont">
+              {" "}
+              {build ? "" : <p> Install the Github App to continue </p>}
+              {build || appInstalled ? (
+                <div className="install-container">
+                  <div className="install-github2">
+                    <Image alt="" src="/github3.png" height={15} width={15} />
+                    <span>Installed</span>
+                  </div>
+                  <Link href={gitUrl} target="_blank">
+                    <Image
+                      alt=""
+                      src="/settingsLigth.png"
+                      width={22}
+                      height={22}
+                    />
+                  </Link>
                 </div>
-                <Link href={gitUrl} target="_blank">
-                  <Image
-                    alt=""
-                    src="/settingsLigth.png"
-                    width={22}
-                    height={22}
-                  />
-                </Link>
-              </div>
-            ) : (
-              <Link href={gitUrl}>
+              ) : (
                 <div className="install-github">
-                  <Image alt="" src="/github3.png" height={15} width={15} />
-                  <span>Install the Grid GitHub app</span>
+                  <Link href={gitUrl}>
+                    <Image alt="" src="/github3.png" height={15} width={15} />
+                    <span>Install </span>
+                  </Link>
                 </div>
-              </Link>
-            )}
-          </>
-        ) : (
-          ""
-        )}
+              )}
+            </div>
+          ) : (
+            ""
+          )}
+          {selectedCloud === "flux" && deployOption === "githubFlux" && (
+            <>
+              <GithubFlux
+                image={image}
+                databaseName={databaseName}
+                setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
+                selectedCloud={selectedCloud}
+                compDuration={compDuration}
+              />
+            </>
+          )}
+          {selectedCloud === "flux" && deployOption === "dockerFlux" && (
+            <>
+              <BuildFlux
+                compDuration={compDuration}
+                selectedCloud={selectedCloud}
+              />
+            </>
+          )}
+        </div>
       </div>
     );
   }
 );
 MethodSelectFlux.displayName = "MethodSelectFlux";
 export default MethodSelectFlux;
-
-{
-  /* <div className="input-with-image4">
-  <input
-    onChange={(e) => setImage(e.target.value)}
-    placeholder="Default: gridcloud/aptos-app:v.1"
-  />
-  <Image alt="" src="/searchLigth.png" height={20} width={20} />
-</div> */
-}
-
-{
-  /* {build ? (
-  <>
-    {" "}
-    <BuildSettings
-      onClick={() => setBuild2(true)}
-      value={build2}
-      darkMode={darkMode}
-    />{" "}
-  </>
-) : (
-  ""
-)}
-
-{build2 ? (
-  <>
-    {" "}
-    <Buildpack onClick={onNext} darkMode={darkMode} />{" "}
-  </>
-) : (
-  ""
-)} */
-}
-{
-  /* {docker ? (
-          <>
-            <span> Image settings</span>
-            <p className="span-deploy">Select our whitelisted images URL.</p>
-            <Select
-              darkMode={darkMode}
-              options={["gridcloud/aptos-app:v.1", "gridcloud/hello-app:2.0"]}
-              onSelect={handleSelect}
-            />
-            <button
-              onClick={() => {
-                onDocker();
-              }}
-              className="add-button2"
-            >
-              Continue
-            </button>
-          </>
-        ) : (
-          ""
-        )} */
-}

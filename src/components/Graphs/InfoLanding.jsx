@@ -4,21 +4,21 @@ import React, { useEffect } from 'react';
 const InfoLanding = () => {
   useEffect(() => {
     const handleScroll = () => {
-      const leftCard = document.querySelector('.scroll2-in-left');
-      const rightCard = document.querySelector('.scroll2-in-right');
+      const leftCard = document.querySelector(".scroll2-in-left");
+      const rightCard = document.querySelector(".scroll2-in-right");
       const triggerBottom = (window.innerHeight / 5) * 4;
 
-      if (leftCard.getBoundingClientRect().top < triggerBottom) {
-        leftCard.classList.add('visible');
+      if (leftCard && leftCard.getBoundingClientRect().top < triggerBottom) {
+        leftCard.classList.add("visible");
       }
 
-      if (rightCard.getBoundingClientRect().top < triggerBottom) {
-        rightCard.classList.add('visible');
+      if (rightCard && rightCard.getBoundingClientRect().top < triggerBottom) {
+        rightCard.classList.add("visible");
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-
+    window.addEventListener("scroll", handleScroll);
+  
     // Cleanup event listener on component unmount
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

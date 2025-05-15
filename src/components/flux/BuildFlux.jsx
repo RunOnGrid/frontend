@@ -1,153 +1,162 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import EnvModal from "../EnvModal";
-import CommModal from "../CommModal";
-import Botonera2 from "@/commons/Botonera2";
-import SummaryAkash from "../deploy/SummaryAkash";
-import Image from "next/image";
-import PricingPlanFlux from "../deploy/application/PricingPlanFlux";
 import { TokenService } from "../../../tokenHandler";
-import PortFlux from "../PortFlux";
+import BuildSettings from "../deploy/BuildSettings";
+import DockerSettings from "./DockerSettings";
+import AddComponent from "../deploy/AddComponent";
+import FluxInputs from "./FluxInputs";
+import EnvFlux from "./EnvFlux";
+import NetFlux from "./NetFlux";
+import ComponentsTable from "./ComponentTable";
+import SummaryAkash from "../deploy/SummaryAkash";
+import Botonera2 from "@/commons/Botonera2";
+import LoadingText from "@/commons/LoaderText";
 import Spinner from "@/commons/Spinner";
 
-export default function BuildFlux({ darkMode, image }) {
+export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   const [activeStep, setActiveStep] = useState(3);
-  const [editingPortIndex, setEditingPortIndex] = useState(null);
-  const [serviceName, setServiceName] = useState("");
-  const [cpu, setCpu] = useState(0.1);
-  const [memory, setMemory] = useState(256);
-  const [ephemeralStorage, setEphemeralStorage] = useState(1);
-  const [serviceCount, setServiceCount] = useState(3);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
-  const [activeTab, setActiveTab] = useState("builder");
-  const [currentDate, setCurrentDate] = useState("");
   const [commands, setCommands] = useState([]);
-  const [args, setArgs] = useState([]);
-  const [env, setEnv] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [ports, setPorts] = useState({
-    port: 39470,
-    accept: [],
-    contPorts: [],
-  });
-
-  const [showEnv, setShowEnv] = useState(false);
-  const [showComm, setShowComm] = useState(false);
-  const [showPorts, setShowPorts] = useState(false);
-  const [yaml, setYaml] = useState("");
-  const [clientSecret, setClientSecret] = useState("");
-  const [showPayment, setShowPayment] = useState(false);
+  const [port, setPort] = useState([8080]);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
-  const [summary, setSummary] = useState(false);
-  const [agree, setAgree] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [errorMessage2, setErrorMessage2] = useState("");
-  const [errorImage, setErrorImage] = useState("");
-  const [imageURL, setImageURL] = useState("");
-  const [allowedLocations, setAllowedLocations] = useState([]);
-  const [forbiddenLocations, setForbiddenLocations] = useState([]);
-  const [orderId, setOrderId] = useState(1);
-  const [appPrice, setAppPrice] = useState(0);
+  const [repoTag, setRepoTag] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [existingNames, setExistingNames] = useState([]);
-
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-  const envRef = useRef(null);
-
-  const handleYamlChange = (newYaml) => {
-    setYaml(newYaml);
-  };
+  const [envs, setEnvs] = useState([]);
+  const [cpu, setCpu] = useState(0.5);
+  const [ram, setRam] = useState(100);
+  const [hdd, setHdd] = useState(100);
+  const [owner, setOwner] = useState("");
+  const [pat, setPat] = useState("");
+  const [summary, setSummary] = useState(false);
+  const [agree, setAgree] = useState(false);
+  const [domain, setDomain] = useState([""]);
+  const [priv, setPriv] = useState(false);
+  const [errorMessage2, setErrorMessage2] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage3, setErrorMessage3] = useState("");
+  const [balance, setBalance] = useState(0);
+  const [compPrice, setCompPrice] = useState(0);
+  const [instances, setInstances] = useState(3);
+  const [insufficient, setInsufficient] = useState(false);
+  const [fundsError, setFundsError] = useState(true);
+  const [priceLoader, setPriceLoader] = useState(false);
   const router = useRouter();
 
-  const handleShowEnv = (newEnv) => {
-    setEnv((prevEnv) => ({ ...prevEnv, ...newEnv }));
-    setShowEnv(false);
-  };
-  const handleSaveCommand = (newData) => {
-    setCommands((prevCommands) => [...prevCommands, newData.command]);
-    setArgs((prevArgs) => [...prevArgs, newData.argument]);
+  // useEffect(() => {
+  //   getBalance();
+  // }, []);
+  const handleSummary = async () => {
+    if (!name.trim()) {
+      setErrorMessage2("This field is required.");
 
-    setShowComm(false);
-  };
-  const handleOpenPortModal = (index = null) => {
-    setEditingPortIndex(index);
-    setShowPorts(true);
-  };
-  const handleSavePort = (newPort) => {
-    const newPorts = newPort;
+      return;
+    }
+    if (priv) {
+      if (!pat.trim()) {
+        setErrorMessage("This field is required.");
 
-    setPorts(newPorts);
-    setShowPorts(false);
-    setEditingPortIndex(null);
-  };
-
-  const handleNameChange = (e) => {
-    const inputValue = e.target.value;
-
-    // Expresión regular que solo permite letras y números
-    const alphanumericRegex = /^[a-zA-Z0-9]*$/;
-
-    // Verificar si el input cumple con la expresión regular
-    if (alphanumericRegex.test(inputValue)) {
-      const lowercaseValue = inputValue.toLowerCase();
-
-      const isNameTaken = existingNames.includes(lowercaseValue);
-
-      setName(lowercaseValue);
-
-      if (isNameTaken) {
-        setErrorMessage2("Service name already in use");
-      } else {
-        setErrorMessage2("");
+        return;
       }
     }
-  };
 
-  const handleSummary = (state) => {
-    if (!name.trim()) {
-      setErrorMessage("This field is required.");
-      return;
+    const price = await checkPrice();
+
+    if (price) {
+      setPriceLoader(false);
+      setErrorMessage("");
+      setErrorMessage2("");
+      setSummary(true);
+      setActiveStep(4);
     }
-    if (!imageURL.trim()) {
-      setErrorMessage("This field is required.");
-      return;
+  };
+
+  const getBalance = async () => {
+    try {
+      const response = await fetch(`/api/balance-proxy`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching data: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      setBalance(data.toFixed(2));
+    } catch (err) {
+      console.error("Error loading existing app names:", err);
     }
-    setErrorMessage("");
-    setSummary(true);
-    setActiveStep(4);
   };
 
-  const UnitOptions = ["Mb", "Mi", "GB", "Gi", "TB", "Ti"];
-  const MemoryUnits = ["hdd", "ssd", "NVMe"];
+  const checkPrice = async () => {
+    setPriceLoader(true);
+    const response = await fetch(
+      `/api/get-price?cloudProvider=${encodeURIComponent(
+        selectedCloud.toUpperCase()
+      )}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          configurationDetails: {
+            deploymentDetails: {
+              name: name,
+              description: "Application deployed by Grid",
 
-  const handleTypeUnit = (selectedOption) => {
-    setTypeUnit(selectedOption);
-  };
-  const handleDelete = (keyToDelete) => {
-    setEnv((prevEnv) => {
-      const updatedEnv = { ...prevEnv };
-      delete updatedEnv[keyToDelete];
-      return updatedEnv;
-    });
-  };
-  const handleDeleteCommand = (indexToDelete) => {
-    setCommands((prevCommands) =>
-      prevCommands.filter((_, index) => index !== indexToDelete)
+              compose: [
+                {
+                  name: name,
+                  description: "Application deployed by Grid",
+                  repotag: repoTag,
+                  ports: [36522],
+                  domains: domain || [""],
+                  environmentParameters: envs || [],
+                  commands: commands || [""],
+                  containerPorts: port || [""],
+                  containerData: "/data",
+                  cpu: cpu,
+                  ram: ram,
+                  hdd: hdd,
+                  tiered: false,
+                  secrets: "",
+                  repoauth: "",
+                },
+              ],
+              expire: compDuration,
+              instances: instances,
+            },
+          },
+        }),
+      }
     );
-  };
-  const handleDeleteArgs = (indexToDelete) => {
-    setArgs((prevArgs) =>
-      prevArgs.filter((_, index) => index !== indexToDelete)
-    );
-  };
 
+    const data = await response.json();
+    setCompPrice(data.price);
+
+    if (data.price > balance) {
+      setInsufficient(true);
+    }
+
+    return true;
+  };
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
     setIsLoading(true);
-    const portsInput = ports.contPorts;
+    if (insufficient) {
+      setFundsError("Insufficient funds");
+      setIsLoading(false);
+      return;
+    }
     // const portsArray = portsInput ? JSON.parse(portsInput) : '';
 
     try {
@@ -158,16 +167,21 @@ export default function BuildFlux({ darkMode, image }) {
           {
             name: name,
             description: "Application deployed by Grid",
-            repotag: imageURL,
-            domains: [""],
-            environmentParameters: [""],
+            repotag: repoTag,
+            domains: domain || [""],
+            environmentParameters: envs || [],
             commands: commands || [""],
-            containerPorts: ports.contPorts || [""],
+            containerPorts: port || [""],
+            cpu: cpu,
+            ram: ram,
+            hdd: hdd,
             tiered: false,
             secrets: "",
             repoauth: "",
           },
         ],
+        expire: compDuration,
+        instances: instances,
       };
 
       const response = await fetch("/api/flux-deploy", {
@@ -215,6 +229,7 @@ export default function BuildFlux({ darkMode, image }) {
   useEffect(() => {
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
+    getBalance();
   }, [accessToken]);
 
   useEffect(() => {
@@ -222,13 +237,217 @@ export default function BuildFlux({ darkMode, image }) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
     } else if (activeStep === 4) {
       deployRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (activeStep === 5) {
-      envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
   return (
-    <div className="databaseSelect">
-      <div
+    <div ref={servicesRef} className="databaseSelect">
+      <div className="components-display">
+        <DockerSettings
+          repoTag={repoTag}
+          setRepoTag={setRepoTag}
+          name={name}
+          setName={setName}
+          darkMode={darkMode}
+          owner={owner}
+          setOwner={setOwner}
+          setPat={setPat}
+          pat={pat}
+          priv={priv}
+          setPriv={setPriv}
+          errorMessage2={errorMessage2}
+          errorMessage={errorMessage}
+          errorMessage3={errorMessage3}
+        />
+        <AddComponent
+          darkMode={darkMode}
+          cpu={cpu}
+          setCpu={setCpu}
+          ram={ram}
+          setRam={setRam}
+          hdd={hdd}
+          setHdd={setHdd}
+          setInstances={setInstances}
+        />
+      </div>
+
+      <>
+        <h3> Settings</h3>
+        <div style={{ display: "flex" }}>
+          <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
+          <NetFlux
+            setPort={setPort}
+            port={port}
+            domain={domain}
+            setDomain={setDomain}
+            darkMode={darkMode}
+          />
+        </div>
+      </>
+      {priceLoader ? (
+        <Spinner />
+      ) : (
+        <button
+          className="add-button4"
+          onClick={() => {
+            handleSummary(true);
+          }}
+        >
+          Continue
+        </button>
+      )}
+      {/* <ComponentsTable /> */}
+      {summary && (
+        <div ref={deployRef}>
+          <SummaryAkash
+            cpu={cpu}
+            ram={ram}
+            hdd={hdd}
+            mode={darkMode}
+            name={name}
+            setSummary={setSummary}
+            setAgree={setAgree}
+            price={compPrice}
+            setActiveStep={setActiveStep}
+            summaryStep={3}
+          />
+          <div className="termService">
+            <Botonera2 setAgree={setAgree} agree={agree} />
+            <h4>I agree with Terms of Service</h4>
+          </div>
+          {fundsError !== "" ? (
+            <h3 className="error-message-login">{fundsError}</h3>
+          ) : (
+            ""
+          )}
+
+          <div
+            className={
+              agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
+            }
+          >
+            <div className="line-background"></div>
+            {isLoading ? (
+              <div className="loading-container">
+                <LoadingText />
+              </div>
+            ) : (
+              <>
+                <button
+                  className="deploy-button"
+                  onClick={() => {
+                    handlePaymentSuccess();
+                  }}
+                  disabled={isLoading}
+                >
+                  Deploy
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// {showPayment && clientSecret && (
+//   <Elements options={{ clientSecret }} stripe={stripePromise}>
+//     <CheckoutForm
+//       onClick={setShowPayment}
+//       onPaymentSuccess={handlePaymentSuccess}
+//     />
+//   </Elements>
+// )}
+
+// const handleContinue = async () => {
+//   if (!agree) {
+//     return;
+//   }
+
+//   setIsLoading(true);
+//   setError(null);
+//   setShowModal(false);
+
+//   try {
+//     const response = await fetch("/api/create-payment-intent", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         amount: appPrice,
+//         currency: "usd",
+//         orderId: orderId,
+//         accessToken: accessToken,
+//       }),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`Error: ${response.status} ${response.statusText}`);
+//     }
+
+//     const data = await response.json();
+//     setClientSecret(data.clientSecret);
+//     setShowPayment(true);
+//   } catch (err) {
+//     setError(err.message);
+//   } finally {
+//     setIsLoading(false);
+//   }
+// };
+
+{
+  /* <AppGeoSelect
+          allowedLocations={allowedLocations}
+          setAllowedLocations={setAllowedLocations}
+          forbiddenLocations={forbiddenLocations}
+          setForbiddenLocations={setForbiddenLocations}
+          darkMode={darkMode}
+        /> */
+}
+
+// {summary && (
+//   <div ref={deployRef}>
+//     <SummaryAkash
+//       cpu={cpu}
+//       ram={memory}
+//       hdd={ephemeralStorage}
+//       mode={darkMode}
+//       name={name}
+//       setSummary={setSummary}
+//       setAgree={setAgree}
+//     />
+//     <div className="termService">
+//       <Botonera2 setAgree={setAgree} agree={agree} />
+//       <h4>I agree with Terms of Service</h4>
+//     </div>
+//     <div
+//       className={
+//         agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
+//       }
+//     >
+//       <div className="line-background"></div>
+//       {isLoading ? (
+//         <Spinner />
+//       ) : (
+//         <>
+//           <button
+//             className="deploy-button"
+//             onClick={() => {
+//               handlePaymentSuccess();
+//             }}
+//             disabled={isLoading}
+//           >
+//             Deploy
+//           </button>
+//         </>
+//       )}
+//     </div>
+//   </div>
+// )}
+
+{
+  /* <div
         ref={servicesRef}
         className={`deployment-config ${summary ? "disabled" : ""}`}
       >
@@ -416,13 +635,7 @@ export default function BuildFlux({ darkMode, image }) {
         ) : (
           ""
         )}
-        {/* <AppGeoSelect
-          allowedLocations={allowedLocations}
-          setAllowedLocations={setAllowedLocations}
-          forbiddenLocations={forbiddenLocations}
-          setForbiddenLocations={setForbiddenLocations}
-          darkMode={darkMode}
-        /> */}
+    
         {error && <p style={{ color: "red" }}>Error: {error}</p>}
 
         <button
@@ -433,93 +646,5 @@ export default function BuildFlux({ darkMode, image }) {
         >
           Continue
         </button>
-      </div>
-
-      {summary && (
-        <div ref={deployRef}>
-          <SummaryAkash
-            cpu={cpu}
-            ram={memory}
-            hdd={ephemeralStorage}
-            mode={darkMode}
-            name={name}
-            setSummary={setSummary}
-            setAgree={setAgree}
-          />
-          <div className="termService">
-            <Botonera2 setAgree={setAgree} agree={agree} />
-            <h4>I agree with Terms of Service</h4>
-          </div>
-          <div
-            className={
-              agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-            }
-          >
-            <div className="line-background"></div>
-            {isLoading ? (
-              <Spinner />
-            ) : (
-              <>
-                <button
-                  className="deploy-button"
-                  onClick={() => {
-                    handlePaymentSuccess();
-                  }}
-                  disabled={isLoading}
-                >
-                  Deploy
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
+      </div> */
 }
-
-      // {showPayment && clientSecret && (
-      //   <Elements options={{ clientSecret }} stripe={stripePromise}>
-      //     <CheckoutForm
-      //       onClick={setShowPayment}
-      //       onPaymentSuccess={handlePaymentSuccess}
-      //     />
-      //   </Elements>
-      // )}
-      
-        // const handleContinue = async () => {
-        //   if (!agree) {
-        //     return;
-        //   }
-      
-        //   setIsLoading(true);
-        //   setError(null);
-        //   setShowModal(false);
-      
-        //   try {
-        //     const response = await fetch("/api/create-payment-intent", {
-        //       method: "POST",
-        //       headers: {
-        //         "Content-Type": "application/json",
-        //       },
-        //       body: JSON.stringify({
-        //         amount: appPrice,
-        //         currency: "usd",
-        //         orderId: orderId,
-        //         accessToken: accessToken,
-        //       }),
-        //     });
-      
-        //     if (!response.ok) {
-        //       throw new Error(`Error: ${response.status} ${response.statusText}`);
-        //     }
-      
-        //     const data = await response.json();
-        //     setClientSecret(data.clientSecret);
-        //     setShowPayment(true);
-        //   } catch (err) {
-        //     setError(err.message);
-        //   } finally {
-        //     setIsLoading(false);
-        //   }
-        // };

@@ -508,6 +508,34 @@
   width: 35vw;
   margin-top: 0px;
 }
+
+.verify-container{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-left: auto;
+  margin-right: 10%;
+  width: 35vw;
+  margin-top: 0px;
+}
+
+.verify-container h2{
+  color: white;
+  width: 100%;
+  font-size: 3rem;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10vh;
+  text-align: center;
+}
+.verify-btn{
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 25px;
+}
 .inputs-login{
   display: flex;
   flex-direction: column;
@@ -601,7 +629,7 @@
   margin-bottom: 50px;
   justify-content: center;
 }
-.google-signIn{
+.google-signIn, .keplr-signIn{
   width: 50px !important;
   background-color: white !important;
   color: black;
@@ -616,6 +644,9 @@
 .google-signIn img{
   justify-content: center;
   margin: 0px 10px ;
+}
+.keplr-signIn img{
+  border-radius: 50%;
 }
 .forgot-pass{
   display: flex;

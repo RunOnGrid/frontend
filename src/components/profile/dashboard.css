@@ -24,6 +24,7 @@
   padding: 20px;
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #151e21;
   margin: auto;
   width: 60%;
   margin-bottom: 0px;
@@ -38,9 +39,15 @@
 .applications-section p {
   display: flex;
   justify-content: center;
-  color: grey;
+  color: white;
   width: 100%;
-  font-weight: 500;
+  
+  font-size: 1.2rem;
+}
+.applications-section span{
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .applications-section button {
@@ -51,16 +58,23 @@
 }
 
 .section-button {
-  background-color: white;
-  color: #00b174;
   width: 200px;
   margin-top: 50px;
+  border: 3px solid #00b174 !important;
 }
 
 .section-button:hover {
-  background-color: white;
+  border: 3px solid #00b174;
   color: #00b174;
   width: 200px;
+}
+.section-button.dark{
+  background-color: transparent;
+  color: #00b174;
+}
+.section-button.light{
+  background-color: white;
+  color: #00b174;
 }
 
 .billing-section,
@@ -68,7 +82,7 @@
   padding: 20px;
   border-radius: 30px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 80%;
+  width: 90%;
   height: 18vh;
   display: flex;
   flex-direction: column;
@@ -116,6 +130,13 @@
 .billing-section span {
   font-weight: 400;
 }
+.billing-buttons{
+  display: flex;
+  gap: 10px;
+  margin: auto;
+  justify-content: center;
+
+}
 .billing-info {
   display: grid;
   grid-template-columns: auto auto;
@@ -145,11 +166,15 @@ span {
   border: none;
 }
 .billing3 {
-  background-color: #00b174;
+  color: #00b174;
   padding: 6px 15px;
-  margin-top: 20px;
+  margin: 10px;
   min-width: 90px;
-  border: none;
+  border-radius: 10px;
+  border: 2px solid #00b174;
+}
+.billing3:hover{
+  background-color: white;
 }
 .billing2 {
   padding: 6px 15px;
@@ -234,8 +259,18 @@ span {
   height: 16px;
   margin: auto;
   animation: spin 1s linear infinite;
+  
 }
+.big-spinner{
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid #00b174; 
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  margin: auto;
 
+  animation: spin 1s linear infinite;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -324,6 +359,15 @@ span {
 .dashboard-header {
   display: flex;
   width: 90%;
+  margin: auto;
+  justify-content: flex-start;
+  margin-top: 10px;
+  align-items: center;
+  margin-bottom: 0px;
+}
+.deploy-header {
+  display: flex;
+  width: 100%;
   margin: auto;
   justify-content: flex-start;
   margin-top: 10px;
@@ -419,9 +463,7 @@ span {
   background-color: #fff;
 }
 
-.applications-section.light {
-  background-color: #f5f6f6;
-}
+
 .billing-section.light {
   background-color: #d6eee3;
 }
@@ -475,9 +517,7 @@ span {
   color: #f4f4f4;
 }
 
-.applications-section.dark {
-  background-color: #151e21;
-}
+
 .teams-section.dark {
   background-color: #161f21;
 }
@@ -529,7 +569,7 @@ span {
   height: 0;
 }
 
-.slider {
+/* .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -542,9 +582,9 @@ span {
   width: 38px;
   height: 15px;
   border: 2px solid white;
-}
+} */
 
-.slider:before {
+/* .slider:before {
   position: absolute;
   content: "";
   height: 9px;
@@ -554,7 +594,7 @@ span {
   background-color: white;
   transition: 0.4s;
   border-radius: 50%;
-}
+} */
 
 
 

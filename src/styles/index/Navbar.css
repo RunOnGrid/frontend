@@ -202,7 +202,7 @@ button {
 }
 
 button:hover {
-  background: rgb(54, 176, 121);
+  
  
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
@@ -257,8 +257,19 @@ button:active {
 }
 
 .boton-landing {
-  margin-right: 0px;
-  background-color: #36b079;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-right: 50px;
+  
+}
+.border {
+  border-bottom: 2px solid #00b174;;
+}
+.boton-landing:hover{
+  font-weight: 600;
 }
 .boton-landing1 {
   display: flex;
@@ -281,6 +292,14 @@ button:active {
 }
 
 @media only screen and (max-width: 650px) {
+  .logo-container img, .logo-container2 img {
+    width: 200px ;
+    height: 200px ;
+  }
+  
+  .logo-link{
+    width: 100px;
+  }
   .categorias-mobile {
     display: grid;
     grid-template-columns: auto auto;

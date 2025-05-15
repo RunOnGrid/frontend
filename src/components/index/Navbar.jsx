@@ -42,9 +42,12 @@ function Navbar({ scrollToContactForm }) {
             <Link href="/login">
               <button className="boton-landing1">DEPLOY NOW</button>
             </Link>
-            {/* <Link href="register">
-              <button className="boton-landing">Register</button>
-            </Link> */}
+            <Link
+              className="boton-landing"
+              href="https://documentation-dev.ongrid.run/"
+            >
+              <div className="border">Docs</div>
+            </Link>
           </div>
         </div>
       </nav>

@@ -2,10 +2,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const DeleteModal = ({ onClick, darkMode, name, onYes, id }) => {
-  const handleSave = () => {};
+  
 
   return (
-    <div className={`card3 ${darkMode ? "dark" : "light"}`}>
+    <div className={`card4 ${darkMode ? "dark" : "light"}`}>
       <Image
         onClick={() => {
           onClick();
@@ -18,8 +18,17 @@ const DeleteModal = ({ onClick, darkMode, name, onYes, id }) => {
       <h3>You want to delete {name} deploy? </h3>
       <span></span>
       <div className="botonera-pay-modal">
-        <button onClick={()=>{onYes(id)}} >Yes</button>
-        <button>No</button>
+        <button
+          className="no-btn"
+          onClick={() => {
+            onYes(id);
+          }}
+        >
+          Yes
+        </button>
+        <button className="neutro-btn" onClick={() => onClick()}>
+          No
+        </button>
       </div>
     </div>
   );

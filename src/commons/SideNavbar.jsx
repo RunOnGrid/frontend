@@ -27,9 +27,9 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   const isActive = (path) => (currentPath === path ? "active" : "");
   const handleLogout = async () => {
     TokenService.clearTokens();
-    router.push("/");
+    router.push("/login");
   };
-
+ 
   const getBalance = async () => {
     try {
       const response = await fetch(`/api/balance-proxy`, {
@@ -124,7 +124,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </li>
           </Link>
 
-          {/* <Link href="/profile/billing">
+          <Link href="/profile/billing">
             <li
               className={`sideNavbar-li ${
                 darkMode ? "dark" : "light"
@@ -132,7 +132,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             >
               Billing
             </li>
-          </Link> */}
+          </Link>
 
           <Link href={"/"}>
             <span onClick={() => handleLogout()} className="logout-sidebar">
@@ -151,7 +151,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           <div className="footer-sidebar">
             <div className="contact-links">
               <div className="social-icons">
-                <Link href="https://github.com" passHref>
+                <Link href="https://github.com/RunOnGrid" passHref>
                   <Image
                     src="/githubLogoDark.svg"
                     alt="GitHub"
@@ -177,13 +177,26 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                 </Link>
               </div>
               <div className="contact-options">
+                <Link href="https://documentation-dev.ongrid.run/">
+                  <div className="contact-item">
+                    <Image
+                      src="/docsLogo.png"
+                      alt="Support"
+                      width={18}
+                      height={18}
+                    />
+                    <span>Docs</span>
+                  </div>
+                </Link>
+              </div>
+              <div className="contact-options">
                 <Link href="https://discord.com/channels/1281650505462054952/1281652398930002010">
                   <div className="contact-item">
                     <Image
                       src="/suppLogo.svg"
                       alt="Support"
-                      width={24}
-                      height={24}
+                      width={20}
+                      height={20}
                     />
                     <span>Support</span>
                   </div>
