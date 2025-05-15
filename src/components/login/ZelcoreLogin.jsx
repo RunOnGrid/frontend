@@ -140,21 +140,18 @@ export default function ZelcoreLogin({ apiUrl = "https://api.runonflux.io", isLo
 
   return (
     <>
-        <button
-                    className="keplr-signIn"
-                    onClick={handleZelcoreLogin}
-                    disabled={isLoading}
-                  
-                  >
-                    <Image
-                      alt="Sign in with Zelcore"
-                      src="/zelId.svg"
-                      width={25}
-                      height={25}
-                    />
-                  </button>
-
-      
+      <button
+        className="keplr-signIn"
+        onClick={handleZelcoreLogin}
+        disabled={isLoading}
+      >
+        <Image
+          alt="Sign in with Zelcore"
+          src="/zelID.svg"
+          width={25}
+          height={25}
+        />
+      </button>
     </>
   );
 }
