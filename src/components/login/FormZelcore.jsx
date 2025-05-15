@@ -157,7 +157,7 @@ function FormZelcore() {
               href={`zel:?action=sign&message=${
                 apiData ? apiData.data : ''
               }&icon=https%3A%2F%2Fraw.githubusercontent.com%2Frunonflux%2Fflux%2Fmaster%2FzelID.svg&callback=http://localhost:3000/api/post`}>
-              <Image alt="" src="zelID.svg" height={50} width={50} />
+              <Image alt="" src="/zelID.svg" height={50} width={50} />
             </Link>
           </div>
 

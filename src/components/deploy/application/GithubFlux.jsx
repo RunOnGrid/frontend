@@ -167,34 +167,30 @@ const GithubFlux = ({
           Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          configurationDetails: {
-            deploymentDetails: {
+          name: name,
+          description: "Application deployed by Grid",
+
+          compose: [
+            {
               name: name,
               description: "Application deployed by Grid",
-
-              compose: [
-                {
-                  name: name,
-                  description: "Application deployed by Grid",
-                  repotag: repoTag,
-                  ports: [36522],
-                  domains: domain || [""],
-                  environmentParameters: envs || [],
-                  commands: commands || [""],
-                  containerPorts: port || [""],
-                  containerData: "/data",
-                  cpu: cpu,
-                  ram: ram,
-                  hdd: hdd,
-                  tiered: true,
-                  secrets: "",
-                  repoauth: `${owner.toLowerCase()}:${pat}`,
-                },
-              ],
-              expire: compDuration,
-              instances: instances,
+              repotag: repoTag,
+              ports: [36522],
+              domains: domain || [""],
+              environmentParameters: envs || [],
+              commands: commands || [""],
+              containerPorts: port || [""],
+              containerData: "/data",
+              cpu: cpu,
+              ram: ram,
+              hdd: hdd,
+              tiered: true,
+              secrets: "",
+              repoauth: `${owner.toLowerCase()}:${pat}`,
             },
-          },
+          ],
+          expire: compDuration,
+          instances: instances,
         }),
       }
     );
