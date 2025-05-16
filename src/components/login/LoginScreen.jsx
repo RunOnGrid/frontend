@@ -233,7 +233,7 @@ const LoginScreen = () => {
         <TrianglesLeft />
         <div className="new-login">
           <Link className="logo-link" href="/">
-            <img src="/LogoAlpha.svg" alt="Logo" />
+            <Image width={180} height={100} src="/grid-beta.png" alt="Logo" />
           </Link>
           <h2>Welcome back!</h2>
           <span>Please Sign in with your personal info</span>

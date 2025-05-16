@@ -36,7 +36,7 @@ function Navbar({ scrollToContactForm }) {
       <nav className={`navbar ${isSticky ? "sticky" : ""}  `}>
         <div className="nav-items">
           <Link href="/">
-            <img alt="" className="navbar-logo" src="/LogoAlpha.svg" />
+            <img alt="" className="navbar-logo" src="/grid-beta.png" />
           </Link>
           <div className="login-register">
             <Link href="/login">

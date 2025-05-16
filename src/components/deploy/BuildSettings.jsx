@@ -25,6 +25,7 @@ const BuildSettings = forwardRef(
     setHdd,
     setImagePath,
     setInstances,
+    min,
   }) => {
     return (
       <div className={`databaseSelect ${summary ? "disabled" : ""}`}>
@@ -51,6 +52,7 @@ const BuildSettings = forwardRef(
             hdd={hdd}
             setHdd={setHdd}
             setInstances={setInstances}
+            min={min}
           />
         </div>
       </div>

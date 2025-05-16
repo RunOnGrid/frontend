@@ -88,7 +88,7 @@ const MethodSelectAkash = forwardRef(
             >
               <Image alt="" src="/iconGit.png" height={50} width={50} />
               <h4>Git repository</h4>
-              <p>Available soon</p>
+              <p>Deploy from a git repository</p>
             </div>
             <div
               onClick={handleDocker}

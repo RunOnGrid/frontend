@@ -1209,7 +1209,7 @@
 .dropdown-container {
   position: relative;
   width: 90%;
-  margin-top: 10px;
+  margin-bottom: 40px;
   color: black;
   justify-content: space-between;
   font-size: 0.8rem;
