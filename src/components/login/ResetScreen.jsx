@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TrianglesLeft from "../landing-AsicHosting/TrianglesLeft";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const ResetScreen = () => {
   const [password, setPassword] = useState("");
@@ -12,7 +13,7 @@ const ResetScreen = () => {
   const [showForgot, setShowForgot] = useState(false);
   const [passwordMatchError, setPasswordMatchError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  
+
   const router = useRouter();
 
   // Extraer el token de la URL cuando el componente se monta
@@ -39,15 +40,15 @@ const ResetScreen = () => {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    
+
     // Verificar que las contraseñas coincidan
     if (!validatePasswords()) {
       return;
     }
-    
+
     setError("");
     setIsLoading(true);
-    
+
     try {
       const response = await fetch("/api/reset-proxy", {
         method: "POST",
@@ -55,11 +56,11 @@ const ResetScreen = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: token, 
+          token: token,
           newPassword: password,
         }),
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         setSuccessMessage("Password reset succesfull!");
@@ -85,13 +86,14 @@ const ResetScreen = () => {
         <TrianglesLeft />
         <div className="new-login">
           <Link className="logo-link" href="/">
-            <img src="/LogoAlpha.svg" alt="Logo" />
+            <Image height={90} width={160} src="/grid-beta.png" alt="Logo" />
           </Link>
-          <h2 style={{marginBottom:'50px'}}>Password Reset</h2>
-          
-       
+          <h2 style={{ marginBottom: "50px" }}>Password Reset</h2>
+
           {error && <h4 className="error-message-login">{error}</h4>}
-          {passwordMatchError && <h4 className="error-message-login">{passwordMatchError}</h4>}
+          {passwordMatchError && (
+            <h4 className="error-message-login">{passwordMatchError}</h4>
+          )}
           {successMessage && <h4 className="pw-success">{successMessage}</h4>}
           <form onSubmit={handleResetPassword} className="inputs-login">
             <input

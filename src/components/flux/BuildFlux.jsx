@@ -44,6 +44,8 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   const [insufficient, setInsufficient] = useState(false);
   const [fundsError, setFundsError] = useState(true);
   const [priceLoader, setPriceLoader] = useState(false);
+  const [host, setHost] = useState("ghcr.io");
+  const [tiered, setTiered] = useState(false);
   const router = useRouter();
 
   // useEffect(() => {
@@ -125,9 +127,9 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
               cpu: cpu,
               ram: ram,
               hdd: hdd,
-              tiered: false,
+              tiered: tiered,
               secrets: "",
-              repoauth: "",
+              repoauth: tiered ? owner.toLowerCase() + ":" + pat : "",
             },
           ],
           expire: compDuration,
@@ -171,9 +173,9 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
             cpu: cpu,
             ram: ram,
             hdd: hdd,
-            tiered: false,
+            tiered: tiered,
             secrets: "",
-            repoauth: "",
+            repoauth: tiered ? owner.toLowerCase() + ":" + pat : "",
           },
         ],
         expire: compDuration,
@@ -253,6 +255,9 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
           errorMessage2={errorMessage2}
           errorMessage={errorMessage}
           errorMessage3={errorMessage3}
+          setHost={setHost}
+          setTiered={setTiered}
+          tiered={tiered}
         />
         <AddComponent
           darkMode={darkMode}
@@ -263,6 +268,7 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
           hdd={hdd}
           setHdd={setHdd}
           setInstances={setInstances}
+          min={3}
         />
       </div>
 

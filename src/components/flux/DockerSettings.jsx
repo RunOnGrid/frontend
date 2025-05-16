@@ -1,7 +1,25 @@
 import Select4 from "@/commons/Select4";
 import React, { useState } from "react";
 
-const DockerSettings = ({ darkMode, setName, name, repoTag, setRepoTag, pat, setPat, owner, setOwner, priv, setPriv, errorMessage2, errorMessage, errorMessage3, setHost }) => {
+const DockerSettings = ({
+  darkMode,
+  setName,
+  name,
+  repoTag,
+  setRepoTag,
+  pat,
+  setPat,
+  owner,
+  setOwner,
+  priv,
+  setPriv,
+  errorMessage2,
+  errorMessage,
+  errorMessage3,
+  setHost,
+  setTiered,
+  tiered,
+}) => {
   // Estados para los diferentes campos del formulario
   const [image, setImage] = useState("");
   const [username, setUsername] = useState("");
@@ -27,18 +45,26 @@ const DockerSettings = ({ darkMode, setName, name, repoTag, setRepoTag, pat, set
 
   const handleBranch = (selected) => {
     setBranch(selected);
-    if (selected === 'Github Container Registry - ghcr.io') {
-      setHost('ghcr.io')
+    setPat("");
+    setOwner("");
+    if (selected === "Github Container Registry - ghcr.io") {
+      setHost("ghcr.io");
+    } else {
+      setHost("docker.io");
     }
-    else {
-      setHost('docker.io')
-    }
+  };
+
+  const handlePriv = () => {
+    setPriv(!priv);
+    setTiered(!tiered);
+    setPat("");
+    setOwner("");
   };
 
   // Determina qué título mostrar para el segundo campo (PAT o Password)
   const getSecondFieldTitle = () => {
-    return branch === "Github Container Registry - ghcr.io" 
-      ? "Personal Access Token" 
+    return branch === "Github Container Registry - ghcr.io"
+      ? "Personal Access Token"
       : "Password";
   };
 
@@ -67,34 +93,32 @@ const DockerSettings = ({ darkMode, setName, name, repoTag, setRepoTag, pat, set
               <input
                 type="checkbox"
                 id="readonly"
-                onChange={() => setPriv(!priv)}
+                onChange={() => handlePriv()}
               />
               <h3 htmlFor="readonly">Private</h3>
             </div>
           </div>
           {errorMessage3 && <h3 className="error-message">{errorMessage3}</h3>}{" "}
-          <div
-                className={`input-container5 ${darkMode ? "dark" : "light"}`}
-              >
-                 
-                <input
-                  type="text"
-                  className={`custom-input ${darkMode ? "dark" : "light"}`}
-                  value={repoTag}
-                  onChange={handleImageChange}
-                  required
-                />
-              </div>
-         
+          <div className={`input-container5 ${darkMode ? "dark" : "light"}`}>
+            <input
+              type="text"
+              className={`custom-input ${darkMode ? "dark" : "light"}`}
+              value={repoTag}
+              onChange={handleImageChange}
+              required
+            />
+          </div>
           {priv ? (
             <>
-             
               <div
                 className={`buildpack-single ${darkMode ? "dark" : "light"}`}
               >
                 <h3>Host</h3>
                 <Select4
-                  options={["Github Container Registry - ghcr.io","Docker Hub - docker.io"]}
+                  options={[
+                    "Github Container Registry - ghcr.io",
+                    "Docker Hub - docker.io",
+                  ]}
                   onSelect={handleBranch}
                 />
               </div>
@@ -138,10 +162,9 @@ const DockerSettings = ({ darkMode, setName, name, repoTag, setRepoTag, pat, set
                   </div>
                 </div>
               </div>
-             
             </>
           ) : (
-            ''
+            ""
           )}
         </div>
       </div>

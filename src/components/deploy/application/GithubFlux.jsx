@@ -387,6 +387,7 @@ const GithubFlux = ({
             setHdd={setHdd}
             setImagePath={setImagePath}
             setInstances={setInstances}
+            min={3}
           />
         </div>
       )}
