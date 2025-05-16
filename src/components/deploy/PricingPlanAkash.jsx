@@ -8,7 +8,7 @@ const plans = [
       "1000 MB (RAM)",
       "0.5 CPU",
       "20 GB (STORAGE)",
-      "3 INSTANCES (NODES)",
+      "1 INSTANCE (NODES)",
     ],
     price: "---",
     values: [1000, "Mb", 0.5, 20, "Gi", 1, 80],
@@ -17,9 +17,9 @@ const plans = [
   {
     title: "TEST",
     subtitle: "Standard",
-    specs: ["4000 MB (RAM)", "2 CPU", "20 GB (STORAGE)", "3 INSTANCES (NODES)"],
+    specs: ["4000 MB (RAM)", "2 CPU", "20 GB (STORAGE)", "1 INSTANCE (NODES)"],
     price: "---",
-    values: [1, "Mb", 1, 5, "Gi", 1, 550],
+    values: [4000, "Mb", 2, 20, "Gi", 1, 550],
     plan: "test",
   },
 ];

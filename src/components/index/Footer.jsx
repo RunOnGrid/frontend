@@ -20,7 +20,7 @@ const Footer = ({ scrollToContactForm }) => {
           </div>
 
           <div className="segunda-columna">
-            <Image alt="" src="/LogoAlpha.svg" height={180} width={180} />
+            <Image alt="" src="/grid-beta.png" height={100} width={180} />
             <div className="redes-footer">
               <a href="https://www.linkedin.com/company/ongridrun">
                 <img className="icon-redes" src={"/linkedin.png"} />

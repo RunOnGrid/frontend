@@ -64,6 +64,7 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
   const [compPrice, setCompPrice] = useState(0);
   const [instances, setInstances] = useState(1);
   const [priceLoader, setPriceLoader] = useState(false);
+  const [tiered, setTiered] = useState(false);
   const router = useRouter();
 
   const getBalance = async () => {
@@ -222,8 +223,6 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
     getBalance();
   }, [accessToken]);
 
-
-
   useEffect(() => {
     if (activeStep === 3) {
       servicesRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -253,6 +252,8 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
           errorMessage={errorMessage}
           errorMessage3={errorMessage3}
           setHost={setHost}
+          setTiered={setTiered}
+          tiered={tiered}
         />
         <AddComponent
           darkMode={darkMode}
@@ -263,6 +264,7 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
           hdd={ephemeralStorage}
           setHdd={setEphemeralStorage}
           setInstances={setInstances}
+          min={1}
         />
       </div>
 

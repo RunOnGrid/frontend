@@ -321,6 +321,7 @@ const GithubAkash = ({
         setHdd={setEphemeralStorage}
         setInstances={setInstances}
         setImagePath={setImagePath}
+        min={1}
       />
       {showConfig && (
         <div className="databaseSelect">

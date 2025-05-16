@@ -12,6 +12,7 @@ const AddComponent = ({
   setRam,
   setHdd,
   setInstances,
+  min,
 }) => {
   const [customize, setCustomize] = useState(false);
   const [pricingCards, setPricingCards] = useState(false);
@@ -19,14 +20,14 @@ const AddComponent = ({
     setCpu(0.5);
     setHdd(20);
     setRam(1000);
-    setInstances(3);
+    setInstances(min);
     setCustomize(true);
   };
   const handleTest = () => {
     setCpu(2);
     setHdd(20);
     setRam(4000);
-    setInstances(3);
+    setInstances(min);
     setCustomize(true);
   };
 
@@ -43,6 +44,7 @@ const AddComponent = ({
     <div className="sub-component-container">
       <div className="databaseSelect-title">
         <span>Resources</span>
+        <span> Instances: 1</span>
       </div>
       <div className="options-container">
         <button onClick={() => handleCustomize()} className="add-button">
@@ -60,13 +62,13 @@ const AddComponent = ({
       ) : (
         <div className="instance-config">
           <>
-            <SliderComp
-              min={3}
+            {/* <SliderComp
+              min={min}
               max={100}
-              initialDuration={3}
+              initialDuration={min}
               label="Instances"
               setInstances={setInstances}
-            />
+            /> */}
 
             <div className="akash-sliders">
               <div className="sliders-flux">
