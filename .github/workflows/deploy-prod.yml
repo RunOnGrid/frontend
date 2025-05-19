@@ -26,6 +26,8 @@ jobs:
   deploy:
     needs: validate-tag
     if: needs.validate-tag.outputs.valid == 'true'
+    with:
+      docker_tag: ${{ github.ref_name }}
     uses: RunOnGrid/deploy-workflow/.github/workflows/deploy-prod-1p.yml@main
     secrets:
       OP_SERVICE_ACCOUNT_TOKEN_PROD: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN_PROD }}
