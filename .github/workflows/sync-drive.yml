@@ -1,0 +1,33 @@
+name: Sync Public Folder to Google Drive
+
+on:
+  push:
+    branches:
+      - main  # o master, o la rama que uses
+    paths:
+      - 'public/**'  # Solo se ejecuta cuando hay cambios en la carpeta public
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Para obtener todos los archivos
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install dependencies
+        run: npm install googleapis
+        
+      - name: Create Google credentials file
+        run: echo '${{ secrets.GOOGLE_DRIVE_CREDENTIALS }}' > credentials.json
+        
+      - name: Run sync script
+        run: node sync-to-drive.js
+        env:
+          DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
