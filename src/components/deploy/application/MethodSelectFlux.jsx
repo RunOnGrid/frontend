@@ -6,58 +6,61 @@ import SliderComp from "@/components/slider/SliderComp";
 import GithubFlux from "./GithubFlux";
 import BuildFlux from "@/components/flux/BuildFlux";
 import FluxSlider from "@/components/slider/FluxSlider";
+import { useComponentFormState } from "@/hooks/useComponentFormState";
+import { useFluxConfig } from "@/hooks/useFluxConfig";
 const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectFlux = forwardRef(
   (
     {
-      onDocker,
-      onGit,
+      setDeployOption,
       darkMode,
-      onClick,
-      value,
-      setImage,
-      methodReset,
-      installed,
       appInstalled,
       disableSelect,
-      image,
-      databaseName,
       setInstalled,
       setDisableSelect,
       selectedCloud,
       deployOption,
+      setComponents,
+      components,
+      resetFlow,
     },
     ref
   ) => {
-    const [build, setBuild] = useState(false);
-    const [build2, setBuild2] = useState(false);
-    const [grid, setGrid] = useState(false);
-    const [docker, setDocker] = useState(false);
-    const [git, setGit] = useState(false);
-    const [selectedMethod, setSelectedMethod] = useState("");
-    const [selectedOption, setSelectedOption] = useState("");
     const [email, setEmail] = useState("");
-    const [compDuration, setCompDuration] = useState(20160);
-    const router = useRouter();
+    const [showConfig, setShowConfig] = useState(false);
+    const [workflowFinished, setWorkflowFinished] = useState(false);
+    const [workflowLoading, setWorkflowLoading] = useState(false);
+    const { config, setters } = useFluxConfig(email);
+    const { loadComponent, resetComponent } = useComponentFormState(setters);
 
-    const { installation_id } = router.query;
     const handleGit = () => {
-      setSelectedMethod("git");
-      setImage(false);
-      setGrid(!grid);
-      setDocker(false);
-      methodReset();
+      setters.setSelectedMethod("git");
+      setters.setGrid(true);
+      setters.setDocker(false);
+      setDeployOption("githubFlux");
     };
     const handleDocker = () => {
-      setSelectedMethod("docker");
-      setGrid(false);
-      setDocker(true);
-      setBuild(false);
-      setBuild2(false);
-      onDocker();
+      setters.setSelectedMethod("docker");
+      setters.setGrid(false);
+      setters.setDocker(true);
+      setters.setBuild(false);
+      setDeployOption("dockerFlux");
     };
-    const handleSelect = (option) => {
-      setImage(option);
+    const handleLoadComp = (component) => {
+      if (component.option === "git") {
+        setters.setSelectedMethod("git");
+        setters.setGrid(true);
+        setters.setDocker(false);
+        setters.setBuild(true);
+        setShowConfig(true);
+        setDeployOption("githubFlux");
+      } else if (component.option === "docker") {
+        setters.setSelectedMethod("docker");
+        setters.setGrid(false);
+        setters.setDocker(true);
+        setters.setBuild(false);
+        setDeployOption("dockerFlux");
+      }
     };
     useEffect(() => {
       const emailGrid = localStorage.getItem("grid_email");
@@ -65,17 +68,11 @@ const MethodSelectFlux = forwardRef(
     }, [email]);
     useEffect(() => {
       const installed = localStorage.getItem("gridInstalled");
-      if (installed && grid) {
-        setBuild(true);
-        onGit();
+      if (installed && config.grid) {
+        setters.setBuild(true);
+        setDeployOption("githubFlux");
       }
-    }, [grid]);
-    useEffect(() => {
-      if (appInstalled && grid) {
-        setBuild(true);
-        onGit();
-      }
-    }, [grid]);
+    }, [config.grid]);
 
     return (
       <div ref={ref} className={`databaseSelect `}>
@@ -86,21 +83,83 @@ const MethodSelectFlux = forwardRef(
           </div>
         </div>
         <div className="component-container">
-          <h3>Establish a global duration for all components </h3>
-          <FluxSlider
-            disableSelect={disableSelect}
-            setCompDuration={setCompDuration}
-          />
+          <div className={`${workflowFinished ? "disabled2" : ""}`}>
+            <h3>
+              Establish a global duration and instances for all components{" "}
+            </h3>
+            <div
+              className={`${
+                components.length > 0 && config.summary ? "disabled2" : ""
+              }`}
+            >
+              <FluxSlider
+                disableSelect={disableSelect}
+                setCompDuration={setters.setCompDuration}
+                instances={config.instances}
+                setInstances={setters.setInstances}
+              />
+            </div>
+
+            <div
+              className={`component-list ${
+                components.length > 0 && config.summary ? "disabled" : ""
+              }`}
+            >
+              <h4>Current Components</h4>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {components.map((comp, index) => (
+                  <div key={index}>
+                    <button
+                      className="neutro-btn"
+                      onClick={() => {
+                        loadComponent(components[index]);
+                        handleLoadComp(comp);
+                      }}
+                    >
+                      {comp.name}
+                    </button>
+                    <button
+                      className="no-btn2"
+                      onClick={() => {
+                        setComponents((prev) =>
+                          prev.filter((_, i) => i !== index)
+                        );
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {components.length > 0 ? (
+              <button
+                className="add-button"
+                onClick={() => {
+                  resetComponent();
+                  setters.setGrid(false);
+                  setters.setDocker(false);
+                  setters.setSelectedMethod("");
+                  resetFlow();
+                }}
+              >
+                Add new comp +
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+
           <div
             className={`deployMethodBox-container ${
-              disableSelect ? "disabled" : ""
+              components.length > 0 && config.summary ? "disabled" : ""
             }`}
           >
             <div
               onClick={handleGit}
               className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-                selectedMethod === "git" ? "selected" : ""
-              } ${selectedMethod === "docker" ? "disabled" : ""}`}
+                config.selectedMethod === "git" ? "selected" : ""
+              } ${config.selectedMethod === "docker" ? "disabled" : ""} `}
             >
               <Image alt="" src="/iconGit.png" height={50} width={50} />
               <h4>Git repository</h4>
@@ -109,8 +168,8 @@ const MethodSelectFlux = forwardRef(
             <div
               onClick={handleDocker}
               className={`deployMethodBox ${darkMode ? "dark" : "light"} ${
-                selectedMethod === "docker" ? "selected" : ""
-              } ${selectedMethod === "git" ? "disabled" : ""}`}
+                config.selectedMethod === "docker" ? "selected" : ""
+              } ${config.selectedMethod === "git" ? "disabled" : ""}`}
             >
               <Image alt="" src="/dockerIcon.png" height={50} width={50} />
               <h4>Container registry </h4>
@@ -118,11 +177,13 @@ const MethodSelectFlux = forwardRef(
             </div>
           </div>
 
-          {grid ? (
-            <div className="git-install-cont">
+          {config.grid ? (
+            <div
+              className={`git-install-cont ${config.summary ? "disabled" : ""}`}
+            >
               {" "}
-              {build ? "" : <p> Install the Github App to continue </p>}
-              {build || appInstalled ? (
+              {config.build ? "" : <p> Install the Github App to continue </p>}
+              {config.build || appInstalled ? (
                 <div className="install-container">
                   <div className="install-github2">
                     <Image alt="" src="/github3.png" height={15} width={15} />
@@ -149,23 +210,45 @@ const MethodSelectFlux = forwardRef(
           ) : (
             ""
           )}
-          {selectedCloud === "flux" && deployOption === "githubFlux" && (
-            <>
-              <GithubFlux
-                image={image}
-                databaseName={databaseName}
-                setInstalled={setInstalled}
-                setDisableSelect={setDisableSelect}
-                selectedCloud={selectedCloud}
-                compDuration={compDuration}
-              />
-            </>
-          )}
+          {selectedCloud === "flux" &&
+            deployOption === "githubFlux" &&
+            config.build === true && (
+              <>
+                <GithubFlux
+                  setInstalled={setInstalled}
+                  setDisableSelect={setDisableSelect}
+                  selectedCloud={selectedCloud}
+                  config={config}
+                  setters={setters}
+                  loadComponent={loadComponent}
+                  resetComponent={resetComponent}
+                  setComponents={setComponents}
+                  components={components}
+                  showConfig={showConfig}
+                  setShowConfig={setShowConfig}
+                  workflowFinished={workflowFinished}
+                  setWorkflowFinished={setWorkflowFinished}
+                  workflowLoading={workflowLoading}
+                  setWorkflowLoading={setWorkflowLoading}
+                />
+              </>
+            )}
           {selectedCloud === "flux" && deployOption === "dockerFlux" && (
             <>
               <BuildFlux
-                compDuration={compDuration}
+                setInstalled={setInstalled}
+                setDisableSelect={setDisableSelect}
                 selectedCloud={selectedCloud}
+                config={config}
+                setters={setters}
+                loadComponent={loadComponent}
+                resetComponent={resetComponent}
+                setComponents={setComponents}
+                components={components}
+                workflowFinished={workflowFinished}
+                setWorkflowFinished={setWorkflowFinished}
+                workflowLoading={workflowLoading}
+                setWorkflowLoading={setWorkflowLoading}
               />
             </>
           )}

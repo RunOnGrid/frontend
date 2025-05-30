@@ -38,7 +38,7 @@ const SummaryAkash = ({
         <li>Memory: {ram} </li>
         <li>Ephemeral Storage: {hdd} </li>
       </ul>
-      <strong>Price: USD ${price}</strong>
+      <strong>Price: USD ${price.toFixed(2)}</strong>
 
       <button onClick={() => handleReturn()} className="add-button4">
         {" "}

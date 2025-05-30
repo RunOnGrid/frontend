@@ -6,7 +6,7 @@ import Select4 from "@/commons/Select4";
 import Spinner from "@/commons/Spinner";
 import { TokenService } from "../../tokenHandler";
 
-const RepositorySettings = ({
+const RepositorySettingsAkash = ({
   darkMode,
   summary,
   owner,
@@ -14,12 +14,7 @@ const RepositorySettings = ({
   setRepoTag,
   setDisableSelect,
   onNextStep,
-  singleRepo,
-  setSingleRepo,
-  branch,
-  setBranch,
-  installationId,
-  setInstallationId,
+  setImagePath,
 }) => {
   const [gitRepo, setGitRepo] = useState("");
   const [branches, setBranches] = useState([]);
@@ -27,8 +22,11 @@ const RepositorySettings = ({
   const [workflowUrl, setWorkflowUrl] = useState("");
   const [gridId, setGridId] = useState("");
   const [repos, setRepos] = useState([]);
+  const [singleRepo, setSingleRepo] = useState("");
+  const [installationId, setInstallationId] = useState("");
   const [notWorkflow, setNotWorkflow] = useState(false);
   const [workflowInstalled, setWorkflowInstalled] = useState(false);
+  const [branch, setBranch] = useState("");
   const [showNext, setShowNext] = useState(false);
   const [loadingWorkflow, setLoadingWorkflow] = useState(false);
   const [workflowRun, setWorkflowRun] = useState(false);
@@ -114,6 +112,103 @@ const RepositorySettings = ({
     }
   };
 
+  const checkWorkflowStatus = async (installationId, owner, repo, runId) => {
+    try {
+      const response = await fetch(
+        `/api/work-status-proxy?installationId=${installationId}&owner=${owner}&repo=${repo}&runId=${runId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setDisableSelect(false);
+        return { status: "success" };
+      }
+
+      if (response.status === 500) {
+        setDisableSelect(false);
+        throw new Error("Failed to run workflow successfully");
+      }
+
+      return { status: "pending" };
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleWorkflow = async () => {
+    setLoadingWorkflow(true);
+    setDisableSelect(true);
+    setWorkflowInstalled(false);
+
+    try {
+      const response = await fetch(`/api/workflows-proxy`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          installationId: installationId,
+          owner: owner,
+          repo: singleRepo,
+          workflow: "grid-ci.yml",
+          branch: branch,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error fetching branches: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setWorkflowUrl(data.workflow_url);
+      setRepoTag(`ghcr.io/${owner}/${singleRepo}:latest`);
+      setImagePath(`${owner}/${singleRepo}`);
+      setWorkflowRun(true);
+      setWorkflow(true);
+      setLoadingWorkflow(false);
+
+      // Start polling for workflow status
+      const statusInterval = setInterval(async () => {
+        try {
+          const result = await checkWorkflowStatus(
+            installationId,
+            owner,
+            singleRepo,
+            data.runId
+          );
+
+          if (result.status === "success") {
+            clearInterval(statusInterval);
+            setShowNext(true);
+            setDisableSelect(false);
+          }
+        } catch (pollingError) {
+          // This will now catch the 500 status error
+          clearInterval(statusInterval);
+          setErrorWorkflow(true);
+          setErrorMessage("Failed to run workflow successfully");
+          setNotWorkflow(true);
+          setWorkflow(false);
+          setLoadingWorkflow(false);
+          setDisableSelect(false);
+          console.error("Workflow status error:", pollingError);
+        }
+      }, 10000);
+    } catch (error) {
+      setNotWorkflow(true);
+      setWorkflow(false);
+      setLoadingWorkflow(false);
+      setDisableSelect(false);
+      console.error("Error fetching branches:", error);
+      alert(error.message);
+    }
+  };
+
   const handleCommit = async (option) => {
     setLoadingWorkflow(true);
     setWorkflowInstalled(false);
@@ -178,15 +273,20 @@ const RepositorySettings = ({
       {loadingWorkflow && <Spinner />}
       {workflowInstalled ? (
         <div className="button-display">
-          <button onClick={onNextStep} className="add-button">
-            Continue
+          <button
+            onClick={() => {
+              handleWorkflow();
+            }}
+            className="add-button"
+          >
+            Run Workflow
           </button>
         </div>
       ) : (
         ""
       )}
 
-      {/* {workflow && !showNext && (
+      {workflow && !showNext && (
         <div className="workflow-text">
           <span className="workflow-text">
             Check the progress of the workflow on this url:
@@ -197,9 +297,9 @@ const RepositorySettings = ({
             </Link>
           </span>
         </div>
-      )} */}
+      )}
 
-      {/* {errorWorkflow && (
+      {errorWorkflow && (
         <div className="text-container">
           <span className="texto-pipeline2">The pipeline has failed.</span>
           <Link href={workflowUrl} target="_blank">
@@ -208,8 +308,8 @@ const RepositorySettings = ({
             </span>
           </Link>
         </div>
-      )} */}
-      {/* {showNext && (
+      )}
+      {showNext && (
         <div className="text-container">
           <span className="texto-pipeline">
             The pipeline has finished successfully.
@@ -220,7 +320,7 @@ const RepositorySettings = ({
             </span>
           </Link>
         </div>
-      )} */}
+      )}
       {showNext && (
         <button onClick={onNextStep} className="add-button4">
           Continue
@@ -230,4 +330,4 @@ const RepositorySettings = ({
   );
 };
 
-export default RepositorySettings;
+export default RepositorySettingsAkash;

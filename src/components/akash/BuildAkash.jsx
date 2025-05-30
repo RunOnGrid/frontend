@@ -128,7 +128,7 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
     );
     const data = await response.json();
 
-    setCompPrice(data.price.toFixed(2));
+    setCompPrice(data.price);
     if (data.price > balance) {
       setInsufficient(true);
     }
@@ -265,6 +265,7 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
           setHdd={setEphemeralStorage}
           setInstances={setInstances}
           min={1}
+          plan={"akash"}
         />
       </div>
 

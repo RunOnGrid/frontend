@@ -2,21 +2,17 @@ import React, { forwardRef } from "react";
 import { TokenService } from "../../../tokenHandler";
 import RepositorySettings from "../RepoSettings";
 import AddComponent from "./AddComponent";
+import RepositorySettingsAkash from "../RepoSettingsAkash";
 
 const BuildSettings = forwardRef(
   ({
     onNext,
     darkMode,
-    setImage,
-    repositories,
     setRepoTag,
     summary,
     owner,
     setOwner,
     setDisableSelect,
-    existingNames,
-    image,
-    setPat,
     ram,
     hdd,
     cpu,
@@ -26,11 +22,48 @@ const BuildSettings = forwardRef(
     setImagePath,
     setInstances,
     min,
+    singleRepo,
+    setSingleRepo,
+    branch,
+    setBranch,
+    installationId,
+    setInstallationId,
+    instances,
+    cloud,
   }) => {
     return (
       <div className={`databaseSelect ${summary ? "disabled" : ""}`}>
         <div className="components-display">
-          <RepositorySettings
+          {cloud === "flux" ? (
+            <RepositorySettings
+              darkMode={darkMode}
+              summary={summary}
+              owner={owner}
+              setOwner={setOwner}
+              setRepoTag={setRepoTag}
+              setImagePath={setImagePath}
+              setDisableSelect={setDisableSelect}
+              onNextStep={onNext}
+              singleRepo={singleRepo}
+              setSingleRepo={setSingleRepo}
+              branch={branch}
+              setBranch={setBranch}
+              installationId={installationId}
+              setInstallationId={setInstallationId}
+            />
+          ) : (
+            <RepositorySettingsAkash
+              darkMode={darkMode}
+              summary={summary}
+              owner={owner}
+              setOwner={setOwner}
+              setRepoTag={setRepoTag}
+              setImagePath={setImagePath}
+              setDisableSelect={setDisableSelect}
+              onNextStep={onNext}
+            />
+          )}
+          {/* <RepositorySettings
             darkMode={darkMode}
             summary={summary}
             owner={owner}
@@ -39,12 +72,17 @@ const BuildSettings = forwardRef(
             setImagePath={setImagePath}
             setDisableSelect={setDisableSelect}
             onNextStep={onNext}
-          />
+            singleRepo={singleRepo}
+            setSingleRepo={setSingleRepo}
+            branch={branch}
+            setBranch={setBranch}
+            installationId={installationId}
+            setInstallationId={setInstallationId}
+          /> */}
           <AddComponent
             darkMode={darkMode}
             onNext={onNext}
             onSaveComponentData={{}}
-            image={image}
             cpu={cpu}
             setCpu={setCpu}
             ram={ram}
@@ -52,7 +90,9 @@ const BuildSettings = forwardRef(
             hdd={hdd}
             setHdd={setHdd}
             setInstances={setInstances}
+            instances={instances}
             min={min}
+            plan={"flux"}
           />
         </div>
       </div>
