@@ -15,8 +15,12 @@
     max-width: 100vw;
     overflow-x: hidden;
   }
-  .deployment-config.disabled, .databaseSelect.disabled, .dashboard-container.disabled,  .slider-container.disabled{
-    pointer-events: none; /* Desactiva cualquier interacción */
+  .deployment-config.disabled, .databaseSelect.disabled, .dashboard-container.disabled,  .slider-container.disabled, .component-list.disabled, .components-display.disabled,  .deployMethodBox-container.disabled, .git-install-cont.disabled, .components-container.disabled{
+    pointer-events: none; 
+    opacity: 0.4;
+  }
+  .disabled2 {
+    pointer-events: none; 
     opacity: 0.4;
   }
   .deployment-config h2, .add-buildpack h2{

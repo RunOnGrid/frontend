@@ -121,18 +121,16 @@ try {
     akashResult = JSON.parse(responseText);
   } catch (e) {
     console.error("Failed to parse response as JSON:", e);
-    // Si no se puede parsear como JSON, utilizamos el texto tal cual
+
     akashResult = { rawResponse: responseText };
   }
 
-  // Enviamos la respuesta exitosa completa
   res.status(200).json({
     success: true,
     message: "Deployment to Akash successful",
     data: akashResult,
   });
 } catch (error) {
-  // Tu manejo de errores actual sin cambios
   console.error("Full error details:", error);
   res
     .status(500)

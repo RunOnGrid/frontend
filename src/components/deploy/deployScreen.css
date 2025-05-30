@@ -610,11 +610,11 @@
   border: 2px solid #00b174 !important;
   border-radius: 20px;
   color: #00b174;
-  padding: 6px 20px !important;
+  padding: 4px 10px !important;
   margin-top: 10px;
   font-weight: 600 !important;
   cursor: pointer;
-
+  margin-left: 0px !important;
 }
 .add-button:hover{
   background-color: #d6eee3;
@@ -1371,6 +1371,23 @@
   flex-direction: column;
   text-align: start;
 }
+
+
+.component-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.component-actions button {
+  margin-left: 0.5rem;
+}
+
+.add-component-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+}
+
 @media only screen and (max-width:700px) {
   .deployMethodBox p{
     font-size: 0.7rem ;

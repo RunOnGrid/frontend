@@ -1,56 +1,80 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
-import BuildSettings from "../deploy/BuildSettings";
 import DockerSettings from "./DockerSettings";
 import AddComponent from "../deploy/AddComponent";
-import FluxInputs from "./FluxInputs";
 import EnvFlux from "./EnvFlux";
 import NetFlux from "./NetFlux";
-import ComponentsTable from "./ComponentTable";
 import SummaryAkash from "../deploy/SummaryAkash";
 import Botonera2 from "@/commons/Botonera2";
 import LoadingText from "@/commons/LoaderText";
 import Spinner from "@/commons/Spinner";
+import ComponentsTable from "./ComponentTable";
 
-export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
+export default function BuildFlux({
+  darkMode,
+  selectedCloud,
+  setComponents,
+  components,
+  config,
+  setters,
+  workflowFinished,
+  setWorkflowFinished,
+}) {
   const [activeStep, setActiveStep] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState("");
-  const [commands, setCommands] = useState([]);
-  const [port, setPort] = useState([8080]);
   const [paymentCompleted, setPaymentCompleted] = useState(false);
-  const [repoTag, setRepoTag] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [existingNames, setExistingNames] = useState([]);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-  const [envs, setEnvs] = useState([]);
-  const [cpu, setCpu] = useState(0.5);
-  const [ram, setRam] = useState(100);
-  const [hdd, setHdd] = useState(100);
-  const [owner, setOwner] = useState("");
-  const [pat, setPat] = useState("");
   const [summary, setSummary] = useState(false);
-  const [agree, setAgree] = useState(false);
-  const [domain, setDomain] = useState([""]);
   const [priv, setPriv] = useState(false);
   const [errorMessage2, setErrorMessage2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage3, setErrorMessage3] = useState("");
   const [balance, setBalance] = useState(0);
   const [compPrice, setCompPrice] = useState(0);
-  const [instances, setInstances] = useState(3);
   const [insufficient, setInsufficient] = useState(false);
   const [fundsError, setFundsError] = useState(true);
   const [priceLoader, setPriceLoader] = useState(false);
+  const [email, setEmail] = useState(null);
   const [host, setHost] = useState("ghcr.io");
-  const [tiered, setTiered] = useState(false);
+  const {
+    compDuration,
+    name,
+    repoTag,
+    domain,
+    envs,
+    commands,
+    port,
+    cpu,
+    ram,
+    hdd,
+    tiered,
+    pat,
+    owner,
+    instances,
+    isEditing,
+    editingId,
+  } = config;
+  const {
+    setName,
+    setRepoTag,
+    setDomain,
+    setEnvs,
+    setPort,
+    setCpu,
+    setRam,
+    setHdd,
+    setTiered,
+    setPat,
+    setOwner,
+    setInstances,
+    setEditingId,
+  } = setters;
   const router = useRouter();
 
-  // useEffect(() => {
-  //   getBalance();
-  // }, []);
   const handleSummary = async () => {
     if (!name.trim()) {
       setErrorMessage2("This field is required.");
@@ -76,6 +100,10 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
     }
   };
 
+  useEffect(() => {
+    const emailGrid = localStorage.getItem("grid_email");
+    setEmail(emailGrid);
+  }, [email]);
   const getBalance = async () => {
     try {
       const response = await fetch(`/api/balance-proxy`, {
@@ -99,6 +127,39 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
 
   const checkPrice = async () => {
     setPriceLoader(true);
+
+    const deploymentConfig = {
+      name: name,
+      description: "Application deployed by Grid",
+      compose: [
+        {
+          name: name,
+          description: "Application deployed by Grid",
+          repotag: repoTag,
+          ports: [36522],
+          domains: domain || [""],
+          environmentParameters: envs || [],
+          commands: commands || [""],
+          containerPorts: port || [""],
+          containerData: "/data",
+          cpu: cpu,
+          ram: ram,
+          hdd: hdd,
+          tiered: tiered,
+          secrets: "",
+          repoauth: tiered ? `${owner.toLowerCase()}:${pat}` : "",
+        },
+      ],
+      expire: compDuration,
+      instances: instances,
+      owner: owner,
+      email: email,
+      provider: host === "ghcr.io" ? "github" : "docker",
+      state: "success",
+      option: "docker",
+      editable: isEditing,
+    };
+
     const response = await fetch(
       `/api/get-price?cloudProvider=${encodeURIComponent(
         selectedCloud.toUpperCase()
@@ -109,32 +170,7 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({
-          name: name,
-          description: "Application deployed by Grid",
-
-          compose: [
-            {
-              name: name,
-              description: "Application deployed by Grid",
-              repotag: repoTag,
-              ports: [36522],
-              domains: domain || [""],
-              environmentParameters: envs || [],
-              commands: commands || [""],
-              containerPorts: port || [""],
-              containerData: "/data",
-              cpu: cpu,
-              ram: ram,
-              hdd: hdd,
-              tiered: tiered,
-              secrets: "",
-              repoauth: tiered ? owner.toLowerCase() + ":" + pat : "",
-            },
-          ],
-          expire: compDuration,
-          instances: instances,
-        }),
+        body: JSON.stringify(deploymentConfig.compose),
       }
     );
 
@@ -145,8 +181,22 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
       setInsufficient(true);
     }
 
+    setComponents((prevComponents) => {
+      if (isEditing && editingId != null) {
+        return prevComponents.map((component) =>
+          component.id === editingId
+            ? { ...deploymentConfig, id: editingId }
+            : component
+        );
+      } else {
+        const newId = prevComponents.length;
+        return [...prevComponents, { ...deploymentConfig, id: newId }];
+      }
+    });
+
     return true;
   };
+
   const handlePaymentSuccess = async () => {
     setPaymentCompleted(true);
     setIsLoading(true);
@@ -239,7 +289,7 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
   }, [activeStep]);
   return (
     <div ref={servicesRef} className="databaseSelect">
-      <div className="components-display">
+      <div className={`components-display ${summary ? "disabled" : ""}`}>
         <DockerSettings
           repoTag={repoTag}
           setRepoTag={setRepoTag}
@@ -269,10 +319,12 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
           setHdd={setHdd}
           setInstances={setInstances}
           min={3}
+          instances={instances}
+          plan={"flux"}
         />
       </div>
 
-      <>
+      <div className={`${summary ? "disabled2" : ""}`}>
         <h3> Settings</h3>
         <div style={{ display: "flex" }}>
           <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
@@ -284,69 +336,78 @@ export default function BuildFlux({ darkMode, selectedCloud, compDuration }) {
             darkMode={darkMode}
           />
         </div>
-      </>
-      {priceLoader ? (
+      </div>
+      {summary && !priceLoader ? null : priceLoader ? (
         <Spinner />
       ) : (
         <button
           className="add-button4"
           onClick={() => {
-            handleSummary(true);
+            handleSummary();
           }}
         >
           Continue
         </button>
       )}
       {/* <ComponentsTable /> */}
-      {summary && (
-        <div ref={deployRef}>
-          <SummaryAkash
-            cpu={cpu}
-            ram={ram}
-            hdd={hdd}
-            mode={darkMode}
-            name={name}
-            setSummary={setSummary}
-            setAgree={setAgree}
-            price={compPrice}
-            setActiveStep={setActiveStep}
-            summaryStep={3}
-          />
-          <div className="termService">
-            <Botonera2 setAgree={setAgree} agree={agree} />
-            <h4>I agree with Terms of Service</h4>
-          </div>
-          {fundsError !== "" ? (
-            <h3 className="error-message-login">{fundsError}</h3>
-          ) : (
-            ""
-          )}
+      {summary && components.length > 0 && (
+        <ComponentsTable
+          setComponents={setComponents}
+          components={components}
+          accessToken={accessToken}
+          workflowFinished={workflowFinished}
+          setWorkflowFinished={setWorkflowFinished}
+          workflowLoading={workflowLoading}
+          setWorkflowLoading={setWorkflowLoading}
+        />
+        // <div ref={deployRef}>
+        //   <SummaryAkash
+        //     cpu={cpu}
+        //     ram={ram}
+        //     hdd={hdd}
+        //     mode={darkMode}
+        //     name={name}
+        //     setSummary={setSummary}
+        //     setAgree={setAgree}
+        //     price={compPrice}
+        //     setActiveStep={setActiveStep}
+        //     summaryStep={3}
+        //   />
+        //   <div className="termService">
+        //     <Botonera2 setAgree={setAgree} agree={agree} />
+        //     <h4>I agree with Terms of Service</h4>
+        //   </div>
+        //   {fundsError !== "" ? (
+        //     <h3 className="error-message-login">{fundsError}</h3>
+        //   ) : (
+        //     ""
+        //   )}
 
-          <div
-            className={
-              agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-            }
-          >
-            <div className="line-background"></div>
-            {isLoading ? (
-              <div className="loading-container">
-                <LoadingText />
-              </div>
-            ) : (
-              <>
-                <button
-                  className="deploy-button"
-                  onClick={() => {
-                    handlePaymentSuccess();
-                  }}
-                  disabled={isLoading}
-                >
-                  Deploy
-                </button>
-              </>
-            )}
-          </div>
-        </div>
+        //   <div
+        //     className={
+        //       agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
+        //     }
+        //   >
+        //     <div className="line-background"></div>
+        //     {isLoading ? (
+        //       <div className="loading-container">
+        //         <LoadingText />
+        //       </div>
+        //     ) : (
+        //       <>
+        //         <button
+        //           className="deploy-button"
+        //           onClick={() => {
+        //             handlePaymentSuccess();
+        //           }}
+        //           disabled={isLoading}
+        //         >
+        //           Deploy
+        //         </button>
+        //       </>
+        //     )}
+        //   </div>
+        // </div>
       )}
     </div>
   );

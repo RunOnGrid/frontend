@@ -186,11 +186,29 @@
   margin: 10px;
   border-radius: 15px;
 }
+.no-btn2{
+  color: rgb(255, 48, 48) !important;
+  border: 2px solid rgb(255, 48, 48) !important;
+  margin: 10px;
+  border-radius: 30px !important;
+  padding: 0px 8px  !important;
+  margin-right: 0px !important;
+  margin-left: 4px !important;
+ 
+}
+ .neutro-btn:hover{
+  background-color: transparent !important;
+}
+.no-btn2:hover {
+  background-color: rgba(255, 0, 0, 0.171) !important;
+}
 .neutro-btn{
   color: black !important;
   border: 2px solid black !important;
   margin: 10px;
   border-radius: 15px;
+  margin-right: 0px !important;
+  
 }
 
 .envInputs {

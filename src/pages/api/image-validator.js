@@ -22,7 +22,7 @@ export default async function handler(req, res) {
           res.status(200).json(data);
         } else {
           const errorData = await response.json();
-         
+          console.log(errorData, username, pat, imagePath);
           res.status(404).json(errorData);
         }
       } catch (error) {
