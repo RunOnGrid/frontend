@@ -20,6 +20,8 @@ export default function BuildFlux({
   setters,
   workflowFinished,
   setWorkflowFinished,
+  workflowLoading,
+  setWorkflowLoading,
 }) {
   const [activeStep, setActiveStep] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
