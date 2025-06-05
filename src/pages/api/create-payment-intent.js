@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
     // Hacer la solicitud al endpoint externo
     const response = await fetch(
-      "https://backend-dev.ongrid.run/payment/create-payment-intent",
+      "https://backend.ongrid.run/payment/create-payment-intent",
       {
         method: "POST",
         headers: {
