@@ -1,16 +1,11 @@
+import React from "react";
 
-import React from 'react';
-
-
-
-
-const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
+const DepositFunds = ({ handleIntent }) => {
   const handleShow = () => {
-    showPayment(true);
-    const amount = 5;
-    handleAmount(amount);
+    const amount = 0; // Este valor se ignora en el backend si lo sobrescribís en el server
     handleIntent(amount);
   };
+
   return (
     <div className="deposit-container">
       <div className="deposit-header">
@@ -18,7 +13,7 @@ const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
       </div>
 
       <div className="payment-options">
-        <div onClick={() => handleShow()} className="payment-option">
+        <div onClick={handleShow} className="payment-option">
           <div className="logo-container2 stripe">
             <img src="/logoStripe.webp" alt="Stripe" />
           </div>
@@ -32,7 +27,6 @@ const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
           <h3>Flux</h3>
           <p>Soon</p>
         </div>
-
         <div className="payment-option soon">
           <div className="logo-container2 stablecoin">
             <img src="/usdt.svg" alt="USDT" className="stablecoin-logo" />
