@@ -96,13 +96,15 @@ const DeployChoice = () => {
           data={fluxData}
           nodes={fluxNodes}
         />
-        <DeployOption2
-          image="/akashLanding.svg" // Replace with actual image path
-          title="Supercloud"
-          text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
-          data={akashData}
-          nodes={akashData.totalNodes} // Assuming activeLeaseCount represents the number of active nodes
-        />
+        {akashData && (
+          <DeployOption2
+            image="/akashLanding.svg"
+            title="Supercloud"
+            text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
+            data={akashData}
+            nodes={akashData.totalNodes}
+          />
+        )}
       </div>
       <button className="button-landing-4">
         <Link href="/login">DEPLOY NOW </Link>
