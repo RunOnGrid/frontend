@@ -6,9 +6,8 @@ import {
 } from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_DEV
+"pk_test_51OyeDUI9Ub3q7ez0M65r5xAPHgcAaNLqXHV3UG2FNifIVFJ03lPZrzAl5tZMW0sarc8I6rXK9PBfDkr4DwHJjXzM00aabOHmn2"
 );
-
 export default function App() {
   const fetchClientSecret = useCallback(() => {
     // Create a Checkout Session
