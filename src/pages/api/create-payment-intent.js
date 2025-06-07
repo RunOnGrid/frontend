@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       return res.status(401).json({ message: "Token de autorización no proporcionado" });
     }
 
-    const amount = 0; // Monto de $0.00
+    const amount = 5; // Monto de $0.00
     
 
     const response = await fetch(
