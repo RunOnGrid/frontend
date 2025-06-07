@@ -54,39 +54,43 @@ const BillingScreen = () => {
     setTotalAmount(totalAmount.toFixed(2));
   };
 
-  const handleIntent = async (qty) => {
-    if (qty >= 5) {
-      try {
-        const response = await fetch("/api/create-payment-intent", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            amount: qty,
-            currency: "USD",
-          }),
-        });
+ const handleIntent = async (qty) => {
+  if (qty >= 0) {
+    try {
+      const response = await fetch("/api/create-payment-intent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          amount: qty,
+          currency: "USD",
+        }),
+      });
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-
-        setClientSecret(data.clientSecret);
-        // Save amount and processing fee in state
-        setShowPayment(true);
-        setMinError("");
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading2(false);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
-    } else {
-      setMinError("Minimum deposit is 5 USD");
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.open(data.url, "_blank"); // o window.location.href = data.url;
+      } else {
+        throw new Error("No checkout URL received.");
+      }
+
+      setMinError("");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading2(false);
     }
+  } else {
+    setMinError("Minimum deposit is 0 USD"); // Podés ajustar esto si querés permitir 0
+  }
+};
   };
 
   return (
