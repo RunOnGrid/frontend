@@ -23,12 +23,18 @@ const BuildSettScreen = () => {
         </div>
 
         <button className="buildButton">Configure buildpack settings</button>
-        <div style={{ opacity: '0' }}>.</div>
+        <div style={{ opacity: "0" }}>.</div>
       </div>
       <div className="save-button">
         <button>
-          {' '}
-          <Image alt="" src="/save.png" height={15} width={15} /> Save
+          {" "}
+          <Image
+            alt=""
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7e424955-6396-4975-e4b1-054cf0f70d00/public"
+            height={15}
+            width={15}
+          />{" "}
+          Save
         </button>
       </div>
     </div>

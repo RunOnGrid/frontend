@@ -541,7 +541,7 @@ export default function BuildFlux({
                 value={imageURL}
                 placeholder="ex: gridcloud/hello-app:1.0"
               />
-              <Image alt="" src="/searchLigth.png" height={20} width={20} />
+     
             </div>
             <div className="buildpack-selects">
               <div

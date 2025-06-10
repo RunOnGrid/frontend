@@ -86,7 +86,12 @@ const MethodSelectAkash = forwardRef(
               onClick={handleGit}
               className={`deployMethodBox ${darkMode ? "dark" : "light"}`}
             >
-              <Image alt="" src="/iconGit.png" height={50} width={50} />
+              <Image
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a026aa32-7d83-4ca8-242f-cd73c585e300/public"
+                height={50}
+                width={50}
+              />
               <h4>Git repository</h4>
               <p>Deploy from a git repository</p>
             </div>
@@ -96,7 +101,12 @@ const MethodSelectAkash = forwardRef(
                 selectedMethod === "docker" ? "selected" : ""
               } ${selectedMethod === "git" ? "disabled" : ""}`}
             >
-              <Image alt="" src="/dockerIcon.png" height={50} width={50} />
+              <Image
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/369e3a29-c8f7-481e-6234-1e5e1c26e500/public"
+                height={50}
+                width={50}
+              />
               <h4>Container registry</h4>
               <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
               <p className="deploy-sub-p">
@@ -115,13 +125,18 @@ const MethodSelectAkash = forwardRef(
               {build || appInstalled ? (
                 <div className="install-container">
                   <div className="install-github2">
-                    <Image alt="" src="/github3.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/cc2bcad2-ca88-47ef-799c-bed2b0dbb100/public"
+                      height={15}
+                      width={15}
+                    />
                     <span>Installed</span>
                   </div>
                   <Link href={gitUrl} target="_blank">
                     <Image
                       alt=""
-                      src="/settingsLigth.png"
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6442612d-3e4b-42fc-09fe-0d68f44f5900/public"
                       width={22}
                       height={22}
                     />
@@ -130,7 +145,12 @@ const MethodSelectAkash = forwardRef(
               ) : (
                 <Link href={gitUrl}>
                   <div className="install-github">
-                    <Image alt="" src="/github3.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/eacc86c6-9be8-42e5-ed65-197583304200/public"
+                      height={15}
+                      width={15}
+                    />
                     <span>Install the Grid GitHub app</span>
                   </div>
                 </Link>

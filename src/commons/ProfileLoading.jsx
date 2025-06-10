@@ -29,7 +29,7 @@ const ProfileLoading = ({ isVisible }) => {
       <div className="loading-container2">
         <div className="logo-container3">
           <Image
-            src="/LogoLigth.svg"
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/3f5fc50f-5a8a-4138-6470-511dc711e500/public"
             alt="Logo"
             width={200}
             height={200}

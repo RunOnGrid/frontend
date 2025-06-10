@@ -7,12 +7,17 @@ const BuildpackModal = ({ visible }) => {
       <h2> Buildpack Configuration</h2>
       <label> Selected buildpacks:</label>
       <div className="repo-build">
-        <Image alt="" src="/node-js.png" height={20} width={20} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+          height={20}
+          width={20}
+        />
         <span> NodeJS</span>
         <Image
-          style={{ marginLeft: 'auto' }}
+          style={{ marginLeft: "auto" }}
           alt=""
-          src="/plus2.png"
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ed89f9b6-afcd-40ff-4e8c-b040b9498800/public"
           height={14}
           width={14}
         />
@@ -20,34 +25,49 @@ const BuildpackModal = ({ visible }) => {
 
       <label>Available buildpacks:</label>
       <div className="repo-build">
-        <Image alt="" src="/node-js.png" height={20} width={20} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+          height={20}
+          width={20}
+        />
         <span> NodeJS</span>
         <Image
-          style={{ marginLeft: 'auto' }}
+          style={{ marginLeft: "auto" }}
           alt=""
-          src="/plus2.png"
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/2367ae37-4d8d-4036-2b4c-7b3af50cd900/public"
           height={14}
           width={14}
         />
       </div>
       <div className="repo-build">
-        <Image alt="" src="/node-js.png" height={20} width={20} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+          height={20}
+          width={20}
+        />
         <span> NodeJS</span>
         <Image
-          style={{ marginLeft: 'auto' }}
+          style={{ marginLeft: "auto" }}
           alt=""
-          src="/plus2.png"
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/2367ae37-4d8d-4036-2b4c-7b3af50cd900/public"
           height={14}
           width={14}
         />
       </div>
       <div className="repo-build">
-        <Image alt="" src="/node-js.png" height={20} width={20} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+          height={20}
+          width={20}
+        />
         <span> NodeJS</span>
         <Image
-          style={{ marginLeft: 'auto' }}
+          style={{ marginLeft: "auto" }}
           alt=""
-          src="/plus2.png"
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ed89f9b6-afcd-40ff-4e8c-b040b9498800/public"
           height={14}
           width={14}
         />
@@ -55,7 +75,7 @@ const BuildpackModal = ({ visible }) => {
 
       <label> Custom buildpacks</label>
       <span>
-        {' '}
+        {" "}
         You may also add buildpacks by directly providing their GitHub links or
         links to ZIP files that contain the buildpack source code.
       </span>

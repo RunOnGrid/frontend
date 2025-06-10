@@ -45,11 +45,36 @@ const InfoLanding = () => {
         </div>
       </div>
       <div className="logos-landing">
-        <Image alt="" src="/pythonLogo.png" height={70} width={170} />
-        <Image alt="" src="/javascriptLogo.png" height={70} width={80} />
-        <Image alt="" src="/mysqlLogo.png" height={70} width={150} />
-        <Image alt="" src="/dockerLogo.png" height={70} width={180} />
-        <Image alt="" src="/rustLogo.png" height={70} width={160} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/4b703d3a-9c54-4639-dd70-b46c544e7f00/public"
+          height={70}
+          width={170}
+        />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e929561a-7618-4e11-9b34-4662c399de00/public"
+          height={70}
+          width={80}
+        />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/3c3700bf-6c3e-4b90-9029-a5dff93fff00/public"
+          height={70}
+          width={150}
+        />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e1fd7391-46c2-429a-1e39-fecd94eb7e00/public"
+          height={70}
+          width={180}
+        />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/21cd7431-b97f-4b26-6752-cd62a2c63800/public"
+          height={70}
+          width={160}
+        />
       </div>
     </div>
   );

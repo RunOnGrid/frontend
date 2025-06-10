@@ -48,7 +48,11 @@ const IntegrationScreen = () => {
           onClick={toggleNotifications}
         >
           <img
-            src={`${darkMode ? "/notification2.png" : "/notification.png"}`}
+            src={`${
+              darkMode
+                ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9c8e0b0b-66e0-4ff9-8035-36e4f8074600/public"
+                : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7d027139-b7ab-4069-7577-8f546dd02f00/public"
+            }`}
             alt="Notifications"
           />
         </div>
@@ -59,13 +63,13 @@ const IntegrationScreen = () => {
           mode={darkMode}
           state="Connect"
           title="Docker"
-          image="/docker4.png"
+          image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/497dd6b3-ab24-451b-0cea-cf55636b0400/public"
         />
         <IntegrationBox
           mode={darkMode}
           state={githubIntegrationState}
           title="Github"
-          image="/gitButton.png"
+          image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/f535af11-081c-4df0-38ff-bddedd1c4800/public"
         />
       </div>
     </div>

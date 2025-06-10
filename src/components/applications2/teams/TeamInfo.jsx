@@ -15,7 +15,7 @@ const TeamInfo = ({
   return (
     <div className="team-info">
       <input type="checkbox" />
-      <Image alt="" src={icon} height={40} width={40} />
+      <img alt="" src={icon} height={40} width={40} />
       <div className="userInfo-teams">
         <h3>{name}</h3>
         <span>{user}</span>
@@ -32,8 +32,18 @@ const TeamInfo = ({
         {team}
       </button>
 
-      <Image alt="" src="/edit.png" height={20} width={20} />
-      <Image alt="" src="/dotsLigth.png" height={20} width={20} />
+      <Image
+        alt=""
+        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9de9cc42-a765-42b3-df0e-b8747163e900/public"
+        height={20}
+        width={20}
+      />
+      <Image
+        alt=""
+        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/f468371e-b528-4dc2-7671-10918f0df900/public"
+        height={20}
+        width={20}
+      />
     </div>
   );
 };

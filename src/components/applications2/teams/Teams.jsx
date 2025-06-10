@@ -24,7 +24,11 @@ const TeamScreen = () => {
           onClick={toggleNotifications}
         >
           <img
-            src={`${darkMode ? "/notification2.png" : "/notification.png"}`}
+            src={`${
+              darkMode
+                ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9c8e0b0b-66e0-4ff9-8035-36e4f8074600/public"
+                : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7d027139-b7ab-4069-7577-8f546dd02f00/public"
+            }`}
             alt="Notifications"
           />
         </div>
@@ -58,7 +62,7 @@ const TeamScreen = () => {
             <TeamInfoHeader />
             <TeamInfo
               darkMode={darkMode}
-              icon="/memberDark.svg"
+              icon="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c82341b1-577a-4bcf-6ed8-cae48b042400/public"
               name="Benjamin Aguirre"
               user="@user1999"
               role="Admin"
@@ -69,7 +73,7 @@ const TeamScreen = () => {
             />
             <TeamInfo
               darkMode={darkMode}
-              icon="/memberDark.svg"
+              icon="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c82341b1-577a-4bcf-6ed8-cae48b042400/public"
               name="Benjamin Aguirre"
               user="@user1999"
               role="Admin"

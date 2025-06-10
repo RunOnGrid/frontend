@@ -33,7 +33,12 @@ export default function LoginForm() {
   return (
     <div className="login">
       <Link href="/">
-        <Image alt="" src="/logoGridVacio.svg" height={100} width={100} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d110d6d5-ff8e-4cf9-a8ba-dc60d6d30400/public"
+          height={100}
+          width={100}
+        />
       </Link>
       <div className="form-container">
         <div className="login-container">
@@ -45,7 +50,11 @@ export default function LoginForm() {
             <button className="login-option">
               <Image
                 alt=""
-                src={web3 ? "/metamask.svg" : "/githubLogin.png"}
+                src={
+                  web3
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/06fbe790-e881-4f9c-0567-cdf1a59a8d00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d472f998-71f5-4f4a-b9c4-63cd2708f400/public"
+                }
                 height={20}
                 width={20}
               />
@@ -58,7 +67,11 @@ export default function LoginForm() {
             <button className="login-option">
               <Image
                 alt=""
-                src={web3 ? "/phantomLogo.jpg" : "/gitlab.jpg"}
+                src={
+                  web3
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8d1c7f71-bf2e-4ebc-6750-c4c69fcbfa00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/30716878-0067-4bcd-2bf6-40a811b19400/public"
+                }
                 height={20}
                 width={20}
               />
@@ -70,7 +83,11 @@ export default function LoginForm() {
             <button className="login-option">
               <Image
                 alt=""
-                src={web3 ? "/zelID.svg" : "/googleLogo.png"}
+                src={
+                  web3
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/89ed3f51-15e9-40e8-5388-0c9691c88b00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/12ca8d8f-272b-4c06-e090-6ff39da4e800/public"
+                }
                 height={20}
                 width={20}
               />
@@ -83,7 +100,11 @@ export default function LoginForm() {
               <button className="login-option">
                 <Image
                   alt=""
-                  src={web3 ? "/keplr.png" : ""}
+                  src={
+                    web3
+                      ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/90d9f0ff-2610-4688-af9f-3a9fd4bbaa00/public"
+                      : ""
+                  }
                   height={20}
                   width={20}
                 />

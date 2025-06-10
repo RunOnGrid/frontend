@@ -161,7 +161,12 @@ const RepositorySettings = ({
           <h3>User</h3>
           <span className="buildpack-item">
             <div>
-              <Image alt="" src="/githubLogin.png" height={15} width={15} />
+              <Image
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d472f998-71f5-4f4a-b9c4-63cd2708f400/public"
+                height={15}
+                width={15}
+              />
               {owner ? owner : ""}
             </div>
           </span>

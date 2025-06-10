@@ -75,12 +75,17 @@ export default function CheckoutForm({
             showPayment(false);
           }}
           alt=""
-          src="/close.png"
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6897d36a-e5cf-47c8-8459-5c9d61863300/public"
           width={20}
           height={20}
         />
         <div className="payment-success-message">
-          <Image alt="" width={160} height={80} src="/LogoLigth.svg" />
+          <Image
+            alt=""
+            width={160}
+            height={80}
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/df05ccbf-3a30-4c9d-1360-1f18e19bef00/public"
+          />
           <h3>Successful Payment</h3>
         </div>
       </div>
@@ -107,7 +112,7 @@ export default function CheckoutForm({
           showPayment(false);
         }}
         alt=""
-        src="/close.png"
+        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6897d36a-e5cf-47c8-8459-5c9d61863300/public"
         width={20}
         height={20}
       />

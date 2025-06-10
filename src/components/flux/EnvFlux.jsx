@@ -55,17 +55,22 @@ const EnvFlux = ({
           const [envValue, envKey] = envStr.split('=');
           
           return (
-            <div key={index} className={`env-variable-item ${darkMode ? "dark" : "light"}`}>
+            <div
+              key={index}
+              className={`env-variable-item ${darkMode ? "dark" : "light"}`}
+            >
               <div className="env-variable-content">
-                <span>{envKey} = {envValue}</span>
+                <span>
+                  {envKey} = {envValue}
+                </span>
               </div>
               <div className="env-variable-actions">
-                <Image 
-                  onClick={() => handleDeleteVariable(index)} 
-                  alt="" 
-                  height={18} 
-                  width={18} 
-                  src='/deleteL.png'
+                <Image
+                  onClick={() => handleDeleteVariable(index)}
+                  alt=""
+                  height={18}
+                  width={18}
+                  src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
                 />
               </div>
             </div>

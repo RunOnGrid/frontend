@@ -95,26 +95,29 @@ function AppsTableRow({
 
         <div className="date-actions-container">
           <h5>
-            <Image alt="Reloj" src="/clock.png" height={15} width={15} />
+            <Image
+              alt="Reloj"
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/49980953-84e1-401c-be32-17003b9c2800/public"
+              height={15}
+              width={15}
+            />
             {formattedCreationDate}
           </h5>
         </div>
         <div className="action-icons">
-          {/* <Image
-            alt="Editar"
-            src={darkMode ? "/edit.png" : "/edit.png"}
-            height={18}
-            width={18}
-          /> */}
           <Image
             onClick={handleDeleteClick}
             alt="Eliminar"
-            src={darkMode ? "/delete2.png" : "/deleteL.png"}
+            src={
+              darkMode
+                ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9e1c4c15-0514-4dda-1227-79a29b020300/public"
+                : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
+            }
             height={18}
             width={18}
           />
           {/* <Link href={`/profile/project/activity?id=${app.id}`}>
-            <Image alt="" src="/settingsLigth.png" width={22} height={22} />
+            
           </Link> */}
         </div>
       </div>

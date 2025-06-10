@@ -195,10 +195,10 @@ const ComponentsTable = ({
                       <Image
                         src={
                           component.provider === "github"
-                            ? "/githubLogin.png"
+                            ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d472f998-71f5-4f4a-b9c4-63cd2708f400/public"
                             : component.provider === "git"
-                            ? "/iconGit.png"
-                            : "/dockerIcon.png"
+                            ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d1ebaebc-ed30-4982-8371-b0b6e290c500/public"
+                            : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7dd0dd0c-99bd-4ac0-f4c6-f00622e19e00/public"
                         }
                         width={18}
                         height={18}
@@ -228,7 +228,7 @@ const ComponentsTable = ({
                     <td>
                       <Image
                         onClick={(e) => e.stopPropagation()}
-                        src="/deleteL.png"
+                        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
                         width={18}
                         height={18}
                         alt=""

@@ -24,7 +24,11 @@ const Update = () => {
           onClick={toggleNotifications}
         >
           <img
-            src={`${darkMode ? "/notification2.png" : "/notification.png"}`}
+            src={`${
+              darkMode
+                ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9c8e0b0b-66e0-4ff9-8035-36e4f8074600/public"
+                : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7d027139-b7ab-4069-7577-8f546dd02f00/public"
+            }`}
             alt="Notifications"
           />
         </div>
