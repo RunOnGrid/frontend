@@ -96,6 +96,7 @@ const DeployChoice = () => {
           data={fluxData}
           nodes={fluxNodes}
         />
+      {akashData &&(    
         <DeployOption2
           image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a1957f28-d510-41b8-254a-2188ea92de00/public" // Replace with actual image path
           title="Supercloud"
@@ -103,6 +104,7 @@ const DeployChoice = () => {
           data={akashData}
           nodes={akashData.totalNodes} // Assuming activeLeaseCount represents the number of active nodes
         />
+      )}
       </div>
       <button className="button-landing-4">
         <Link href="/login">DEPLOY NOW </Link>
