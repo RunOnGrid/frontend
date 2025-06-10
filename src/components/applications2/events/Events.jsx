@@ -23,7 +23,11 @@ const EventScreen = () => {
           onClick={toggleNotifications}
         >
           <img
-            src={`${darkMode ? "/notification2.png" : "/notification.png"}`}
+            src={`${
+              darkMode
+                ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9c8e0b0b-66e0-4ff9-8035-36e4f8074600/public"
+                : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7d027139-b7ab-4069-7577-8f546dd02f00/public"
+            }`}
             alt="Notifications"
           />
         </div>
@@ -56,14 +60,14 @@ const EventScreen = () => {
           >
             <EventInfo
               darkMode={darkMode}
-              icon="/verify.png"
+              icon="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/b9e27503-9c6f-457e-77df-734b14523300/public"
               title="Deploy succeed for d5a4193: actualization"
               info="Exited with status 1 while running your code. Check your deploy logs for more information"
               date="June 27, 2024 at 3:43 PM"
             />
             <EventInfo
               darkMode={darkMode}
-              icon="/calendar.png"
+              icon="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7bb77412-2600-4097-6df1-5f6c1c431b00/public"
               title="First deploy started for d5a4193: actualization"
               date="June 27, 2024 at 3:43 PM"
             />

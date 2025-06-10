@@ -67,7 +67,12 @@ const RegisterScreen = () => {
       <TrianglesLeft />
       <div className="new-login">
         <Link className="logo-link" href="/">
-          <Image height={100} width={180} src="/grid-beta.png" alt="Logo" />
+          <Image
+            height={100}
+            width={180}
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ca632650-5de1-46bd-88f4-03c847c04200/public"
+            alt="Logo"
+          />
         </Link>
 
         <h2>Welcome!</h2>
@@ -107,9 +112,19 @@ const RegisterScreen = () => {
                   aria-label="Toggle password visibility"
                 >
                   {passwordVisible ? (
-                    <Image alt="" src="/view.png" height={22} width={22} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/2ff58a68-5bbb-4ba7-e05c-7bb534706f00/public"
+                      height={22}
+                      width={22}
+                    />
                   ) : (
-                    <Image alt="" src="/hide.png" height={22} width={22} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/04434c02-6512-43fe-bcbe-fdfc75c6e700/public"
+                      height={22}
+                      width={22}
+                    />
                   )}
                 </span>
               </div>
@@ -127,9 +142,19 @@ const RegisterScreen = () => {
                   aria-label="Toggle password visibility"
                 >
                   {passwordVisible2 ? (
-                    <Image alt="" src="/view.png" height={22} width={22} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/2ff58a68-5bbb-4ba7-e05c-7bb534706f00/public"
+                      height={22}
+                      width={22}
+                    />
                   ) : (
-                    <Image alt="" src="/hide.png" height={22} width={22} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/04434c02-6512-43fe-bcbe-fdfc75c6e700/public"
+                      height={22}
+                      width={22}
+                    />
                   )}
                 </span>
               </div>

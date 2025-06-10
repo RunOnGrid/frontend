@@ -86,8 +86,8 @@ const handleMultipleDeployments = async (components) => {
                       <Image
                         src={
                           component.provider === "github"
-                            ? "/githubLogin.png"
-                            : "/dockerIcon.png"
+                            ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d472f998-71f5-4f4a-b9c4-63cd2708f400/public"
+                            : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/369e3a29-c8f7-481e-6234-1e5e1c26e500/public"
                         }
                         width={18}
                         height={18}
@@ -115,30 +115,30 @@ const handleMultipleDeployments = async (components) => {
         <Botonera2 setAgree={setAgree} agree={agree} />
         <h4>I agree with Terms of Service</h4>
       </div>
-                 <div
-             className={
-               agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-             }
-           >
-             <div className="line-background"></div>
-             {isLoading ? (
-               <div className="loading-container">
-                 <LoadingText />
-               </div>
-             ) : (
-               <>
-                 <button
-                   className="deploy-button"
-                   onClick={() => {
-                     handleMultipleDeployments(components);
-                   }}
-                   disabled={isLoading}
-                 >
-                   Deploy
-                 </button>
-               </>
-             )}
-           </div>
+      <div
+        className={
+          agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
+        }
+      >
+        <div className="line-background"></div>
+        {isLoading ? (
+          <div className="loading-container">
+            <LoadingText />
+          </div>
+        ) : (
+          <>
+            <button
+              className="deploy-button"
+              onClick={() => {
+                handleMultipleDeployments(components);
+              }}
+              disabled={isLoading}
+            >
+              Deploy
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };

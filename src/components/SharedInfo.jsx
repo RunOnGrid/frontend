@@ -42,7 +42,11 @@ const SharedInfo = () => {
           onClick={toggleNotifications}
         >
           <img
-            src={`/${darkMode ? "notification2.png" : "notification.png"}`}
+            src={`/${
+              darkMode
+                ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9c8e0b0b-66e0-4ff9-8035-36e4f8074600/public"
+                : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7d027139-b7ab-4069-7577-8f546dd02f00/public"
+            }`}
             alt="Notifications"
           />
         </div>
@@ -104,12 +108,49 @@ const SharedInfo = () => {
             <span>Role</span>
             <span>Status</span>
             <span>Invite Link</span>
+          </div>
+          <div className={`shared-columnas2 ${darkMode ? "dark" : "light"}`}>
+            <span>Project Name</span>
+            <span>email@google.com</span>
+            <span>Viewer</span>
+            <span>Pending</span>
+            <span>
+              Copy{" "}
+              <Image
+                alt=""
+                src={`${
+                  darkMode
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8167b686-f197-4352-505d-e2d422594d00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/27105ad1-2d98-472e-80ac-b16b151c5a00/public"
+                }`}
+                height={15}
+                width={15}
+              />
+            </span>
             <div>
-              <img />
+              <Image
+                alt=""
+                src={`${
+                  darkMode
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/329b241f-6d92-4777-58d4-6e2be83c8f00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/92a0559b-6816-4658-44e1-955f1b79ff00/public"
+                }`}
+                height={25}
+                width={25}
+                onClick={handleImageClick}
+              />
             </div>
             <div>
-              {" "}
-              <img />
+              <Image
+                alt=""
+                src={`${
+                  darkMode
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9e1c4c15-0514-4dda-1227-79a29b020300/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
+                }`}
+                height={25}
+                width={25}
+              />
             </div>
           </div>
           <div className={`shared-columnas2 ${darkMode ? "dark" : "light"}`}>
@@ -121,7 +162,11 @@ const SharedInfo = () => {
               Copy{" "}
               <Image
                 alt=""
-                src={`${darkMode ? "/copy.png" : "/copyL.png"}`}
+                src={`${
+                  darkMode
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8167b686-f197-4352-505d-e2d422594d00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/27105ad1-2d98-472e-80ac-b16b151c5a00/public"
+                }`}
                 height={15}
                 width={15}
               />
@@ -129,7 +174,11 @@ const SharedInfo = () => {
             <div>
               <Image
                 alt=""
-                src={`${darkMode ? "/invitation.png" : "/invitationL.png"}`}
+                src={`${
+                  darkMode
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/329b241f-6d92-4777-58d4-6e2be83c8f00/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/92a0559b-6816-4658-44e1-955f1b79ff00/public"
+                }`}
                 height={25}
                 width={25}
                 onClick={handleImageClick}
@@ -138,39 +187,11 @@ const SharedInfo = () => {
             <div>
               <Image
                 alt=""
-                src={`${darkMode ? "/delete2.png" : "/deleteL.png"}`}
-                height={25}
-                width={25}
-              />
-            </div>
-          </div>
-          <div className={`shared-columnas2 ${darkMode ? "dark" : "light"}`}>
-            <span>Project Name</span>
-            <span>email@google.com</span>
-            <span>Viewer</span>
-            <span>Pending</span>
-            <span>
-              Copy{" "}
-              <Image
-                alt=""
-                src={`${darkMode ? "/copy.png" : "/copyL.png"}`}
-                height={15}
-                width={15}
-              />
-            </span>
-            <div>
-              <Image
-                alt=""
-                src={`${darkMode ? "/invitation.png" : "/invitationL.png"}`}
-                height={25}
-                width={25}
-                onClick={handleImageClick}
-              />
-            </div>
-            <div>
-              <Image
-                alt=""
-                src={`${darkMode ? "/delete2.png" : "/deleteL.png"}`}
+                src={`${
+                  darkMode
+                    ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9e1c4c15-0514-4dda-1227-79a29b020300/public"
+                    : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
+                }`}
                 height={25}
                 width={25}
               />

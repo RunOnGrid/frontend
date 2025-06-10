@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 
-import IntegrationScreen from "@/components/profile/Integration";
 import BillingScreen from "@/components/billing/BillingScreen";
 import useAuthCheck from "@/useRefresh";
 

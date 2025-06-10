@@ -17,11 +17,15 @@ const CheckScreen = () => {
         <TrianglesLeft />
         <div className="verify-container">
           <Link className="logo-link" href="/">
-            <Image height={90} width={160} src="/grid-beta.png" alt="Logo" />
+            <Image
+              height={90}
+              width={160}
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ca632650-5de1-46bd-88f4-03c847c04200/public"
+              alt="Logo"
+            />
           </Link>
 
-
-            <h2> Please check your mail to verify your account</h2>
+          <h2> Please check your mail to verify your account</h2>
           <Link href="/login">
             <button className="verify-btn">Sign In</button>
           </Link>

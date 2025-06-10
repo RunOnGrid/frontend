@@ -67,18 +67,9 @@ function FormZelcore() {
       <div className="textos-login">
         <div> Grid Cloud </div>
         <h1> Welcome back to Grid Cloud</h1>
-        <span>
-          {" "}
-          <img alt="" src="" /> Read the Grid Cloud docs{" "}
-        </span>
-        <span>
-          {" "}
-          <img alt="" src="" /> See whats new with Grid Cloud{" "}
-        </span>
-        <span>
-          {" "}
-          <img alt="" src="" /> Join the community{" "}
-        </span>
+        <span> Read the Grid Cloud docs </span>
+        <span> See whats new with Grid Cloud </span>
+        <span> Join the community </span>
 
         <div className="member-login">
           Not a member yet?
@@ -158,9 +149,15 @@ function FormZelcore() {
           <div className="link-zelcore">
             <Link
               href={`zel:?action=sign&message=${
-                apiData ? apiData.data : ''
-              }&icon=https%3A%2F%2Fraw.githubusercontent.com%2Frunonflux%2Fflux%2Fmaster%2FzelID.svg&callback=http://localhost:3000/api/post`}>
-              <Image alt="" src="/zelID.svg" height={50} width={50} />
+                apiData ? apiData.data : ""
+              }&icon=https%3A%2F%2Fraw.githubusercontent.com%2Frunonflux%2Fflux%2Fmaster%2FzelID.svg&callback=http://localhost:3000/api/post`}
+            >
+              <Image
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/89ed3f51-15e9-40e8-5388-0c9691c88b00/public"
+                height={50}
+                width={50}
+              />
             </Link>
           </div>
 

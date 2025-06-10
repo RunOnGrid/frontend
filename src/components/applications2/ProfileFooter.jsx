@@ -31,7 +31,12 @@ const MobileFooterBar = () => {
     >
       <div className={styles.footerContainer}>
         <Link href="/profile" className={styles.footerItem}>
-          <Image src="/home.png" alt="Home" width={24} height={24} />
+          <Image
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ac855700-229e-4962-415e-e54cd8f3ff00/public"
+            alt="Home"
+            width={24}
+            height={24}
+          />
           <span className={`${styles.footerItemLabel} ${isActive("/profile")}`}>
             Apps
           </span>
@@ -51,7 +56,12 @@ const MobileFooterBar = () => {
           onClick={() => handleLogout()}
           className={`${styles.footerItem} ${styles.logoutItem}`}
         >
-          <Image src="/logoutButton.png" alt="Logout" width={24} height={24} />
+          <Image
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/04de75c5-d239-4614-d717-07a19013fd00/public"
+            alt="Logout"
+            width={24}
+            height={24}
+          />
           <span className={styles.footerItemLabel}>Logout</span>
         </div>
 

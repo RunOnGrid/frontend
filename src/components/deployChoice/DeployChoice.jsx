@@ -90,14 +90,14 @@ const DeployChoice = () => {
       <span>Access computing with the best providers</span>
       <div className="deploy-options">
         <DeployOption
-          image="/fluxLanding.svg"
+          image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c61ff49d-574b-4546-bd53-fadb83f03e00/public"
           title="The largest decentralized computing network"
           text="Connected Worldwide, Across All Continents, Flux is the largest decentralized network in the world, offering a secure, scalable, and cost-effective cloud for building decentralized applications."
           data={fluxData}
           nodes={fluxNodes}
         />
         <DeployOption2
-          image="/akashLanding.svg" // Replace with actual image path
+          image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a1957f28-d510-41b8-254a-2188ea92de00/public" // Replace with actual image path
           title="Supercloud"
           text="Explore the power of Akash Network for your decentralized cloud needs. Akash offers a robust and flexible solution for all your hosting requirements, ensuring reliability and ease of use."
           data={akashData}

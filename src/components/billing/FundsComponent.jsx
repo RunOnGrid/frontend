@@ -20,14 +20,20 @@ const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
       <div className="payment-options">
         <div onClick={() => handleShow()} className="payment-option">
           <div className="logo-container2 stripe">
-            <img src="/logoStripe.webp" alt="Stripe" />
+            <img
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6fd2edb0-d547-44f2-ef81-cbf20b40ba00/public"
+              alt="Stripe"
+            />
           </div>
           <h3>Stripe</h3>
           <p>Stripe payment</p>
         </div>
         <div className="payment-option soon">
           <div className="logo-container2 flux">
-            <img src="/fluxLogo.svg" alt="Flux" />
+            <img
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e4e88f78-5122-4105-a70d-bf8f2cc9c000/public"
+              alt="Flux"
+            />
           </div>
           <h3>Flux</h3>
           <p>Soon</p>
@@ -35,8 +41,16 @@ const DepositFunds = ({showPayment,handleAmount,handleIntent}) => {
 
         <div className="payment-option soon">
           <div className="logo-container2 stablecoin">
-            <img src="/usdt.svg" alt="USDT" className="stablecoin-logo" />
-            <img src="/usdc.png" alt="USDC" className="stablecoin-logo" />
+            <img
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d8b9dc13-5792-4d00-d9c2-d6459dc9a100/public"
+              alt="USDT"
+              className="stablecoin-logo"
+            />
+            <img
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/03a267e9-4788-41a0-5b95-b241e657a400/public"
+              alt="USDC"
+              className="stablecoin-logo"
+            />
           </div>
           <h3>Stable Coin</h3>
           <p>Soon</p>

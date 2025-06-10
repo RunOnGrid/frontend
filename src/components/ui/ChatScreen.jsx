@@ -127,7 +127,12 @@ export default function Component() {
       >
         <div className="chat-container">
           <div className="img-gridOps">
-            <Image alt="" src="/gridOps2.svg" height={130} width={350} />
+            <Image
+              alt=""
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/0965ad7e-2105-491e-c137-8f8c4c92ac00/public"
+              height={130}
+              width={350}
+            />
           </div>
 
           <main
@@ -162,8 +167,8 @@ export default function Component() {
                       width={50}
                       src={
                         message.type === "user"
-                          ? "/memberDark.svg"
-                          : "/logoGridVacio.svg"
+                          ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/c82341b1-577a-4bcf-6ed8-cae48b042400/public"
+                          : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/5cb36003-319f-4699-aac5-3678be472c00/public"
                       }
                     />
                     <div
@@ -194,7 +199,12 @@ export default function Component() {
                 />
               </div>
               <button className="button-gridOps" onClick={handleSendMessage}>
-                <Image alt="" src="/upArrow1.png" height={15} width={15} />
+                <Image
+                  alt=""
+                  src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/50b6552f-3dcb-407d-d28d-90150ea9a300/public"
+                  height={15}
+                  width={15}
+                />
               </button>
             </div>
           </main>

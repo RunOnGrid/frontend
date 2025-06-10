@@ -197,10 +197,7 @@ export default AppsTable;
   className={`notification-icon ${darkMode ? "dark" : "light"}`}
   onClick={toggleNotifications}
 >
-  <img
-    src={`${darkMode ? "/notification2.png" : "/notification.png"}`}
-    alt="Notifications"
-  />
+
 </div>
 {showNotifications && <Notis darkMode={darkMode} />} */
 }

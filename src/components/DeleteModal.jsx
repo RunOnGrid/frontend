@@ -11,7 +11,7 @@ const DeleteModal = ({ onClick, darkMode, name, onYes, id }) => {
           onClick();
         }}
         alt=""
-        src="/close.png"
+        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6897d36a-e5cf-47c8-8459-5c9d61863300/public"
         width={20}
         height={20}
       />
