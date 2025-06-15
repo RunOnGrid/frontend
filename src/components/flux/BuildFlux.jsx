@@ -138,7 +138,7 @@ export default function BuildFlux({
           name: name,
           description: "Application deployed by Grid",
           repotag: repoTag,
-          ports: [36522],
+          ports: [],
           domains: domain || [""],
           environmentParameters: envs || [],
           commands: commands || [""],
