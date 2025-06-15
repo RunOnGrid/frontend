@@ -17,7 +17,6 @@ const JsonEditor = ({ image, existingNames }) => {
         name: "",
         description: "",
         repotag: image,
-        ports: [36522],
         domains: [""],
         environmentParameters: [],
         commands: [],
