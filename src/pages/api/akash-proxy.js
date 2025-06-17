@@ -1,6 +1,8 @@
 export default async function handler(req, res) {
   try {
-    const response = await fetch("https://api.cloudmos.io/v1/network-capacity");
+    const response = await fetch(
+      "https://console-api.akash.network/v1/network-capacity"
+    );
 
     // Check if the response is OK (status in the range 200-299)
     if (!response.ok) {
