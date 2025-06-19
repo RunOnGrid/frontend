@@ -1387,6 +1387,9 @@
   margin-top: 1rem;
   padding: 0.5rem 1rem;
 }
+.icon-container{
+  margin-left: -10px !important;
+}
 
 @media only screen and (max-width:700px) {
   .deployMethodBox p{

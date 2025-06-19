@@ -135,7 +135,9 @@ const GithubFlux = ({
     //   setValidatorMsg("Wrong credentials, please check PAT");
     //   return;
     // }
-
+    if (errorMessage2 !== "") {
+      return;
+    }
     if (!name.trim()) {
       setErrorMessage2("This field is required.");
       return;
@@ -263,7 +265,6 @@ const GithubFlux = ({
   const handleNameChange = (e) => {
     const inputValue = e.target.value;
 
-    // Expresión regular que solo permite letras y números
     const alphanumericRegex = /^[a-zA-Z0-9]*$/;
 
     // Verificar si el input cumple con la expresión regular
@@ -275,7 +276,7 @@ const GithubFlux = ({
       setName(lowercaseValue);
 
       if (isNameTaken) {
-        setErrorMessage2("Este nombre de aplicación ya está en uso");
+        setErrorMessage2("This service name is already in use");
       } else {
         setErrorMessage2("");
       }
@@ -433,7 +434,6 @@ const GithubFlux = ({
             owner={owner.toLowerCase()}
             onNext={() => handleShowConfig()}
             setDisableSelect={setDisableSelect}
-            existingNames={existingNames}
             setPat={setPat}
             cpu={cpu}
             setCpu={setCpu}

@@ -23,7 +23,7 @@ const DeployChoice = () => {
         setFluxData(data);
       } catch (error) {
         console.error("Error fetching Flux data:", error.message);
-        setFluxData(null); // or some default/error state
+        setFluxData(null); 
       }
     };
 

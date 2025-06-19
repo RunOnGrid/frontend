@@ -107,6 +107,7 @@ const MethodSelectAkash = forwardRef(
                 height={50}
                 width={50}
               />
+
               <h4>Container registry</h4>
               <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
               <p className="deploy-sub-p">
