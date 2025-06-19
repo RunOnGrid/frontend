@@ -30,7 +30,7 @@ export default function BuildFlux({
   const [existingNames, setExistingNames] = useState([]);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-  const [summary, setSummary] = useState(false);
+
   const [priv, setPriv] = useState(false);
   const [errorMessage2, setErrorMessage2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -59,6 +59,7 @@ export default function BuildFlux({
     instances,
     isEditing,
     editingId,
+    summary,
   } = config;
   const {
     setName,
@@ -74,6 +75,7 @@ export default function BuildFlux({
     setOwner,
     setInstances,
     setEditingId,
+    setSummary,
   } = setters;
   const router = useRouter();
 

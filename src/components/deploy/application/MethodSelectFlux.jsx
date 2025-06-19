@@ -37,6 +37,9 @@ const MethodSelectFlux = forwardRef(
       setters.setSelectedMethod("git");
       setters.setGrid(true);
       setters.setDocker(false);
+      setters.setName("");
+      setters.setRepoTag("");
+      setters.setSummary(false);
       setDeployOption("githubFlux");
     };
     const handleDocker = () => {
@@ -44,6 +47,9 @@ const MethodSelectFlux = forwardRef(
       setters.setGrid(false);
       setters.setDocker(true);
       setters.setBuild(false);
+      setters.setName("");
+      setters.setRepoTag("");
+      setters.setSummary(false);
       setDeployOption("dockerFlux");
     };
     const handleLoadComp = (component) => {
@@ -52,6 +58,7 @@ const MethodSelectFlux = forwardRef(
         setters.setGrid(true);
         setters.setDocker(false);
         setters.setBuild(true);
+        setters.setSummary(false);
         setShowConfig(true);
         setDeployOption("githubFlux");
       } else if (component.option === "docker") {
@@ -59,6 +66,7 @@ const MethodSelectFlux = forwardRef(
         setters.setGrid(false);
         setters.setDocker(true);
         setters.setBuild(false);
+        setters.setSummary(false);
         setDeployOption("dockerFlux");
       }
     };
@@ -100,11 +108,7 @@ const MethodSelectFlux = forwardRef(
               />
             </div>
 
-            <div
-              className={`component-list ${
-                components.length > 0 && config.summary ? "disabled" : ""
-              }`}
-            >
+            <div className={`component-list`}>
               <h4>Current Components</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 {components.map((comp, index) => (
@@ -132,7 +136,9 @@ const MethodSelectFlux = forwardRef(
                 ))}
               </div>
             </div>
-            {components.length > 0 ? (
+            {components.length === 10 ? (
+              ""
+            ) : (
               <button
                 className="add-button"
                 onClick={() => {
@@ -145,8 +151,6 @@ const MethodSelectFlux = forwardRef(
               >
                 Add new comp +
               </button>
-            ) : (
-              ""
             )}
           </div>
 
@@ -182,6 +186,13 @@ const MethodSelectFlux = forwardRef(
                 height={50}
                 width={50}
               />
+              <img
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ce196ae6-b580-40c8-f971-634b6a3a2300/public"
+                height={50}
+                width={50}
+                className="icon-container"
+              />
               <h4>Container registry </h4>
               <p>Deploy a container from an image registry</p>
             </div>
@@ -202,6 +213,7 @@ const MethodSelectFlux = forwardRef(
                       height={15}
                       width={15}
                     />
+
                     <span>Installed</span>
                   </div>
                   <Link href={gitUrl} target="_blank">

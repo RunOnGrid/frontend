@@ -30,6 +30,7 @@ const BuildSettings = forwardRef(
     setInstallationId,
     instances,
     cloud,
+    existingNames,
   }) => {
     return (
       <div className={`databaseSelect ${summary ? "disabled" : ""}`}>
