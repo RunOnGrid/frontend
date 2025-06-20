@@ -11,10 +11,10 @@ export default async function handler(req, res) {
     }
 
     const amount = 5; // Monto de $0.00
-    
+    const API_URL = process.env.GRID_API;
 
     const response = await fetch(
-      "https://backend.ongrid.run/payment/create-checkout-session",
+      API_URL,
       {
         method: "POST",
         headers: {
