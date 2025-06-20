@@ -147,7 +147,7 @@ export default function ZelcoreLogin({ apiUrl = "https://api.runonflux.io", isLo
       >
         <Image
           alt="Sign in with Zelcore"
-          src="/zelcore.png"
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/5527d7c7-fd3a-4999-6bb3-dbe9edf0b500/public"
           width={25}
           height={25}
         />

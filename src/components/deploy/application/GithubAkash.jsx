@@ -16,6 +16,7 @@ import NetFlux from "@/components/flux/NetFlux";
 import FluxInputs from "@/components/flux/FluxInputs";
 import NetAkash from "@/components/akash/NetAkash";
 import Spinner from "@/commons/Spinner";
+import ComponentsTable from "@/components/flux/ComponentTable";
 
 const GithubAkash = ({
   image,
@@ -74,7 +75,9 @@ const GithubAkash = ({
   const [imageError, setImageError] = useState(false);
   const [imagePath, setImagePath] = useState("");
   const [priceLoader, setPriceLoader] = useState(false);
-
+  const [installationId, setInstallationId] = useState("");
+  const [singleRepo, setSingleRepo] = useState("");
+  const [branch, setBranch] = useState("");
   const handleSummary = async () => {
     // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
     const isImageValid = await imageValidator();
@@ -200,7 +203,7 @@ const GithubAkash = ({
       }
     );
     const data = await response.json();
-    setCompPrice(data.price.toFixed(2));
+    setCompPrice(data.price);
     if (data.price > balance) {
       setInsufficient(true);
     }
@@ -321,7 +324,14 @@ const GithubAkash = ({
         setHdd={setEphemeralStorage}
         setInstances={setInstances}
         setImagePath={setImagePath}
+        singleRepo={singleRepo}
+        setSingleRepo={setSingleRepo}
+        branch={branch}
+        setBranch={setBranch}
         min={1}
+        installationId={installationId}
+        setInstallationId={setInstallationId}
+        cloud={"akash"}
       />
       {showConfig && (
         <div className="databaseSelect">
@@ -381,6 +391,7 @@ const GithubAkash = ({
 
           {summary && (
             <div ref={deployRef}>
+              {/* <ComponentsTable components={components} /> */}
               <SummaryAkash
                 cpu={cpu}
                 ram={memory}

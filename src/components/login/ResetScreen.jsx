@@ -86,7 +86,12 @@ const ResetScreen = () => {
         <TrianglesLeft />
         <div className="new-login">
           <Link className="logo-link" href="/">
-            <Image height={90} width={160} src="/grid-beta.png" alt="Logo" />
+            <Image
+              height={90}
+              width={160}
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
+              alt="Logo"
+            />
           </Link>
           <h2 style={{ marginBottom: "50px" }}>Password Reset</h2>
 

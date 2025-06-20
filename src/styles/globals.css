@@ -21,7 +21,7 @@ body {
   min-height: 100vh;
 }
 .container-homePrincipal2{
-  background-image: url('/fondo-login.jpg');
+  background-image: url('https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/5ff49818-c6d5-4f36-32b1-63538def2500/public');
   background-size: cover;
   background-position: center;
   height: 100%;
@@ -45,6 +45,7 @@ textarea {
   .slider-container {
     width: 95%;
     display: flex;
+    flex-direction: column;
     border: 2px solid #e0e0e0;
     border-radius: 25px;
     background-color: white;
@@ -54,6 +55,10 @@ textarea {
     padding: 25px 5px;
     
     
+  }
+  .slider-item{
+    display: flex;
+    margin: 20px  ;
   }
   .no-slider-container{
     width: 95%;
@@ -155,10 +160,17 @@ textarea {
   padding: 20px;
   border: 2px solid #e0e0e0;
   width: 95%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
+.span-total-summary{
+  display: flex;
 
+  margin-left: auto;
+  margin-right: 0px;
+
+  justify-content: flex-end;
+}
 
 .table-container {
   width: 100%;
@@ -168,21 +180,26 @@ textarea {
 
 .components-table {
   width: 100%;
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0 8px;
   text-align: left;
 }
-
+.components-table th,
+.components-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
 .components-table th {
   font-weight: 500;
   color: #333;
   font-size: 14px;
-  padding: 12px 15px;
-  border-bottom: 1px solid #eaeaea;
+
+ 
 }
 
 .components-table td {
-  padding: 12px 15px;
+
   font-size: 14px;
   color: #333;
   background-color: #f5f5f5;
@@ -202,7 +219,7 @@ textarea {
   margin-bottom: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   border-radius: 6px;
-  cursor: pointer;
+
   position: relative;
 }
 

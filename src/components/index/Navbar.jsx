@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import MenuMobile from "../MenuMobile";
+
 function Navbar({ scrollToContactForm }) {
   const [dropdown, setDropdown] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
@@ -36,7 +36,11 @@ function Navbar({ scrollToContactForm }) {
       <nav className={`navbar ${isSticky ? "sticky" : ""}  `}>
         <div className="nav-items">
           <Link href="/">
-            <img alt="" className="navbar-logo" src="/grid-beta.png" />
+            <img
+              alt=""
+              className="navbar-logo"
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
+            />
           </Link>
           <div className="login-register">
             <Link href="/login">
@@ -51,7 +55,6 @@ function Navbar({ scrollToContactForm }) {
           </div>
         </div>
       </nav>
-      {menu ? <MenuMobile /> : ""}
     </>
   );
 }
@@ -73,7 +76,7 @@ export default Navbar;
 }
 {
   /* <div className="productos">
-  <img alt="" className="logo-productos" src={"/solution.png"} />
+ 
   <div className="descripcion-productos">
   <Link href="/solutions">
   <span className="titulo-productos"> Solutions </span>
@@ -103,11 +106,7 @@ export default Navbar;
 {
   /* <div onClick={() => toggleMenu()} className="hamburguer-navbar">
   {" "}
-  {menu === false ? (
-    <img className="hamburger-logo" src={"/menu.png"} />
-  ) : (
-    <img className="hamburger-logoCerrado" src={"/menuCerrado.png"} />
-  )}{" "}
+
 </div>
 <div className="un-contenedor">
   <div

@@ -16,7 +16,11 @@ const ThemeToggle = () => {
       </div>
       <Image
         alt=""
-        src={darkMode ? "/moon.png" : "/sun.png"}
+        src={
+          darkMode
+            ? "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/4199e734-82a5-46a5-4c31-2db16fa2bb00/public"
+            : "https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/b74855c2-2b12-4a84-3e53-456f04887b00/public"
+        }
         width={22}
         height={22}
       />

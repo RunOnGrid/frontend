@@ -233,7 +233,12 @@ const LoginScreen = () => {
         <TrianglesLeft />
         <div className="new-login">
           <Link className="logo-link" href="/">
-            <Image width={180} height={100} src="/grid-beta.png" alt="Logo" />
+            <Image
+              width={180}
+              height={100}
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d4e80dd3-61e5-4b44-2495-c2594875dc00/public"
+              alt="Logo"
+            />
           </Link>
           <h2>Welcome back!</h2>
           <span>Please Sign in with your personal info</span>
@@ -244,7 +249,7 @@ const LoginScreen = () => {
               <button className="google-signIn">
                 <Image
                   alt="Sign in with Google"
-                  src="/googleLogo.png"
+                  src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/12ca8d8f-272b-4c06-e090-6ff39da4e800/public"
                   width={25}
                   height={25}
                 />
@@ -252,11 +257,9 @@ const LoginScreen = () => {
             </Link>
             <Link href={GITHUB_SSO}>
               <button className="google-signIn">
-                <Image
+                <img
                   alt="Sign in with GitHub"
-                  src="/githubLogo.svg"
-                  width={25}
-                  height={25}
+                  src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ce196ae6-b580-40c8-f971-634b6a3a2300/public"
                 />
               </button>
             </Link>
@@ -272,7 +275,7 @@ const LoginScreen = () => {
             >
               <Image
                 alt="Sign in with Keplr"
-                src="/keplr.png"
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/90d9f0ff-2610-4688-af9f-3a9fd4bbaa00/public"
                 width={25}
                 height={25}
               />
@@ -334,11 +337,11 @@ export default LoginScreen;
 {
   /* <div className="botonera-login">
   <button className="google-signIn">
-    <Image alt="" src="/googleLogo.png" width={20} height={20} />
+
     Sign In with Google
   </button>
   <button className="google-signIn">
-    <Image alt="" src="/githubLogo.svg" width={20} height={20} />
+    
     Sign In with Github
   </button>
 </div> */

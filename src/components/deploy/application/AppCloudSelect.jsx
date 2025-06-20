@@ -1,12 +1,9 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { TokenService } from "../../../../tokenHandler";
-import { useRouter } from "next/router";
+
 
 const AppCloudSelect = ({ onNext, methodReset }) => {
   const [selectedCloud, setSelectedCloud] = useState(null);
-  const router = useRouter();
-  const { installationId } = router.query;
 
   const handleCloudSelect = (cloud) => {
     setSelectedCloud(cloud);
@@ -16,23 +13,11 @@ const AppCloudSelect = ({ onNext, methodReset }) => {
     }
   };
 
-  const handleNext = () => {
-    if (selectedCloud) {
-      onNext(selectedCloud);
-    }
-  };
   useEffect(() => {
     if (selectedCloud) {
       onNext(selectedCloud);
     }
   }, [selectedCloud]);
-  useEffect(() => {
-    if (installationId) {
-      const response = TokenService.getTokens();
-      if (response) {
-      }
-    }
-  }, []);
 
   return (
     <div className="cloudSelect">
@@ -45,13 +30,23 @@ const AppCloudSelect = ({ onNext, methodReset }) => {
           className={selectedCloud === "flux" ? "fluxSelected" : ""}
           onClick={() => handleCloudSelect("flux")}
         >
-          <Image src="/fluxLanding.svg" alt="Flux" height={25} width={100} />
+          <img
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9057b281-70b7-446b-253e-38a2d7dabf00/public"
+            alt="Flux"
+            height={25}
+            width={100}
+          />
         </button>
         <button
           className={selectedCloud === "akash" ? "akashSelected" : ""}
           onClick={() => handleCloudSelect("akash")}
         >
-          <Image src="/akashLanding.svg" alt="Akash" height={25} width={100} />
+          <img
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a1957f28-d510-41b8-254a-2188ea92de00/public"
+            alt="Akash"
+            height={25}
+            width={100}
+          />
         </button>
       </div>
     </div>

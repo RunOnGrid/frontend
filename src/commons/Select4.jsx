@@ -22,7 +22,12 @@ const Select4 = ({ options, onSelect, darkMode }) => {
         onClick={toggleDropdown}
       >
         {selectedOption}
-        <Image alt="" src="/downLigth.png" height={15} width={15} />
+        <Image
+          alt=""
+          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/a45512e7-85e6-40a4-afcb-851d762f6a00/public"
+          height={15}
+          width={15}
+        />
       </div>
       {isOpen && (
         <ul className={`dropdown-list ${darkMode ? "dark" : "light"}`}>

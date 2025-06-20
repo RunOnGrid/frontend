@@ -18,7 +18,7 @@ export default async function handler(req, res) {
             branch,
           }),
         });
-      
+        console.log(response, "esto es el response final de workflow");
         if (response.ok) {
           const data = await response.json();
           res.status(200).json(data);

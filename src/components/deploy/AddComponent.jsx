@@ -12,7 +12,9 @@ const AddComponent = ({
   setRam,
   setHdd,
   setInstances,
+  instances,
   min,
+  plan,
 }) => {
   const [customize, setCustomize] = useState(false);
   const [pricingCards, setPricingCards] = useState(false);
@@ -36,7 +38,7 @@ const AddComponent = ({
     setCpu(0.1);
     setHdd(1);
     setRam(100);
-    setInstances(1);
+    setInstances(min);
     setCustomize(false);
   };
 
@@ -44,7 +46,6 @@ const AddComponent = ({
     <div className="sub-component-container">
       <div className="databaseSelect-title">
         <span>Resources</span>
-        <span> Instances: 1</span>
       </div>
       <div className="options-container">
         <button onClick={() => handleCustomize()} className="add-button">
@@ -57,7 +58,11 @@ const AddComponent = ({
       {pricingCards ? (
         <>
           {" "}
-          <PricingPlanAkash handleBeta={handleBeta} handleTest={handleTest} />
+          <PricingPlanAkash
+            plan={plan}
+            handleBeta={handleBeta}
+            handleTest={handleTest}
+          />
         </>
       ) : (
         <div className="instance-config">

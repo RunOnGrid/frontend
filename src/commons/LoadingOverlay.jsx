@@ -25,11 +25,11 @@ const LoadingOverlay = ({ isVisible }) => {
   if (!shouldRender) return null;
 
   return (
-    <div className={`loading-overlay ${isVisible ? 'visible' : 'hidden'}`}>
+    <div className={`loading-overlay ${isVisible ? "visible" : "hidden"}`}>
       <div className="loading-container2">
         <div className="logo-container">
-          <Image
-            src='/logoLanding.svg'
+          <img
+            src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/42f2def7-af4f-451f-cf9e-4c19ba29fb00/public"
             alt="Logo"
             width={400}
             height={400}
@@ -37,7 +37,7 @@ const LoadingOverlay = ({ isVisible }) => {
           />
         </div>
         <div className="spinner-container">
-          <BigSpinner/>
+          <BigSpinner />
         </div>
       </div>
     </div>

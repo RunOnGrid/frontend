@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const plans = [
+const planAkash = [
   {
     title: "BETA",
     subtitle: "Starter",
@@ -23,25 +23,48 @@ const plans = [
     plan: "test",
   },
 ];
+const planFlux = [
+  {
+    title: "BETA",
+    subtitle: "Starter",
+    specs: [
+      "1000 MB (RAM)",
+      "0.5 CPU",
+      "20 GB (STORAGE)",
+      "3 INSTANCES (NODES)",
+    ],
+    price: "---",
+    values: [1000, "Mb", 0.5, 20, "Gi", 1, 80],
+    plan: "beta",
+  },
+  {
+    title: "TEST",
+    subtitle: "Standard",
+    specs: ["4000 MB (RAM)", "2 CPU", "20 GB (STORAGE)", "3 INSTANCES (NODES)"],
+    price: "---",
+    values: [4000, "Mb", 2, 20, "Gi", 1, 550],
+    plan: "test",
+  },
+];
 
-const PricingPlanAkash = ({ handleBeta, handleTest, mode, setPrice }) => {
+const PricingPlanAkash = ({ handleBeta, handleTest, mode, plan }) => {
   const [selectedPlan, setSelectedPlan] = useState("TEST");
+
+  const plans = plan === "flux" ? planFlux : planAkash;
 
   const handleSelectPlan = (plan) => {
     setSelectedPlan(plan.title);
     if (plan.plan === "test") {
       handleTest();
-      return;
     } else if (plan.plan === "beta") {
       handleBeta();
-      return;
     }
   };
 
   return (
     <div>
-      {/* <h3 className="pricing-title">Use recommended configuration</h3> */}
       <div className={`plans-container2 ${mode ? "dark" : "light"}`}>
+        {console.log(plan)}
         {plans.map((plan) => (
           <div
             key={plan.title}
@@ -74,5 +97,4 @@ const PricingPlanAkash = ({ handleBeta, handleTest, mode, setPrice }) => {
     </div>
   );
 };
-
 export default PricingPlanAkash;

@@ -644,6 +644,8 @@
 .google-signIn img{
   justify-content: center;
   margin: 0px 10px ;
+  height: 25px;
+  width: 25px;
 }
 .keplr-signIn img{
   border-radius: 50%;

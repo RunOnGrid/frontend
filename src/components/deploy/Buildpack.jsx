@@ -35,11 +35,21 @@ const Buildpack = forwardRef(({ onNext, darkMode }, ref) => {
         <div style={{ display: "flex", marginBottom: "20px" }}>
           <span className="buildpack-item">
             <div>
-              <Image alt="" src="/node-js.png" height={15} width={15} />
+              <Image
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/410ecd45-5520-49ea-6e98-41ae1ad3e100/public"
+                height={15}
+                width={15}
+              />
               NodeJS
             </div>
             <div>
-              <Image alt="" src="/deleteL.png" height={20} width={20} />
+              <Image
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
+                height={20}
+                width={20}
+              />
             </div>
           </span>
           <button onClick={() => setBuild(!build)} className="add-button">
@@ -55,38 +65,78 @@ const Buildpack = forwardRef(({ onNext, darkMode }, ref) => {
                 <h2>Available buildpacks:</h2>
                 <span className="buildpack-item2">
                   <div>
-                    <Image alt="" src="/node-js.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+                      height={15}
+                      width={15}
+                    />
                     NodeJS
                   </div>
                   <div>
-                    <Image alt="" src="/plus.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/723a4807-541c-464a-43b2-390e2a86e800/public"
+                      height={15}
+                      width={15}
+                    />
                   </div>
                 </span>
                 <span className="buildpack-item2">
                   <div>
-                    <Image alt="" src="/node-js.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+                      height={15}
+                      width={15}
+                    />
                     NodeJS
                   </div>
                   <div>
-                    <Image alt="" src="/plus.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/723a4807-541c-464a-43b2-390e2a86e800/public"
+                      height={15}
+                      width={15}
+                    />
                   </div>
                 </span>{" "}
                 <span className="buildpack-item2">
                   <div>
-                    <Image alt="" src="/node-js.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+                      height={15}
+                      width={15}
+                    />
                     NodeJS
                   </div>
                   <div>
-                    <Image alt="" src="/plus.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/723a4807-541c-464a-43b2-390e2a86e800/public"
+                      height={15}
+                      width={15}
+                    />
                   </div>
                 </span>{" "}
                 <span className="buildpack-item2">
                   <div>
-                    <Image alt="" src="/node-js.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/8899835a-27b7-478e-a65c-ade47edee900/public"
+                      height={15}
+                      width={15}
+                    />
                     NodeJS
                   </div>
                   <div>
-                    <Image alt="" src="/plus.png" height={15} width={15} />
+                    <Image
+                      alt=""
+                      src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/723a4807-541c-464a-43b2-390e2a86e800/public"
+                      height={15}
+                      width={15}
+                    />
                   </div>
                 </span>
               </div>

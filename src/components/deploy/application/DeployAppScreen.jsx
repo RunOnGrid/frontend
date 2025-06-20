@@ -4,23 +4,18 @@ import AppCloudSelect from "./AppCloudSelect";
 import { useRouter } from "next/router";
 import MethodSelectAkash from "./MethodSelectAkash";
 import MethodSelectFlux from "./MethodSelectFlux";
-import BuildAkash from "@/components/akash/BuildAkash";
-
-import GithubFlux from "./GithubFlux";
-import GithubAkash from "./GithubAkash";
-import BuildFlux from "@/components/flux/BuildFlux";
 import MobileFooterBar from "@/components/applications2/ProfileFooter";
 
 const DeployAppScreen = ({ appInstalled }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
   const [databaseName, setDatabaseName] = useState("");
-  const [price, setPrice] = useState(0);
+
   const [completedSteps, setCompletedSteps] = useState([]);
   const [activeStep, setActiveStep] = useState(null);
   const [selectedCloud, setSelectedCloud] = useState(null);
   const [componentData, setComponentData] = useState({});
-  const [currentDate, setCurrentDate] = useState("");
+  const [components, setComponents] = useState([]);
   const [deployOption, setDeployOption] = useState("");
   const [agree, setAgree] = useState(false);
   const [image, setImage] = useState("gridcloud/hello-app:2.0");
@@ -50,18 +45,6 @@ const DeployAppScreen = ({ appInstalled }) => {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep, selectedCloud]);
-  useEffect(() => {
-    const formatDate = (date) => {
-      const options = {
-        weekday: "short",
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      };
-      return date.toLocaleDateString("en-US", options);
-    };
-    setCurrentDate(formatDate(new Date()));
-  }, []);
 
   const handleCompleteStep = (step) => {
     setCompletedSteps((prevSteps) => [...prevSteps, step]);
@@ -69,14 +52,15 @@ const DeployAppScreen = ({ appInstalled }) => {
   };
   const resetFlow = () => {
     setDatabaseName("");
-    setPrice(0);
     setCompletedSteps([]);
     setActiveStep(null);
-
     setSelectedCloud(null);
     setComponentData({});
     setAgree(false);
-    setImage("gridcloud/aptos-app:v.1");
+  };
+  const newApp = () => {
+    setDeployOption("");
+    setAgree(false);
   };
 
   const handleCloudSelect = (cloud) => {
@@ -102,22 +86,18 @@ const DeployAppScreen = ({ appInstalled }) => {
             <>
               <MethodSelectFlux
                 darkMode={darkMode}
-                onClick={setDatabaseName}
-                value={databaseName}
-                onDocker={() => setDeployOption("dockerFlux")}
-                onGit={() => setDeployOption("githubFlux")}
-                setImage={setImage}
+                setDeployOption={setDeployOption}
                 ref={detailsRef}
-                methodReset={() => setDeployOption("")}
                 installed={installed}
                 appInstalled={appInstalled}
                 disableSelect={disableSelect}
-                image={image}
-                databaseName={databaseName}
                 setInstalled={setInstalled}
                 setDisableSelect={setDisableSelect}
                 selectedCloud={selectedCloud}
                 deployOption={deployOption}
+                setComponents={setComponents}
+                components={components}
+                resetFlow={newApp}
               />
             </>
           )}

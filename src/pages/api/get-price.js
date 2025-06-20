@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const cloudProvider = req.query.cloudProvider;
-    console.log(req.body);
+
     try {
       const response = await fetch(
         `${API_URL}/deployments/price?cloudProvider=` + cloudProvider,

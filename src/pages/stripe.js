@@ -6,7 +6,7 @@ import {
 } from "@stripe/react-stripe-js";
 
 const stripePromise = loadStripe(
-"pk_live_51OyeDUI9Ub3q7ez0ITlJsik9tIwyZlP2kfOQ9rQAk8Zt49vQuqBxnAIiUW48QMOnTEjnORYBL1zMNrZznvkBMZd900Ohw7hgHh"
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 export default function App() {
   const fetchClientSecret = useCallback(() => {
