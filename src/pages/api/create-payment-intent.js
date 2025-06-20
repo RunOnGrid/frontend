@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     
 
     const response = await fetch(
-      "https://backend-dev.ongrid.run/payment/create-checkout-session",
+      "https://backend.ongrid.run/payment/create-checkout-session",
       {
         method: "POST",
         headers: {

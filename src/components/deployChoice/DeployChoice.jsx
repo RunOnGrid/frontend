@@ -53,9 +53,9 @@ const DeployChoice = () => {
         const data = await response.json();
         const akashInfo = data;
 
-        const totalSsd = akashInfo.totalStorage / 1000000000000; // Convert bytes to TB
-        const totalRam = akashInfo.totalMemory / 1000000000000; // Convert bytes to TB
-        const totalStorage = akashInfo.totalCPU / 1000000; // Assuming this is the total cores
+        const totalSsd = akashInfo.availableStorage / 1000000000000; // Convert bytes to TB/
+        const totalRam = akashInfo.availableMemory / 1000000000000; // Convert bytes to TB
+        const totalStorage = akashInfo.availableCPU / 1000000; // Assuming this is the total cores
 
         const totalNodes = akashInfo.activeProviderCount;
 
