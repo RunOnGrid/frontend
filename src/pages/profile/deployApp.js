@@ -35,7 +35,6 @@ export default function DeployApp() {
         body: JSON.stringify({ installationId, gridUserId }),
       });
       if (response.ok) {
-        console.log("corre el post y response ok");
         setAppInstalled(true);
       } else {
         console.error("An error occurred", error);
