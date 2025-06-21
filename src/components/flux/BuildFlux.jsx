@@ -1,27 +1,28 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
 import DockerSettings from "./DockerSettings";
 import AddComponent from "../deploy/AddComponent";
 import EnvFlux from "./EnvFlux";
 import NetFlux from "./NetFlux";
-import SummaryAkash from "../deploy/SummaryAkash";
-import Botonera2 from "@/commons/Botonera2";
-import LoadingText from "@/commons/LoaderText";
+
 import Spinner from "@/commons/Spinner";
 import ComponentsTable from "./ComponentTable";
+import { useFluxConfig } from "@/hooks/useFluxConfig";
 
 export default function BuildFlux({
   darkMode,
   selectedCloud,
   setComponents,
   components,
-  config,
-  setters,
   workflowFinished,
   setWorkflowFinished,
   workflowLoading,
   setWorkflowLoading,
+  setDeployOption,
+  config,
+  setters,
+  allSelectedLocations,
 }) {
   const [activeStep, setActiveStep] = useState(3);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +31,6 @@ export default function BuildFlux({
   const [existingNames, setExistingNames] = useState([]);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
-
   const [priv, setPriv] = useState(false);
   const [errorMessage2, setErrorMessage2] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -59,7 +59,6 @@ export default function BuildFlux({
     instances,
     isEditing,
     editingId,
-    summary,
   } = config;
   const {
     setName,
@@ -75,7 +74,6 @@ export default function BuildFlux({
     setOwner,
     setInstances,
     setEditingId,
-    setSummary,
   } = setters;
   const router = useRouter();
 
@@ -99,7 +97,7 @@ export default function BuildFlux({
       setPriceLoader(false);
       setErrorMessage("");
       setErrorMessage2("");
-      setSummary(true);
+      setters.setSummary(true);
       setActiveStep(4);
     }
   };
@@ -108,6 +106,11 @@ export default function BuildFlux({
     const emailGrid = localStorage.getItem("grid_email");
     setEmail(emailGrid);
   }, [email]);
+
+  useEffect(() => {
+    console.log(allSelectedLocations);
+  }, [allSelectedLocations]);
+
   const getBalance = async () => {
     try {
       const response = await fetch(`/api/balance-proxy`, {
@@ -155,6 +158,7 @@ export default function BuildFlux({
       ],
       expire: compDuration,
       instances: instances,
+      geolocation: allSelectedLocations,
       owner: owner,
       email: email,
       provider: host === "ghcr.io" ? "github" : "docker",
@@ -292,7 +296,7 @@ export default function BuildFlux({
   }, [activeStep]);
   return (
     <div ref={servicesRef} className="databaseSelect">
-      <div className={`components-display ${summary ? "disabled" : ""}`}>
+      <div className={`components-display ${config.summary ? "disabled" : ""}`}>
         <DockerSettings
           repoTag={repoTag}
           setRepoTag={setRepoTag}
@@ -327,7 +331,7 @@ export default function BuildFlux({
         />
       </div>
 
-      <div className={`${summary ? "disabled2" : ""}`}>
+      <div className={`${config.summary ? "disabled2" : ""}`}>
         <h3> Settings</h3>
         <div style={{ display: "flex" }}>
           <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
@@ -340,20 +344,20 @@ export default function BuildFlux({
           />
         </div>
       </div>
-      {summary && !priceLoader ? null : priceLoader ? (
+      {config.summary && !priceLoader ? null : priceLoader ? (
         <Spinner />
       ) : (
-        <button
+        <buttons
           className="add-button4"
           onClick={() => {
             handleSummary();
           }}
         >
           Continue
-        </button>
+        </buttons>
       )}
       {/* <ComponentsTable /> */}
-      {summary && components.length > 0 && (
+      {config.summary && components.length > 0 && (
         <ComponentsTable
           setComponents={setComponents}
           components={components}
@@ -362,55 +366,13 @@ export default function BuildFlux({
           setWorkflowFinished={setWorkflowFinished}
           workflowLoading={workflowLoading}
           setWorkflowLoading={setWorkflowLoading}
+          setDeployOption={setDeployOption}
+          setActiveStep={setActiveStep}
+          setSummary={setters.setSummary}
+          config={config}
+          setters={setters}
+          allSelectedLocations={allSelectedLocations}
         />
-        // <div ref={deployRef}>
-        //   <SummaryAkash
-        //     cpu={cpu}
-        //     ram={ram}
-        //     hdd={hdd}
-        //     mode={darkMode}
-        //     name={name}
-        //     setSummary={setSummary}
-        //     setAgree={setAgree}
-        //     price={compPrice}
-        //     setActiveStep={setActiveStep}
-        //     summaryStep={3}
-        //   />
-        //   <div className="termService">
-        //     <Botonera2 setAgree={setAgree} agree={agree} />
-        //     <h4>I agree with Terms of Service</h4>
-        //   </div>
-        //   {fundsError !== "" ? (
-        //     <h3 className="error-message-login">{fundsError}</h3>
-        //   ) : (
-        //     ""
-        //   )}
-
-        //   <div
-        //     className={
-        //       agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-        //     }
-        //   >
-        //     <div className="line-background"></div>
-        //     {isLoading ? (
-        //       <div className="loading-container">
-        //         <LoadingText />
-        //       </div>
-        //     ) : (
-        //       <>
-        //         <button
-        //           className="deploy-button"
-        //           onClick={() => {
-        //             handlePaymentSuccess();
-        //           }}
-        //           disabled={isLoading}
-        //         >
-        //           Deploy
-        //         </button>
-        //       </>
-        //     )}
-        //   </div>
-        // </div>
       )}
     </div>
   );
@@ -462,17 +424,7 @@ export default function BuildFlux({
 //   }
 // };
 
-{
-  /* <AppGeoSelect
-          allowedLocations={allowedLocations}
-          setAllowedLocations={setAllowedLocations}
-          forbiddenLocations={forbiddenLocations}
-          setForbiddenLocations={setForbiddenLocations}
-          darkMode={darkMode}
-        /> */
-}
-
-// {summary && (
+// {config.summary && (
 //   <div ref={deployRef}>
 //     <SummaryAkash
 //       cpu={cpu}
@@ -515,7 +467,7 @@ export default function BuildFlux({
 {
   /* <div
         ref={servicesRef}
-        className={`deployment-config ${summary ? "disabled" : ""}`}
+        className={`deployment-config ${config.summary ? "disabled" : ""}`}
       >
         <h2>Deployment configuration</h2>
 
@@ -714,3 +666,51 @@ export default function BuildFlux({
         </button>
       </div> */
 }
+// <div ref={deployRef}>
+//   <SummaryAkash
+//     cpu={cpu}
+//     ram={ram}
+//     hdd={hdd}
+//     mode={darkMode}
+//     name={name}
+//     setSummary={setSummary}
+//     setAgree={setAgree}
+//     price={compPrice}
+//     setActiveStep={setActiveStep}
+//     summaryStep={3}
+//   />
+//   <div className="termService">
+//     <Botonera2 setAgree={setAgree} agree={agree} />
+//     <h4>I agree with Terms of Service</h4>
+//   </div>
+//   {fundsError !== "" ? (
+//     <h3 className="error-message-login">{fundsError}</h3>
+//   ) : (
+//     ""
+//   )}
+
+//   <div
+//     className={
+//       agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
+//     }
+//   >
+//     <div className="line-background"></div>
+//     {isLoading ? (
+//       <div className="loading-container">
+//         <LoadingText />
+//       </div>
+//     ) : (
+//       <>
+//         <button
+//           className="deploy-button"
+//           onClick={() => {
+//             handlePaymentSuccess();
+//           }}
+//           disabled={isLoading}
+//         >
+//           Deploy
+//         </button>
+//       </>
+//     )}
+//   </div>
+// </div>

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import ComponentSummary from "./ComponentSummary";
 import Spinner from "@/commons/Spinner";
 import { TokenService } from "../../../tokenHandler";
+import { useFluxConfig } from "@/hooks/useFluxConfig";
+import { useComponentFormState } from "@/hooks/useComponentFormState";
 
 const ComponentsTable = ({
   components,
@@ -11,12 +13,18 @@ const ComponentsTable = ({
   setWorkflowFinished,
   workflowLoading,
   setWorkflowLoading,
+  setDeployOption,
+  setSummary,
+  config,
+  setters,
+  setShowConfig,
+  allSelectedLocations,
 }) => {
   const [accessToken, setAccessToken] = useState("");
-
   const [expandedRow, setExpandedRow] = useState(null);
-
   const [allSuccess, setAllSuccess] = useState(false);
+
+  const { loadComponent, resetComponent } = useComponentFormState(setters);
   useEffect(() => {
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
@@ -31,6 +39,7 @@ const ComponentsTable = ({
       setAllSuccess(true);
     }
   }, [components]);
+
   const handleRunWorkflows = async () => {
     setWorkflowLoading(true);
 
@@ -85,7 +94,24 @@ const ComponentsTable = ({
     setWorkflowFinished(true);
     setComponents(updatedComponents);
   };
-
+  const handleLoadComp = (component) => {
+    if (component.option === "git") {
+      setters.setSelectedMethod("git");
+      setters.setGrid(true);
+      setters.setDocker(false);
+      setters.setBuild(true);
+      setters.setSummary(false);
+      setShowConfig(true);
+      setDeployOption("githubFlux");
+    } else if (component.option === "docker") {
+      setters.setSelectedMethod("docker");
+      setters.setGrid(false);
+      setters.setDocker(true);
+      setters.setBuild(false);
+      setSummary(false);
+      setDeployOption("dockerFlux");
+    }
+  };
   const checkWorkflowStatus = async (component, runId) => {
     try {
       const response = await fetch(
@@ -191,7 +217,6 @@ const ComponentsTable = ({
                     // onClick={() => handleRowClick(component.id)}
                     // className={expandedRow === index ? "row-active" : ""}
                   >
-                    {console.log(component)}
                     <td>
                       <Image
                         src={
@@ -234,6 +259,17 @@ const ComponentsTable = ({
                         height={18}
                         alt=""
                       />
+                      <Image
+                        onClick={() => {
+                          loadComponent(components[index]);
+                          handleLoadComp(component);
+                        }}
+                        className="edit-comp"
+                        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9de9cc42-a765-42b3-df0e-b8747163e900/public"
+                        width={18}
+                        height={18}
+                        alt=""
+                      />
                     </td>
                   </tr>
                 </>
@@ -258,7 +294,11 @@ const ComponentsTable = ({
         {workflowLoading ? <Spinner /> : ""}
       </div>
       {workflowFinished ? (
-        <ComponentSummary accessToken={accessToken} components={components} />
+        <ComponentSummary
+          allSelectedLocations={allSelectedLocations}
+          accessToken={accessToken}
+          components={components}
+        />
       ) : (
         ""
       )}

@@ -177,7 +177,9 @@ textarea {
   overflow-x: auto;
   margin-bottom: 20px;
 }
-
+.edit-comp{
+  cursor: pointer;
+}
 .components-table {
   width: 100%;
   border-collapse: collapse;

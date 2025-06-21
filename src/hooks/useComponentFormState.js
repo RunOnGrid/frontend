@@ -25,6 +25,7 @@ export const useComponentFormState = (setters) => {
   } = setters;
 
   const loadComponent = (component) => {
+    console.log(component, "entra load component");
     const comp = component.compose[0];
     setName(component.name);
     setRepoTag(comp.repotag);

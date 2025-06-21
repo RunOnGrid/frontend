@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SliderComp from "@/components/slider/SliderComp";
@@ -30,6 +30,10 @@ const MethodSelectFlux = forwardRef(
     const [showConfig, setShowConfig] = useState(false);
     const [workflowFinished, setWorkflowFinished] = useState(false);
     const [workflowLoading, setWorkflowLoading] = useState(false);
+    const [allowedLocations, setAllowedLocations] = useState([]);
+    const [forbiddenLocations, setForbiddenLocations] = useState([]);
+    const [allSelectedLocations, setAllSelectedLocations] = useState([]);
+
     const { config, setters } = useFluxConfig(email);
     const { loadComponent, resetComponent } = useComponentFormState(setters);
 
@@ -84,6 +88,13 @@ const MethodSelectFlux = forwardRef(
 
     return (
       <div ref={ref} className={`databaseSelect `}>
+        <button
+          onClick={() => {
+            console.log(allSelectedLocations);
+          }}
+        >
+          ver locations
+        </button>
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
@@ -105,6 +116,13 @@ const MethodSelectFlux = forwardRef(
                 setCompDuration={setters.setCompDuration}
                 instances={config.instances}
                 setInstances={setters.setInstances}
+                allowedLocations={allowedLocations}
+                setAllowedLocations={setAllowedLocations}
+                forbiddenLocations={forbiddenLocations}
+                setForbiddenLocations={setForbiddenLocations}
+                darkMode={darkMode}
+                allSelectedLocations={allSelectedLocations}
+                setAllSelectedLocations={setAllSelectedLocations}
               />
             </div>
 
@@ -250,8 +268,6 @@ const MethodSelectFlux = forwardRef(
                   setInstalled={setInstalled}
                   setDisableSelect={setDisableSelect}
                   selectedCloud={selectedCloud}
-                  config={config}
-                  setters={setters}
                   loadComponent={loadComponent}
                   resetComponent={resetComponent}
                   setComponents={setComponents}
@@ -262,6 +278,9 @@ const MethodSelectFlux = forwardRef(
                   setWorkflowFinished={setWorkflowFinished}
                   workflowLoading={workflowLoading}
                   setWorkflowLoading={setWorkflowLoading}
+                  setDeployOption={setDeployOption}
+                  config={config}
+                  setters={setters}
                 />
               </>
             )}
@@ -271,8 +290,6 @@ const MethodSelectFlux = forwardRef(
                 setInstalled={setInstalled}
                 setDisableSelect={setDisableSelect}
                 selectedCloud={selectedCloud}
-                config={config}
-                setters={setters}
                 loadComponent={loadComponent}
                 resetComponent={resetComponent}
                 setComponents={setComponents}
@@ -281,6 +298,10 @@ const MethodSelectFlux = forwardRef(
                 setWorkflowFinished={setWorkflowFinished}
                 workflowLoading={workflowLoading}
                 setWorkflowLoading={setWorkflowLoading}
+                setDeployOption={setDeployOption}
+                config={config}
+                setters={setters}
+                allSelectedLocations={allSelectedLocations}
               />
             </>
           )}

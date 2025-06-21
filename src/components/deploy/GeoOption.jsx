@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
 
+// Helper function to extract the base geographic code
+const getBaseCode = (fullCode) => {
+    if (fullCode === "ac" || fullCode === "a!c") {
+        return fullCode;
+    }
+    if (fullCode.startsWith("ac")) {
+        return fullCode.substring(2);
+    }
+    if (fullCode.startsWith("a!c")) {
+        return fullCode.substring(3);
+    }
+    return fullCode;
+};
+
 const GeoOption = ({
   title,
   darkMode,
   onLocationsChange,
   disabled,
-  disabledLocations,
-  hasSpecialSelection,
+  disabledLocations, // These are now base codes (e.g., ["NA", "EU"])
+  value, // This is the array of full codes (e.g., ["acNA", "acAS"])
 }) => {
-  const [selectedLocations, setSelectedLocations] = useState([]);
+  const [selectedLocations, setSelectedLocations] = useState(value);
   const [currentSelections, setCurrentSelections] = useState([]);
 
   const locations = [
@@ -18,16 +32,15 @@ const GeoOption = ({
     { name: "Europe", code: "acEU" },
     { name: "Asia", code: "acAS" },
     { name: "Oceania", code: "acOC" },
-    { name: "All", code: "" },
+  
   ];
 
   useEffect(() => {
-    if (hasSpecialSelection) {
-      setSelectedLocations([]);
+    if (JSON.stringify(selectedLocations) !== JSON.stringify(value)) {
+      setSelectedLocations(value);
       setCurrentSelections([]);
-      onLocationsChange([]);
     }
-  }, [hasSpecialSelection]);
+  }, [value, selectedLocations]);
 
   const handleToggleSelection = (location) => {
     setCurrentSelections((prev) => {
@@ -47,68 +60,73 @@ const GeoOption = ({
 
   const handleAddLocations = () => {
     if (currentSelections.length > 0) {
-      let newSelectedLocations;
+      let newSelectedCodes;
 
       if (currentSelections.some((loc) => loc.code === "ac")) {
-        newSelectedLocations = [
-          currentSelections.find((loc) => loc.code === "ac"),
-        ];
+        newSelectedCodes = ["ac"];
       } else {
-        newSelectedLocations = [
-          ...selectedLocations,
-          ...currentSelections.filter(
-            (loc) =>
-              !selectedLocations.some((prevLoc) => prevLoc.code === loc.code)
+        const currentSelectionCodes = currentSelections.map((loc) => loc.code);
+        newSelectedCodes = [
+          ...selectedLocations.filter(code => code !== "ac"),
+          ...currentSelectionCodes.filter(
+            (code) => !selectedLocations.includes(code)
           ),
         ];
       }
 
-      setSelectedLocations(newSelectedLocations);
-      onLocationsChange(newSelectedLocations.map((loc) => loc.code));
+      onLocationsChange(newSelectedCodes); // Sends original codes back
       setCurrentSelections([]);
     }
   };
 
-  const handleRemoveLocation = (location) => {
-    const newSelectedLocations = selectedLocations.filter(
-      (loc) => loc.code !== location.code
+  const handleRemoveLocation = (codeToRemove) => {
+    const newSelectedCodes = selectedLocations.filter(
+      (code) => code !== codeToRemove
     );
-    setSelectedLocations(newSelectedLocations);
-    onLocationsChange(newSelectedLocations.map((loc) => loc.code));
+    onLocationsChange(newSelectedCodes); // Sends original codes back
   };
 
   return (
     <div className={`geo-option ${darkMode ? "dark" : "light"}`}>
       <h2>{title}</h2>
       <div className="selected-locations">
-        {selectedLocations.map((location, index) => (
-          <div
-            key={index}
-            className="location forbidden"
-            onClick={() => handleRemoveLocation(location)}
-          >
-            {location.name}
-          </div>
-        ))}
+        {selectedLocations.map((code, index) => {
+          const location = locations.find(loc => loc.code === code);
+          return location ? (
+            <div
+              key={index}
+              className="location selected"
+              onClick={() => handleRemoveLocation(location.code)}
+            >
+              {location.name}
+            </div>
+          ) : null;
+        })}
       </div>
       <div className="geo-locations">
         {locations.map((location, index) => {
+          const isSelectedInCurrent = currentSelections.some(
+            (loc) => loc.code === location.code
+          );
+          const alreadyAdded = selectedLocations.includes(location.code);
+
+          // Get the base code for comparison
+          const currentButtonBaseCode = getBaseCode(location.code);
+
           const isLocationDisabled =
             disabled ||
-            disabledLocations.includes(location.code) ||
-            (selectedLocations.some((loc) => loc.code === "ac") &&
+            // Check if the base code of this button is in the disabledLocations (from the other component)
+            (location.code !== "ac" && disabledLocations.includes(currentButtonBaseCode)) ||
+            (currentSelections.some((loc) => loc.code === "ac") &&
               location.code !== "ac") ||
-            (location.code !== "ac" &&
-              selectedLocations.some((loc) => loc.code === location.code));
+            (selectedLocations.includes("ac") &&
+              location.code !== "ac") ||
+            (location.code !== "ac" && alreadyAdded);
 
           return (
             <button
               key={index}
-              className={`geo-button ${
-                currentSelections.some((loc) => loc.code === location.code)
-                  ? "selected"
-                  : ""
-              }`}
+              className={`geo-button ${isSelectedInCurrent ? "selected" : ""}`}
               onClick={() => handleToggleSelection(location)}
               disabled={isLocationDisabled}
             >

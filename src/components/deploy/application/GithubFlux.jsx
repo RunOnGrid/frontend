@@ -11,13 +11,12 @@ import FluxInputs from "@/components/flux/FluxInputs";
 import EnvFlux from "@/components/flux/EnvFlux";
 import NetFlux from "@/components/flux/NetFlux";
 import ComponentsTable from "@/components/flux/ComponentTable";
+import { useFluxConfig } from "@/hooks/useFluxConfig";
 
 const GithubFlux = ({
   setInstalled,
   setDisableSelect,
   selectedCloud,
-  config,
-  setters,
   setComponents,
   components,
   showConfig,
@@ -26,6 +25,9 @@ const GithubFlux = ({
   setWorkflowFinished,
   workflowLoading,
   setWorkflowLoading,
+  setDeployOption,
+  setters,
+  config,
 }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
@@ -96,38 +98,7 @@ const GithubFlux = ({
     setIsEditing,
     setEditingId,
   } = setters;
-  // const imageValidator = async () => {
-  //   try {
-  //     const response = await fetch("/api/image-validator", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //       body: JSON.stringify({
-  //         username: owner,
-  //         pat: pat,
-  //         imagePath: imagePath.toLowerCase(),
-  //       }),
-  //     });
-  //     console.log(owner, pat, imagePath);
-  //     if (!response.ok) {
-  //       setImageError(true);
-  //       setError(err.message);
-  //       return false;
-  //     }
-  //     const data = await response.json();
-  //     setValidatorMsg("");
-  //     setImageError(false);
 
-  //     return true;
-  //   } catch (err) {
-  //     setImageError(true);
-  //     setError(err.message);
-
-  //     return false;
-  //   }
-  // };
   const handleSummary = async () => {
     // const isImageValid = await imageValidator();
 
@@ -516,54 +487,12 @@ const GithubFlux = ({
                 setWorkflowFinished={setWorkflowFinished}
                 workflowLoading={workflowLoading}
                 setWorkflowLoading={setWorkflowLoading}
+                setDeployOption={setDeployOption}
+                setSummary={setters.setSummary}
+                config={config}
+                setters={setters}
+                setShowConfig={setShowConfig}
               />
-              {/* <SummaryAkash
-                cpu={cpu}
-                ram={memory}
-                hdd={hdd}
-                mode={darkMode}
-                name={name}
-                setSummary={setSummary}
-                setAgree={setAgree}
-                price={compPrice}
-                setActiveStep={setActiveStep}
-                summaryStep={4}
-              />
-              <div className="termService">
-                <Botonera2 setAgree={setAgree} agree={agree} />
-                <h4>I agree with Terms of Service</h4>
-              </div>
-              {fundsError !== "" ? (
-                <h3 className="error-message-login">{fundsError}</h3>
-              ) : (
-                ""
-              )}
-              <div
-                className={
-                  agree
-                    ? "deploy-button-wrapper"
-                    : "deploy-button-wrapper-disabled"
-                }
-              >
-                <div className="line-background"></div>
-                {isLoading ? (
-                  <div className="loading-container">
-                    <LoadingText />
-                  </div>
-                ) : (
-                  <>
-                    <button
-                      className="deploy-button"
-                      onClick={() => {
-                        handlePaymentSuccess();
-                      }}
-                      disabled={isLoading}
-                    >
-                      Deploy
-                    </button>
-                  </>
-                )}
-              </div> */}
             </div>
           )}
         </div>
@@ -685,4 +614,85 @@ export default GithubFlux;
                     </div>
                   </div>
                 </div> */
+}
+// const imageValidator = async () => {
+//   try {
+//     const response = await fetch("/api/image-validator", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${accessToken}`,
+//       },
+//       body: JSON.stringify({
+//         username: owner,
+//         pat: pat,
+//         imagePath: imagePath.toLowerCase(),
+//       }),
+//     });
+//     console.log(owner, pat, imagePath);
+//     if (!response.ok) {
+//       setImageError(true);
+//       setError(err.message);
+//       return false;
+//     }
+//     const data = await response.json();
+//     setValidatorMsg("");
+//     setImageError(false);
+
+//     return true;
+//   } catch (err) {
+//     setImageError(true);
+//     setError(err.message);
+
+//     return false;
+//   }
+// };
+{
+  /* <SummaryAkash
+                cpu={cpu}
+                ram={memory}
+                hdd={hdd}
+                mode={darkMode}
+                name={name}
+                setSummary={setSummary}
+                setAgree={setAgree}
+                price={compPrice}
+                setActiveStep={setActiveStep}
+                summaryStep={4}
+              />
+              <div className="termService">
+                <Botonera2 setAgree={setAgree} agree={agree} />
+                <h4>I agree with Terms of Service</h4>
+              </div>
+              {fundsError !== "" ? (
+                <h3 className="error-message-login">{fundsError}</h3>
+              ) : (
+                ""
+              )}
+              <div
+                className={
+                  agree
+                    ? "deploy-button-wrapper"
+                    : "deploy-button-wrapper-disabled"
+                }
+              >
+                <div className="line-background"></div>
+                {isLoading ? (
+                  <div className="loading-container">
+                    <LoadingText />
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      className="deploy-button"
+                      onClick={() => {
+                        handlePaymentSuccess();
+                      }}
+                      disabled={isLoading}
+                    >
+                      Deploy
+                    </button>
+                  </>
+                )}
+              </div> */
 }
