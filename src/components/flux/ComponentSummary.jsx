@@ -5,8 +5,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { TokenService } from "../../../tokenHandler";
 
-const ComponentSummary = ({ components, allSelectedLocations }) => {
-  const [agree, setAgree] = useState(false);
+const ComponentSummary = ({
+  components,
+  allSelectedLocations,
+  setWorkflowFinished,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const router = useRouter();
@@ -70,10 +73,10 @@ const ComponentSummary = ({ components, allSelectedLocations }) => {
               <tr>
                 <th>Source</th>
                 <th>Components</th>
-                {/* <th>Instances</th> */}
                 <th>CPU</th>
                 <th>RAM</th>
                 <th>SSD</th>
+                <th>Subtotal</th>
               </tr>
             </thead>
             <tbody>
@@ -101,6 +104,7 @@ const ComponentSummary = ({ components, allSelectedLocations }) => {
                         component.compose[0].hdd ||
                         "---"}
                     </td>
+                    <td>${component.price.toFixed(2)}</td>
                   </tr>
                 </>
               ))}
@@ -109,15 +113,19 @@ const ComponentSummary = ({ components, allSelectedLocations }) => {
           <h3 className="span-total-summary">Total: ${totalPrice}</h3>
         </div>
       </div>
-      <div className="termService">
+      {/* <div className="termService">
         <Botonera2 setAgree={setAgree} agree={agree} />
         <h4>I agree with Terms of Service</h4>
-      </div>
-      <div
-        className={
-          agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-        }
+      </div> */}
+      <button
+        onClick={() => {
+          setWorkflowFinished(false);
+        }}
+        className="add-button5"
       >
+        Edit components
+      </button>
+      <div className="deploy-button-wrapper">
         <div className="line-background"></div>
         {isLoading ? (
           <div className="loading-container">

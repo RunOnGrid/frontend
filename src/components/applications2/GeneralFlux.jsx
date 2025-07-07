@@ -64,7 +64,7 @@ const extractConfigDetails = (app) => {
 
 const GeneralFlux = ({ darkMode, app }) => {
   const configDetails = extractConfigDetails(app);
-  console.log(app);
+
   return (
     <div className={`main-content ${darkMode ? "dark" : "light"}`}>
       <div className="general">

@@ -132,9 +132,10 @@ const LoginScreen = () => {
         localStorage.setItem("grid_email", email);
 
         router.push("/profile");
+      } else if (response.status === 403) {
+        setError("Please verify your email");
       } else {
-        const errorData = await response.json();
-        setError("Invalid Credentials!");
+        setError("Invalid Credentials");
       }
     } catch (error) {
       console.error("Login error:", error);

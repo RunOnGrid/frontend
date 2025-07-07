@@ -103,16 +103,19 @@ const MethodSelectAkash = forwardRef(
             >
               <Image
                 alt=""
-                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/369e3a29-c8f7-481e-6234-1e5e1c26e500/public"
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7dd0dd0c-99bd-4ac0-f4c6-f00622e19e00/public"
                 height={50}
                 width={50}
               />
-
+              <img
+                alt=""
+                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/ce196ae6-b580-40c8-f971-634b6a3a2300/public"
+                height={50}
+                width={50}
+                className="icon-container"
+              />
               <h4>Container registry</h4>
               <p>Specify your image URL : Ex: gridcloud/hello-app:1.0</p>
-              <p className="deploy-sub-p">
-                :latest tag is not recommended on akash deploys
-              </p>
             </div>
           </div>
           {grid ? (

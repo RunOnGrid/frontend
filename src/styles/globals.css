@@ -185,6 +185,11 @@ textarea {
 }
 .edit-comp{
   cursor: pointer;
+  margin: 5px;
+  transition: transform 0.3s ease-out
+}
+.edit-comp:hover{
+  transform: translateY(-3px)
 }
 .components-table {
   width: 100%;

@@ -44,6 +44,7 @@ const MethodSelectFlux = forwardRef(
       setters.setName("");
       setters.setRepoTag("");
       setters.setSummary(false);
+      setters.setColapse(false);
       setDeployOption("githubFlux");
     };
     const handleDocker = () => {
@@ -54,6 +55,7 @@ const MethodSelectFlux = forwardRef(
       setters.setName("");
       setters.setRepoTag("");
       setters.setSummary(false);
+      setters.setColapse(false);
       setDeployOption("dockerFlux");
     };
     const handleLoadComp = (component) => {
@@ -119,7 +121,7 @@ const MethodSelectFlux = forwardRef(
               />
             </div>
 
-            <div className={`component-list`}>
+            {/* <div className={`component-list`}>
               <h4>Current Components</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 {components.map((comp, index) => (
@@ -146,8 +148,8 @@ const MethodSelectFlux = forwardRef(
                   </div>
                 ))}
               </div>
-            </div>
-            {components.length === 10 ? (
+            </div> */}
+            {/* {components.length === 10 ? (
               ""
             ) : (
               <button
@@ -160,9 +162,9 @@ const MethodSelectFlux = forwardRef(
                   resetFlow();
                 }}
               >
-                Add new comp +
+                Add component +
               </button>
-            )}
+            )} */}
           </div>
 
           <div
@@ -274,6 +276,7 @@ const MethodSelectFlux = forwardRef(
                   setDeployOption={setDeployOption}
                   config={config}
                   setters={setters}
+                  resetFlow={resetFlow}
                 />
               </>
             )}
@@ -295,6 +298,8 @@ const MethodSelectFlux = forwardRef(
                 config={config}
                 setters={setters}
                 allSelectedLocations={allSelectedLocations}
+                resetFlow={resetFlow}
+                setShowConfig={setShowConfig}
               />
             </>
           )}
