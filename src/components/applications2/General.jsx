@@ -105,7 +105,6 @@ const General = ({ darkMode, app }) => {
         <div className="general-item">
           <label>Service name</label>
           <span> {configDetails.dcloudProfile}</span>
-          {/* <span className="edit-icon">✏️</span> */}
         </div>
 
         <div className="general-item">

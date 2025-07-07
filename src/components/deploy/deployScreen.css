@@ -75,6 +75,18 @@
   display: flex;
   justify-content: space-around;
 }
+.collapsible-section {
+  max-height: 1000px; /* A sufficiently large value to accommodate content */
+  opacity: 1;
+  overflow: hidden; /* Hide content that goes beyond max-height */
+  transition: max-height 0.7s ease-in-out, opacity 0.7s ease-in-out; /* Smooth transition */
+}
+
+/* Styles when the section is collapsed */
+.collapsible-section.collapsed {
+  max-height: 0; /* Collapse the height */
+  opacity: 0; /* Fade out the content */
+}
 .sub-component-container{
   border: 2px solid #e0e0e0;
   padding: 20px;
@@ -652,7 +664,7 @@
   justify-content: center;
   width: 100%;
 }
-.add-button4, .add-button5 {
+.add-button4, .add-button5, .add-button6 {
   display: flex;
   border: 2px solid #00b174 !important;
   border-radius: 20px;
@@ -661,7 +673,7 @@
   font-weight: 600 !important;
   cursor: pointer;
   margin: auto !important;
-  margin-top: 40px !important;
+  
   justify-content: center !important;
   width: 120px;
 }
@@ -670,9 +682,20 @@
 }
 .add-button5 {
   width: auto;
+  margin-bottom: 10px !important;
+  margin-top: 20px !important;
+}
+.add-button4 {
+  margin-top: 20px !important;
 }
 .add-button5:hover {
   background-color: white;
+  margin-top: 0px !important;
+}
+.add-button6{
+   width: auto;
+  margin-right: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .add-button3 {

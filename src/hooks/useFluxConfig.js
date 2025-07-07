@@ -23,6 +23,7 @@ export function useFluxConfig(defaultEmail = "", email) {
   const [isEditing, setIsEditing] = useState(false)
   const [editingId, setEditingId] = useState(null);
   const [cloud, setCloud] = useState('FLUX')
+  const [colapse, setColapse] = useState(false);
 
   return {
     config: {
@@ -47,7 +48,8 @@ export function useFluxConfig(defaultEmail = "", email) {
       docker,
       isEditing,
       editingId,
-      cloud
+      cloud,
+      colapse,
     },
     setters: {
       setCompDuration,
@@ -71,7 +73,8 @@ export function useFluxConfig(defaultEmail = "", email) {
       setGrid,
       setIsEditing,
       setEditingId,
-      setCloud
+      setCloud,
+      setColapse,
     },
   };
 }

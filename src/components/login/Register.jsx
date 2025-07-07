@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import TrianglesLeft from "../landing-AsicHosting/TrianglesLeft";
 import Link from "next/link";
 import Image from "next/image";
+import Spinner from "@/commons/Spinner";
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ const RegisterScreen = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [passwordVisible2, setPasswordVisible2] = useState(false);
   const [successfull, setSuccessfull] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -27,6 +29,7 @@ const RegisterScreen = () => {
       return;
     }
     try {
+      setLoading(true);
       const response = await fetch("/api/register-proxy", {
         method: "POST",
         headers: {
@@ -36,9 +39,12 @@ const RegisterScreen = () => {
       });
       if (response.ok) {
         setSuccessfull(true);
+        setLoading(false);
       } else if (response.status === 409) {
+        setLoading(false);
         setError("Email already in use");
       } else {
+        setLoading(false);
         setError("An unexpected error occurred. Please try again.");
       }
     } catch (error) {
@@ -159,9 +165,13 @@ const RegisterScreen = () => {
                 </span>
               </div>
               {error && <p className="error-message">{error}</p>}
-              <button type="submit" disabled={error}>
-                Sign Up
-              </button>
+              {loading ? (
+                <Spinner />
+              ) : (
+                <button type="submit" disabled={error}>
+                  Sign Up
+                </button>
+              )}
             </form>
             <p>
               Already have an account?{" "}

@@ -11,7 +11,7 @@ import FluxInputs from "@/components/flux/FluxInputs";
 import EnvFlux from "@/components/flux/EnvFlux";
 import NetFlux from "@/components/flux/NetFlux";
 import ComponentsTable from "@/components/flux/ComponentTable";
-import { useFluxConfig } from "@/hooks/useFluxConfig";
+
 
 const GithubFlux = ({
   setInstalled,
@@ -28,20 +28,17 @@ const GithubFlux = ({
   setDeployOption,
   setters,
   config,
+  resetFlow,
 }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
 
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
-  const [memory, setMemory] = useState(1000);
-  const [showEnv, setShowEnv] = useState(false);
-
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [activeStep, setActiveStep] = useState(1);
   const [activeTab, setActiveTab] = useState("builder");
   const [existingNames, setExistingNames] = useState([]);
-  const [agree, setAgree] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState(null);
   const [repositories, setRepositories] = useState([0, 1]);
@@ -73,7 +70,6 @@ const GithubFlux = ({
     cpu,
     ram,
     hdd,
-    tiered,
     pat,
     owner,
     instances,
@@ -90,13 +86,10 @@ const GithubFlux = ({
     setCpu,
     setRam,
     setHdd,
-    setTiered,
     setPat,
     setOwner,
     setInstances,
     setSummary,
-    setIsEditing,
-    setEditingId,
   } = setters;
 
   const handleSummary = async () => {
@@ -127,6 +120,7 @@ const GithubFlux = ({
         setActiveStep(5);
         setValidatorMsg("");
         setImageError(false);
+        setters.setColapse(true);
       }
     }
   };
@@ -333,60 +327,60 @@ const GithubFlux = ({
     }
   }, [repositories]);
 
-  const handlePaymentSuccess = async () => {
-    setIsLoading(true);
-    if (insufficient) {
-      setFundsError("Insufficient funds");
-      setIsLoading(false);
-      return;
-    }
-    try {
-      const deploymentConfig = {
-        name: name,
-        description: "Application deployed by Grid",
-        compose: [
-          {
-            name: name,
-            description: "Application deployed by Grid",
-            repotag: repoTag,
-            domains: domain || [""],
-            environmentParameters: envs || [],
-            commands: commands || [],
-            containerPorts: port || [8080],
-            cpu: cpu,
-            ram: ram,
-            hdd: hdd,
-            tiered: true,
-            secrets: "",
-            repoauth: `${owner.toLowerCase()}:${pat}`,
-          },
-        ],
-        expire: compDuration,
-        instances: instances,
-      };
+  // const handlePaymentSuccess = async () => {
+  //   setIsLoading(true);
+  //   if (insufficient) {
+  //     setFundsError("Insufficient funds");
+  //     setIsLoading(false);
+  //     return;
+  //   }
+  //   try {
+  //     const deploymentConfig = {
+  //       name: name,
+  //       description: "Application deployed by Grid",
+  //       compose: [
+  //         {
+  //           name: name,
+  //           description: "Application deployed by Grid",
+  //           repotag: repoTag,
+  //           domains: domain || [""],
+  //           environmentParameters: envs || [],
+  //           commands: commands || [],
+  //           containerPorts: port || [8080],
+  //           cpu: cpu,
+  //           ram: ram,
+  //           hdd: hdd,
+  //           tiered: true,
+  //           secrets: "",
+  //           repoauth: `${owner.toLowerCase()}:${pat}`,
+  //         },
+  //       ],
+  //       expire: compDuration,
+  //       instances: instances,
+  //     };
 
-      const response = await fetch("/api/flux-deploy", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify(deploymentConfig),
-      });
+  //     const response = await fetch("/api/flux-deploy", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //       body: JSON.stringify(deploymentConfig),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      router.push("/profile");
-    } catch (error) {
-      console.error("Deployment error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     router.push("/profile");
+  //   } catch (error) {
+  //     console.error("Deployment error:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   return (
     <div>
       {repositories.length === 0 && (
@@ -394,107 +388,116 @@ const GithubFlux = ({
           <Spinner />
         </div>
       )}
-      {showBuildSettings && (
-        <div ref={servicesRef}>
-          <BuildSettings
-            repositories={repositories}
-            darkMode={darkMode}
-            summary={summary}
-            setRepoTag={setRepoTag}
-            setOwner={setOwner}
-            owner={owner.toLowerCase()}
-            onNext={() => handleShowConfig()}
-            setDisableSelect={setDisableSelect}
-            setPat={setPat}
-            cpu={cpu}
-            setCpu={setCpu}
-            ram={ram}
-            setRam={setRam}
-            hdd={hdd}
-            setHdd={setHdd}
-            setImagePath={setImagePath}
-            setInstances={setInstances}
-            min={3}
-            singleRepo={singleRepo}
-            setSingleRepo={setSingleRepo}
-            branch={branch}
-            setBranch={setBranch}
-            installationId={installationId}
-            setInstallationId={setInstallationId}
-            instances={instances}
-            cloud={"flux"}
-          />
-        </div>
-      )}
-      {showConfig && (
-        <div ref={envRef} className="databaseSelect">
-          <div>
-            {/* <h2>Deployment configurations</h2>
+      <div
+        className={`collapsible-section ${config.colapse ? "collapsed" : ""}`}
+      >
+        {showBuildSettings && (
+          <div ref={servicesRef}>
+            <BuildSettings
+              repositories={repositories}
+              darkMode={darkMode}
+              summary={summary}
+              setRepoTag={setRepoTag}
+              setOwner={setOwner}
+              owner={owner.toLowerCase()}
+              onNext={() => handleShowConfig()}
+              setDisableSelect={setDisableSelect}
+              setPat={setPat}
+              cpu={cpu}
+              setCpu={setCpu}
+              ram={ram}
+              setRam={setRam}
+              hdd={hdd}
+              setHdd={setHdd}
+              setImagePath={setImagePath}
+              setInstances={setInstances}
+              min={3}
+              singleRepo={singleRepo}
+              setSingleRepo={setSingleRepo}
+              branch={branch}
+              setBranch={setBranch}
+              installationId={installationId}
+              setInstallationId={setInstallationId}
+              instances={instances}
+              cloud={"flux"}
+            />
+          </div>
+        )}
+        {showConfig && (
+          <div ref={envRef} className="databaseSelect">
+            <div>
+              {/* <h2>Deployment configurations</h2>
 
             <p>Configure your deployment settings.</p> */}
 
-            {activeTab === "builder" ? (
-              <div className={` ${summary ? "disabled2" : ""}`}>
-                <FluxInputs
-                  name={name}
-                  handleNameChange={handleNameChange}
-                  darkMode={darkMode}
-                  errorMessage2={errorMessage2}
-                  errorMessage={errorMessage}
-                  pat={pat}
-                  handlePat={handlePat}
-                />
-                <div style={{ display: "flex" }}>
-                  <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
-                  <NetFlux
-                    setPort={setPort}
-                    port={port}
-                    domain={domain}
-                    setDomain={setDomain}
+              {activeTab === "builder" ? (
+                <div className={` ${summary ? "disabled2" : ""}`}>
+                  <FluxInputs
+                    name={name}
+                    handleNameChange={handleNameChange}
                     darkMode={darkMode}
+                    errorMessage2={errorMessage2}
+                    errorMessage={errorMessage}
+                    pat={pat}
+                    handlePat={handlePat}
                   />
+                  <div style={{ display: "flex" }}>
+                    <EnvFlux
+                      darkMode={darkMode}
+                      envs={envs}
+                      setEnvs={setEnvs}
+                    />
+                    <NetFlux
+                      setPort={setPort}
+                      port={port}
+                      domain={domain}
+                      setDomain={setDomain}
+                      darkMode={darkMode}
+                    />
+                  </div>
                 </div>
-              </div>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+              )}
 
-            {validatorMsg !== "" ? (
-              <span className="error-message-login">{validatorMsg}</span>
-            ) : (
-              ""
-            )}
-            {summary && !priceLoader ? null : priceLoader ? (
-              <Spinner />
-            ) : (
-              <button
-                className="add-button4"
-                onClick={() => {
-                  handleSummary();
-                }}
-              >
-                Continue
-              </button>
-            )}
-          </div>
-
-          {components.length > 0 && summary && (
-            <div ref={deployRef}>
-              <ComponentsTable
-                setComponents={setComponents}
-                components={components}
-                workflowFinished={workflowFinished}
-                setWorkflowFinished={setWorkflowFinished}
-                workflowLoading={workflowLoading}
-                setWorkflowLoading={setWorkflowLoading}
-                setDeployOption={setDeployOption}
-                setSummary={setters.setSummary}
-                config={config}
-                setters={setters}
-                setShowConfig={setShowConfig}
-              />
+              {validatorMsg !== "" ? (
+                <span className="error-message-login">{validatorMsg}</span>
+              ) : (
+                ""
+              )}
+              {summary && !priceLoader ? null : priceLoader ? (
+                <Spinner />
+              ) : (
+                <button
+                  className="add-button4"
+                  onClick={() => {
+                    handleSummary();
+                  }}
+                >
+                  Continue
+                </button>
+              )}
             </div>
-          )}
+          </div>
+        )}
+      </div>
+
+      {components.length > 0 && summary && (
+        <div ref={deployRef}>
+          <ComponentsTable
+            setComponents={setComponents}
+            components={components}
+            workflowFinished={workflowFinished}
+            setWorkflowFinished={setWorkflowFinished}
+            workflowLoading={workflowLoading}
+            setWorkflowLoading={setWorkflowLoading}
+            setDeployOption={setDeployOption}
+            setSummary={setters.setSummary}
+            config={config}
+            setters={setters}
+            setShowConfig={setShowConfig}
+            resetFlow={resetFlow}
+          />
         </div>
       )}
     </div>

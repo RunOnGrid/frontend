@@ -404,10 +404,10 @@ const GithubAkash = ({
                 setActiveStep={setActiveStep}
                 summaryStep={2}
               />
-              <div className="termService">
+              {/* <div className="termService">
                 <Botonera2 setAgree={setAgree} agree={agree} />
                 <h4>I agree with Terms of Service</h4>
-              </div>
+              </div> */}
               {fundsError !== "" ? (
                 <h3 className="error-message-login">{fundsError}</h3>
               ) : (
