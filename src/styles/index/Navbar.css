@@ -526,7 +526,7 @@ button:active {
     display: none !important;
   }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 550px) {
   .hamburguer-navbar {
     display: flex;
     justify-content: flex-end;
@@ -534,6 +534,9 @@ button:active {
     margin-left: auto;
     background-color: transparent;
     border-style: none;
+  }
+  .boton-landing1{
+    display: none;
   }
 }
 @media only screen and (max-width: 1300px) {

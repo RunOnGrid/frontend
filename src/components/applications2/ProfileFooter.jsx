@@ -46,12 +46,19 @@ const MobileFooterBar = () => {
           href="/profile/deployApp"
           className={`${styles.footerItem} ${styles.logoutItem}`}
         >
-          <div className={styles.deployButton}>
-            <span>+</span>
-          </div>
+          <Image src="/add.png" alt="Home" width={24} height={24} />
           <span className={styles.footerItemLabel}>Deploy</span>
         </Link>
-
+        <Link href="/profile/billing" className={styles.footerItem}>
+          <Image src="/invoice.png" alt="Home" width={24} height={24} />
+          <span
+            className={`${styles.footerItemLabel} ${isActive(
+              "/profile/billing"
+            )}`}
+          >
+            Billing
+          </span>
+        </Link>
         <div
           onClick={() => handleLogout()}
           className={`${styles.footerItem} ${styles.logoutItem}`}

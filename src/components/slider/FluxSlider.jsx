@@ -51,7 +51,11 @@ const FluxSlider = ({
   };
 
   return (
-    <div className={`slider-container ${disableSelect ? "disabled" : ""}`}>
+    <div
+      className={`slider-container ${disableSelect ? "disabled" : ""} ${
+        darkMode ? "dark" : "light"
+      }`}
+    >
       <div className="slider-item">
         <div className="slider-label">
           <span>

@@ -150,7 +150,6 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </span>
           </Link>
 
-          <ThemeToggle />
           <div className="footer-sidebar">
             <div className="contact-links">
               <div className="social-icons">
@@ -207,6 +206,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               </div>
             </div>
           </div>
+          <ThemeToggle />
         </ul>
       </nav>
     </>

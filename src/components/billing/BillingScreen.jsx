@@ -5,6 +5,7 @@ import NextPayment from "./NextPayment";
 import DepositFunds from "./FundsComponent";
 import HoverInfo from "@/commons/HoverInfo";
 import { TokenService } from "../../../tokenHandler";
+import MobileFooterBar from "../applications2/ProfileFooter";
 
 const BillingScreen = () => {
   const { darkMode } = useTheme();
@@ -66,8 +67,9 @@ const BillingScreen = () => {
         <div className="billing-container2">
           <NextPayment />
         </div>
-        <DepositFunds handleIntent={handleIntent} />
+        <DepositFunds handleIntent={handleIntent} darkMode={darkMode} />
       </div>
+      <MobileFooterBar />
     </div>
   );
 };
