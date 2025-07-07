@@ -144,16 +144,12 @@ const General = ({ darkMode, app }) => {
         </div>
 
         <div className="general-item">
-          <label>CPU Units</label>
-          <span>{configDetails.cpuUnits}</span>
-        </div>
-        <div className="general-item">
-          <label>Memory</label>
-          <span>{configDetails.memorySize}</span>
-        </div>
-        <div className="general-item">
-          <label>Storage</label>
-          <span>{configDetails.storageSize}</span>
+          <label>Instance resources</label>
+          <span>
+            CPU({configDetails.cpuUnits})--Memory(
+            {configDetails.memorySize}
+            )--Storage({configDetails.storageSize})
+          </span>
         </div>
 
         <div className="general-item">

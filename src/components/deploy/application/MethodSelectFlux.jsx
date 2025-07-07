@@ -88,13 +88,6 @@ const MethodSelectFlux = forwardRef(
 
     return (
       <div ref={ref} className={`databaseSelect `}>
-        <button
-          onClick={() => {
-            console.log(allSelectedLocations);
-          }}
-        >
-          ver locations
-        </button>
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">

@@ -870,6 +870,69 @@ input:checked + .slider:before {
   font-weight: 500;
 }
 
+/* Styles for the container */
+.theme-toggle-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left:21px ;
+  margin-top: 10px;
+  
+}
+
+/* Styles for the main switch (the track) */
+.theme-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px; /* Adjust as needed */
+  height: 24px; /* Adjust as needed */
+}
+
+/* Hide the default checkbox */
+.theme-toggle-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Styles for the slider (the thumb) */
+.theme-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border:2px solid white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 34px; /* Makes it round if height is half of width */
+  display: flex; /* To center the image */
+  align-items: center; /* To center the image */
+  justify-content: flex-start; /* Initial position for the icon */
+}
+
+
+
+/* Styles for the round slider */
+.theme-toggle-slider-round {
+  border-radius: 34px; /* Ensure it's round */
+}
+
+/* Styles for the icon */
+.theme-toggle-slider-icon {
+  position: absolute; /* Position relative to the slider */
+  left: 4px; /* Initial position for the sun icon */
+  transition: transform 0.4s ease; /* Smooth transition for movement */
+}
+
+/* Move the icon when the checkbox is checked (dark mode) */
+.theme-toggle-checkbox:checked + .theme-toggle-slider .theme-toggle-slider-icon {
+  transform: translateX(
+    26px
+  ); /* Adjust this value based on your slider width and icon size */
+  /* This value is typically (slider_width - icon_width - (2 * padding_on_each_side)) */
+}
 
 @media only screen and (max-width: 1250px) {
   .team-date{

@@ -1,6 +1,6 @@
 import React from "react";
 
-const DepositFunds = ({ handleIntent }) => {
+const DepositFunds = ({ handleIntent, darkMode }) => {
   const handleShow = () => {
     const amount = 0; // Este valor se ignora en el backend si lo sobrescribís en el server
     handleIntent(amount);
@@ -13,8 +13,13 @@ const DepositFunds = ({ handleIntent }) => {
       </div>
 
       <div className="payment-options">
-        <div onClick={handleShow} className="payment-option">
-          <div className="logo-container2 stripe">
+        <div
+          onClick={handleShow}
+          className={`payment-option ${darkMode ? "dark" : "light"}`}
+        >
+          <div
+            className={`logo-container2 stripe ${darkMode ? "dark" : "light"}`}
+          >
             <img
               src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/6fd2edb0-d547-44f2-ef81-cbf20b40ba00/public"
               alt="Stripe"
@@ -23,7 +28,7 @@ const DepositFunds = ({ handleIntent }) => {
           <h3>Stripe</h3>
           <p>Stripe payment</p>
         </div>
-        <div className="payment-option soon">
+        <div className={`payment-option ${darkMode ? "dark" : "light"} soon`}>
           <div className="logo-container2 flux">
             <img
               src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e4e88f78-5122-4105-a70d-bf8f2cc9c000/public"
@@ -33,7 +38,7 @@ const DepositFunds = ({ handleIntent }) => {
           <h3>Flux</h3>
           <p>Soon</p>
         </div>
-        <div className="payment-option soon">
+        <div className={`payment-option ${darkMode ? "dark" : "light"} soon`}>
           <div className="logo-container2 stablecoin">
             <img
               src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d8b9dc13-5792-4d00-d9c2-d6459dc9a100/public"
