@@ -179,7 +179,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
                 </Link>
               </div>
               <div className="contact-options">
-                <Link href="https://documentation-dev.ongrid.run/">
+                <Link href="https://documentation.ongrid.run/">
                   <div className="contact-item">
                     <img
                       src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/56ce0730-367d-40f2-cbc9-334ff69e1400/public"

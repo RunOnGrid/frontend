@@ -48,7 +48,7 @@ function Navbar({ scrollToContactForm }) {
             </Link>
             <Link
               className="boton-landing"
-              href="https://documentation-dev.ongrid.run/"
+              href="https://documentation.ongrid.run/"
             >
               <div className="border">Docs</div>
             </Link>
