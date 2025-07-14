@@ -19,16 +19,34 @@ const DockerSettings = ({
   setHost,
   setTiered,
   tiered,
+  existingNames,
+  setErrorMessage2,
 }) => {
-  // Estados para los diferentes campos del formulario
-  const [image, setImage] = useState("");
-  const [username, setUsername] = useState("");
-  const [token, setToken] = useState("");
   const [branch, setBranch] = useState("Github Container Registry - ghcr.io");
 
-  // Manejadores de eventos para los cambios en los inputs
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    if (existingNames) {
+      const inputValue = e.target.value;
+
+      const alphanumericRegex = /^[a-zA-Z0-9]*$/;
+
+      // Verificar si el input cumple con la expresión regular
+      if (alphanumericRegex.test(inputValue)) {
+        const lowercaseValue = inputValue.toLowerCase();
+
+        const isNameTaken = existingNames.includes(lowercaseValue);
+
+        setName(lowercaseValue);
+
+        if (isNameTaken) {
+          setErrorMessage2("This service name is already in use");
+        } else {
+          setErrorMessage2("");
+        }
+      }
+    } else {
+      setName(e.target.value);
+    }
   };
 
   const handleImageChange = (e) => {
@@ -105,6 +123,7 @@ const DockerSettings = ({
               className={`custom-input ${darkMode ? "dark" : "light"}`}
               value={repoTag}
               onChange={handleImageChange}
+              placeholder=":latest tag is not recommended on akash deploys"
               required
             />
           </div>
@@ -156,6 +175,11 @@ const DockerSettings = ({
                       type="text"
                       className={`custom-input ${darkMode ? "dark" : "light"}`}
                       value={pat}
+                      placeholder={
+                        branch === "Github Container Registry - ghcr.io"
+                          ? "Ex: ghp_YFJ7JU2iqZjDxUpDojUAx2wBhLLkhw4Z2Arm"
+                          : ""
+                      }
                       onChange={handleTokenChange}
                       required
                     />

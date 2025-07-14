@@ -9,6 +9,7 @@ const SliderComp = ({
   unit = "",
   unitPlural = "",
   setInstances,
+  darkMode,
 }) => {
   const [duration, setDuration] = useState(initialDuration);
   const [isDragging, setIsDragging] = useState(false);
@@ -19,7 +20,7 @@ const SliderComp = ({
   };
 
   return (
-    <div className="slider-container">
+    <div className={`slider-container ${darkMode ? "dark" : "light"}`}>
       <div className="slider-label">
         <span>
           {label}: {duration}

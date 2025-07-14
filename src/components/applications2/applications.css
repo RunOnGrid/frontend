@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 30px;
   }
   .desktop-view {
     display: flex;
@@ -104,6 +104,7 @@
     font-size: 0.8rem;
     font-weight: 700;
     margin: 0;
+    width: 60%;
   }
   
   .table-row h5 {
@@ -224,10 +225,7 @@
     background-color: #dbdbdb;
     color: black;
   }
-  .dropdown.dark li{
-   
-    
-  }
+ 
   .dropdown.light{
     background-color: white;
     border: 1px  solid  rgba(128, 128, 128, 0.212);
@@ -431,15 +429,13 @@
     background-color: #161F21;
   }
 
-
-  
-
-  
   .general-item {
     display: flex;
     align-items: center;
-    margin: 0px 0;
-    padding: 25px;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 35px;
+    
   }
   .general-item select{
     display: flex;
@@ -487,11 +483,15 @@
     width: 60%;
   }
   .general-item span{
-    
+    background-color: #f4f4f4;
     color: black;
     font-weight: 500;
     font-size: 0.9rem;
     margin-right: auto;
+    height: 25px;
+    padding: 5px 12px;
+    border-radius: 25px;
+    align-items: center;
   }
   
   .status.active {
@@ -687,11 +687,7 @@
   align-items: center;
 }
 
-.social-icons {
-  display: flex;
-  gap: 0.5rem;
-  margin-left: 1rem;
-}
+
 
 .footer-support {
   display: flex;

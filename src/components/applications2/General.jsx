@@ -105,7 +105,6 @@ const General = ({ darkMode, app }) => {
         <div className="general-item">
           <label>Service name</label>
           <span> {configDetails.dcloudProfile}</span>
-          {/* <span className="edit-icon">✏️</span> */}
         </div>
 
         <div className="general-item">
@@ -144,16 +143,12 @@ const General = ({ darkMode, app }) => {
         </div>
 
         <div className="general-item">
-          <label>CPU Units</label>
-          <span>{configDetails.cpuUnits}</span>
-        </div>
-        <div className="general-item">
-          <label>Memory</label>
-          <span>{configDetails.memorySize}</span>
-        </div>
-        <div className="general-item">
-          <label>Storage</label>
-          <span>{configDetails.storageSize}</span>
+          <label>Instance resources</label>
+          <span>
+            CPU({configDetails.cpuUnits})--Memory(
+            {configDetails.memorySize}
+            )--Storage({configDetails.storageSize})
+          </span>
         </div>
 
         <div className="general-item">

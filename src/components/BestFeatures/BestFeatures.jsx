@@ -42,7 +42,7 @@ const BestFeatures = () => {
         <Features
           className="scroll-in feature-item"
           image="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/7f7eda15-ce83-46b9-ca7f-5baf97c8cb00/public"
-          title="DESCENTRALIZATION"
+          title="DECENTRALIZATION"
           subtitle="Access to low cost computing power and democratized deployment of secure, censorship-resistant apps, available to all developers."
         />
       </div>

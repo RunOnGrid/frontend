@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AppGeoSelect from "../deploy/application/AppGeoSelect";
 
 const FluxSlider = ({
   initialValue = 3,
@@ -11,6 +12,13 @@ const FluxSlider = ({
   disableSelect,
   instances,
   setInstances,
+  allowedLocations,
+  setAllowedLocations,
+  forbiddenLocations,
+  setForbiddenLocations,
+  allSelectedLocations,
+  setAllSelectedLocations,
+  darkMode,
 }) => {
   const timeIntervals = [
     { value: 5040, label: "1 week" },
@@ -43,7 +51,11 @@ const FluxSlider = ({
   };
 
   return (
-    <div className={`slider-container ${disableSelect ? "disabled" : ""}`}>
+    <div
+      className={`slider-container ${disableSelect ? "disabled" : ""} ${
+        darkMode ? "dark" : "light"
+      }`}
+    >
       <div className="slider-item">
         <div className="slider-label">
           <span>
@@ -100,6 +112,15 @@ const FluxSlider = ({
           </div>
         </div>
       </div>
+      <AppGeoSelect
+        allowedLocations={allowedLocations}
+        setAllowedLocations={setAllowedLocations}
+        forbiddenLocations={forbiddenLocations}
+        setForbiddenLocations={setForbiddenLocations}
+        darkMode={darkMode}
+        allSelectedLocations={allSelectedLocations}
+        setAllSelectedLocations={setAllSelectedLocations}
+      />
     </div>
   );
 };

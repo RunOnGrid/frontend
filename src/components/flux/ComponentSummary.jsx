@@ -5,61 +5,62 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { TokenService } from "../../../tokenHandler";
 
-const ComponentSummary = ({ components }) => {
-  const [agree, setAgree] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
-  const [accessToken, setAccessToken] = useState('')
-  const router = useRouter()
+const ComponentSummary = ({
+  components,
+  allSelectedLocations,
+  setWorkflowFinished,
+}) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [accessToken, setAccessToken] = useState("");
+  const router = useRouter();
 
-    useEffect(() => {
-      const tokens = TokenService.getTokens();
-      setAccessToken(tokens.tokens.accessToken);
-    }, [accessToken]);
+  useEffect(() => {
+    const tokens = TokenService.getTokens();
+    setAccessToken(tokens.tokens.accessToken);
+  }, [accessToken]);
   const totalPrice = components
     .reduce((acc, comp) => acc + (comp.price || 0), 0)
     .toFixed(2);
 
-const handleMultipleDeployments = async (components) => {
-  setIsLoading(true);
+  const handleMultipleDeployments = async (components) => {
+    setIsLoading(true);
 
-  try {
-    const payload = {
-      name: components[0]?.name,
-      description: "Application deployed by Grid",
-      compose: components.map((component) => ({
-        ...component.compose[0]
-      })),
-      instances: components[0]?.instances || 3, 
-      contacts: [],
-      geolocation: [],
-      expire: components[0]?.expire || 22000,
-      nodes: [],
-      staticip: false
-    };
+    try {
+      const payload = {
+        name: components[0]?.name,
+        description: "Application deployed by Grid",
+        compose: components.map((component) => ({
+          ...component.compose[0],
+        })),
+        instances: components[0]?.instances || 3,
+        contacts: [],
+        geolocation: allSelectedLocations,
+        expire: components[0]?.expire || 22000,
+        nodes: [],
+        staticip: false,
+      };
 
-    const response = await fetch("/api/flux-deploy", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(payload),
-    });
+      const response = await fetch("/api/flux-deploy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(payload),
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      await response.json();
+      router.push("/profile");
+    } catch (error) {
+      console.error("Deployment error:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    await response.json();
-    router.push("/profile");
-  } catch (error) {
-    console.error("Deployment error:", error);
-  } finally {
-    setIsLoading(false);
-  }
-};
-
-
+  };
 
   return (
     <div>
@@ -72,10 +73,10 @@ const handleMultipleDeployments = async (components) => {
               <tr>
                 <th>Source</th>
                 <th>Components</th>
-                {/* <th>Instances</th> */}
                 <th>CPU</th>
                 <th>RAM</th>
                 <th>SSD</th>
+                <th>Subtotal</th>
               </tr>
             </thead>
             <tbody>
@@ -103,6 +104,7 @@ const handleMultipleDeployments = async (components) => {
                         component.compose[0].hdd ||
                         "---"}
                     </td>
+                    <td>${component.price.toFixed(2)}</td>
                   </tr>
                 </>
               ))}
@@ -111,15 +113,19 @@ const handleMultipleDeployments = async (components) => {
           <h3 className="span-total-summary">Total: ${totalPrice}</h3>
         </div>
       </div>
-      <div className="termService">
+      {/* <div className="termService">
         <Botonera2 setAgree={setAgree} agree={agree} />
         <h4>I agree with Terms of Service</h4>
-      </div>
-      <div
-        className={
-          agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-        }
+      </div> */}
+      <button
+        onClick={() => {
+          setWorkflowFinished(false);
+        }}
+        className="add-button5"
       >
+        Edit components
+      </button>
+      <div className="deploy-button-wrapper">
         <div className="line-background"></div>
         {isLoading ? (
           <div className="loading-container">

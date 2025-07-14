@@ -254,6 +254,8 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
           setHost={setHost}
           setTiered={setTiered}
           tiered={tiered}
+          existingNames={false}
+          setErrorMessage2={setErrorMessage2}
         />
         <AddComponent
           darkMode={darkMode}
@@ -312,20 +314,16 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
             setActiveStep={setActiveStep}
             summaryStep={3}
           />
-          <div className="termService">
+          {/* <div className="termService">
             <Botonera2 setAgree={setAgree} agree={agree} />
             <h4>I agree with Terms of Service</h4>
-          </div>
+          </div> */}
           {fundsError !== "" ? (
             <h3 className="error-message-login">{fundsError}</h3>
           ) : (
             ""
           )}
-          <div
-            className={
-              agree ? "deploy-button-wrapper" : "deploy-button-wrapper-disabled"
-            }
-          >
+          <div className="deploy-button-wrapper">
             <div className="line-background"></div>
             {isLoading ? (
               <div className="loading-container">

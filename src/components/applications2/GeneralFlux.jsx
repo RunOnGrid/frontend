@@ -64,7 +64,7 @@ const extractConfigDetails = (app) => {
 
 const GeneralFlux = ({ darkMode, app }) => {
   const configDetails = extractConfigDetails(app);
-  
+
   return (
     <div className={`main-content ${darkMode ? "dark" : "light"}`}>
       <div className="general">
@@ -88,11 +88,11 @@ const GeneralFlux = ({ darkMode, app }) => {
           <label>Cloud Provider</label>
           <span>{app.cloudProvider}</span>
         </div>
-          <div className="general-item">
+        <div className="general-item">
           <label>Image</label>
           <span>{configDetails.imageName}</span>
         </div>
-      
+
         <div className="general-item">
           <label>Status</label>
           <span className="status pending">
@@ -109,30 +109,31 @@ const GeneralFlux = ({ darkMode, app }) => {
             {app.status}
           </span>
         </div>
-          <div className="general-item">
+        <div className="general-item">
           <label>Created</label>
           <span>{formatDate(app.createdAt)}</span>
         </div>
-              
+
         <div className="general-item">
-          <label>CPU Units</label>
-          <span>{configDetails.cpuUnits}</span>
+          <label>Instance resources</label>
+          <span>
+            CPU({configDetails.cpuUnits})--Memory(
+            {configDetails.memorySize}
+            -GB)--Storage({configDetails.storageSize}-GB)
+          </span>
         </div>
-        <div className="general-item">
+        {/* <div className="general-item">
           <label>Memory</label>
           <span>{configDetails.memorySize}</span>
         </div>
         <div className="general-item">
           <label>Storage</label>
           <span>{configDetails.storageSize}</span>
-        </div>
+        </div> */}
 
         <div className="general-item">
           <label>Deploy Cost</label>
-          <span>
-            USD 
-            ${configDetails.deployCost}
-          </span>
+          <span>USD ${configDetails.deployCost}</span>
         </div>
       </div>
     </div>

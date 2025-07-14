@@ -4,6 +4,8 @@ import ComponentSummary from "./ComponentSummary";
 import Spinner from "@/commons/Spinner";
 import { TokenService } from "../../../tokenHandler";
 
+import { useComponentFormState } from "@/hooks/useComponentFormState";
+
 const ComponentsTable = ({
   components,
   setComponents,
@@ -11,12 +13,20 @@ const ComponentsTable = ({
   setWorkflowFinished,
   workflowLoading,
   setWorkflowLoading,
+  setDeployOption,
+  setSummary,
+  config,
+  setters,
+  setShowConfig,
+  allSelectedLocations,
+  resetFlow,
 }) => {
   const [accessToken, setAccessToken] = useState("");
-
   const [expandedRow, setExpandedRow] = useState(null);
-
   const [allSuccess, setAllSuccess] = useState(false);
+
+  const { loadComponent, resetComponent } = useComponentFormState(setters);
+
   useEffect(() => {
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
@@ -31,6 +41,7 @@ const ComponentsTable = ({
       setAllSuccess(true);
     }
   }, [components]);
+
   const handleRunWorkflows = async () => {
     setWorkflowLoading(true);
 
@@ -85,7 +96,26 @@ const ComponentsTable = ({
     setWorkflowFinished(true);
     setComponents(updatedComponents);
   };
-
+  const handleLoadComp = (component) => {
+    if (component.option === "git") {
+      setters.setSelectedMethod("git");
+      setters.setGrid(true);
+      setters.setDocker(false);
+      setters.setBuild(true);
+      setters.setSummary(false);
+      setters.setColapse(false);
+      setShowConfig(true);
+      setDeployOption("githubFlux");
+    } else if (component.option === "docker") {
+      setters.setSelectedMethod("docker");
+      setters.setGrid(false);
+      setters.setDocker(true);
+      setters.setBuild(false);
+      setters.setColapse(false);
+      setSummary(false);
+      setDeployOption("dockerFlux");
+    }
+  };
   const checkWorkflowStatus = async (component, runId) => {
     try {
       const response = await fetch(
@@ -169,7 +199,18 @@ const ComponentsTable = ({
         className={`components-container ${workflowFinished ? "disabled" : ""}`}
       >
         <h3>Components</h3>
-
+        <button
+          className="add-button6"
+          onClick={() => {
+            resetComponent();
+            setters.setGrid(false);
+            setters.setDocker(false);
+            setters.setSelectedMethod("");
+            resetFlow();
+          }}
+        >
+          Add component +
+        </button>
         <div className="table-container">
           <table className="components-table">
             <thead>
@@ -180,7 +221,7 @@ const ComponentsTable = ({
                 <th>User</th>
                 <th>Image/repotag</th>
                 <th>Branch</th>
-                <th>Delete</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -191,7 +232,6 @@ const ComponentsTable = ({
                     // onClick={() => handleRowClick(component.id)}
                     // className={expandedRow === index ? "row-active" : ""}
                   >
-                    {console.log(component)}
                     <td>
                       <Image
                         src={
@@ -228,8 +268,24 @@ const ComponentsTable = ({
 
                     <td>
                       <Image
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={() => {
+                          setComponents((prev) =>
+                            prev.filter((_, i) => i !== index)
+                          );
+                        }}
+                        className="edit-comp"
                         src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
+                        width={18}
+                        height={18}
+                        alt=""
+                      />
+                      <Image
+                        onClick={() => {
+                          loadComponent(components[index]);
+                          handleLoadComp(component);
+                        }}
+                        className="edit-comp"
+                        src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/9de9cc42-a765-42b3-df0e-b8747163e900/public"
                         width={18}
                         height={18}
                         alt=""
@@ -240,6 +296,7 @@ const ComponentsTable = ({
               ))}
             </tbody>
           </table>
+
           {(workflowFinished && !workflowLoading) ||
           (!workflowFinished && workflowLoading) ? (
             ""
@@ -258,7 +315,11 @@ const ComponentsTable = ({
         {workflowLoading ? <Spinner /> : ""}
       </div>
       {workflowFinished ? (
-        <ComponentSummary accessToken={accessToken} components={components} />
+        <ComponentSummary
+          allSelectedLocations={allSelectedLocations}
+          components={components}
+          setWorkflowFinished={setWorkflowFinished}
+        />
       ) : (
         ""
       )}

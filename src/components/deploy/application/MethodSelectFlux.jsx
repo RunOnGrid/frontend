@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SliderComp from "@/components/slider/SliderComp";
@@ -30,6 +30,10 @@ const MethodSelectFlux = forwardRef(
     const [showConfig, setShowConfig] = useState(false);
     const [workflowFinished, setWorkflowFinished] = useState(false);
     const [workflowLoading, setWorkflowLoading] = useState(false);
+    const [allowedLocations, setAllowedLocations] = useState([]);
+    const [forbiddenLocations, setForbiddenLocations] = useState([]);
+    const [allSelectedLocations, setAllSelectedLocations] = useState([]);
+
     const { config, setters } = useFluxConfig(email);
     const { loadComponent, resetComponent } = useComponentFormState(setters);
 
@@ -40,6 +44,7 @@ const MethodSelectFlux = forwardRef(
       setters.setName("");
       setters.setRepoTag("");
       setters.setSummary(false);
+      setters.setColapse(false);
       setDeployOption("githubFlux");
     };
     const handleDocker = () => {
@@ -50,6 +55,7 @@ const MethodSelectFlux = forwardRef(
       setters.setName("");
       setters.setRepoTag("");
       setters.setSummary(false);
+      setters.setColapse(false);
       setDeployOption("dockerFlux");
     };
     const handleLoadComp = (component) => {
@@ -105,10 +111,17 @@ const MethodSelectFlux = forwardRef(
                 setCompDuration={setters.setCompDuration}
                 instances={config.instances}
                 setInstances={setters.setInstances}
+                allowedLocations={allowedLocations}
+                setAllowedLocations={setAllowedLocations}
+                forbiddenLocations={forbiddenLocations}
+                setForbiddenLocations={setForbiddenLocations}
+                darkMode={darkMode}
+                allSelectedLocations={allSelectedLocations}
+                setAllSelectedLocations={setAllSelectedLocations}
               />
             </div>
 
-            <div className={`component-list`}>
+            {/* <div className={`component-list`}>
               <h4>Current Components</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 {components.map((comp, index) => (
@@ -135,8 +148,8 @@ const MethodSelectFlux = forwardRef(
                   </div>
                 ))}
               </div>
-            </div>
-            {components.length === 10 ? (
+            </div> */}
+            {/* {components.length === 10 ? (
               ""
             ) : (
               <button
@@ -149,9 +162,9 @@ const MethodSelectFlux = forwardRef(
                   resetFlow();
                 }}
               >
-                Add new comp +
+                Add component +
               </button>
-            )}
+            )} */}
           </div>
 
           <div
@@ -250,8 +263,6 @@ const MethodSelectFlux = forwardRef(
                   setInstalled={setInstalled}
                   setDisableSelect={setDisableSelect}
                   selectedCloud={selectedCloud}
-                  config={config}
-                  setters={setters}
                   loadComponent={loadComponent}
                   resetComponent={resetComponent}
                   setComponents={setComponents}
@@ -262,6 +273,10 @@ const MethodSelectFlux = forwardRef(
                   setWorkflowFinished={setWorkflowFinished}
                   workflowLoading={workflowLoading}
                   setWorkflowLoading={setWorkflowLoading}
+                  setDeployOption={setDeployOption}
+                  config={config}
+                  setters={setters}
+                  resetFlow={resetFlow}
                 />
               </>
             )}
@@ -271,8 +286,6 @@ const MethodSelectFlux = forwardRef(
                 setInstalled={setInstalled}
                 setDisableSelect={setDisableSelect}
                 selectedCloud={selectedCloud}
-                config={config}
-                setters={setters}
                 loadComponent={loadComponent}
                 resetComponent={resetComponent}
                 setComponents={setComponents}
@@ -281,6 +294,12 @@ const MethodSelectFlux = forwardRef(
                 setWorkflowFinished={setWorkflowFinished}
                 workflowLoading={workflowLoading}
                 setWorkflowLoading={setWorkflowLoading}
+                setDeployOption={setDeployOption}
+                config={config}
+                setters={setters}
+                allSelectedLocations={allSelectedLocations}
+                resetFlow={resetFlow}
+                setShowConfig={setShowConfig}
               />
             </>
           )}

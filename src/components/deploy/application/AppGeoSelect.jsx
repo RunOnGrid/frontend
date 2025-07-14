@@ -7,6 +7,8 @@ const AppGeoSelect = ({
   setAllowedLocations,
   forbiddenLocations,
   setForbiddenLocations,
+  allSelectedLocations,
+  setAllSelectedLocations,
   onNext,
 }) => {
   return (
@@ -17,6 +19,8 @@ const AppGeoSelect = ({
           setAllowedLocations={setAllowedLocations}
           forbiddenLocations={forbiddenLocations}
           setForbiddenLocations={setForbiddenLocations}
+          allSelectedLocations={allSelectedLocations}
+          setAllSelectedLocations={setAllSelectedLocations}
         />
       </div>
     </div>

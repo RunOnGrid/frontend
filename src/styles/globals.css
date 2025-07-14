@@ -48,13 +48,19 @@ textarea {
     flex-direction: column;
     border: 2px solid #e0e0e0;
     border-radius: 25px;
-    background-color: white;
+
     margin: 20px ;
     margin-left: 0px;
     justify-content: space-around;
     padding: 25px 5px;
     
     
+  }
+  .slider-container.dark{
+    background-color: #161f21;
+  }
+  .slider-container.light{
+    background-color: white;
   }
   .slider-item{
     display: flex;
@@ -177,7 +183,14 @@ textarea {
   overflow-x: auto;
   margin-bottom: 20px;
 }
-
+.edit-comp{
+  cursor: pointer;
+  margin: 5px;
+  transition: transform 0.3s ease-out
+}
+.edit-comp:hover{
+  transform: translateY(-3px)
+}
 .components-table {
   width: 100%;
   border-collapse: collapse;
