@@ -266,13 +266,15 @@ const RepositorySettingsAkash = ({
             </div>
           </span>
         </div>
-        <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-          <h3>GitHub repository</h3>
-          <Select options={repos} onSelect={setGitRepo} />
-        </div>
-        <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-          <h3>Branches</h3>
-          <Select4 options={branches} onSelect={handleBranch} />
+        <div className="buildpack-double">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+            <h3>GitHub repository</h3>
+            <Select options={repos} onSelect={setGitRepo} />
+          </div>
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+            <h3>Branches</h3>
+            <Select4 options={branches} onSelect={handleBranch} />
+          </div>
         </div>
       </div>
       {loadingWorkflow && <Spinner />}

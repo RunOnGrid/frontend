@@ -123,7 +123,7 @@ const GeoOptionContainer = ({
   );
 
   return (
-    <>
+    <div className="geo-container">
       <GeoOption
         title="ALLOWED GEOLOCATIONS"
         darkMode={darkMode}
@@ -142,7 +142,7 @@ const GeoOptionContainer = ({
         disabledLocations={Array.from(allowedBaseCodes)}
         value={forbiddenLocations} // Pass derived forbidden locations
       />
-    </>
+    </div>
   );
 };
 

@@ -91,7 +91,7 @@ const GeoOption2 = ({
       <h2>{title}</h2>
       <div className="selected-locations">
         {selectedLocations.map((code, index) => {
-          const location = locations.find(loc => loc.code === code);
+          const location = locations.find((loc) => loc.code === code);
           return location ? (
             <div
               key={index}
@@ -116,17 +116,17 @@ const GeoOption2 = ({
           const isLocationDisabled =
             disabled ||
             // Check if the base code of this button is in the disabledLocations (from the other component)
-            (location.code !== "a!c" && disabledLocations.includes(currentButtonBaseCode)) ||
+            (location.code !== "a!c" &&
+              disabledLocations.includes(currentButtonBaseCode)) ||
             (currentSelections.some((loc) => loc.code === "a!c") &&
               location.code !== "a!c") ||
-            (selectedLocations.includes("a!c") &&
-              location.code !== "a!c") ||
+            (selectedLocations.includes("a!c") && location.code !== "a!c") ||
             (location.code !== "a!c" && alreadyAdded);
 
           return (
             <button
               key={index}
-              className={`geo-button ${isSelectedInCurrent ? "selected" : ""}`}
+              className={`geo-buttonF ${isSelectedInCurrent ? "selected" : ""}`}
               onClick={() => handleToggleSelection(location)}
               disabled={isLocationDisabled}
             >
@@ -136,7 +136,7 @@ const GeoOption2 = ({
         })}
       </div>
       <button
-        className="add-button"
+        className="add-buttonF"
         onClick={handleAddLocations}
         disabled={disabled || currentSelections.length === 0}
       >

@@ -13,16 +13,14 @@ const AppGeoSelect = ({
 }) => {
   return (
     <div className="databaseSelect">
-      <div className="geoSelect-container">
-        <GeoOptionContainer
-          allowedLocations={allowedLocations}
-          setAllowedLocations={setAllowedLocations}
-          forbiddenLocations={forbiddenLocations}
-          setForbiddenLocations={setForbiddenLocations}
-          allSelectedLocations={allSelectedLocations}
-          setAllSelectedLocations={setAllSelectedLocations}
-        />
-      </div>
+      <GeoOptionContainer
+        allowedLocations={allowedLocations}
+        setAllowedLocations={setAllowedLocations}
+        forbiddenLocations={forbiddenLocations}
+        setForbiddenLocations={setForbiddenLocations}
+        allSelectedLocations={allSelectedLocations}
+        setAllSelectedLocations={setAllSelectedLocations}
+      />
     </div>
   );
 };

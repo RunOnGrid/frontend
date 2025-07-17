@@ -319,18 +319,60 @@
     width: 85%;
     margin: auto;
   }
-  
+  .status-card {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7; /* Light gray background */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 15px; /* Internal spacing */
+  width: fit-content; /* Adjust width to content */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  font-family: sans-serif; /* Clean font */
+  margin: 10px 0px;
+}
+
+.status-icon {
+  height: 20px; /* Size of the icon */
+  margin-right: 10px; /* Space between icon and text */
+  filter: grayscale(100%) brightness(50%); /* Adjust icon color to be grayish */
+}
+
+.status-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-name {
+  margin: 0; /* Remove default paragraph margin */
+  font-weight: bold; /* Bold text for the name */
+  color: #333; /* Dark gray text color */
+  font-size: 0.9rem;
+}
+
+.status-indicator {
+  margin: 0; /* Remove default paragraph margin */
+  font-size: 0.8em; /* Smaller font size for the status */
+  color: #00b174; /* Blue color for 'Running' status */
+  font-weight: bold; /* Bold text for the status */
+}
   .header {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding-top: 50px;
+    padding-bottom: 20px;
   }
   
   .header h1 {
     margin: 0;
     font-size: 1.5rem;
   }
-  
+  .second-header{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    
+  }
   .subheader {
     color: white;
     background-color:#161F21 ;
@@ -376,8 +418,9 @@
   
   .content {
     display: flex;
-    flex-grow: 1;
+    flex: 1;
     margin-top: 20px;
+    width: 100%;
     
   }
   
@@ -413,7 +456,7 @@
   
   .main-content {
     width: 100%;
-    flex-grow: 1;
+    flex: 1;
     
     padding: 20px;
     border-radius: 20px;

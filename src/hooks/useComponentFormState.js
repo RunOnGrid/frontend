@@ -25,7 +25,6 @@ export const useComponentFormState = (setters) => {
   } = setters;
 
   const loadComponent = (component) => {
-    console.log(component, "entra load component");
     const comp = component.compose[0];
     setName(component.name);
     setRepoTag(comp.repotag);
@@ -41,10 +40,10 @@ export const useComponentFormState = (setters) => {
     setOwner(component.owner);
     setCompDuration(component.expire);
     setInstances(component.instances);
-    setSummary(false)
-    setSelectedMethod(component.option)
-    setIsEditing(true)   
-    setEditingId(component.id); 
+    setSummary(false);
+    setSelectedMethod(component.option);
+    setIsEditing(true);
+    setEditingId(component.id);
   };
 
   const resetComponent = (defaultOwner = "") => {

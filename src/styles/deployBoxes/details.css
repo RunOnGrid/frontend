@@ -95,6 +95,16 @@
   align-items: center !important;
   margin-left: 20px !important;
 }
+.geo-buttonF {
+  display: flex;
+  margin: auto !important;
+  color: white !important;
+  height: 35px !important;
+  width: 35px !important;
+  font-size: 1.6rem !important;
+  align-items: center !important;
+  margin-left: 20px !important;
+}
 
 .geolocation h3 {
   display: flex;
