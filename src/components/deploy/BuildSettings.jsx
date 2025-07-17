@@ -1,37 +1,39 @@
-import React, { forwardRef } from "react";
-import { TokenService } from "../../../tokenHandler";
+import React, { forwardRef, useState } from "react";
 import RepositorySettings from "../RepoSettings";
 import AddComponent from "./AddComponent";
 import RepositorySettingsAkash from "../RepoSettingsAkash";
 
 const BuildSettings = forwardRef(
-  ({
-    onNext,
-    darkMode,
-    setRepoTag,
-    summary,
-    owner,
-    setOwner,
-    setDisableSelect,
-    ram,
-    hdd,
-    cpu,
-    setCpu,
-    setRam,
-    setHdd,
-    setImagePath,
-    setInstances,
-    min,
-    singleRepo,
-    setSingleRepo,
-    branch,
-    setBranch,
-    installationId,
-    setInstallationId,
-    instances,
-    cloud,
-    existingNames,
-  }) => {
+  (
+    {
+      onNext,
+      darkMode,
+      setRepoTag,
+      summary,
+      owner,
+      setOwner,
+      setDisableSelect,
+      ram,
+      hdd,
+      cpu,
+      setCpu,
+      setRam,
+      setHdd,
+      setImagePath,
+      setInstances,
+      min,
+      singleRepo,
+      setSingleRepo,
+      branch,
+      setBranch,
+      installationId,
+      setInstallationId,
+      instances,
+      cloud,
+    },
+    ref
+  ) => {
+    const [next, setNext] = useState(false);
     return (
       <div className={`databaseSelect ${summary ? "disabled" : ""}`}>
         <div className="components-display">
@@ -51,6 +53,7 @@ const BuildSettings = forwardRef(
               setBranch={setBranch}
               installationId={installationId}
               setInstallationId={setInstallationId}
+              setNext={setNext}
             />
           ) : (
             <RepositorySettingsAkash
@@ -62,9 +65,41 @@ const BuildSettings = forwardRef(
               setImagePath={setImagePath}
               setDisableSelect={setDisableSelect}
               onNextStep={onNext}
+              setNext={setNext}
             />
           )}
-          {/* <RepositorySettings
+        </div>
+        {next && (
+          <div ref={ref}>
+            <AddComponent
+              darkMode={darkMode}
+              onNext={onNext}
+              onSaveComponentData={{}}
+              cpu={cpu}
+              setCpu={setCpu}
+              ram={ram}
+              setRam={setRam}
+              hdd={hdd}
+              setHdd={setHdd}
+              setInstances={setInstances}
+              instances={instances}
+              min={min}
+              plan={"flux"}
+              next={next}
+              setNext={setNext}
+            />
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+BuildSettings.displayName = "BuildSettings";
+export default BuildSettings;
+
+{
+  /* <RepositorySettings
             darkMode={darkMode}
             summary={summary}
             owner={owner}
@@ -79,27 +114,5 @@ const BuildSettings = forwardRef(
             setBranch={setBranch}
             installationId={installationId}
             setInstallationId={setInstallationId}
-          /> */}
-          <AddComponent
-            darkMode={darkMode}
-            onNext={onNext}
-            onSaveComponentData={{}}
-            cpu={cpu}
-            setCpu={setCpu}
-            ram={ram}
-            setRam={setRam}
-            hdd={hdd}
-            setHdd={setHdd}
-            setInstances={setInstances}
-            instances={instances}
-            min={min}
-            plan={"flux"}
-          />
-        </div>
-      </div>
-    );
-  }
-);
-
-BuildSettings.displayName = "BuildSettings";
-export default BuildSettings;
+          /> */
+}

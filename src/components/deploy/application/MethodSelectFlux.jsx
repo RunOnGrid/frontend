@@ -8,6 +8,7 @@ import BuildFlux from "@/components/flux/BuildFlux";
 import FluxSlider from "@/components/slider/FluxSlider";
 import { useComponentFormState } from "@/hooks/useComponentFormState";
 import { useFluxConfig } from "@/hooks/useFluxConfig";
+import ComponentsTable from "@/components/flux/ComponentTable";
 const gitUrl = process.env.NEXT_PUBLIC_GIT_URL;
 const MethodSelectFlux = forwardRef(
   (
@@ -58,24 +59,7 @@ const MethodSelectFlux = forwardRef(
       setters.setColapse(false);
       setDeployOption("dockerFlux");
     };
-    const handleLoadComp = (component) => {
-      if (component.option === "git") {
-        setters.setSelectedMethod("git");
-        setters.setGrid(true);
-        setters.setDocker(false);
-        setters.setBuild(true);
-        setters.setSummary(false);
-        setShowConfig(true);
-        setDeployOption("githubFlux");
-      } else if (component.option === "docker") {
-        setters.setSelectedMethod("docker");
-        setters.setGrid(false);
-        setters.setDocker(true);
-        setters.setBuild(false);
-        setters.setSummary(false);
-        setDeployOption("dockerFlux");
-      }
-    };
+
     useEffect(() => {
       const emailGrid = localStorage.getItem("grid_email");
       setEmail(emailGrid);
@@ -89,7 +73,7 @@ const MethodSelectFlux = forwardRef(
     }, [config.grid]);
 
     return (
-      <div ref={ref} className={`databaseSelect `}>
+      <div className={`databaseSelect `}>
         <div style={{ display: "flex" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
@@ -120,51 +104,6 @@ const MethodSelectFlux = forwardRef(
                 setAllSelectedLocations={setAllSelectedLocations}
               />
             </div>
-
-            {/* <div className={`component-list`}>
-              <h4>Current Components</h4>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-                {components.map((comp, index) => (
-                  <div key={index}>
-                    <button
-                      className="neutro-btn"
-                      onClick={() => {
-                        loadComponent(components[index]);
-                        handleLoadComp(comp);
-                      }}
-                    >
-                      {comp.name}
-                    </button>
-                    <button
-                      className="no-btn2"
-                      onClick={() => {
-                        setComponents((prev) =>
-                          prev.filter((_, i) => i !== index)
-                        );
-                      }}
-                    >
-                      X
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-            {/* {components.length === 10 ? (
-              ""
-            ) : (
-              <button
-                className="add-button"
-                onClick={() => {
-                  resetComponent();
-                  setters.setGrid(false);
-                  setters.setDocker(false);
-                  setters.setSelectedMethod("");
-                  resetFlow();
-                }}
-              >
-                Add component +
-              </button>
-            )} */}
           </div>
 
           <div
@@ -258,7 +197,7 @@ const MethodSelectFlux = forwardRef(
           {selectedCloud === "flux" &&
             deployOption === "githubFlux" &&
             config.build === true && (
-              <>
+              <div>
                 <GithubFlux
                   setInstalled={setInstalled}
                   setDisableSelect={setDisableSelect}
@@ -278,7 +217,7 @@ const MethodSelectFlux = forwardRef(
                   setters={setters}
                   resetFlow={resetFlow}
                 />
-              </>
+              </div>
             )}
           {selectedCloud === "flux" && deployOption === "dockerFlux" && (
             <>
@@ -304,9 +243,76 @@ const MethodSelectFlux = forwardRef(
             </>
           )}
         </div>
+        {components.length > 0 && (
+          <>
+            <ComponentsTable
+              setComponents={setComponents}
+              components={components}
+              workflowFinished={workflowFinished}
+              setWorkflowFinished={setWorkflowFinished}
+              workflowLoading={workflowLoading}
+              setWorkflowLoading={setWorkflowLoading}
+              setDeployOption={setDeployOption}
+              setSummary={setters.setSummary}
+              config={config}
+              setters={setters}
+              setShowConfig={setShowConfig}
+              resetFlow={resetFlow}
+            />
+          </>
+        )}
       </div>
     );
   }
 );
 MethodSelectFlux.displayName = "MethodSelectFlux";
 export default MethodSelectFlux;
+
+{
+  /* <div className={`component-list`}>
+              <h4>Current Components</h4>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+                {components.map((comp, index) => (
+                  <div key={index}>
+                    <button
+                      className="neutro-btn"
+                      onClick={() => {
+                        loadComponent(components[index]);
+                        handleLoadComp(comp);
+                      }}
+                    >
+                      {comp.name}
+                    </button>
+                    <button
+                      className="no-btn2"
+                      onClick={() => {
+                        setComponents((prev) =>
+                          prev.filter((_, i) => i !== index)
+                        );
+                      }}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div> */
+}
+{
+  /* {components.length === 10 ? (
+              ""
+            ) : (
+              <button
+                className="add-button"
+                onClick={() => {
+                  resetComponent();
+                  setters.setGrid(false);
+                  setters.setDocker(false);
+                  setters.setSelectedMethod("");
+                  resetFlow();
+                }}
+              >
+               // Add component +
+              </button>
+            )} */
+}

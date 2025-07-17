@@ -303,6 +303,15 @@ const GithubAkash = ({
 
   return (
     <div>
+      <FluxInputs
+        name={name}
+        handleNameChange={handleNameChange}
+        darkMode={darkMode}
+        errorMessage2={errorMessage2}
+        errorMessage={errorMessage}
+        pat={pat}
+        handlePat={handlePat}
+      />
       <BuildSettings
         repositories={repositories}
         darkMode={darkMode}
@@ -342,16 +351,7 @@ const GithubAkash = ({
 
             {activeTab === "builder" ? (
               <>
-                <FluxInputs
-                  name={name}
-                  handleNameChange={handleNameChange}
-                  darkMode={darkMode}
-                  errorMessage2={errorMessage2}
-                  errorMessage={errorMessage}
-                  pat={pat}
-                  handlePat={handlePat}
-                />
-                <div style={{ display: "flex" }}>
+                <div className="variables-section">
                   <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
                   <NetAkash
                     setPort={setPort}

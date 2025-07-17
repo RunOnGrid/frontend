@@ -101,16 +101,7 @@
   border-radius: 50%;
 }
 
-.status-indicator {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background-color: green;
 
-  border-radius: 50%;
-}
 
 .profile-info {
   margin-left: 10px;

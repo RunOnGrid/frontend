@@ -256,24 +256,25 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
           tiered={tiered}
           existingNames={false}
           setErrorMessage2={setErrorMessage2}
-        />
-        <AddComponent
-          darkMode={darkMode}
-          cpu={cpu}
-          setCpu={setCpu}
-          ram={memory}
-          setRam={setMemory}
-          hdd={ephemeralStorage}
-          setHdd={setEphemeralStorage}
-          setInstances={setInstances}
-          min={1}
-          plan={"akash"}
+          selectedCloud={selectedCloud}
         />
       </div>
+      <AddComponent
+        darkMode={darkMode}
+        cpu={cpu}
+        setCpu={setCpu}
+        ram={memory}
+        setRam={setMemory}
+        hdd={ephemeralStorage}
+        setHdd={setEphemeralStorage}
+        setInstances={setInstances}
+        min={1}
+        plan={"akash"}
+      />
 
       <>
         <h3> Settings</h3>
-        <div style={{ display: "flex" }}>
+        <div className="variables-section">
           <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
           <NetAkash
             setPort={setPort}

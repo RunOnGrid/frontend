@@ -68,15 +68,16 @@
 }
 .component-container{
   border: 2px solid #e0e0e0;
-  padding: 20px;
+  padding: 30px;
   border-radius: 25px;
+  height: auto;
 }
 .components-display{
   display: flex;
   justify-content: space-around;
 }
 .collapsible-section {
-  max-height: 1000px; /* A sufficiently large value to accommodate content */
+  max-height: 1500px; /* A sufficiently large value to accommodate content */
   opacity: 1;
   overflow: hidden; /* Hide content that goes beyond max-height */
   transition: max-height 0.7s ease-in-out, opacity 0.7s ease-in-out; /* Smooth transition */
@@ -91,17 +92,21 @@
   border: 2px solid #e0e0e0;
   padding: 20px;
   border-radius: 25px;
-  width: 45%;
+  flex: 1;
+  overflow: auto;
+  margin-top: 40px;
 }
 .component-container h3{
   margin-top: 10px;
   padding: 10px;
+  padding-left: 0px;
 }
 .deployMethodBox-container{
-  display: grid;
-  grid-template-columns: 50% 50%;
-  justify-content: center;
-  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between; 
+  gap: 30px; 
+  padding: 0;
+  margin: 0; 
   
 }
 .locationSelect {
@@ -159,11 +164,11 @@
   background-color: #44494a;
   color: white;
 }
-.geoSelect-container{
+/* .geoSelect-container{
   width: 100%;
   margin: auto;
   
-}
+} */
 .geoSelect-options{
   display: flex;
   
@@ -496,14 +501,13 @@
 }
 
 .deployMethodBox {
- 
-  width: 90%;
+  flex: 1;
+  margin: 0px;
+  padding: 0px;
   border: 2px solid transparent;
   border-radius: 20px;
-  margin: 10px;
   height: auto;
   cursor: pointer;
-
   justify-content: center;
   text-align: center;
 }
@@ -567,20 +571,23 @@
   margin:  auto;
   margin-top: 10px;
 }
-
-
-.geo-options{
-  width: 90%;
+.geo-container{
+  display: flex;
+  justify-content: space-between; 
+  gap: 30px; 
+  padding: 0;
+  margin: 0; 
 }
 
+
 .geo-option {
+  flex: 1;
+  margin: 0px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 25px;
-  padding: 20px;
-  margin: 10px auto;
   text-align: start;
-  width: 90%;
-  height: auto;
+  
 }
 .geo-option.light{
   background-color: white;
@@ -593,6 +600,7 @@
   display: flex;
   margin-top: 0px;
   font-size: 1rem;
+  font-weight: bold;
 }
 .geo-locations {
   display: flex;
@@ -608,15 +616,30 @@
   margin: 5px !important;
   width: auto !important;
   font-size: 0.8rem !important;
-  padding: 10px 20px;
+}
+.geo-buttonF {
+  background: #f0f0f0;
+  color: black !important;
+  border-radius: 20px;
+  margin: 5px !important;
+  width: auto !important;
+  font-size: 0.8rem !important;
+}
+.geo-buttonF:hover{
+  background-color: #eed7d6 !important;
 }
 .geo-button.selected{
   border: 2px solid #00b174;
   background-color: #d6eee3;
 }
+.geo-buttonF.selected, .geo-buttonF:focus{
+  border: 2px solid #ff0000 !important;
+  background-color: #eed7d6 !important;
+}
 .button-display{
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 .add-button {
   border: 2px solid #00b174 !important;
@@ -628,8 +651,21 @@
   cursor: pointer;
   margin-left: 0px !important;
 }
+.add-buttonF {
+  border: 2px solid #ff0000 !important;
+  border-radius: 20px;
+  color: #ff0000;
+  padding: 4px 10px !important;
+  margin-top: 10px;
+  font-weight: 600 !important;
+  cursor: pointer;
+  margin-left: 0px !important;
+}
 .add-button:hover{
   background-color: #d6eee3;
+}
+.add-buttonF:hover{
+  background-color: #f5cccc !important;
 }
 .add-button2 {
   
@@ -649,6 +685,7 @@
 .text-container{
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 }
 .texto-pipeline{
   color: #00b174;
@@ -657,6 +694,7 @@
   align-content: center;
   text-align: center;
   width: 100%;
+  margin-bottom: 10px !important;
   
 }
 .texto-pipeline2{
@@ -689,8 +727,7 @@
   margin-top: 20px !important;
 }
 .add-button5:hover {
-  background-color: white;
-  margin-top: 0px !important;
+  background-color: white !important;
 }
 .add-button6{
    width: auto;
@@ -702,16 +739,14 @@
   border: 2px solid #00b174 ;
   border-radius: 20px;
   color: #00b174;
-  padding: 2px 10px !important ;
-  margin-top: 40px;
+  padding: 10px  !important ;
   font-weight: 600 ;
   font-size: 0.8rem;
   cursor: pointer;
-  margin: auto;
-  margin-left: 10px;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  margin: 0px !important;
+  flex: 1;
+
+
 }
 .geo-option span{
   font-size: 0.8rem;
@@ -980,7 +1015,10 @@
   border: none;
   cursor: pointer;
 }
-
+.variables-section{
+  display: flex;
+  gap: 30px;
+}
 .add-buildpack {
   display: flex;
   flex-direction: column;
@@ -1013,11 +1051,28 @@
   width: 100%;
  
 }
+.buildpack-double{
+  display: flex;
+  gap: 30px;
+}
+.double-label{
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+.double-label p{
+  margin-top: 10px;
+  text-align: start;
+  padding-left: 0px;
+  font-weight: bold;
+  width: auto !important;
+}
 .buildpack-single{
   flex-direction: column;
   display: flex;
   width: 100%;
   margin-top: 0px;
+  justify-content: center;
   
 }
 .buildpack-single p{
@@ -1177,6 +1232,7 @@
   width: 180px;
   justify-content: center;
   margin: auto;
+  margin-top: 20px;
 }
 .install-container img{
   display: flex;
@@ -1229,13 +1285,11 @@
 }
 .dropdown-container {
   position: relative;
-  width: 90%;
-  margin-bottom: 40px;
-  color: black;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  
+  max-width: 500px;
+  min-width: 250px; /* Adjust width as needed */
+  font-family: sans-serif; /* Use a modern, clean font */
 }
+
 .dropdown-container2{
   position: relative;
   width: 70px;
@@ -1270,25 +1324,33 @@
 
 .dropdown-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 8px;
-  height: 20px;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
   cursor: pointer;
-  border-radius: 25px;
-  
-  
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  transition: all 0.2s ease-in-out;
+  color: #333333; /* Darker text for readability */
+  font-size: 14px;
+
+}
+.dropdown-header:hover {
+  border-color: #a0a0a0; /* Darker border on hover */
 }
 .dropdown-header.openHeader {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  height: 20px;
-  cursor: pointer;
-  border-end-start-radius: 0px;
-  border-end-end-radius: 0px;
-  
+  border-color: #007bff; /* Highlight border when open */
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus-like shadow */
 }
-
+.dropdown-header img {
+  filter: grayscale(100%) brightness(50%); /* Make arrow darker or change color */
+  transition: transform 0.2s ease-in-out;
+}
+.dropdown-header.openHeader img {
+  transform: rotate(180deg); /* Rotate arrow when dropdown is open */
+}
 .dropdown-header.light{
   border: 1px solid #ddd;
   background-color: #f9f9f9;
@@ -1337,48 +1399,42 @@
 
 .dropdown-list {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 5px); /* Position below the header with a small gap */
   left: 0;
-  width: 99.5%;
-  border-end-end-radius: 25px;
-  border-end-start-radius: 25px;
+  right: 0;
   list-style: none;
-  padding: 0;
+  padding: 8px 0;
   margin: 0;
-  border:1px solid #ddd;
-  border-top: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 999; 
-  max-height: 120px; 
-  overflow-y: auto;
-
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it appears above other content */
+  max-height: 200px; /* Limit height and enable scrolling */
+  overflow-y: auto; /* Add scrollbar if content overflows */
 }
 
 .dropdown-list li {
-  padding: 10px;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.2s;
-  font-size: 0.8rem;
-  z-index: 900 !important;
-}
-.dropdown-list li:last-child {
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  font-size: 14px;
+  color: #333333;
 }
 
 .dropdown-list.dark li:hover {
-  background-color: #44494a;
-
+  background-color: #555555;
+  color: #ffffff; /* Keep white text or change to a highlight color */
 }
-.dropdown-list.light li:hover {
-  background-color: #ddd;
-
+.dropdown-list li:hover {
+  background-color: #f0f0f0; /* Light background on hover */
+  color: #007bff; /* Blue text on hover */
 }
 .dropdown-list.dark li{
   background-color: #161f21;
 }
 .dropdown-list.light li{
-  background-color: #f9f9f9;
+  
   color: black;
 }
 

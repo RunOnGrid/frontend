@@ -9,12 +9,12 @@ import { useComponentFormState } from "@/hooks/useComponentFormState";
 const ComponentsTable = ({
   components,
   setComponents,
-  workflowFinished,
-  setWorkflowFinished,
+  workflowFinished, // We might deprecate this if workflowOverallStatus handles all cases
+  setWorkflowFinished, // We might deprecate this
   workflowLoading,
   setWorkflowLoading,
   setDeployOption,
-  setSummary,
+  setSummary, // This prop might be redundant now, as we use local state
   config,
   setters,
   setShowConfig,
@@ -23,7 +23,8 @@ const ComponentsTable = ({
 }) => {
   const [accessToken, setAccessToken] = useState("");
   const [expandedRow, setExpandedRow] = useState(null);
-  const [allSuccess, setAllSuccess] = useState(false);
+  const [workflowOverallStatus, setWorkflowOverallStatus] = useState("pending");
+  const [showSummary, setShowSummary] = useState(false); // New state for summary visibility
 
   const { loadComponent, resetComponent } = useComponentFormState(setters);
 
@@ -31,19 +32,39 @@ const ComponentsTable = ({
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
   }, [accessToken]);
+
+  // Update workflowOverallStatus based on individual component states
   useEffect(() => {
     const hasPendingOrBuilding = components.some(
       (component) =>
         component.state === "building" || component.state === "pending"
     );
+    const hasFailed = components.some(
+      (component) => component.state === "failed"
+    );
+    const allSuccess = components.every(
+      (component) => component.state === "success"
+    );
 
-    if (!hasPendingOrBuilding) {
-      setAllSuccess(true);
+    if (hasFailed) {
+      setWorkflowOverallStatus("failed");
+      setShowSummary(false); // Hide summary if a build failed
+    } else if (hasPendingOrBuilding) {
+      setWorkflowOverallStatus("building");
+      setShowSummary(false); // Hide summary if still building/pending
+    } else if (allSuccess && components.length > 0) {
+      setWorkflowOverallStatus("success");
+      // Don't set setShowSummary(true) here, it's user-triggered
+    } else {
+      setWorkflowOverallStatus("pending"); // Default or initial state
+      setShowSummary(false); // Hide summary if no components or initial state
     }
   }, [components]);
 
   const handleRunWorkflows = async () => {
     setWorkflowLoading(true);
+    setWorkflowOverallStatus("building"); // Set overall status to building when workflows start
+    setShowSummary(false); // Ensure summary is hidden when a new build starts
 
     const buildingComponents = components.map((component) => {
       if (component.state !== "success") {
@@ -65,7 +86,6 @@ const ComponentsTable = ({
           }
         }
 
-        // Obtener el precio, sin importar el estado
         let price = 0;
         try {
           const payload = {
@@ -93,10 +113,14 @@ const ComponentsTable = ({
     );
 
     setWorkflowLoading(false);
-    setWorkflowFinished(true);
     setComponents(updatedComponents);
+    // workflowOverallStatus will be updated by the useEffect based on updatedComponents
   };
+
   const handleLoadComp = (component) => {
+    // Hide summary when loading a component to edit/add
+    setShowSummary(false);
+
     if (component.option === "git") {
       setters.setSelectedMethod("git");
       setters.setGrid(true);
@@ -116,6 +140,7 @@ const ComponentsTable = ({
       setDeployOption("dockerFlux");
     }
   };
+
   const checkWorkflowStatus = async (component, runId) => {
     try {
       const response = await fetch(
@@ -141,6 +166,7 @@ const ComponentsTable = ({
       throw error;
     }
   };
+
   const handleWorkflow = async (component) => {
     try {
       const response = await fetch(`/api/workflows-proxy`, {
@@ -193,11 +219,18 @@ const ComponentsTable = ({
       throw error;
     }
   };
+
+  const handleActionButtonClick = () => {
+    if (workflowOverallStatus === "success") {
+      setShowSummary(true); // User clicks "Checkout", so show the summary
+    } else {
+      handleRunWorkflows(); // User clicks "Build All"
+    }
+  };
+
   return (
     <div>
-      <div
-        className={`components-container ${workflowFinished ? "disabled" : ""}`}
-      >
+      <div className={`components-container ${showSummary ? "disabled" : ""}`}>
         <h3>Components</h3>
         <button
           className="add-button6"
@@ -207,6 +240,8 @@ const ComponentsTable = ({
             setters.setDocker(false);
             setters.setSelectedMethod("");
             resetFlow();
+            setShowConfig(false);
+            setShowSummary(false); // Hide summary when adding a new component
           }}
         >
           Add component +
@@ -226,13 +261,10 @@ const ComponentsTable = ({
             </thead>
             <tbody>
               {components.map((component, index) => (
-                <>
-                  <tr
-                    key={index}
-                    // onClick={() => handleRowClick(component.id)}
-                    // className={expandedRow === index ? "row-active" : ""}
-                  >
+                <React.Fragment key={index}>
+                  <tr>
                     <td>
+                      
                       <Image
                         src={
                           component.provider === "git"
@@ -272,6 +304,7 @@ const ComponentsTable = ({
                           setComponents((prev) =>
                             prev.filter((_, i) => i !== index)
                           );
+                          setShowSummary(false); // Hide summary if a component is removed
                         }}
                         className="edit-comp"
                         src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/46d8f987-0d7b-4e53-775d-8191152ad700/public"
@@ -292,33 +325,38 @@ const ComponentsTable = ({
                       />
                     </td>
                   </tr>
-                </>
+                </React.Fragment>
               ))}
             </tbody>
           </table>
 
-          {(workflowFinished && !workflowLoading) ||
-          (!workflowFinished && workflowLoading) ? (
-            ""
+          {/* Conditional rendering for buttons/messages */}
+          {workflowOverallStatus === "failed" && !workflowLoading ? (
+            <p className="error-text2">
+              There was an error building one or more components. Please check
+              the component states.
+            </p>
+          ) : workflowLoading ? (
+            <div className="spinner-container">
+              <Spinner />
+            </div>
           ) : (
             <button
               className="add-button4"
-              onClick={() => {
-                handleRunWorkflows();
-              }}
+              onClick={handleActionButtonClick}
+              disabled={components.length === 0} // Disable if no components
             >
-              {" "}
-              {allSuccess ? "Checkout" : "Build All"}
+              {workflowOverallStatus === "success" ? "Checkout" : "Build All"}
             </button>
           )}
         </div>
-        {workflowLoading ? <Spinner /> : ""}
       </div>
-      {workflowFinished ? (
+      {/* Show ComponentSummary only if showSummary is true */}
+      {showSummary ? (
         <ComponentSummary
           allSelectedLocations={allSelectedLocations}
           components={components}
-          setWorkflowFinished={setWorkflowFinished}
+          setWorkflowFinished={setShowSummary}
         />
       ) : (
         ""

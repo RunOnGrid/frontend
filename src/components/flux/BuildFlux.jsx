@@ -14,21 +14,13 @@ export default function BuildFlux({
   darkMode,
   selectedCloud,
   setComponents,
-  components,
-  workflowFinished,
-  setWorkflowFinished,
-  workflowLoading,
-  setWorkflowLoading,
-  setDeployOption,
+
   config,
   setters,
   allSelectedLocations,
-  resetFlow,
-  setShowConfig,
+
 }) {
   const [activeStep, setActiveStep] = useState(3);
-  const [isLoading, setIsLoading] = useState(false);
-  const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [accessToken, setAccessToken] = useState("");
   const [existingNames, setExistingNames] = useState([]);
   const servicesRef = useRef(null);
@@ -40,7 +32,6 @@ export default function BuildFlux({
   const [balance, setBalance] = useState(0);
   const [compPrice, setCompPrice] = useState(0);
   const [insufficient, setInsufficient] = useState(false);
-  const [fundsError, setFundsError] = useState(true);
   const [priceLoader, setPriceLoader] = useState(false);
   const [email, setEmail] = useState(null);
   const [host, setHost] = useState("ghcr.io");
@@ -178,90 +169,38 @@ export default function BuildFlux({
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(deploymentConfig.compose),
+        body: JSON.stringify(deploymentConfig),
       }
     );
 
     const data = await response.json();
+    console.log(data,'esto deveulve get price')
     setCompPrice(data.price);
-
+   
     if (data.price > balance) {
       setInsufficient(true);
     }
 
     setComponents((prevComponents) => {
+      
+      console.log('entra en setComponents')
       if (isEditing && editingId != null) {
         return prevComponents.map((component) =>
           component.id === editingId
-            ? { ...deploymentConfig, id: editingId }
+            ? { ...deploymentConfig, id: editingId,price:data.price }
             : component
         );
       } else {
+        console.log('entra en new')
         const newId = prevComponents.length;
-        return [...prevComponents, { ...deploymentConfig, id: newId }];
+        return [...prevComponents, { ...deploymentConfig, id: newId, price:data.price }];
       }
     });
 
     return true;
   };
 
-  // const handlePaymentSuccess = async () => {
-  //   setPaymentCompleted(true);
-  //   setIsLoading(true);
-  //   if (insufficient) {
-  //     setFundsError("Insufficient funds");
-  //     setIsLoading(false);
-  //     return;
-  //   }
-  //   // const portsArray = portsInput ? JSON.parse(portsInput) : '';
 
-  //   try {
-  //     const deploymentConfig = {
-  //       name: name,
-  //       description: "Application deployed by Grid",
-  //       compose: [
-  //         {
-  //           name: name,
-  //           description: "Application deployed by Grid",
-  //           repotag: repoTag,
-  //           domains: domain || [""],
-  //           environmentParameters: envs || [],
-  //           commands: commands || [""],
-  //           containerPorts: port || [""],
-  //           cpu: cpu,
-  //           ram: ram,
-  //           hdd: hdd,
-  //           tiered: tiered,
-  //           secrets: "",
-  //           repoauth: tiered ? owner.toLowerCase() + ":" + pat : "",
-  //         },
-  //       ],
-  //       expire: compDuration,
-  //       instances: instances,
-  //     };
-
-  //     const response = await fetch("/api/flux-deploy", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //       body: JSON.stringify(deploymentConfig),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-
-  //     const data = await response.json();
-  //     setIsLoading(false);
-  //     router.push("/profile");
-  //   } catch (error) {
-  //     console.error("Deployment error:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
 
   useEffect(() => {
     const fetchExistingNames = async () => {
@@ -323,25 +262,26 @@ export default function BuildFlux({
             setTiered={setTiered}
             tiered={tiered}
             existingNames={existingNames}
-          />
-          <AddComponent
-            darkMode={darkMode}
-            cpu={cpu}
-            setCpu={setCpu}
-            ram={ram}
-            setRam={setRam}
-            hdd={hdd}
-            setHdd={setHdd}
-            setInstances={setInstances}
-            min={3}
-            instances={instances}
-            plan={"flux"}
+            selectedCloud={selectedCloud}
           />
         </div>
+        <AddComponent
+          darkMode={darkMode}
+          cpu={cpu}
+          setCpu={setCpu}
+          ram={ram}
+          setRam={setRam}
+          hdd={hdd}
+          setHdd={setHdd}
+          setInstances={setInstances}
+          min={3}
+          instances={instances}
+          plan={"flux"}
+        />
 
         <div className={`${config.summary ? "disabled2" : ""}`}>
           <h3> Settings</h3>
-          <div style={{ display: "flex" }}>
+          <div className="variables-section">
             <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
             <NetFlux
               setPort={setPort}
@@ -365,26 +305,6 @@ export default function BuildFlux({
           </buttons>
         )}
       </div>
-
-      {config.summary && components.length > 0 && (
-        <ComponentsTable
-          setComponents={setComponents}
-          components={components}
-          accessToken={accessToken}
-          workflowFinished={workflowFinished}
-          setWorkflowFinished={setWorkflowFinished}
-          workflowLoading={workflowLoading}
-          setWorkflowLoading={setWorkflowLoading}
-          setDeployOption={setDeployOption}
-          setActiveStep={setActiveStep}
-          setSummary={setters.setSummary}
-          config={config}
-          setters={setters}
-          allSelectedLocations={allSelectedLocations}
-          resetFlow={resetFlow}
-          setShowConfig={setShowConfig}
-        />
-      )}
     </div>
   );
 }
@@ -725,3 +645,82 @@ export default function BuildFlux({
 //     )}
 //   </div>
 // </div>
+{
+  /* 
+      {components.length > 0 && (
+      //  <ComponentsTable
+          setComponents={setComponents}
+          components={components}
+          accessToken={accessToken}
+          workflowFinished={workflowFinished}
+          setWorkflowFinished={setWorkflowFinished}
+          workflowLoading={workflowLoading}
+          setWorkflowLoading={setWorkflowLoading}
+          setDeployOption={setDeployOption}
+          setActiveStep={setActiveStep}
+          setSummary={setters.setSummary}
+          config={config}
+          setters={setters}
+          allSelectedLocations={allSelectedLocations}
+          resetFlow={resetFlow}
+          setShowConfig={setShowConfig}
+        />
+      )} */
+}
+  // const handlePaymentSuccess = async () => {
+  //   setPaymentCompleted(true);
+  //   setIsLoading(true);
+  //   if (insufficient) {
+  //     setFundsError("Insufficient funds");
+  //     setIsLoading(false);
+  //     return;
+  //   }
+  //   // const portsArray = portsInput ? JSON.parse(portsInput) : '';
+
+  //   try {
+  //     const deploymentConfig = {
+  //       name: name,
+  //       description: "Application deployed by Grid",
+  //       compose: [
+  //         {
+  //           name: name,
+  //           description: "Application deployed by Grid",
+  //           repotag: repoTag,
+  //           domains: domain || [""],
+  //           environmentParameters: envs || [],
+  //           commands: commands || [""],
+  //           containerPorts: port || [""],
+  //           cpu: cpu,
+  //           ram: ram,
+  //           hdd: hdd,
+  //           tiered: tiered,
+  //           secrets: "",
+  //           repoauth: tiered ? owner.toLowerCase() + ":" + pat : "",
+  //         },
+  //       ],
+  //       expire: compDuration,
+  //       instances: instances,
+  //     };
+
+  //     const response = await fetch("/api/flux-deploy", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //       body: JSON.stringify(deploymentConfig),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+
+  //     const data = await response.json();
+  //     setIsLoading(false);
+  //     router.push("/profile");
+  //   } catch (error) {
+  //     console.error("Deployment error:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
