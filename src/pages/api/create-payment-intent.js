@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const API_URL = process.env.GRID_API;
 
     const response = await fetch(
-      API_URL,
+      `${API_URL}/payment/checkout_sessions`,
       {
         method: "POST",
         headers: {
