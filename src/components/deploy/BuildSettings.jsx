@@ -30,6 +30,10 @@ const BuildSettings = forwardRef(
       setInstallationId,
       instances,
       cloud,
+      workflow,
+      setWorkflow,
+      workflowInstalled,
+      setWorkflowInstalled,
     },
     ref
   ) => {
@@ -66,6 +70,10 @@ const BuildSettings = forwardRef(
               setDisableSelect={setDisableSelect}
               onNextStep={onNext}
               setNext={setNext}
+              workflow={workflow}
+              setWorkflow={setWorkflow}
+              workflowInstalled={workflowInstalled}
+              setWorkflowInstalled={setWorkflowInstalled}
             />
           )}
         </div>
