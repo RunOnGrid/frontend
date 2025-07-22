@@ -13,11 +13,15 @@ const SummaryAkash = ({
   price,
   setActiveStep,
   summaryStep,
+  setDisabled,
+  setShowBids,
 }) => {
   const handleReturn = () => {
     setSummary(false);
     setAgree(false);
     setActiveStep(summaryStep);
+    setDisabled(false);
+    setShowBids(false);
   };
   return (
     <div className={`summary-container ${mode ? "dark" : "light"}`}>
@@ -38,7 +42,7 @@ const SummaryAkash = ({
         <li>Memory: {ram} </li>
         <li>Ephemeral Storage: {hdd} </li>
       </ul>
-      <strong>Price: USD ${price}</strong>
+      <strong>Price: USD ${price.toFixed(2)}</strong>
 
       <button onClick={() => handleReturn()} className="add-button4">
         {" "}

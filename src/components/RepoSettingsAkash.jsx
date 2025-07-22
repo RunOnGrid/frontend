@@ -15,17 +15,20 @@ const RepositorySettingsAkash = ({
   setDisableSelect,
   onNextStep,
   setImagePath,
+  workflow,
+  setWorkflow,
+  workflowInstalled,
+  setWorkflowInstalled,
 }) => {
   const [gitRepo, setGitRepo] = useState("");
   const [branches, setBranches] = useState([]);
-  const [workflow, setWorkflow] = useState(false);
   const [workflowUrl, setWorkflowUrl] = useState("");
   const [gridId, setGridId] = useState("");
   const [repos, setRepos] = useState([]);
   const [singleRepo, setSingleRepo] = useState("");
   const [installationId, setInstallationId] = useState("");
   const [notWorkflow, setNotWorkflow] = useState(false);
-  const [workflowInstalled, setWorkflowInstalled] = useState(false);
+
   const [branch, setBranch] = useState("");
   const [showNext, setShowNext] = useState(false);
   const [loadingWorkflow, setLoadingWorkflow] = useState(false);
@@ -186,6 +189,7 @@ const RepositorySettingsAkash = ({
             clearInterval(statusInterval);
             setShowNext(true);
             setDisableSelect(false);
+            onNextStep();
           }
         } catch (pollingError) {
           // This will now catch the 500 status error
@@ -327,11 +331,6 @@ const RepositorySettingsAkash = ({
             </span>
           </Link>
         </div>
-      )}
-      {showNext && (
-        <button onClick={onNextStep} className="add-button4">
-          Continue
-        </button>
       )}
     </div>
   );
