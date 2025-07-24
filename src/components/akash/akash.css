@@ -363,9 +363,10 @@
     display: flex;
     z-index: 9999;
     background-color: #00b174;
-    padding: 5px;
-    border-radius: 15px;
-    width: auto;
+    padding-top: 7px;
+    padding-bottom: 8px;
+    border-radius: 20px;
+    width: 200px;
   }
   .loading-container p{
     display: flex;

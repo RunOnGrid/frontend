@@ -83,7 +83,7 @@ const GithubAkash = ({
   const [branch, setBranch] = useState("");
   const [bidsData, setBidsData] = useState([]);
   const [dseq, setDseq] = useState("");
-  const [providerOwner, setProviderOwner] = useState("");
+  const [providerOwner, setProviderOwner] = useState(null);
   const [showBids, setShowBids] = useState(false);
   const [workflow, setWorkflow] = useState(false);
   const [workflowInstalled, setWorkflowInstalled] = useState(false);
@@ -345,7 +345,13 @@ const GithubAkash = ({
       setIsLoadingDeploy(false);
     }
   };
-
+  const handleReturn = () => {
+    setSummary(false);
+    setAgree(false);
+    setActiveStep(3);
+    setDisabled(false);
+    setShowBids(false);
+  };
   return (
     <div>
       <div className={disabled ? "disable-container" : ""}>
@@ -430,25 +436,6 @@ const GithubAkash = ({
           )}
           {summary && (
             <div ref={deployRef}>
-              {/* <ComponentsTable components={components} /> */}
-              <SummaryAkash
-                cpu={cpu}
-                ram={memory}
-                hdd={ephemeralStorage}
-                mode={darkMode}
-                name={name}
-                setSummary={setSummary}
-                setAgree={setAgree}
-                price={compPrice}
-                setActiveStep={setActiveStep}
-                summaryStep={2}
-                setDisabled={setDisabled}
-                setShowBids={setShowBids}
-              />
-              {/* <div className="termService">
-                <Botonera2 setAgree={setAgree} agree={agree} />
-                <h4>I agree with Terms of Service</h4>
-              </div> */}
               {fundsError !== "" ? (
                 <h3 className="error-message-login">{fundsError}</h3>
               ) : (
@@ -458,7 +445,7 @@ const GithubAkash = ({
                 <div className="line-background"></div>
                 {isLoading ? (
                   <div className="loading-container">
-                    <LoadingText />
+                    <Spinner />
                   </div>
                 ) : (
                   <>
@@ -467,11 +454,20 @@ const GithubAkash = ({
                       onClick={() => {
                         handleBids();
                       }}
+                      disabled={isLoading}
                     >
                       Get Akash Bids
                     </button>
                   </>
                 )}
+                <button
+                  disabled={isLoading}
+                  onClick={() => handleReturn()}
+                  className="return-button"
+                >
+                  {" "}
+                  Return
+                </button>
               </div>
             </div>
           )}
@@ -487,7 +483,7 @@ const GithubAkash = ({
               setProviderOwner={setProviderOwner}
             />
           )}
-          {providerOwner !== "" && showBids && (
+          {providerOwner !== null && showBids && (
             <button
               className="add-button4"
               onClick={() => {

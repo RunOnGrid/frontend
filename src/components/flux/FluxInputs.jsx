@@ -13,7 +13,7 @@ const FluxInputs = ({
   return (
     <>
       <div className="buildpack-selects">
-        <div className="buildpack-double">
+        <div className="buildpack-double2">
           <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
             <h3> Service name</h3>
             {errorMessage2 && (
@@ -38,7 +38,7 @@ const FluxInputs = ({
                 }
                 target="_blank"
               >
-                <p>Click here to generate it</p>
+                <h3 className="green-hyper">Click here to generate it</h3>
               </Link>
               {errorMessage && (
                 <h3 className="error-message">{errorMessage}</h3>

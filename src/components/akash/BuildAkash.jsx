@@ -269,7 +269,13 @@ export default function BuildAkash({
       envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
-
+  const handleReturn = () => {
+    setSummary(false);
+    setAgree(false);
+    setActiveStep(3);
+    setDisabled(false);
+    setShowBids(false);
+  };
   return (
     <div className="databaseSelect">
       <div className={disabled ? "disable-container" : ""}>
@@ -342,21 +348,6 @@ export default function BuildAkash({
 
       {summary && (
         <div ref={deployRef}>
-          <SummaryAkash
-            cpu={cpu}
-            ram={memory}
-            hdd={ephemeralStorage}
-            mode={darkMode}
-            name={name}
-            setSummary={setSummary}
-            setAgree={setAgree}
-            price={compPrice}
-            setActiveStep={setActiveStep}
-            summaryStep={3}
-            setDisabled={setDisabled}
-            setShowBids={setShowBids}
-          />
-
           {fundsError !== "" ? (
             <h3 className="error-message-login">{fundsError}</h3>
           ) : (
@@ -366,7 +357,7 @@ export default function BuildAkash({
             <div className="line-background"></div>
             {isLoading ? (
               <div className="loading-container">
-                <LoadingText />
+                <Spinner />
               </div>
             ) : (
               <>
@@ -381,6 +372,14 @@ export default function BuildAkash({
                 </button>
               </>
             )}
+            <button
+              disabled={isLoading}
+              onClick={() => handleReturn()}
+              className="return-button"
+            >
+              {" "}
+              Return
+            </button>
           </div>
           {bidsData.length > 0 && showBids && (
             <BidsTable
@@ -394,7 +393,7 @@ export default function BuildAkash({
               setProviderOwner={setProviderOwner}
             />
           )}
-          {providerOwner !== "" && (
+          {providerOwner !== "" && showBids && (
             <button
               className="add-button4"
               onClick={() => {

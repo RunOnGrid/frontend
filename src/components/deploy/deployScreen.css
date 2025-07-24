@@ -31,7 +31,7 @@
 .locationSelect span {
   display: flex;
   font-size: 0.9rem;
-  margin: 5px 0px;
+  margin:  0px;
   margin-right: 30px;
   font-weight: 600;
 }
@@ -56,9 +56,9 @@
  
   margin: 10px 5px;
 }
-.databaseSelect button:hover {
+/* .databaseSelect button:hover {
   background-color: #d6eee3;
-}
+} */
 .databaseSelect button:focus {
   border: 2px solid #00b174;
   background-color: #d6eee3;
@@ -71,6 +71,7 @@
   padding: 30px;
   border-radius: 25px;
   height: auto;
+  margin-top: 30px;
 }
 .components-display{
   display: flex;
@@ -541,11 +542,13 @@
   font-size: 0.8rem !important;
   font-weight: bold !important;
 }
-
+.databaseSelect-title {
+}
 .databaseSelect-title p{
   font-size: 0.85rem;
   margin-left: 0px;
   font-weight: 550;
+  margin-bottom: 20px;
   color: #7a7979;
 }
 .span-deploy{
@@ -969,6 +972,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
+  margin-top: 50px;
 }
 
 .deploy-button-wrapper a {
@@ -1009,7 +1013,20 @@
   border-radius: 20px;
   font-size: 1rem;
   font-weight: 400;
-  width: 12vw;
+  width: 200px;
+  position: relative;
+  z-index: 1;
+  border: none;
+  cursor: pointer;
+}
+.return-button {
+  background-color: #151e21;
+  color: white;
+  padding: 10px 25px !important;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 400;
+  width: 200px;
   position: relative;
   z-index: 1;
   border: none;
@@ -1049,32 +1066,47 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 30px;
+ 
  
 }
 .buildpack-double{
+   display: flex;
+  gap: 30px;
+}
+.buildpack-double2{
   display: flex;
   gap: 30px;
+  margin-top: 30px;
+
 }
 .double-label{
   display: flex;
   text-align: center;
   align-items: center;
 }
-.double-label p{
+.green-hyper{
+  color: #00b174 !important;
+  border-bottom: 1px solid #00b174 !important;
+}
+/* .double-label p{
   margin-top: 10px;
   text-align: start;
   padding-left: 0px;
   font-weight: bold;
   width: auto !important;
-}
+} */
 .buildpack-single{
   flex-direction: column;
   display: flex;
   width: 100%;
-  margin-top: 0px;
+  margin: 10px 0px;
   justify-content: center;
   
+}
+.buildpack-single h3{
+  margin-top: 10px;
+  margin-bottom: 10px;
+ 
 }
 .buildpack-single p{
   font-size: 0.9rem;
@@ -1082,10 +1114,10 @@
   border-bottom: 1px solid #00b174;
   width: 175px;
 }
-.buildpack-single.light h3{
+.buildpack-single.light h3, .buildpack-single3.light h3{
   color: black;
 }
-.buildpack-single.dark h3{
+.buildpack-single.dark h3, .buildpack-single3.dark h3{
   color: white;
 }
 .buildpack-single3{
@@ -1094,19 +1126,15 @@
   width: 50%;
   margin-top: 30px;
 }
-.buildpack-single3.light h3{
-  color: black;
-}
-.buildpack-single3.dark h3{
-  color: white;
-}
+
+
 .buildpack-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 50px;
   padding: 10px;
-  width: 47.5%; 
+  width: calc(50% - 30px);
   background-color: #f5f6f6;
   color: black;
 }
@@ -1255,6 +1283,7 @@
 .install-github span, .install-github2 span{
   color: white;
   font-weight: 400;
+  padding: 5px;
   
 
 }
@@ -1286,7 +1315,6 @@
 }
 .dropdown-container {
   position: relative;
-  max-width: 500px;
   min-width: 250px; /* Adjust width as needed */
   font-family: sans-serif; /* Use a modern, clean font */
 }
@@ -1327,7 +1355,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px 10px;
   border: 1px solid #e0e0e0; /* Light gray border */
   border-radius: 8px; /* Rounded corners */
   cursor: pointer;
