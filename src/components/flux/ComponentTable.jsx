@@ -77,10 +77,12 @@ const ComponentsTable = ({
     const updatedComponents = await Promise.all(
       buildingComponents.map(async (component) => {
         let newState = component.state;
+        let newUrl = component.url;
         if (component.state !== "success") {
           try {
             const response = await handleWorkflow(component);
             newState = response.ok ? "success" : "failed";
+            newUrl = response.url;
           } catch (err) {
             newState = "failed";
           }
@@ -108,7 +110,7 @@ const ComponentsTable = ({
           price = 0;
         }
 
-        return { ...component, state: newState, price };
+        return { ...component, state: newState, price, url: newUrl };
       })
     );
 
@@ -118,8 +120,8 @@ const ComponentsTable = ({
   };
 
   const handleLoadComp = (component) => {
-    // Hide summary when loading a component to edit/add
-    setShowSummary(false);
+    // // Hide summary when loading a component to edit/add
+    // setShowSummary(false);
 
     if (component.option === "git") {
       setters.setSelectedMethod("git");
@@ -152,16 +154,20 @@ const ComponentsTable = ({
           },
         }
       );
+      const data = await response.json();
 
+      const htmlUrl = data.workflow_run ? data.workflow_run.html_url : null;
       if (response.status === 200) {
-        return { status: "success" };
+        // Extract html_url from the response body
+
+        return { status: "success", url: htmlUrl }; // Return url along with status
       }
 
       if (response.status === 500) {
-        throw new Error("Failed to run workflow successfully");
+        return { status: "failed", url: htmlUrl };
       }
 
-      return { status: "pending" };
+      return { status: "pending", url: htmlUrl };
     } catch (error) {
       throw error;
     }
@@ -200,13 +206,13 @@ const ComponentsTable = ({
 
             if (result.status === "success") {
               clearInterval(statusInterval);
-              resolve({ ok: true });
+              resolve({ ok: true, url: result.url });
             } else if (result.status === "failed") {
               clearInterval(statusInterval);
-              resolve({ ok: false });
+              resolve({ ok: false, url: result.url });
             } else if (attempts >= maxAttempts) {
               clearInterval(statusInterval);
-              resolve({ ok: false }); // timeout
+              resolve({ ok: false, url: result.url });
             }
           } catch (pollingError) {
             clearInterval(statusInterval);
@@ -227,7 +233,9 @@ const ComponentsTable = ({
       handleRunWorkflows(); // User clicks "Build All"
     }
   };
-
+  const toggleRow = (index) => {
+    setExpandedRow(expandedRow === index ? null : index); // Si ya está expandida, la cierra; si no, la abre
+  };
   return (
     <div>
       <div className={`components-container ${showSummary ? "disabled" : ""}`}>
@@ -262,9 +270,11 @@ const ComponentsTable = ({
             <tbody>
               {components.map((component, index) => (
                 <React.Fragment key={index}>
-                  <tr>
+                  <tr
+                    className="row-components"
+                    onClick={() => toggleRow(index)}
+                  >
                     <td>
-                      
                       <Image
                         src={
                           component.provider === "git"
@@ -325,6 +335,42 @@ const ComponentsTable = ({
                       />
                     </td>
                   </tr>
+                  {expandedRow === index && (
+                    <tr className="expanded-row">
+                      <td colSpan="7">
+                        <div className="expanded-content">
+                          <h3>
+                            The workflow URL will be shown here once it finish.
+                          </h3>
+                          <p
+                            className={
+                              component.state === "success" ? (
+                                "success-work"
+                              ) : component.state === "building" ? (
+                                "build-work"
+                              ) : component.state === "failed" ? (
+                                "failed-work"
+                              ) : (
+                                <span>Ready</span>
+                              )
+                            }
+                          >
+                            {component.url ? (
+                              <a
+                                href={component.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {component.url}
+                              </a>
+                            ) : (
+                              "N/A"
+                            )}
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
                 </React.Fragment>
               ))}
             </tbody>
@@ -387,4 +433,4 @@ export default ComponentsTable;
                   </td>
                 </tr>
               )} */
-}
+}                   
