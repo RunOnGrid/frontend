@@ -42,18 +42,18 @@ const EnvFlux = ({
               <input value={value} onChange={(e) => setValue(e.target.value)} />
             </div>
             <div className="modal-input2">
-              <button className="add-button3" onClick={handleAddVariable}>Add +</button>
+              <button className="add-button3" onClick={handleAddVariable}>
+                Add +
+              </button>
             </div>
           </div>
-          
-          {/* List of saved environment variables */}
         </div>
       </div>
       <div className="env-variables-list">
         {envs.map((envStr, index) => {
           // Separamos la cadena para mostrar
-          const [envValue, envKey] = envStr.split('=');
-          
+          const [envValue, envKey] = envStr.split("=");
+
           return (
             <div
               key={index}

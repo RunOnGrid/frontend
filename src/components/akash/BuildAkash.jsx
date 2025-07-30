@@ -1,24 +1,22 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, use, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import EnvModal from "../EnvModal";
-import CommModal from "../CommModal";
-import PortModal from "../PortFlux";
-import PricingPlanAkash from "../deploy/PricingPlanAkash";
-import Botonera2 from "@/commons/Botonera2";
 import SummaryAkash from "../deploy/SummaryAkash";
 import LoadingText from "@/commons/LoaderText";
-import Image from "next/image";
 import { TokenService } from "../../../tokenHandler";
-import PricingPlanFlux from "../deploy/application/PricingPlanFlux";
 import DockerSettings from "../flux/DockerSettings";
 import AddComponent from "../deploy/AddComponent";
 import EnvFlux from "../flux/EnvFlux";
 import NetAkash from "./NetAkash";
 import Spinner from "@/commons/Spinner";
+import BidsTable from "./BidsTable";
 
-export default function BuildAkash({ darkMode, selectedCloud }) {
+export default function BuildAkash({
+  darkMode,
+  selectedCloud,
+  disabled,
+  setDisabled,
+}) {
   const [activeStep, setActiveStep] = useState(3);
-  const [currentDate, setCurrentDate] = useState("");
   const [cpu, setCpu] = useState(0.5);
   const [memory, setMemory] = useState(1000);
   const [memoryUnit, setMemoryUnit] = useState("Mi");
@@ -26,11 +24,11 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
   const [ephemeralStorage, setEphemeralStorage] = useState(40);
   const [serviceCount, setServiceCount] = useState(1);
   const [error, setError] = useState(null);
+  const [deployError, setDeployError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDeploy, setIsLoadingDeploy] = useState(false);
   const [name, setName] = useState("");
-  const [activeTab, setActiveTab] = useState("builder");
   const [commands, setCommands] = useState([]);
-
   const [protocol, setProtocol] = useState("http");
   const [ports, setPorts] = useState({
     port: 80,
@@ -41,10 +39,8 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
   const [accept, setAccept] = useState("");
   const [summary, setSummary] = useState(false);
   const [agree, setAgree] = useState(false);
-  const [repositories, setRepositories] = useState([0, 1]);
   const [repoTag, setRepoTag] = useState("");
   const [owner, setOwner] = useState("");
-  const [showConfig, setShowConfig] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
   const [errorMessage3, setErrorMessage3] = useState("");
@@ -65,6 +61,11 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
   const [instances, setInstances] = useState(1);
   const [priceLoader, setPriceLoader] = useState(false);
   const [tiered, setTiered] = useState(false);
+  const [bidsData, setBidsData] = useState([]);
+  const [dseq, setDseq] = useState("");
+  const [providerOwner, setProviderOwner] = useState("");
+  const [showBids, setShowBids] = useState(false);
+
   const router = useRouter();
 
   const getBalance = async () => {
@@ -160,23 +161,21 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
       setErrorMessage2("");
       setSummary(true);
       setActiveStep(4);
+      setDisabled(true);
     }
   };
 
-  // };
-
-  const handlePaymentSuccess = async () => {
+  const handleBids = async () => {
     setIsLoading(true);
     if (insufficient) {
       setFundsError("Insufficient funds");
-
       setIsLoading(false);
       return;
     }
     try {
       let response;
 
-      response = await fetch("/api/akash-deploy", {
+      response = await fetch("/api/get-akash-bids", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -209,14 +208,52 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
-      await response.json();
-      router.push("/profile");
+      const data = await response.json();
+
+      if (data && data.data.bid) {
+        setDseq(data.data.dseq);
+        setBidsData(data.data.bid);
+        setShowBids(true);
+      } else {
+        console.warn("Response did not contain a 'bid' array.");
+      }
     } catch (err) {
       setError(err.message);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleDeploy = async () => {
+    setIsLoadingDeploy(true);
+
+    try {
+      let response;
+
+      response = await fetch("/api/choose-provider", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          dseq: dseq.toString(),
+          providerOwner: providerOwner,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      router.push("/profile");
+    } catch (err) {
+      setDeployError(err.message);
+    } finally {
+      setIsLoadingDeploy(false);
+    }
+  };
+
   useEffect(() => {
     const tokens = TokenService.getTokens();
     setAccessToken(tokens.tokens.accessToken);
@@ -232,31 +269,40 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
       envRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
-
+  const handleReturn = () => {
+    setSummary(false);
+    setAgree(false);
+    setActiveStep(3);
+    setDisabled(false);
+    setShowBids(false);
+  };
   return (
     <div className="databaseSelect">
-      <div className="components-display">
-        <DockerSettings
-          repoTag={repoTag}
-          setRepoTag={setRepoTag}
-          name={name}
-          setName={setName}
-          darkMode={darkMode}
-          owner={owner}
-          setOwner={setOwner}
-          setPat={setPat}
-          pat={pat}
-          priv={priv}
-          setPriv={setPriv}
-          errorMessage2={errorMessage2}
-          errorMessage={errorMessage}
-          errorMessage3={errorMessage3}
-          setHost={setHost}
-          setTiered={setTiered}
-          tiered={tiered}
-          existingNames={false}
-          setErrorMessage2={setErrorMessage2}
-        />
+      <div className={disabled ? "disable-container" : ""}>
+        <div className="components-display">
+          <DockerSettings
+            repoTag={repoTag}
+            setRepoTag={setRepoTag}
+            name={name}
+            setName={setName}
+            darkMode={darkMode}
+            owner={owner}
+            setOwner={setOwner}
+            setPat={setPat}
+            pat={pat}
+            priv={priv}
+            setPriv={setPriv}
+            errorMessage2={errorMessage2}
+            errorMessage={errorMessage}
+            errorMessage3={errorMessage3}
+            setHost={setHost}
+            setTiered={setTiered}
+            tiered={tiered}
+            existingNames={false}
+            setErrorMessage2={setErrorMessage2}
+            selectedCloud={selectedCloud}
+          />
+        </div>
         <AddComponent
           darkMode={darkMode}
           cpu={cpu}
@@ -269,55 +315,39 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
           min={1}
           plan={"akash"}
         />
+        <>
+          <h3 style={{ marginTop: "30px" }}> Settings</h3>
+          <div className="variables-section">
+            <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
+            <NetAkash
+              setPort={setPort}
+              port={port}
+              domain={domain}
+              setDomain={setDomain}
+              as={as}
+              setAs={setAs}
+              darkMode={darkMode}
+              setProtocol={setProtocol}
+            />
+          </div>
+        </>
+
+        {priceLoader ? (
+          <Spinner />
+        ) : (
+          <button
+            className="add-button4"
+            onClick={() => {
+              handleSummary(true);
+            }}
+          >
+            Continue
+          </button>
+        )}
       </div>
 
-      <>
-        <h3> Settings</h3>
-        <div style={{ display: "flex" }}>
-          <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
-          <NetAkash
-            setPort={setPort}
-            port={port}
-            domain={domain}
-            setDomain={setDomain}
-            as={as}
-            setAs={setAs}
-            darkMode={darkMode}
-            setProtocol={setProtocol}
-          />
-        </div>
-      </>
-      {priceLoader ? (
-        <Spinner />
-      ) : (
-        <button
-          className="add-button4"
-          onClick={() => {
-            handleSummary(true);
-          }}
-        >
-          Continue
-        </button>
-      )}
-      {/* <ComponentsTable /> */}
       {summary && (
         <div ref={deployRef}>
-          <SummaryAkash
-            cpu={cpu}
-            ram={memory}
-            hdd={ephemeralStorage}
-            mode={darkMode}
-            name={name}
-            setSummary={setSummary}
-            setAgree={setAgree}
-            price={compPrice}
-            setActiveStep={setActiveStep}
-            summaryStep={3}
-          />
-          {/* <div className="termService">
-            <Botonera2 setAgree={setAgree} agree={agree} />
-            <h4>I agree with Terms of Service</h4>
-          </div> */}
           {fundsError !== "" ? (
             <h3 className="error-message-login">{fundsError}</h3>
           ) : (
@@ -327,22 +357,52 @@ export default function BuildAkash({ darkMode, selectedCloud }) {
             <div className="line-background"></div>
             {isLoading ? (
               <div className="loading-container">
-                <LoadingText />
+                <Spinner />
               </div>
             ) : (
               <>
                 <button
                   className="deploy-button"
                   onClick={() => {
-                    handlePaymentSuccess();
+                    handleBids();
                   }}
                   disabled={isLoading}
                 >
-                  Deploy
+                  Get Akash Bids
                 </button>
               </>
             )}
+            <button
+              disabled={isLoading}
+              onClick={() => handleReturn()}
+              className="return-button"
+            >
+              {" "}
+              Return
+            </button>
           </div>
+          {bidsData.length > 0 && showBids && (
+            <BidsTable
+              cpu={cpu}
+              ram={memory}
+              ramUnit={memoryUnit}
+              storage={ephemeralStorage}
+              storageUnit={storageUnit}
+              data={bidsData}
+              dseq={dseq}
+              setProviderOwner={setProviderOwner}
+            />
+          )}
+          {providerOwner !== "" && showBids && (
+            <button
+              className="add-button4"
+              onClick={() => {
+                handleDeploy();
+              }}
+            >
+              Deploy
+            </button>
+          )}
         </div>
       )}
     </div>

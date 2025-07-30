@@ -37,10 +37,10 @@
   width: 100%;
   margin: 10px auto;
 }
-.cpu-buttons button:hover {
+/* .cpu-buttons button:hover {
   background-color: rgba(255, 255, 255, 0.81);
   color: #0c1317;
-}
+} */
 .cpu-container {
   margin: auto;
   margin-right: 0px;

@@ -51,64 +51,66 @@ const FluxSlider = ({
   };
 
   return (
-    <div
-      className={`slider-container ${disableSelect ? "disabled" : ""} ${
-        darkMode ? "dark" : "light"
-      }`}
-    >
-      <div className="slider-item">
-        <div className="slider-label">
-          <span>
-            {label}: {currentInterval.label}
-          </span>
-        </div>
+    <div>
+      <div
+        className={`slider-container ${disableSelect ? "disabled" : ""} ${
+          darkMode ? "dark" : "light"
+        }`}
+      >
+        <div className="slider-item">
+          <div className="slider-label">
+            <span>
+              {label}: {currentInterval.label}
+            </span>
+          </div>
 
-        <div className="slider-wrapper">
-          <input
-            type="range"
-            min={min}
-            max={max}
-            step={step}
-            value={duration}
-            onChange={handleDurationChange}
-            onMouseDown={() => setIsDraggingDuration(true)}
-            onMouseUp={() => setIsDraggingDuration(false)}
-            onTouchStart={() => setIsDraggingDuration(true)}
-            onTouchEnd={() => setIsDraggingDuration(false)}
-            className={isDraggingDuration ? "slider dragging" : "slider"}
-          />
-          <div className="slider-track">
-            <div
-              className="slider-progress"
-              style={{ width: `${((duration - min) / (max - min)) * 100}%` }}
+          <div className="slider-wrapper">
+            <input
+              type="range"
+              min={min}
+              max={max}
+              step={step}
+              value={duration}
+              onChange={handleDurationChange}
+              onMouseDown={() => setIsDraggingDuration(true)}
+              onMouseUp={() => setIsDraggingDuration(false)}
+              onTouchStart={() => setIsDraggingDuration(true)}
+              onTouchEnd={() => setIsDraggingDuration(false)}
+              className={isDraggingDuration ? "slider dragging" : "slider"}
             />
+            <div className="slider-track">
+              <div
+                className="slider-progress"
+                style={{ width: `${((duration - min) / (max - min)) * 100}%` }}
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="slider-item">
-        <div className="slider-label">
-          <span>Instances: {instances}</span>
-        </div>
-        <div className="slider-wrapper">
-          <input
-            type="range"
-            min={3}
-            max={100}
-            step={1}
-            value={instances}
-            onChange={handleInstancesChange}
-            onMouseDown={() => setIsDraggingInstances(true)}
-            onMouseUp={() => setIsDraggingInstances(false)}
-            onTouchStart={() => setIsDraggingInstances(true)}
-            onTouchEnd={() => setIsDraggingInstances(false)}
-            className={isDraggingInstances ? "slider dragging" : "slider"}
-          />
-          <div className="slider-track">
-            <div
-              className="slider-progress"
-              style={{ width: `${((instances - 3) / (100 - 3)) * 100}%` }}
+        <div className="slider-item">
+          <div className="slider-label">
+            <span>Instances: {instances}</span>
+          </div>
+          <div className="slider-wrapper">
+            <input
+              type="range"
+              min={3}
+              max={100}
+              step={1}
+              value={instances}
+              onChange={handleInstancesChange}
+              onMouseDown={() => setIsDraggingInstances(true)}
+              onMouseUp={() => setIsDraggingInstances(false)}
+              onTouchStart={() => setIsDraggingInstances(true)}
+              onTouchEnd={() => setIsDraggingInstances(false)}
+              className={isDraggingInstances ? "slider dragging" : "slider"}
             />
+            <div className="slider-track">
+              <div
+                className="slider-progress"
+                style={{ width: `${((instances - 3) / (100 - 3)) * 100}%` }}
+              />
+            </div>
           </div>
         </div>
       </div>

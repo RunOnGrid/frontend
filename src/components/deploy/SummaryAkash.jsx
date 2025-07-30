@@ -13,12 +13,9 @@ const SummaryAkash = ({
   price,
   setActiveStep,
   summaryStep,
+  setDisabled,
+  setShowBids,
 }) => {
-  const handleReturn = () => {
-    setSummary(false);
-    setAgree(false);
-    setActiveStep(summaryStep);
-  };
   return (
     <div className={`summary-container ${mode ? "dark" : "light"}`}>
       <h2>Summary</h2>

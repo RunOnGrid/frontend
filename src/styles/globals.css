@@ -43,15 +43,12 @@ textarea {
   border: none;
 }
   .slider-container {
-    width: 95%;
+    width: auto;
     display: flex;
     flex-direction: column;
     border: 2px solid #e0e0e0;
     border-radius: 25px;
-
-    margin: 20px ;
-    margin-left: 0px;
-    justify-content: space-around;
+  
     padding: 25px 5px;
     
     
@@ -64,7 +61,7 @@ textarea {
   }
   .slider-item{
     display: flex;
-    margin: 20px  ;
+    margin: 5px 10px;
   }
   .no-slider-container{
     width: 95%;
@@ -165,8 +162,9 @@ textarea {
   border-radius: 25px;
   padding: 20px;
   border: 2px solid #e0e0e0;
-  width: 95%;
-  margin: 20px auto;
+  flex: 1;
+  margin-top: 30px;
+  
 }
 
 .span-total-summary{
@@ -193,56 +191,106 @@ textarea {
 }
 .components-table {
   width: 100%;
-  border-collapse: collapse;
-  border-spacing: 0 8px;
+  border-spacing: 0 12px;
   text-align: left;
 }
 .components-table th,
 .components-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ccc;
+  background-color: #f5f5f5; /* Mueve el background-color aquí */
 }
 .components-table th {
   font-weight: 500;
   color: #333;
   font-size: 14px;
+}
+.components-table td {
+  margin: 10px 0px;
+  font-size: 14px;
+  color: #333;
+}
 
+/* Bordes redondeados para las celdas de las esquinas */
+.row-components td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.row-components td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* --- Estilos para la fila desplegable --- */
+
+/* La fila principal para indicar que es clickeable */
+.row-components {
+  cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+  transition: background-color 0.3s ease; /* Transición para el hover */
+}
+
+.row-components:hover {
+  background-color: #e0e0e0; /* Un color más oscuro al pasar el mouse */
+}
+
+/* La fila que contiene el contenido adicional */
+.expanded-row td {
+  padding: 0 12px; /* Espaciado horizontal, vertical 0 inicialmente */
+  background-color: #ebebeb; /* Un color de fondo ligeramente diferente */
+  border-bottom-left-radius: 10px; /* Redondea las esquinas inferiores de la fila desplegada */
+  border-bottom-right-radius: 10px;
+}
+
+/* Contenedor del contenido que se expande */
+.expanded-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, padding 0.5s ease-out;
+  opacity: 0;
+  padding: 0; /* Asegúrate de que no haya padding inicial */
+}
+.expanded-content h3, .expanded-content p{
+  justify-content: center;
+  margin: 0px !important;
+}
+.success-work a{
+  display: flex !important;
+  color: #05c46b !important;
+  justify-content: center !important;
+  font-weight: bold;
+ 
+}
+.failed-work a{
+  display: flex !important;
+  color: #ff2424 !important;
+  justify-content: center !important;
+  font-weight: bold;
  
 }
 
-.components-table td {
-
-  font-size: 14px;
-  color: #333;
-  background-color: #f5f5f5;
+/* Cuando la fila está expandida, el contenido se muestra */
+.expanded-row .expanded-content {
+  max-height: 200px; /* O un valor lo suficientemente grande para contener tu contenido */
+  opacity: 1;
+  padding: 12px; /* Añade padding cuando está expandido */
 }
 
-.components-table tbody tr td:first-child {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+/* Opcional: Para una separación visual más clara si la fila principal y la expandida tienen fondos similares */
+.expanded-row {
+  margin-top: -12px; /* Para "pegar" la fila expandida a la principal si usas border-spacing en la tabla */
+  /* Asegúrate de que el border-radius de la fila superior no se vea afectado si se superpone */
 }
 
-.components-table tbody tr td:last-child {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+/* Si quieres que las esquinas superiores de la fila principal también se redondeen cuando está abierta */
+/* .row-components.expanded td:first-child {
+  border-bottom-left-radius: 0;
 }
-
-.components-table tbody tr {
-  margin-bottom: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  border-radius: 6px;
-
-  position: relative;
-}
+.row-components.expanded td:last-child {
+  border-bottom-right-radius: 0;
+} */
 
 
 
-.expanded-row td {
-  padding: 0 !important; /* Eliminar el padding de la celda */
-  background-color: transparent !important;
-  border-top: none !important;
-}
 
 
 
@@ -263,25 +311,6 @@ textarea {
   margin-top: 5px;
 }
 
-/* Modificar estos selectores para que solo apliquen a las filas normales */
-.components-table tbody tr:not(.expanded-row) td:first-child {
-  border-top-left-radius: 10;
-  border-bottom-left-radius: 10;
-}
-
-.components-table tbody tr:not(.expanded-row) td:last-child {
-  border-top-right-radius: 10;
-  border-bottom-right-radius: 10;
-}
-
-/* Cuando la fila está expandida, modificamos los bordes inferiores */
-.components-table tbody tr.row-active td:first-child {
-  border-bottom-left-radius: 0;
-}
-
-.components-table tbody tr.row-active td:last-child {
-  border-bottom-right-radius: 0;
-}
 
 .pipeline-info {
   display: flex;

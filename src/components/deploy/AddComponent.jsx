@@ -15,6 +15,9 @@ const AddComponent = ({
   instances,
   min,
   plan,
+  onNext,
+  next,
+  setNext,
 }) => {
   const [customize, setCustomize] = useState(false);
   const [pricingCards, setPricingCards] = useState(false);

@@ -8,32 +8,23 @@ import { TokenService } from "../../tokenHandler";
 
 const RepositorySettings = ({
   darkMode,
-  summary,
   owner,
   setOwner,
-  setRepoTag,
-  setDisableSelect,
   onNextStep,
   singleRepo,
   setSingleRepo,
-  branch,
   setBranch,
   installationId,
   setInstallationId,
+  setNext,
 }) => {
   const [gitRepo, setGitRepo] = useState("");
   const [branches, setBranches] = useState([]);
-  const [workflow, setWorkflow] = useState(false);
-  const [workflowUrl, setWorkflowUrl] = useState("");
   const [gridId, setGridId] = useState("");
   const [repos, setRepos] = useState([]);
-  const [notWorkflow, setNotWorkflow] = useState(false);
   const [workflowInstalled, setWorkflowInstalled] = useState(false);
-  const [showNext, setShowNext] = useState(false);
+
   const [loadingWorkflow, setLoadingWorkflow] = useState(false);
-  const [workflowRun, setWorkflowRun] = useState(false);
-  const [errorWorkflow, setErrorWorkflow] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (gridId) {
@@ -136,8 +127,8 @@ const RepositorySettings = ({
         throw new Error(`Error fetching branches: ${response.statusText}`);
       }
       if (response.ok) {
-        const data = await response.json();
-        setWorkflowInstalled(true);
+        setNext(true);
+        onNextStep();
         setLoadingWorkflow(false);
       }
     } catch (error) {
@@ -171,27 +162,26 @@ const RepositorySettings = ({
             </div>
           </span>
         </div>
-        <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-          <h3>GitHub repository</h3>
-          <Select options={repos} onSelect={setGitRepo} />
-        </div>
-        <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
-          <h3>Branches</h3>
-          <Select4 options={branches} onSelect={handleBranch} />
+        <div className="buildpack-double">
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+            <h3>GitHub repository</h3>
+            <Select options={repos} onSelect={setGitRepo} />
+          </div>
+          <div className={`buildpack-single ${darkMode ? "dark" : "light"}`}>
+            <h3>Branches</h3>
+            <Select4 options={branches} onSelect={handleBranch} />
+          </div>
         </div>
       </div>
       {loadingWorkflow && <Spinner />}
-      {workflowInstalled ? (
-        <div className="button-display">
-          <button onClick={onNextStep} className="add-button">
-            Continue
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
+    </div>
+  );
+};
 
-      {/* {workflow && !showNext && (
+export default RepositorySettings;
+
+{
+  /* {workflow && !showNext && (
         <div className="workflow-text">
           <span className="workflow-text">
             Check the progress of the workflow on this url:
@@ -202,9 +192,11 @@ const RepositorySettings = ({
             </Link>
           </span>
         </div>
-      )} */}
+      )} */
+}
 
-      {/* {errorWorkflow && (
+{
+  /* {errorWorkflow && (
         <div className="text-container">
           <span className="texto-pipeline2">The pipeline has failed.</span>
           <Link href={workflowUrl} target="_blank">
@@ -213,8 +205,10 @@ const RepositorySettings = ({
             </span>
           </Link>
         </div>
-      )} */}
-      {/* {showNext && (
+      )} */
+}
+{
+  /* {showNext && (
         <div className="text-container">
           <span className="texto-pipeline">
             The pipeline has finished successfully.
@@ -225,14 +219,5 @@ const RepositorySettings = ({
             </span>
           </Link>
         </div>
-      )} */}
-      {showNext && (
-        <button onClick={onNextStep} className="add-button4">
-          Continue
-        </button>
-      )}
-    </div>
-  );
-};
-
-export default RepositorySettings;
+      )} */
+}

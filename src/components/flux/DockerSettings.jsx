@@ -21,6 +21,7 @@ const DockerSettings = ({
   tiered,
   existingNames,
   setErrorMessage2,
+  selectedCloud,
 }) => {
   const [branch, setBranch] = useState("Github Container Registry - ghcr.io");
 
@@ -123,7 +124,11 @@ const DockerSettings = ({
               className={`custom-input ${darkMode ? "dark" : "light"}`}
               value={repoTag}
               onChange={handleImageChange}
-              placeholder=":latest tag is not recommended on akash deploys"
+              placeholder={
+                selectedCloud === "akash"
+                  ? ":latest tag is not recommended on akash deploys"
+                  : ""
+              }
               required
             />
           </div>

@@ -2,36 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import BuildSettings from "../BuildSettings";
 import { useRouter } from "next/router";
 import { useTheme } from "@/ThemeContext";
-import Botonera2 from "@/commons/Botonera2";
 import Spinner from "@/commons/Spinner";
-import SummaryAkash from "../SummaryAkash";
 import { TokenService } from "../../../../tokenHandler";
-import LoadingText from "@/commons/LoaderText";
 import FluxInputs from "@/components/flux/FluxInputs";
 import EnvFlux from "@/components/flux/EnvFlux";
 import NetFlux from "@/components/flux/NetFlux";
-import ComponentsTable from "@/components/flux/ComponentTable";
-
 
 const GithubFlux = ({
   setInstalled,
   setDisableSelect,
   selectedCloud,
   setComponents,
-  components,
   showConfig,
   setShowConfig,
-  workflowFinished,
-  setWorkflowFinished,
-  workflowLoading,
-  setWorkflowLoading,
-  setDeployOption,
   setters,
   config,
-  resetFlow,
 }) => {
   const { darkMode } = useTheme();
-  const router = useRouter();
 
   const [errorMessage, setErrorMessage] = useState("");
   const [errorMessage2, setErrorMessage2] = useState("");
@@ -39,14 +26,13 @@ const GithubFlux = ({
   const [activeStep, setActiveStep] = useState(1);
   const [activeTab, setActiveTab] = useState("builder");
   const [existingNames, setExistingNames] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [email, setEmail] = useState(null);
   const [repositories, setRepositories] = useState([0, 1]);
   const [error, setError] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [balance, setBalance] = useState(0);
   const [insufficient, setInsufficient] = useState(false);
-  const [fundsError, setFundsError] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [validatorMsg, setValidatorMsg] = useState("");
   const [imagePath, setImagePath] = useState("");
@@ -200,7 +186,7 @@ const GithubFlux = ({
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify(deploymentConfig.compose),
+        body: JSON.stringify(deploymentConfig),
       }
     );
 
@@ -215,12 +201,15 @@ const GithubFlux = ({
       if (isEditing && editingId != null) {
         return prevComponents.map((component) =>
           component.id === editingId
-            ? { ...deploymentConfig, id: editingId }
+            ? { ...deploymentConfig, id: editingId, price: compPrice }
             : component
         );
       } else {
         const newId = prevComponents.length;
-        return [...prevComponents, { ...deploymentConfig, id: newId }];
+        return [
+          ...prevComponents,
+          { ...deploymentConfig, id: newId, price: compPrice },
+        ];
       }
     });
 
@@ -327,62 +316,8 @@ const GithubFlux = ({
     }
   }, [repositories]);
 
-  // const handlePaymentSuccess = async () => {
-  //   setIsLoading(true);
-  //   if (insufficient) {
-  //     setFundsError("Insufficient funds");
-  //     setIsLoading(false);
-  //     return;
-  //   }
-  //   try {
-  //     const deploymentConfig = {
-  //       name: name,
-  //       description: "Application deployed by Grid",
-  //       compose: [
-  //         {
-  //           name: name,
-  //           description: "Application deployed by Grid",
-  //           repotag: repoTag,
-  //           domains: domain || [""],
-  //           environmentParameters: envs || [],
-  //           commands: commands || [],
-  //           containerPorts: port || [8080],
-  //           cpu: cpu,
-  //           ram: ram,
-  //           hdd: hdd,
-  //           tiered: true,
-  //           secrets: "",
-  //           repoauth: `${owner.toLowerCase()}:${pat}`,
-  //         },
-  //       ],
-  //       expire: compDuration,
-  //       instances: instances,
-  //     };
-
-  //     const response = await fetch("/api/flux-deploy", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //       body: JSON.stringify(deploymentConfig),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-
-  //     const data = await response.json();
-
-  //     router.push("/profile");
-  //   } catch (error) {
-  //     console.error("Deployment error:", error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
   return (
-    <div>
+    <div ref={envRef}>
       {repositories.length === 0 && (
         <div className="spinner-container">
           <Spinner />
@@ -392,7 +327,16 @@ const GithubFlux = ({
         className={`collapsible-section ${config.colapse ? "collapsed" : ""}`}
       >
         {showBuildSettings && (
-          <div ref={servicesRef}>
+          <div>
+            <FluxInputs
+              name={name}
+              handleNameChange={handleNameChange}
+              darkMode={darkMode}
+              errorMessage2={errorMessage2}
+              errorMessage={errorMessage}
+              pat={pat}
+              handlePat={handlePat}
+            />
             <BuildSettings
               repositories={repositories}
               darkMode={darkMode}
@@ -420,28 +364,16 @@ const GithubFlux = ({
               setInstallationId={setInstallationId}
               instances={instances}
               cloud={"flux"}
+              ref={envRef}
             />
           </div>
         )}
         {showConfig && (
-          <div ref={envRef} className="databaseSelect">
+          <div className="databaseSelect">
             <div>
-              {/* <h2>Deployment configurations</h2>
-
-            <p>Configure your deployment settings.</p> */}
-
               {activeTab === "builder" ? (
                 <div className={` ${summary ? "disabled2" : ""}`}>
-                  <FluxInputs
-                    name={name}
-                    handleNameChange={handleNameChange}
-                    darkMode={darkMode}
-                    errorMessage2={errorMessage2}
-                    errorMessage={errorMessage}
-                    pat={pat}
-                    handlePat={handlePat}
-                  />
-                  <div style={{ display: "flex" }}>
+                  <div className="variables-section">
                     <EnvFlux
                       darkMode={darkMode}
                       envs={envs}
@@ -481,25 +413,6 @@ const GithubFlux = ({
           </div>
         )}
       </div>
-
-      {components.length > 0 && summary && (
-        <div ref={deployRef}>
-          <ComponentsTable
-            setComponents={setComponents}
-            components={components}
-            workflowFinished={workflowFinished}
-            setWorkflowFinished={setWorkflowFinished}
-            workflowLoading={workflowLoading}
-            setWorkflowLoading={setWorkflowLoading}
-            setDeployOption={setDeployOption}
-            setSummary={setters.setSummary}
-            config={config}
-            setters={setters}
-            setShowConfig={setShowConfig}
-            resetFlow={resetFlow}
-          />
-        </div>
-      )}
     </div>
   );
 };
@@ -698,4 +611,24 @@ export default GithubFlux;
                   </>
                 )}
               </div> */
+}
+{
+  /* {components.length > 0 && (
+        <div ref={deployRef}>
+         // <ComponentsTable
+            setComponents={setComponents}
+            components={components}
+            workflowFinished={workflowFinished}
+            setWorkflowFinished={setWorkflowFinished}
+            workflowLoading={workflowLoading}
+            setWorkflowLoading={setWorkflowLoading}
+            setDeployOption={setDeployOption}
+            setSummary={setters.setSummary}
+            config={config}
+            setters={setters}
+            setShowConfig={setShowConfig}
+            resetFlow={resetFlow}
+          />
+        </div>
+      )} */
 }

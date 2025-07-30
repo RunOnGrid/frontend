@@ -11,6 +11,7 @@ const Select5 = ({ options, onSelect, darkMode }) => {
     setSelectedOption(option);
     setIsOpen(false);
     onSelect(option);
+    console.log(options);
   };
 
   return (

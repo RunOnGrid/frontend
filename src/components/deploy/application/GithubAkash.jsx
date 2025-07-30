@@ -17,13 +17,14 @@ import FluxInputs from "@/components/flux/FluxInputs";
 import NetAkash from "@/components/akash/NetAkash";
 import Spinner from "@/commons/Spinner";
 import ComponentsTable from "@/components/flux/ComponentTable";
+import BidsTable from "@/components/akash/BidsTable";
 
 const GithubAkash = ({
   image,
-  databaseName,
-  setInstalled,
   setDisableSelect,
   selectedCloud,
+  disabled,
+  setDisabled,
 }) => {
   const { darkMode } = useTheme();
   const router = useRouter();
@@ -36,9 +37,11 @@ const GithubAkash = ({
   const [ephemeralStorage, setEphemeralStorage] = useState(40);
   const [serviceCount, setServiceCount] = useState(1);
   const [error, setError] = useState(null);
+  const [deployError, setDeployError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingDeploy, setIsLoadingDeploy] = useState(false);
   const [name, setName] = useState("");
-  const [activeTab, setActiveTab] = useState("builder");
+
   const [commands, setCommands] = useState([]);
   const [env, setEnv] = useState({});
   const [protocol, setProtocol] = useState("http");
@@ -78,6 +81,12 @@ const GithubAkash = ({
   const [installationId, setInstallationId] = useState("");
   const [singleRepo, setSingleRepo] = useState("");
   const [branch, setBranch] = useState("");
+  const [bidsData, setBidsData] = useState([]);
+  const [dseq, setDseq] = useState("");
+  const [providerOwner, setProviderOwner] = useState(null);
+  const [showBids, setShowBids] = useState(false);
+  const [workflow, setWorkflow] = useState(false);
+  const [workflowInstalled, setWorkflowInstalled] = useState(false);
   const handleSummary = async () => {
     // Modificamos imageValidator para devolver el resultado en lugar de sólo establecer el estado
     const isImageValid = await imageValidator();
@@ -107,6 +116,7 @@ const GithubAkash = ({
         setActiveStep(3);
         setValidatorMsg("");
         setImageError(false);
+        setDisabled(true);
       }
     }
   };
@@ -233,7 +243,7 @@ const GithubAkash = ({
     });
   };
 
-  const handlePaymentSuccess = async () => {
+  const handleBids = async () => {
     setIsLoading(true);
     if (insufficient) {
       setFundsError("Insufficient funds");
@@ -242,43 +252,49 @@ const GithubAkash = ({
     }
     try {
       let response;
-      if (activeTab === "builder") {
-        response = await fetch("/api/akash-deploy", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            serviceName: name,
-            cpu,
-            memory,
-            ephemeralStorage,
-            serviceCount,
-            image: repoTag,
-            ports,
-            commands,
-            envs,
-            accept,
-            pat,
-            owner,
-            memoryUnit,
-            storageUnit,
-            host,
-            protocol,
-            port,
-            as,
-            count: instances,
-          }),
-        });
-      }
+
+      response = await fetch("/api/get-akash-bids", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          serviceName: name,
+          cpu,
+          memory,
+          ephemeralStorage,
+          serviceCount,
+          image: repoTag,
+          ports,
+          commands,
+          envs,
+          accept,
+          pat,
+          owner,
+          memoryUnit,
+          storageUnit,
+          host,
+          protocol,
+          port,
+          as,
+          count: instances,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
 
-      await response.json();
-      router.push("/profile");
+      const data = await response.json();
+
+      if (data && data.data.bid) {
+        setDseq(data.data.dseq);
+        setBidsData(data.data.bid);
+        setShowBids(true);
+      } else {
+        console.warn("Response did not contain a 'bid' array.");
+      }
     } catch (err) {
       setError(err.message);
     } finally {
@@ -300,146 +316,182 @@ const GithubAkash = ({
       deployRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [activeStep]);
+  const handleDeploy = async () => {
+    setIsLoadingDeploy(true);
 
+    try {
+      let response;
+
+      response = await fetch("/api/choose-provider", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          dseq: dseq.toString(),
+          providerOwner: providerOwner,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const data = await response.json();
+      router.push("/profile");
+    } catch (err) {
+      setDeployError(err.message);
+    } finally {
+      setIsLoadingDeploy(false);
+    }
+  };
+  const handleReturn = () => {
+    setSummary(false);
+    setAgree(false);
+    setActiveStep(3);
+    setDisabled(false);
+    setShowBids(false);
+  };
   return (
     <div>
-      <BuildSettings
-        repositories={repositories}
-        darkMode={darkMode}
-        ref={servicesRef}
-        setRepoTag={setRepoTag}
-        summary={summary}
-        setOwner={setOwner}
-        owner={owner.toLowerCase()}
-        onNext={() => handleShowConfig()}
-        setDisableSelect={setDisableSelect}
-        existingNames={{}}
-        image={image}
-        setPat={setPat}
-        cpu={cpu}
-        setCpu={setCpu}
-        ram={memory}
-        setRam={setMemory}
-        hdd={ephemeralStorage}
-        setHdd={setEphemeralStorage}
-        setInstances={setInstances}
-        setImagePath={setImagePath}
-        singleRepo={singleRepo}
-        setSingleRepo={setSingleRepo}
-        branch={branch}
-        setBranch={setBranch}
-        min={1}
-        installationId={installationId}
-        setInstallationId={setInstallationId}
-        cloud={"akash"}
-      />
-      {showConfig && (
-        <div className="databaseSelect">
-          <div ref={servicesRef} className={` ${summary ? "disabled" : ""}`}>
-            {/* <h2>Deployment configurations</h2>
-
-            <p>Configure your deployment settings.</p> */}
-
-            {activeTab === "builder" ? (
-              <>
-                <FluxInputs
-                  name={name}
-                  handleNameChange={handleNameChange}
-                  darkMode={darkMode}
-                  errorMessage2={errorMessage2}
-                  errorMessage={errorMessage}
-                  pat={pat}
-                  handlePat={handlePat}
-                />
-                <div style={{ display: "flex" }}>
-                  <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
-                  <NetAkash
-                    setPort={setPort}
-                    port={port}
-                    domain={domain}
-                    setDomain={setDomain}
-                    as={as}
-                    setAs={setAs}
-                    darkMode={darkMode}
-                    setProtocol={setProtocol}
-                  />
-                </div>
-              </>
-            ) : (
-              ""
-            )}
-
-            {validatorMsg !== "" ? (
-              <span className="error-message-login">{validatorMsg}</span>
-            ) : (
-              ""
-            )}
-
-            {priceLoader ? (
-              <Spinner />
-            ) : (
-              <button
-                className="add-button4"
-                onClick={() => {
-                  handleSummary(true);
-                }}
-              >
-                Continue
-              </button>
-            )}
+      <div className={disabled ? "disable-container" : ""}>
+        <FluxInputs
+          name={name}
+          handleNameChange={handleNameChange}
+          darkMode={darkMode}
+          errorMessage2={errorMessage2}
+          errorMessage={errorMessage}
+          pat={pat}
+          handlePat={handlePat}
+        />
+        <BuildSettings
+          repositories={repositories}
+          darkMode={darkMode}
+          ref={servicesRef}
+          setRepoTag={setRepoTag}
+          summary={summary}
+          setOwner={setOwner}
+          owner={owner.toLowerCase()}
+          onNext={() => handleShowConfig()}
+          setDisableSelect={setDisableSelect}
+          existingNames={{}}
+          image={image}
+          setPat={setPat}
+          cpu={cpu}
+          setCpu={setCpu}
+          ram={memory}
+          setRam={setMemory}
+          hdd={ephemeralStorage}
+          setHdd={setEphemeralStorage}
+          setInstances={setInstances}
+          setImagePath={setImagePath}
+          singleRepo={singleRepo}
+          setSingleRepo={setSingleRepo}
+          branch={branch}
+          setBranch={setBranch}
+          min={1}
+          installationId={installationId}
+          setInstallationId={setInstallationId}
+          cloud={"akash"}
+          workflow={workflow}
+          setWorkflow={setWorkflow}
+          workflowInstalled={workflowInstalled}
+          setWorkflowInstalled={setWorkflowInstalled}
+        />
+        <div ref={servicesRef}>
+          <div className="variables-section">
+            <EnvFlux darkMode={darkMode} envs={envs} setEnvs={setEnvs} />
+            <NetAkash
+              setPort={setPort}
+              port={port}
+              domain={domain}
+              setDomain={setDomain}
+              as={as}
+              setAs={setAs}
+              darkMode={darkMode}
+              setProtocol={setProtocol}
+            />
           </div>
 
+          {validatorMsg !== "" ? (
+            <span className="error-message-login">{validatorMsg}</span>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      {showConfig && (
+        <div className="databaseSelect">
+          {priceLoader ? (
+            <Spinner />
+          ) : (
+            <button
+              className="add-button4"
+              onClick={() => {
+                handleSummary(true);
+              }}
+            >
+              Continue
+            </button>
+          )}
           {summary && (
             <div ref={deployRef}>
-              {/* <ComponentsTable components={components} /> */}
-              <SummaryAkash
-                cpu={cpu}
-                ram={memory}
-                hdd={ephemeralStorage}
-                mode={darkMode}
-                name={name}
-                setSummary={setSummary}
-                setAgree={setAgree}
-                price={compPrice}
-                setActiveStep={setActiveStep}
-                summaryStep={2}
-              />
-              {/* <div className="termService">
-                <Botonera2 setAgree={setAgree} agree={agree} />
-                <h4>I agree with Terms of Service</h4>
-              </div> */}
               {fundsError !== "" ? (
                 <h3 className="error-message-login">{fundsError}</h3>
               ) : (
                 ""
               )}
-              <div
-                className={
-                  agree
-                    ? "deploy-button-wrapper"
-                    : "deploy-button-wrapper-disabled"
-                }
-              >
+              <div className="deploy-button-wrapper">
                 <div className="line-background"></div>
                 {isLoading ? (
                   <div className="loading-container">
-                    <LoadingText />
+                    <Spinner />
                   </div>
                 ) : (
                   <>
                     <button
                       className="deploy-button"
                       onClick={() => {
-                        handlePaymentSuccess();
+                        handleBids();
                       }}
                       disabled={isLoading}
                     >
-                      Deploy
+                      Get Akash Bids
                     </button>
                   </>
                 )}
+                <button
+                  disabled={isLoading}
+                  onClick={() => handleReturn()}
+                  className="return-button"
+                >
+                  {" "}
+                  Return
+                </button>
               </div>
             </div>
+          )}
+          {bidsData.length > 0 && showBids && (
+            <BidsTable
+              cpu={cpu}
+              ram={memory}
+              ramUnit={memoryUnit}
+              storage={ephemeralStorage}
+              storageUnit={storageUnit}
+              data={bidsData}
+              dseq={dseq}
+              setProviderOwner={setProviderOwner}
+            />
+          )}
+          {providerOwner !== null && showBids && (
+            <button
+              className="add-button4"
+              onClick={() => {
+                handleDeploy();
+              }}
+            >
+              Deploy
+            </button>
           )}
         </div>
       )}
@@ -583,31 +635,31 @@ export default GithubAkash;
 //     setYaml(newYaml.trim());
 //   };
 
-  // useEffect(() => {
-  //   const formatDate = (date) => {
-  //     const options = {
-  //       weekday: "short",
-  //       year: "numeric",
-  //       month: "short",
-  //       day: "numeric",
-  //     };
-  //     return date.toLocaleDateString("en-US", options);
-  //   };
-  //   setCurrentDate(formatDate(new Date()));
-  // }, []);
-  // useEffect(() => {
-  //   updateYamlFromBuilder();
-  // }, [
-  //   serviceName,
-  //   cpu,
-  //   memory,
-  //   ephemeralStorage,
-  //   serviceCount,
-  //   image,
-  //   ports,
-  //   commands,
-  //   args,
-  //   env,
-  //   memoryUnit,
-  //   storageUnit,
-  // ]);
+// useEffect(() => {
+//   const formatDate = (date) => {
+//     const options = {
+//       weekday: "short",
+//       year: "numeric",
+//       month: "short",
+//       day: "numeric",
+//     };
+//     return date.toLocaleDateString("en-US", options);
+//   };
+//   setCurrentDate(formatDate(new Date()));
+// }, []);
+// useEffect(() => {
+//   updateYamlFromBuilder();
+// }, [
+//   serviceName,
+//   cpu,
+//   memory,
+//   ephemeralStorage,
+//   serviceCount,
+//   image,
+//   ports,
+//   commands,
+//   args,
+//   env,
+//   memoryUnit,
+//   storageUnit,
+// ]);
