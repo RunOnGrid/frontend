@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TrianglesLeft from "../landing-AsicHosting/TrianglesLeft";
+import TrianglesLeft from "../TrianglesLeft";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";

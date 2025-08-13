@@ -137,7 +137,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
             </li>
           </Link>
 
-          <Link href={"/"}>
+          <Link>
             <span onClick={() => handleLogout()} className="logout-sidebar">
               Log Out
               <Image

@@ -25,7 +25,6 @@ export default async function handler(req, res) {
         body: JSON.stringify({ amount, currency: "USD" }),
       }
     );
-
     const responseBody = await response.text();
 
     let data;
