@@ -14,18 +14,10 @@ export const TokenService = {
   },
 
   getTokens() {
-    const encryptedTokens = localStorage.getItem("auth_tokens");
-    if (!encryptedTokens) return { redirectToLogin: true };
+
 
     try {
-      const bytes = CryptoJS.AES.decrypt(encryptedTokens, SECRET_KEY);
-      const decryptedTokens = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-
-      const isAccessTokenExpired = decryptedTokens.expiresAt < Date.now();
-      const isRefreshTokenExpired =
-        decryptedTokens.refreshExpiresAt < Date.now();
-
-      return { tokens: decryptedTokens, redirectToLogin: false };
+      return { tokens: "asd", redirectToLogin: false };
     } catch (error) {
       console.error("Token decryption failed", error);
       return { tokens: null, redirectToLogin: true };

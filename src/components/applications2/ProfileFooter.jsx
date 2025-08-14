@@ -15,16 +15,6 @@ const MobileFooterBar = () => {
   const currentPath = router.pathname;
   const isActive = (path) => (currentPath === path ? styles.active : "");
 
- const handleLogout = async () => {
-   TokenService.clearTokens();
-   router.push("/login");
- };
-
-  useEffect(() => {
-    const emailGrid = localStorage.getItem("grid_email");
-    setEmail(emailGrid);
-  }, [email]);
-
   return (
     <footer
       className={`${styles.mobileFooterBar} ${darkMode ? styles.darkMode : ""}`}

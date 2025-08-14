@@ -4,18 +4,12 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/ThemeContext";
-import CryptoJS from "crypto-js";
 import { TokenService } from "../../tokenHandler";
 
-const SECRET_KEY =
-  process.env.NEXT_PUBLIC_ENCRYPTION_KEY || "fallback-secret-key";
 
 const SideNavbar = ({ abierto, setAbierto }) => {
   const [menu, setMenu] = useState(false);
   const [showLinks, setShowLinks] = useState(false);
-  const [email, setEmail] = useState("");
-  const [accessToken, setAccessToken] = useState(null);
-  const [balance, setBalance] = useState(0);
   const { darkMode, toggleDarkMode } = useTheme();
   const router = useRouter();
 
@@ -25,55 +19,6 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   };
 
   const isActive = (path) => (currentPath === path ? "active" : "");
-  const handleLogout = async () => {
-    TokenService.clearTokens();
-    router.push("/login");
-  };
- 
-  const getBalance = async () => {
-    try {
-      const response = await fetch(`/api/balance-proxy`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error fetching data: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-
-      setBalance(data.toFixed(2));
-    } catch (err) {
-      console.error("Error loading existing app names:", err);
-    }
-  };
-  useEffect(() => {
-    if (accessToken) {
-      getBalance();
-    }
-  }, [accessToken]);
-
-  useEffect(() => {
-    const tokens = TokenService.getTokens();
-    if (tokens && tokens.tokens && tokens.tokens.accessToken) {
-      setAccessToken(tokens.tokens.accessToken);
-    }
-  }, []);
-
-  useEffect(() => {
-    const emailGrid = localStorage.getItem("grid_email");
-    setEmail(emailGrid);
-  }, [email]);
-
-  useEffect(() => {
-    const expired = TokenService.isExpired();
-    if (expired) {
-      handleLogout();
-    }
-  }, []);
 
   return (
     <>
@@ -96,7 +41,6 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               <span className="status-indicator"></span>
             </div>
             <div className="profile-info">
-              <p className="profile-username">{email}</p>
             </div>
           </div>
           <Link href="/profile">
@@ -106,7 +50,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           </Link>
           <Link href="/profile">
             <span className={`sideNavbar-p ${darkMode ? "dark" : "light"} `}>
-              USD ${balance}
+              USD $10
             </span>
           </Link>
 
@@ -119,9 +63,8 @@ const SideNavbar = ({ abierto, setAbierto }) => {
 
           <Link href="/profile">
             <li
-              className={`sideNavbar-li ${
-                darkMode ? "dark" : "light"
-              } ${isActive("/profile")}`}
+              className={`sideNavbar-li ${darkMode ? "dark" : "light"
+                } ${isActive("/profile")}`}
             >
               Applications
             </li>
@@ -129,26 +72,27 @@ const SideNavbar = ({ abierto, setAbierto }) => {
 
           <Link href="/profile/billing">
             <li
-              className={`sideNavbar-li ${
-                darkMode ? "dark" : "light"
-              } ${isActive("/profile/billing")}`}
+              className={`sideNavbar-li ${darkMode ? "dark" : "light"
+                } ${isActive("/profile/billing")}`}
             >
               Billing
             </li>
           </Link>
 
-          <Link>
-            <span onClick={() => handleLogout()} className="logout-sidebar">
-              Log Out
-              <Image
-                className="button-logout"
-                alt=""
-                src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/04de75c5-d239-4614-d717-07a19013fd00/public"
-                height={16}
-                width={16}
-              />
-            </span>
-          </Link>
+          <a
+            href="https://ongrid.run"
+            className="logout-sidebar"
+            rel="noopener noreferrer"
+          >
+            Log Out
+            <Image
+              className="button-logout"
+              alt=""
+              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/04de75c5-d239-4614-d717-07a19013fd00/public"
+              height={16}
+              width={16}
+            />
+          </a>
 
           <div className="footer-sidebar">
             <div className="contact-links">

@@ -69,6 +69,7 @@ export async function generateMnemonicFromGoogle(
 export async function deriveAkash(mnemonic: string): Promise<DirectSecp256k1HdWallet> {
     const akashData = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix: "akash" });
     return akashData
+
 }
 
 export function generatexPubxPriv(
@@ -105,8 +106,8 @@ export function generateNodeIdentityKeypair(
 
     const keyNode = BIP32.fromBase58(externalAddress.privateExtendedKey, bitcoin);
     const wif = keyNode.toWIF();
-    const pubkeyHex = keyNode.publicKey.toString();
     console.log(wif);
+    const pubkeyHex = Buffer.from(keyNode.publicKey).toString('hex');
 
     return {
         privKey: wif,
@@ -155,16 +156,9 @@ export function generateExternalIdentityKeypair(
 ): externalIdentity {
     const identityKeypair = generateNodeIdentityKeypair(xpriv)
 
-    const pubKeyBuffer = Buffer.from(identityKeypair.pubKey, "hex");
+    const kp = ECPair.fromWIF(identityKeypair.privKey, bitcoin);
 
-    const uint = new Uint8Array(pubKeyBuffer)
-
-    const genKeypair = ECPair.fromPublicKey(uint, {
-        network: bitcoin,
-        compressed: true, // opcional, pero recomendable
-    })
-
-    const address = pubkeyToP2PKH(genKeypair.publicKey)
+    const address = pubkeyToP2PKH(kp.publicKey, bitcoin);
     const externalIdentity = {
         privKey: identityKeypair.privKey,
         pubKey: identityKeypair.pubKey,

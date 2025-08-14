@@ -1,0 +1,8 @@
+@import url('./CardsHosting.css');
+
+.logged-hosting-component {
+
+  background-size: cover;
+  min-height: 100vh;
+  height: 100%;
+}

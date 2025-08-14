@@ -1,5 +1,7 @@
 @import url('./Navbar.css');
 @import url('./Form.css');
+@import url('./SetPassword.css');
+@import url('./Backup.css');
 
 
 .pw-reset__container {

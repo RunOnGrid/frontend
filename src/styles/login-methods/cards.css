@@ -1,0 +1,264 @@
+:root {
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --text: #111827;
+    --muted: #6b7280;
+    /* <-- distinto al text */
+    --primary: #111827;
+    --primary-contrast: #ffffff;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode: NO uses ".dark :root" */
+.dark {
+    --card-bg: #0b0f14;
+    --card-border: #1f2937;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    /* <-- contraste para oscuro */
+    --primary: #e5e7eb;
+    --primary-contrast: #0b0f14;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.import-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    /* separación entre tarjetas */
+    max-width: 800px;
+    /* límite de ancho */
+    margin: 2rem auto;
+    /* centrado horizontal */
+}
+
+
+.import-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 16px;
+    justify-self: center;
+    background: var(--card-bg);
+    border: 1px solid #00b174;
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    min-width: 300px;
+    min-height: 100px;
+    /* ajusta si quieres */
+}
+
+
+.import-card__header {
+    padding: 0.5rem 1.25rem 0.5rem;
+    text-align: center;
+}
+
+.import-card__title {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 550;
+    color: var(--text);
+}
+
+.import-card__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.import-card__subtitle {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.import-card button {
+    min-width: 240px;
+    margin-top: 10px;
+    border-radius: 25px;
+    text-align: center;
+    border: 1px solid #00b174;
+    background-color: white;
+    width: 100%;
+    font-weight: 400;
+    color: black;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    /* Elementos uno debajo del otro */
+    justify-content: center;
+    /* Centrar verticalmente */
+    align-items: center;
+    /* Centrar horizontalmente */
+    min-height: 100vh;
+    /* Ocupar toda la altura de la pantalla */
+    text-align: center;
+    /* Centrar texto */
+}
+
+.logo-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 100px;
+    margin-bottom: 1rem;
+}
+
+.import-row {
+    display: grid;
+    grid-template-columns: repeat(2, 360px);
+    gap: 24px;
+    justify-content: center;
+}
+
+/* Botones genéricos */
+
+.btn-with-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    /* espacio entre icono y texto */
+    padding: 0.6rem 1rem;
+    border: 1px solid #00b174;
+    border-radius: 25px;
+    background-color: white;
+    font-weight: 400;
+    color: black;
+}
+
+.btn-icon {
+    width: 18px;
+    /* ajustá el tamaño del icono */
+    height: 18px;
+}
+
+.btn {
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-weight: 600;
+    transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--primary-contrast);
+}
+
+.btn-primary:hover {
+    opacity: 0.92;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+/* ====== Responsive ====== */
+
+/* iPad (≤ 1024px): apilar en columna y centrar */
+@media only screen and (max-width: 1024px) {
+    .import-container {
+        flex-direction: column;
+        /* de fila -> columna */
+        align-items: center;
+        /* centra las cards */
+        max-width: 560px;
+        /* un contenedor más angosto */
+        gap: 1.25rem;
+    }
+
+    .import-row {
+        grid-template-columns: 1fr;
+        /* 2 columnas -> 1 columna */
+        max-width: 560px;
+        gap: 1.25rem;
+    }
+
+    .import-card {
+        width: 100%;
+        /* que ocupen todo el ancho del contenedor */
+        min-width: 0;
+        /* evita overflow por min-width previo */
+        padding: 1.25rem;
+        min-height: 220px;
+        /* opcional: más compactas en tablet */
+    }
+
+    .import-card__title {
+        font-size: 1.35rem;
+        line-height: 1.85rem;
+    }
+
+    .import-card button {
+        max-width: 100%;
+
+        min-width: 0;
+    }
+}
+
+/* Móvil (≤ 640px): más compactas */
+@media only screen and (max-width: 640px) {
+
+    .import-container,
+    .import-row {
+        max-width: 94vw;
+        /* usa casi todo el ancho de pantalla */
+        margin: 1.25rem auto;
+        gap: 1rem;
+    }
+
+    .import-card {
+        padding: 1rem;
+        border-radius: 14px;
+        min-height: 200px;
+    }
+
+    .import-card__title {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+    }
+
+    .import-card__subtitle {
+        font-size: 0.95rem;
+    }
+
+    .import-card button {
+        height: 44px;
+        font-size: 0.95rem;
+        border-radius: 22px;
+    }
+}
+
+/* Móvil pequeño (≤ 380px): aún más ajustado */
+@media only screen and (max-width: 380px) {
+    .import-card {
+        padding: 0.9rem;
+    }
+
+    .import-card__title {
+        font-size: 1.1rem;
+        line-height: 1.5rem;
+    }
+
+    .import-card button {
+        height: 42px;
+        font-size: 0.9rem;
+    }
+}

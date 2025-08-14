@@ -18,7 +18,7 @@ export default function DeployApp() {
   const [gridUserId, setGridUserId] = useState(null);
   const [installationId, setInstallationId] = useState(null);
   const [appInstalled, setAppInstalled] = useState(false);
-  const { isAuthenticated, isLoading } = authWrapper();
+  const { isAuthenticated, isLoading } = useState(true);
 
   const toggleSideBar = () => {
     return setVisible(!visible);

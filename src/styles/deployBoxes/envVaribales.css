@@ -1,0 +1,62 @@
+.envVar-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.07);
+  width: 80%;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.068);
+  height: auto;
+  margin: 30px auto;
+  justify-content: center;
+  text-align: center;
+}
+.envVar-container h3 {
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+  width: 100% !important;
+}
+.envVar-container span {
+  color: rgba(255, 255, 255, 0.747);
+}
+.envVar-container p {
+  color: rgba(255, 255, 255, 0.829);
+  font-size: 0.9rem;
+}
+.envVar-container button {
+  margin: auto;
+  width: 12vw;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.botonAdd {
+}
+
+.variable-keys {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.variable-keys label {
+  color: white;
+  margin-left: 15px;
+  margin-bottom: 5px;
+}
+.variable-keys span {
+  height: 25px;
+  border-radius: 10px;
+  background-color: #0c1317d9;
+  border: 2px solid rgba(255, 255, 255, 0.527);
+  width: 20vw;
+  color: white;
+  padding: 5px;
+  margin-bottom: 40px;
+}
+.ul-variable {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: center;
+  align-content: center;
+}

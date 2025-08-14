@@ -1,0 +1,437 @@
+.contenedor-flex-only {
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+.contenedor-flex-only4 {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+.contenedor-flex-only2 {
+  width: 80%;
+  align-items: baseline;
+
+  margin-bottom: -50px;
+}
+.contenedor-flex-only3 {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  margin-top: 80px;
+  margin-bottom: 15vh;
+}
+.div-newApp {
+  font-size: 1.2rem;
+
+  letter-spacing: 1px;
+  color: white;
+  margin: auto 10px;
+  text-align: center;
+}
+
+.span-newApp {
+  font-size: 1.2rem;
+  color: white;
+  margin: 10px 0px;
+}
+.span-newApp2 {
+  color: rgba(255, 255, 255, 0.713);
+  margin: 10px 10px;
+}
+.contenedor-newApp {
+  position: relative;
+  margin-bottom: 50px;
+  flex-direction: column;
+  margin-left: 0px;
+  margin-top: 30px;
+  color: #fff;
+
+  width: 85vw;
+  border-radius: 15px;
+
+  backdrop-filter: blur(10px);
+}
+.deploy-now {
+  display: flex;
+  justify-content: center;
+  width: 20vw;
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: #36b079;
+  margin: auto;
+}
+
+.input-newApp {
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+
+  background-color: rgb(39, 39, 39);
+  border: 2px solid grey;
+}
+.card-newApp {
+  display: flex;
+  flex-direction: column;
+  height: 25vh;
+  width: 25vw;
+  background-color: #0c1317d9;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  margin: 50px auto;
+  cursor: pointer;
+  text-align: center;
+}
+.card-newApp2 {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+
+  border-radius: 5px;
+  border: 2px solid transparent;
+  margin: 20px auto;
+
+  text-align: center;
+}
+
+.card-newApp2 label {
+  display: flex;
+  width: 20vw;
+  margin: auto;
+
+  color: rgba(255, 255, 255, 0.739);
+}
+.icono-titulo {
+  margin-top: 10px;
+}
+
+.card-newApp2 input {
+  width: 14.5vw;
+  margin-right: auto;
+  height: 25px;
+  color: white;
+  background-color: transparent;
+  border: 2px solid #0c1317d9;
+  border-radius: 5px;
+}
+
+.card-newApp2 input::placeholder {
+  color: rgba(255, 255, 255, 0.356);
+}
+
+.card-newApp label {
+  display: flex;
+  width: 20vw;
+  margin: auto;
+
+  color: rgba(255, 255, 255, 0.739);
+}
+.icono-titulo {
+  margin-top: 10px;
+}
+.card-newApp:active {
+  border: 2px solid white;
+}
+.card-newApp:hover {
+  border: 2px solid white;
+}
+.card-newApp input {
+  width: 20vw;
+  margin: auto;
+  height: 25px;
+  color: white;
+  background-color: #0c1317d9;
+  border: 2px solid #0c1317d9;
+  border-radius: 5px;
+}
+
+.card-newApp input::placeholder {
+  color: rgba(255, 255, 255, 0.356);
+}
+.icon-card-newApp {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+.icon-webCard {
+  height: 20px;
+  margin: 25px 10px;
+}
+.titulo-webCard {
+  background-color: #0c1317;
+  width: 50%;
+  height: 70px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.509);
+  border-left: 1px solid rgba(255, 255, 255, 0.509);
+  border-right: 1px solid rgba(255, 255, 255, 0.509);
+}
+.titulo-webCard span {
+  color: white;
+  margin-top: 22px;
+
+  font-size: 1.2rem;
+}
+.opciones-webCard {
+  background-color: #0c1317d9;
+  height: 300px;
+  width: 50%;
+  border-end-end-radius: 10px;
+  border-end-start-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.509);
+  margin-bottom: 50px;
+}
+.button-newApp {
+  display: flex;
+  background-color: #0c1317d9;
+  border: 3px solid transparent;
+  width: 40% !important;
+  border-radius: 5px !important;
+  text-align: center !important;
+  justify-content: center !important;
+  margin-bottom: 0px !important;
+}
+.button-newApp:hover {
+  background-color: #0c1317d9;
+  box-shadow: none;
+}
+.boton-deploy {
+  display: flex;
+  width: 10%;
+  background-color: #36b079;
+  margin: 0px !important;
+}
+.modal-contact {
+  position: fixed;
+  top: 10%;
+  right: 25%;
+  height: 70vh;
+  width: 700px;
+  background-color: #0c1317;
+  border-radius: 10px;
+  border: 2px solid #36b079;
+  color: white;
+  z-index: 1000;
+}
+.modal-contact h1 {
+  color: white;
+
+  font-size: 1.3rem;
+  font-weight: lighter;
+  letter-spacing: 0.5px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+.modal-contact span {
+  color: rgba(255, 255, 255, 0.83);
+
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  font-weight: lighter;
+  margin-left: 20px;
+}
+.modal-contact label {
+  color: rgba(255, 255, 255, 0.83);
+
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  font-weight: lighter;
+  margin-left: 20px;
+}
+.modal-contact textarea {
+  width: 70%;
+  height: 10vh;
+  margin-left: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
+.contact-inputs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+.botones-contact {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  margin-top: 50px;
+}
+.contact-inputs input {
+  width: 50%;
+  height: 30px;
+  margin-left: 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 3px solid transparent;
+}
+.contact-inputs textarea:focus {
+  border: 3px solid #36b079;
+}
+.contact-inputs input:focus {
+  border: 3px solid #36b079;
+}
+.modal-contact img {
+  display: flex;
+  justify-content: flex-end;
+  text-align: flex-end;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 10px;
+  border: 2px solid #36b079;
+  padding: 3px;
+  border-radius: 50%;
+}
+.modal-newApp {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin: 300px;
+  background-color: #0c1317;
+  border-radius: 10px;
+  border: 2px solid #36b079;
+  height: 350px;
+  width: 500px;
+  z-index: 9999;
+}
+.modal-newApp h1 {
+  color: white;
+
+  font-size: 1.3rem;
+  font-weight: lighter;
+  letter-spacing: 0.5px;
+  margin-left: 20px;
+  margin-bottom: 40px;
+}
+.modal-newApp span {
+  color: rgba(255, 255, 255, 0.83);
+
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  font-weight: lighter;
+  margin-left: 20px;
+}
+.modal-newApp select {
+  display: flex;
+  width: 80%;
+  height: 40px;
+  padding: 5px;
+  background-color: #222b31;
+  border: 2px solid #36b079 !important;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  margin: 20px;
+
+  letter-spacing: 0.5px;
+}
+.modal-newApp input {
+  display: flex;
+  width: 78%;
+  height: 30px;
+  padding: 5px;
+  background-color: #222b31;
+  border: 2px solid #36b079 !important;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  margin: 20px;
+
+  letter-spacing: 0.5px;
+}
+.modal-newApp button {
+  display: flex;
+  margin: auto;
+  width: 35%;
+
+  font-weight: lighter;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  background-color: #36b079;
+}
+.modal-newApp img {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 250px;
+  width: 15px;
+  height: 15px;
+}
+.images-inputs input {
+  width: 350px;
+}
+
+.no-docker {
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 90%;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+@media only screen and (max-width: 650px) {
+  .contenedor-mobile-button {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-bottom: 200px;
+    width: 100%;
+  }
+  .contenedor-flex-only3 {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+  }
+  .span-landing {
+    display: flex;
+    font-size: 1rem;
+    margin: 5px;
+    width: 100%;
+  }
+  .span-landing-selected {
+    font-size: 1rem;
+    margin: 5px;
+  }
+  .button-landing {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    margin: 0px !important;
+  }
+  .button-landing2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+  }
+  .contenedor-features {
+    height: 100px;
+  }
+  .linea-selected {
+    width: 95%;
+  }
+  .parrafo-features-landing {
+    font-size: 1rem;
+    width: 80%;
+    margin-top: 50px;
+    animation: none;
+  }
+  .parrafo-features-landing2 {
+    animation: none;
+  }
+  .parrafo-features-landing img {
+    display: flex;
+    margin: auto;
+    height: 30vh;
+    width: 60vw;
+  }
+  .parrafo-features-landing2 img {
+    display: flex;
+    margin: auto;
+    height: 30vh;
+    width: 60vw;
+  }
+}

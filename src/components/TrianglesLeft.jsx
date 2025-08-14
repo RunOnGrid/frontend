@@ -57,12 +57,6 @@ const TrianglesLeft = () => {
           alt="Triangle 7"
         />
       </div>
-      <div className="triangleL triangle10L">
-        <img
-          src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/cbfb456d-906d-4ac1-8d12-3d0162d0a300/public"
-          alt="Triangle 7"
-        />
-      </div>
     </div>
   );
 };

@@ -1,0 +1,83 @@
+.newServ-container {
+  display: flex;
+
+  background-color: rgba(255, 255, 255, 0.07);
+  width: 80%;
+  height: auto;
+  margin: 30px auto;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.068);
+}
+.newServ-container h3 {
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  width: 100% !important;
+}
+.newServ-container button {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  margin: auto;
+  padding: 0px;
+  font-size: 2rem;
+  width: 45px;
+  color: #0c1317;
+  background-color: #36b079;
+  height: 45px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+.newServ-container input {
+  border: 2px solid rgba(255, 255, 255, 0.644);
+  margin-bottom: 30px;
+}
+.newServ-container select {
+  display: flex;
+  width: 20vw;
+  margin: auto;
+  height: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.644);
+  background-color: #0c1317;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+.newServ-container span {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.newServ-container label {
+  margin-bottom: 5px;
+}
+.buttons-newComp {
+  display: flex;
+  margin: 5px auto 25px auto;
+}
+.buttons-newComp div {
+  border-bottom: 2px solid transparent;
+  margin: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.buttons-newComp div:hover {
+  color: #36b079;
+}
+.data-selected {
+  border-bottom: 2px solid #36b079 !important;
+  margin: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #36b079;
+}
+.titulo-singleComp {
+  padding: 5px;
+}
+
+.save-comp {
+  width: 100% !important;
+  font-size: 1rem !important;
+  margin: 0px !important;
+}

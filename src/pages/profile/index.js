@@ -10,17 +10,6 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 });
 
 export default function Applications() {
-  useAuthCheck();
-
-  const { isAuthenticated, isLoading } = authWrapper();
-
-  if (isLoading) {
-    return <LoadingOverlay isVisible={true} />;
-  }
-
-  if (!isAuthenticated) {
-    return null;
-  }
 
   return (
     <div className="logged-home-component2">

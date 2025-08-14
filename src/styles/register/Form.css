@@ -1,0 +1,125 @@
+.register-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 50%;
+}
+
+.register-title {
+  color: white;
+}
+.register-input {
+  margin-top: 5%;
+  height: 25px;
+  width: 25vw;
+  padding: 10px 10px;
+  border-style: none;
+  border-radius: 5px;
+}
+
+.register-submit {
+  display: flex;
+  color: white;
+  margin-top: 5%;
+  background-color: #36b079;
+  width: 340px;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 15px;
+  height: 45px;
+  margin-right: 0;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.forgot-register {
+  color: #36b079;
+
+  margin-top: 5%;
+  cursor: pointer;
+}
+.forgot-register:hover {
+  color: #7ce2b4;
+}
+.member-register {
+  text-align: center;
+  width: 340px;
+  margin-top: 15%;
+  color: white;
+}
+.member2-register {
+  color: #36b079;
+  cursor: pointer;
+}
+.member2-register:hover {
+  color: #7ce2b4;
+}
+
+.register-redes {
+  display: flex;
+  flex: row;
+  justify-content: center;
+}
+.logo-google-register {
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 20%;
+}
+.logo-facebook-register {
+  height: 35px;
+  width: 35px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 8%;
+}
+
+.a-redes-register {
+  display: flex;
+  background: white;
+  border-radius: 5px;
+  width: 60px;
+  height: 50px;
+  margin-right: 20%;
+  margin-left: 25%;
+}
+.separator {
+  width: 165px;
+  margin-top: 5%;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+.register-separador {
+  display: flex;
+}
+.letra-separador {
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-top: 1.5%;
+  color: white;
+}
+
+@media only screen and (max-width: 500px) {
+  .register-title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  .register-form {
+    width: 80%;
+  }
+  .register-submit {
+    width: 250px;
+  }
+  .register-input {
+    width: 250px;
+  }
+  .member-login {
+    width: 250px;
+  }
+}

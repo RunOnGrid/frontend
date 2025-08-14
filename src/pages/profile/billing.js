@@ -9,7 +9,6 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 });
 
 export default function Billing() {
-  useAuthCheck();
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row" }}>

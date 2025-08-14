@@ -1,0 +1,84 @@
+.whatApp-container {
+  background-color: rgba(255, 255, 255, 0.07);
+  width: 80%;
+  border-radius: 5px;
+  height: auto;
+  margin: 50px auto;
+  justify-content: center;
+  text-align: center;
+}
+.whatApp-container h2 {
+  letter-spacing: 1px;
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+.whatApp-container button {
+  background-color: #36b079;
+  border-radius: 13px;
+  font-weight: lighter;
+
+  font-size: 1rem;
+  width: 11vw;
+  padding: 5px;
+  margin-bottom: 30px;
+}
+
+.integration-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.284);
+  width: 30%;
+  border-radius: 10px;
+  height: auto;
+  margin: auto;
+  border: 3px solid transparent;
+  padding: 10px;
+  color: white;
+}
+.integration-container.dark {
+  background-color: #151e21;
+  color: white;
+}
+.integration-container.light {
+  background-color: #efefef;
+  color: #0c1317;
+}
+.integration-container img {
+  margin: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+.integration-container button {
+  display: flex;
+  margin: auto;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 20px;
+  background-color: #36b079;
+  align-items: center;
+}
+.integration-container span {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+.integration-container p {
+  margin-bottom: 20px;
+}
+
+
+.verified-integration {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.verified-integration img {
+  display: flex;
+  margin: auto 10px;
+}
+.verified-integration span {
+  display: flex;
+  margin: auto;
+  color: white;
+}

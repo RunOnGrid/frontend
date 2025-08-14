@@ -1,0 +1,28 @@
+.animacion-mundo {
+  margin-top: 0.9%;
+  margin-left: 550px;
+  position: absolute;
+  width: 630px;
+
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+@keyframes animation1 {
+  0% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(-60px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .animacion-mundo {
+    display: none;
+  }
+}

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useCheckAuth from "@/checkAuth";
-import LoadingOverlay from "@/commons/LoadingOverlay";
 import LoginScreen from "@/components/login/LoginScreen";
 
 export default function Login() {
@@ -17,8 +16,6 @@ export default function Login() {
 
   return (
     <div className="login-page-container">
-      <LoadingOverlay isVisible={isLoading} />
-
       <div
         className={`container-homePrincipal2 fade-element ${
           loginVisible ? "visible" : ""
