@@ -78,13 +78,13 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               Billing
             </li>
           </Link>
-
+        <button onClick={TokenService.clearTokens}>
           <a
             href="https://ongrid.run"
             className="logout-sidebar"
             rel="noopener noreferrer"
           >
-            Log Out
+            Delete Wallet
             <Image
               className="button-logout"
               alt=""
@@ -93,6 +93,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
               width={16}
             />
           </a>
+          </button>
 
           <div className="footer-sidebar">
             <div className="contact-links">

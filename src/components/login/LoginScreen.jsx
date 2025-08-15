@@ -5,10 +5,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { TokenService } from "../../../tokenHandler";
 import Image from "next/image";
-import { generateMnemonicFromGoogle, generateMnemonic, deriveAkash, generatexPubxPriv, generateFluxKeyPair, generateExternalIdentityKeypair } from "../../lib/wallet"
+import { generateMnemonicFromGoogle, 
+  generateMnemonic, 
+  deriveAkash, 
+  generatexPubxPriv, 
+  generateFluxKeyPair } 
+  from "@/lib/wallet"
+import {generateExternalIdentityKeypair} from "@/lib/sspFunctions"
 import SetPassword from "@/components/login/setPassword"
 import BackupKey from "./BackUpKey";
 import back from "axios";
+import { encrypt as passworderEncrypt } from "@metamask/browser-passworder"
+import secureLocalStorage from "react-secure-storage"
 
 const LoginScreen = () => {
   const [password, setPassword] = useState("");
@@ -22,7 +30,6 @@ const LoginScreen = () => {
   const [FluxIdPrivKey, setFluxIdPrivKey] = useState(null)
   const [FluxWifPrivKey, setFluxPrivKeyWif] = useState(null)
   const [mnemonic, setMnemonic] = useState(null)
-  const [passwordToUse, setPasswordToUse] = useState(null)
   const [isConnected, setIsConnected] = useState(false);
   const [isDeterministic, setIsDeterministic] = useState(false)
 
@@ -36,15 +43,11 @@ const LoginScreen = () => {
     const account = await akashData.getAccounts();
     const returnData = generatexPubxPriv(mnemonic, 44, 19167, 0, '0');
     const fluxAddress = generateFluxKeyPair(returnData.xpriv)
-    // const fluxId = await generateExternalIdentityKeypair(returnData.xpriv);
-    console.log(mnemonic);
-    console.log(account);
-    console.log(returnData);
-    console.log(fluxAddress);
+    // const fluxId = await generateExternalIdentityKeypair(returnData.xpriv)
 
 
     setFluxPrivKeyWif(fluxAddress.privKeyFlux)
-    setAkashAddress(account[0].addressx)
+    setAkashAddress(account[0].address)
     setFluxAddress(fluxAddress.address);
     setMnemonic(mnemonic);
     // setFluxId(fluxId.address);
@@ -63,11 +66,19 @@ const LoginScreen = () => {
     )
   }
 
-  if (mnemonic && !passwordToUse) {
+  if (mnemonic && backupconfirmed) {
     return (
       <SetPassword
         onConfirm={(password) => {
-          setPasswordToUse(password)
+          if (password) {
+            console.log(password);
+            const blob =  passworderEncrypt(password, mnemonic)
+            // const blob1 =  passworderEncrypt(passwordToUse, FluxIdPrivKey)
+            secureLocalStorage.setItem("walletSeed", blob)
+            // secureLocalStorage.setItem("FluxId", blob1)
+            secureLocalStorage.setItem("FluxPrivKey", FluxWifPrivKey)
+          }
+          localStorage.setItem("account", JSON.stringify({ "akashAddress": akashAddress, "fluxAddress": fluxAddress}))
         }}
       />
     )
@@ -97,7 +108,7 @@ const LoginScreen = () => {
 
               <div className="import-card__content">
                 <p className="import-card__subtitle">
-                  This will import your account from a recovery phrase.
+                Use an existing 12/24 word recovery phrase or private key. You can also import wallets from other wallet providers.
                 </p>
 
                 <button className="btn-with-icon">
@@ -113,7 +124,7 @@ const LoginScreen = () => {
 
               <div className="import-card__content">
                 <p className="import-card__subtitle">
-                  This will generate a random wallet with a seed phrase
+                  This will generate a random wallet with a seed phrase. You can algo use this seed on other wallet providers.
                 </p>
 
                 <button className="btn-with-icon" onClick={handleGenerateMnemonic}>

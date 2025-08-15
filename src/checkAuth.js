@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { TokenService } from "../tokenHandler";
 
 const useCheckAuth = (minLoadingTime = 700) => {
   const [isLoading, setIsLoading] = useState(true);

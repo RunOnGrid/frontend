@@ -1,43 +1,27 @@
-import CryptoJS from "crypto-js";
 
-const SECRET_KEY =
-  process.env.NEXT_PUBLIC_ENCRYPTION_KEY || "fallback-secret-key";
+import secureLocalStorage from "react-secure-storage";
+
 
 export const TokenService = {
-  setTokens(tokens) {
-    const encryptedTokens = CryptoJS.AES.encrypt(
-      JSON.stringify(tokens),
-      SECRET_KEY
-    ).toString();
-
-    localStorage.setItem("auth_tokens", encryptedTokens);
-  },
-
-  getTokens() {
-
-
-    try {
-      return { tokens: "asd", redirectToLogin: false };
-    } catch (error) {
-      console.error("Token decryption failed", error);
-      return { tokens: null, redirectToLogin: true };
+  
+  getKeyValues() {
+    const account = localStorage.getItem("account");
+    const seed = secureLocalStorage.getItem("walletSeed");
+    const FluxPriv = secureLocalStorage.getItem("FluxPrivKey");
+    if(seed){
+      return seed
     }
+    return {redirectLogin: true}
   },
-
   clearTokens() {
-    localStorage.removeItem("auth_tokens");
-    localStorage.removeItem("grid_email");
-    localStorage.removeItem("gridInstalled");
+    localStorage.removeItem("account");
+    secureLocalStorage.removeItem("walletSeed");
+    secureLocalStorage.removeItem("FluxPrivKey");
   },
 
   isAuthenticated() {
-    const tokens = this.getTokens();
-    return tokens;
+    const response = this.getKeyValues();
+    return response;
   },
 
-  isExpired() {
-    const tokens = this.getTokens();
-    if (!tokens.tokens) return false;
-    return tokens.tokens.expiresAt < Date.now();
-  },
 };

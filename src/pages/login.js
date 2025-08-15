@@ -3,16 +3,9 @@ import useCheckAuth from "@/checkAuth";
 import LoginScreen from "@/components/login/LoginScreen";
 
 export default function Login() {
-  const isLoading = useCheckAuth();
-  const [loginVisible, setLoginVisible] = useState(false);
 
-  useEffect(() => {
-    if (!isLoading) {
-      setTimeout(() => {
-        setLoginVisible(true);
-      }, 50);
-    }
-  }, [isLoading]);
+  const [loginVisible, setLoginVisible] = useState(true);
+
 
   return (
     <div className="login-page-container">

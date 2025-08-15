@@ -25,7 +25,7 @@ export default function SetPassword({ onConfirm }) {
     return (
         <div className="centered-container">
             <div className="sp-card" role="region" aria-labelledby="sp-title">            
-            <div className="sp-card__subtitle">Step 2/3</div>
+            <div className="sp-card__subtitle">Step 3/3</div>
                 <h2 id="sp-title" className="sp-card__title">Secure your wallet</h2>
                 <p className="sp-card__subtitle">
                     Choose a password to encrypt your seed phrase. This will be required to access your wallet.

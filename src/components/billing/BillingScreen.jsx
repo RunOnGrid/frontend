@@ -4,12 +4,10 @@ import React, { useEffect, useState } from "react";
 import NextPayment from "./NextPayment";
 import DepositFunds from "./FundsComponent";
 import HoverInfo from "@/commons/HoverInfo";
-import { TokenService } from "../../../tokenHandler";
 import MobileFooterBar from "../applications2/ProfileFooter";
 
 const BillingScreen = () => {
   const { darkMode } = useTheme();
-  const [accessToken, setAccessToken] = useState("");
   const [error, setError] = useState(null);
 
   return (

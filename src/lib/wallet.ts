@@ -1,11 +1,8 @@
-// @grid/zk-auth
 import { sha256 } from '@noble/hashes/sha2';
 import * as secp from '@noble/secp256k1';
 import * as utils from '@noble/hashes/utils';
 import { randomBytes } from '@noble/hashes/utils';
-import { bitcoin, flux } from "../network"
 import * as ecc from "@bitcoinerlab/secp256k1";
-import { ECPairFactory } from "ecpair";
 import { ripemd160 } from '@noble/hashes/ripemd160';
 import * as bip39 from 'bip39';
 import { BIP32Factory } from 'bip32';
@@ -14,17 +11,11 @@ import { wordlist } from '@scure/bip39/wordlists/english';
 import { Buffer } from 'buffer';
 import { HDKey } from '@scure/bip32';
 import bs58check from "bs58check";
-import {
-    keyPair,
-    externalIdentity,
-    xPrivXpub
-} from '../types';
 
 
-
-export interface ZkAuthInput {
-    providerId: string;
-    email: string;
+interface xPrivXpub {
+    xpriv: string;
+    xpub: string;
 }
 
 export interface ZkIdentity {
@@ -32,8 +23,25 @@ export interface ZkIdentity {
     akashData: DirectSecp256k1HdWallet;
 }
 
+export interface Network {
+    messagePrefix: string;
+    bech32: string;
+    bip32: { public: number; private: number };
+    pubKeyHash: number;
+    scriptHash: number;
+    wif: number;
+}
 
-const ECPair = ECPairFactory(ecc);
+export const flux: Network = {
+    messagePrefix: '\x18Flux Signed Message:\n',
+    bech32: '', // Flux no usa bech32
+    bip32: { public: 0x0488b21e, private: 0x0488ade4 },
+    pubKeyHash: 0x1c,
+    scriptHash: 0x32,
+    wif: 0x80,
+};
+
+
 const BIP32 = BIP32Factory(ecc);
 
 
@@ -94,26 +102,7 @@ export function generatexPubxPriv(
     return externalChain.toJSON();
 }
 
-export function generateNodeIdentityKeypair(
-    xpriv: string,
-): keyPair {
 
-    const externalid = HDKey.fromExtendedKey(
-        xpriv,
-        bitcoin.bip32
-    );
-    const externalAddress = externalid.deriveChild(11).deriveChild(0);
-
-    const keyNode = BIP32.fromBase58(externalAddress.privateExtendedKey, bitcoin);
-    const wif = keyNode.toWIF();
-    console.log(wif);
-    const pubkeyHex = Buffer.from(keyNode.publicKey).toString('hex');
-
-    return {
-        privKey: wif,
-        pubKey: pubkeyHex
-    }
-}
 
 export function generateFluxKeyPair(xpriv: string) {
 
@@ -151,23 +140,6 @@ export function generateFluxKeyPair(xpriv: string) {
     }
 }
 
-export function generateExternalIdentityKeypair(
-    xpriv: string,
-): externalIdentity {
-    const identityKeypair = generateNodeIdentityKeypair(xpriv)
-
-    const kp = ECPair.fromWIF(identityKeypair.privKey, bitcoin);
-
-    const address = pubkeyToP2PKH(kp.publicKey, bitcoin);
-    const externalIdentity = {
-        privKey: identityKeypair.privKey,
-        pubKey: identityKeypair.pubKey,
-        address: address || ""
-    };
-    return externalIdentity;
-}
-
-
 export function generateMnemonic(strength: 128 | 256 = 256): string {
     return bip39.generateMnemonic(strength, undefined, wordlist);
 }
@@ -175,21 +147,4 @@ export function generateMnemonic(strength: 128 | 256 = 256): string {
 export function validateMnemonic(mnemonic: string): boolean {
     return bip39.validateMnemonic(mnemonic, wordlist);
 }
-
-function pubkeyToP2PKH(pubKey: Uint8Array, network = bitcoin) {
-    // 1. Hash160 = RIPEMD160(SHA256(pubkey))
-    const pubKeyHash = ripemd160(sha256(pubKey));
-
-    // 2. Prefijo de la red
-    const prefix = Uint8Array.from([network.pubKeyHash]);
-
-    // 3. Concatenar prefix + pubKeyHash
-    const payload = new Uint8Array(prefix.length + pubKeyHash.length);
-    payload.set(prefix, 0);
-    payload.set(pubKeyHash, prefix.length);
-
-    // 4. Base58Check encode
-    return bs58check.encode(payload);
-}
-
 

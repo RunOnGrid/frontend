@@ -1,0 +1,58 @@
+.verify-container {
+    max-width: 400px;
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
+  }
+  
+  .verify-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "word1 word2"
+      "icon icon"
+      "wallet wallet"
+      "next next";
+  }
+  
+  .verify-grid input {
+    background: black;
+    border: 1px solid #333;
+    padding: 0.8rem;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .verify-grid input::placeholder {
+    color: #666;
+  }
+  
+  .verify-grid .wallet-icon {
+    grid-area: icon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .verify-grid .wallet-name {
+    grid-area: wallet;
+  }
+  
+  .verify-grid .next-btn {
+    grid-area: next;
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .verify-grid .next-btn:hover {
+    background: #1d4ed8;
+  }
+  
