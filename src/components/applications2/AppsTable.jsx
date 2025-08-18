@@ -28,7 +28,9 @@ const AppsTable = () => {
               <span>Start building your application now.</span>
 
               {/* Link directo (no dentro de <button>) */}
-              <button className={"section-button"}> {" "} <Link href="/profile/deployApp">Deploy </Link> </button>
+    
+                <Link href="/profile/deployApp" className="section-button">Deploy</Link>
+          
             </div>
           ) : (
             <>

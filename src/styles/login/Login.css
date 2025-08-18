@@ -2,6 +2,7 @@
 @import url('./Form.css');
 @import url('./SetPassword.css');
 @import url('./Backup.css');
+@import url('./Verify.css');
 
 
 .pw-reset__container {

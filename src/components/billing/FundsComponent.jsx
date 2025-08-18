@@ -29,16 +29,6 @@ const DepositFunds = ({ handleIntent, darkMode }) => {
           <p>Stripe payment</p>
         </div>
         <div className={`payment-option ${darkMode ? "dark" : "light"} soon`}>
-          <div className="logo-container2 flux">
-            <img
-              src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/e4e88f78-5122-4105-a70d-bf8f2cc9c000/public"
-              alt="Flux"
-            />
-          </div>
-          <h3>Flux</h3>
-          <p>Soon</p>
-        </div>
-        <div className={`payment-option ${darkMode ? "dark" : "light"} soon`}>
           <div className="logo-container2 stablecoin">
             <img
               src="https://imagedelivery.net/EXhaUxjEp-0lLrNJjhM2AA/d8b9dc13-5792-4d00-d9c2-d6459dc9a100/public"

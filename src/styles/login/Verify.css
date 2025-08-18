@@ -1,58 +1,105 @@
-.verify-container {
-    max-width: 400px;
-    background: #1a1a1a;
+.verifySeed-container {
+    max-width: 450px;
+    background: #ffffff;
     padding: 2rem;
-    border-radius: 12px;
-    color: white;
+    border-radius: 16px;
+    color: #111;
+    /* texto oscuro */
     text-align: center;
-  }
-  
-  .verify-grid {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    margin: 0 auto;
+}
+
+.verifySeed-container h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+.verifySeed-container h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #111 !important;
+}
+
+.verifySeed-container p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.verify-grid {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:
-      "word1 word2"
-      "icon icon"
-      "wallet wallet"
-      "next next";
-  }
-  
-  .verify-grid input {
-    background: black;
-    border: 1px solid #333;
+    margin-bottom: 1.5rem;
+}
+
+.verify-grid input {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
     padding: 0.8rem;
     border-radius: 8px;
-    color: white;
-  }
-  
-  .verify-grid input::placeholder {
-    color: #666;
-  }
-  
-  .verify-grid .wallet-icon {
-    grid-area: icon;
+    color: #111;
+    font-size: 0.95rem;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.verify-grid input:focus {
+    outline: none;
+    border: 1px solid #00b174;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+}
+
+.verify-grid input::placeholder {
+    color: #999;
+}
+
+
+
+.verify-grid-2 {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-  }
-  
-  .verify-grid .wallet-name {
-    grid-area: wallet;
-  }
-  
-  .verify-grid .next-btn {
-    grid-area: next;
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 1rem;
+    gap: 12px;
+    /* espacio entre input y botón */
+}
+
+.verify-grid-2 input {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    padding: 0.8rem;
     border-radius: 8px;
-    font-weight: bold;
+    color: #111;
+    font-size: 0.95rem;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.verify-grid-2 input:focus {
+    outline: none;
+    border: 1px solid #00b174;
+    box-shadow: 0 0 6px rgba(37, 99, 235, 0.4);
+}
+
+.verify-grid-2 button {
+    width: 150px;
+    background: transparent;
+    color: black;
+    border: 1px solid #00b174;
+    padding: 0.9rem;
+    border-radius: 25px;
+    font-weight: 400;
     cursor: pointer;
-  }
-  
-  .verify-grid .next-btn:hover {
-    background: #1d4ed8;
-  }
-  
+    font-size: 1rem;
+}
+
+.verify-grid-2 button:hover {
+    font-weight: 500;
+    transition: 100ms
+}
+
+.wallet-name {
+    grid-column: span 2;
+}

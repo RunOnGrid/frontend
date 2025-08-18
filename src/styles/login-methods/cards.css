@@ -76,7 +76,6 @@
 }
 
 .import-card button {
-    min-width: 240px;
     margin-top: 10px;
     border-radius: 25px;
     text-align: center;
@@ -101,8 +100,15 @@
     /* Centrar texto */
 }
 
+.page-container h2 {
+  font-size: 20px;
+  margin: 0 0 16px 0;
+  font-weight: 500;
+  color: white;
+}
+
 .logo-link {
-    display: flex;
+
     justify-content: center;
     align-items: center;
     width: 180px;
@@ -126,11 +132,11 @@
     gap: 0.5rem;
     /* espacio entre icono y texto */
     padding: 0.6rem 1rem;
-    border: 1px solid #00b174;
-    border-radius: 25px;
-    background-color: white;
-    font-weight: 400;
-    color: black;
+}
+
+.btn-with-icon:hover {
+    font-weight: 500;
+    transition:100ms
 }
 
 .btn-icon {
@@ -157,18 +163,6 @@
     transform: translateY(1px);
 }
 
-.btn-primary {
-    background: var(--primary);
-    color: var(--primary-contrast);
-}
-
-.btn-primary:hover {
-    opacity: 0.92;
-}
-
-.btn-block {
-    width: 100%;
-}
 
 /* ====== Responsive ====== */
 

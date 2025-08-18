@@ -3,15 +3,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const API_URL = process.env.GRID_API;
- 
+  const API_URL = "https://explorer.runonflux.io";
+  // const address = req.query.address;
+  const address = "t1R12kiLjuyUkm8idRrWD4Y3nAwtoZaWZBT";
 
   try {
-    const response = await fetch(`${API_URL}/user/balance`, {
+    const response = await fetch(`${API_URL}/api/addr/${address}/?noTxList=1`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: req.headers.authorization,
       },
     });
 
