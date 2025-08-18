@@ -5,6 +5,18 @@ export const useCryptoPrice = (cryptoId) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const fetchBalanceFlux = async (z) => {
+    const responseFlux = await fetch(`/api/flux/balance-flux?address=${z}`);
+    const data = await response.json();
+    return data
+  }
+
+  const fetchBalanceAkash = async (z) => {
+    const responseAkash = await fetch(`/api/akash/balance-akash?address=${z}`);
+    const data = await response.json();
+    return data
+  }
+
   const fetchPrice = async () => {
     if (!cryptoId) return;
 
@@ -51,3 +63,14 @@ export const useFluxPrice = () => {
 export const useAkashPrice = () => {
   return useCryptoPrice('7083');
 };
+
+
+export const getUserBalance = () => {
+  const flux = useFluxPrice();
+  const akash = useAkashPrice();
+
+  const fluxBalance = flux;
+  const akashBalance = akash.data.data.balance;
+
+  return { fluxBalance, akashBalance };
+}

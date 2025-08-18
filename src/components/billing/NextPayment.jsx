@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TokenService } from "../../../tokenHandler";
 import { Copy } from "lucide-react";
-
-import { useFluxPrice, useAkashPrice } from '../../hooks/useCryptoPrice';
-
-
+import { useFluxPrice, useAkashPrice } from "../../hooks/useCryptoPrice";
 
 const NextPayment = ({ darkMode }) => {
   const [balanceFlux, setBalanceFlux] = useState(0);
@@ -13,9 +10,9 @@ const NextPayment = ({ darkMode }) => {
   const [balanceAkash, setBalanceAkash] = useState(0);
   const [copied, setCopied] = useState(false);
 
-  const { data: fluxData } = useFluxPrice();
-  const { data: akashData} = useAkashPrice();
-
+  // Hooks para obtener precios en tiempo real
+  const { data: fluxData, loading: fluxLoading, error: fluxError } = useFluxPrice();
+  const { data: akashData, loading: akashLoading, error: akashError } = useAkashPrice();
 
   useEffect(() => {
     try {
@@ -30,6 +27,8 @@ const NextPayment = ({ darkMode }) => {
   }, []);
 
   const getFluxBalance = async () => {
+    if (!fluxAddress) return;
+    
     try {
       const response = await fetch(`/api/flux/balance-flux?address=${fluxAddress}`);
       const data = await response.json();
@@ -39,23 +38,30 @@ const NextPayment = ({ darkMode }) => {
     }
   };
 
-  useEffect(() => {
-    getFluxBalance();
-  }, []);
-
   const getAkashBalance = async () => {
+    if (!akashAddress) return;
+    
     try {
       const response = await fetch(`/api/akash/balance-akash?address=${akashAddress}`);
       const data = await response.json();
       setBalanceAkash(data.balance || 0);
     } catch (error) {
-      console.error('Error fetching FLUX balance:', error);
+      console.error('Error fetching AKASH balance:', error);
     }
   };
 
+  // Ejecutar cuando las direcciones estén disponibles
   useEffect(() => {
-    getAkashBalance();
-  }, []);
+    if (fluxAddress) {
+      getFluxBalance();
+    }
+  }, [fluxAddress]);
+
+  useEffect(() => {
+    if (akashAddress) {
+      getAkashBalance();
+    }
+  }, [akashAddress]);
 
   const handleCopy = async (address) => {
     try {
@@ -99,6 +105,8 @@ const NextPayment = ({ darkMode }) => {
             <span className="font-size-5px">({(balanceFlux).toFixed(1)} FLUX)</span>
           </div>
         </div>
+        {fluxLoading && <small style={{color: '#00b174'}}>Updating price...</small>}
+        {fluxError && <small style={{color: '#ff6b6b'}}>Price update failed</small>}
       </div>
 
       <div className="billing-card3">
@@ -116,6 +124,8 @@ const NextPayment = ({ darkMode }) => {
             <span className="font-size-5px">({(balanceAkash).toFixed(1)} AKASH)</span>
           </div>
         </div>
+        {akashLoading && <small style={{color: '#00b174'}}>Updating price...</small>}
+        {akashError && <small style={{color: '#ff6b6b'}}>Price update failed</small>}
       </div>
     </div>
   );

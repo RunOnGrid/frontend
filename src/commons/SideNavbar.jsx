@@ -21,14 +21,14 @@ const SideNavbar = ({ abierto, setAbierto }) => {
 
   const isActive = (path) => (currentPath === path ? "active" : "");
 
-  const getFluxBalance = async () => {
-    const response = await fetch("/api/flux/balance-flux");
-    const data = await response.json();
-  };
+  // const getFluxBalance = async () => {
+  //   const response = await fetch("/api/flux/balance-flux");
+  //   const data = await response.json();
+  // };
 
-  useEffect(() => {
-    getFluxBalance();
-  }, [balanceFlux]);
+  // useEffect(() => {
+  //   getFluxBalance();
+  // }, [balanceFlux]);
 
   useEffect(() =>{
     const account = JSON.parse(localStorage.getItem("wallet"));
