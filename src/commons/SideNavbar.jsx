@@ -5,6 +5,8 @@ import Image from "next/image";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/ThemeContext";
 import { TokenService } from "../../tokenHandler";
+import { useFluxPrice, useAkashPrice } from "../hooks/useCryptoPrice";
+import { useFluxBalance, useAkashBalance } from "../hooks/useCryptoBalance";
 
 import {User} from "lucide-react"
 
@@ -12,8 +14,9 @@ const SideNavbar = ({ abierto, setAbierto }) => {
   const [showLinks, setShowLinks] = useState(false);
   const { darkMode } = useTheme();
   const [walletName, setWalletName] = useState("");
-  const [balanceFlux, setBalanceFlux] = useState(0);
-  const [balanceAkash, setBalanceAkash] = useState(0);
+  const [fluxAddress, setFluxAddress] = useState("");
+  const [akashAddress, setAkashAddress] = useState("");
+  const [balance, setBalance] = useState(0);
   const router = useRouter();
 
   const currentPath = router.pathname;
@@ -21,18 +24,37 @@ const SideNavbar = ({ abierto, setAbierto }) => {
 
   const isActive = (path) => (currentPath === path ? "active" : "");
 
-  // const getFluxBalance = async () => {
-  //   const response = await fetch("/api/flux/balance-flux");
-  //   const data = await response.json();
-  // };
+  useEffect(() => {
+    try {
+      const account = JSON.parse(localStorage.getItem("account"));
+      if (account) {
+        setFluxAddress(account.fluxAddress || "");
+        setAkashAddress(account.akashAddress || "");
+      }
+    } catch (error) {
+      console.error('Error reading account from localStorage:', error);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   getFluxBalance();
-  // }, [balanceFlux]);
+  const { data: fluxPriceData, loading: fluxPriceLoading, error: fluxPriceError } = useFluxPrice();
+  const { data: akashPriceData, loading: akashPriceLoading, error: akashPriceError } = useAkashPrice();
+  const { balance: fluxBalance, loading: fluxBalanceLoading, error: fluxBalanceError } = useFluxBalance(fluxAddress);
+  const { balance: akashBalance, loading: akashBalanceLoading, error: akashBalanceError } = useAkashBalance(akashAddress);
+
+
+  
+  useEffect(() => {
+    if (fluxBalance !== undefined && akashBalance !== undefined) {
+      const totalBalance = (fluxBalance * fluxPriceData) + (akashBalance * akashPriceData);
+      setBalance(totalBalance);
+    }
+  }, [fluxBalance, akashBalance]);
 
   useEffect(() =>{
     const account = JSON.parse(localStorage.getItem("wallet"));
-    setWalletName(account.name);
+    if (account) {
+      setWalletName(account.name);
+    }
   })
 
   return (
@@ -64,7 +86,7 @@ const SideNavbar = ({ abierto, setAbierto }) => {
         <div className="balance-line"></div>
         <div className="balance-content">
           <span className="sideNavbar-span">Balance:</span>
-          <span className="sideNavbar-span font-weight-700">USD ${balanceFlux + balanceAkash}</span>
+          <span className="sideNavbar-span font-weight-700">USD {balance}</span>
         </div>
       </div>
 

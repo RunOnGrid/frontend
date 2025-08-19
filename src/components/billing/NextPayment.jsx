@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TokenService } from "../../../tokenHandler";
 import { Copy } from "lucide-react";
 import { useFluxPrice, useAkashPrice } from "../../hooks/useCryptoPrice";
+import { useFluxBalance, useAkashBalance } from "../../hooks/useCryptoBalance";
 
 const NextPayment = ({ darkMode }) => {
   const [balanceFlux, setBalanceFlux] = useState(0);
@@ -9,10 +10,6 @@ const NextPayment = ({ darkMode }) => {
   const [akashAddress, setAkashAddress] = useState("");
   const [balanceAkash, setBalanceAkash] = useState(0);
   const [copied, setCopied] = useState(false);
-
-  // Hooks para obtener precios en tiempo real
-  const { data: fluxData, loading: fluxLoading, error: fluxError } = useFluxPrice();
-  const { data: akashData, loading: akashLoading, error: akashError } = useAkashPrice();
 
   useEffect(() => {
     try {
@@ -26,42 +23,15 @@ const NextPayment = ({ darkMode }) => {
     }
   }, []);
 
-  const getFluxBalance = async () => {
-    if (!fluxAddress) return;
-    
-    try {
-      const response = await fetch(`/api/flux/balance-flux?address=${fluxAddress}`);
-      const data = await response.json();
-      setBalanceFlux(data.balance || 0);
-    } catch (error) {
-      console.error('Error fetching FLUX balance:', error);
-    }
-  };
 
-  const getAkashBalance = async () => {
-    if (!akashAddress) return;
-    
-    try {
-      const response = await fetch(`/api/akash/balance-akash?address=${akashAddress}`);
-      const data = await response.json();
-      setBalanceAkash(data.balance || 0);
-    } catch (error) {
-      console.error('Error fetching AKASH balance:', error);
-    }
-  };
+  // Hooks para obtener precios en tiempo real
+  const { data: fluxData, loading: fluxLoading, error: fluxError } = useFluxPrice();
+  const { data: akashData, loading: akashLoading, error: akashError } = useAkashPrice();
+  const { balance: fluxBalance, loading: fluxBalanceLoading, error: fluxBalanceError } = useFluxBalance(fluxAddress);
+  const { balance: akashBalance, loading: akashBalanceLoading, error: akashBalanceError } = useAkashBalance(akashAddress);
 
-  // Ejecutar cuando las direcciones estén disponibles
-  useEffect(() => {
-    if (fluxAddress) {
-      getFluxBalance();
-    }
-  }, [fluxAddress]);
+  
 
-  useEffect(() => {
-    if (akashAddress) {
-      getAkashBalance();
-    }
-  }, [akashAddress]);
 
   const handleCopy = async (address) => {
     try {
@@ -76,14 +46,14 @@ const NextPayment = ({ darkMode }) => {
   // Calcular precios en USD
   const getFluxPriceUSD = () => {
     if (fluxData?.data?.price) {
-      return (balanceFlux * fluxData.data.price).toFixed(3);
+      return (fluxBalance * fluxData).toFixed(3);
     }
     return "0.00";
   };
 
   const getAkashPriceUSD = () => {
     if (akashData?.data?.price) {
-      return (balanceAkash * akashData.data.price).toFixed(2);
+      return (balanceAkash * akashData).toFixed(2);
     }
     return "0.00";
   };

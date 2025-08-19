@@ -1,76 +1,49 @@
 import { useState, useEffect } from 'react';
 
+// Hook principal para obtener precios de criptomonedas
 export const useCryptoPrice = (cryptoId) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchBalanceFlux = async (z) => {
-    const responseFlux = await fetch(`/api/flux/balance-flux?address=${z}`);
-    const data = await response.json();
-    return data
-  }
-
-  const fetchBalanceAkash = async (z) => {
-    const responseAkash = await fetch(`/api/akash/balance-akash?address=${z}`);
-    const data = await response.json();
-    return data
-  }
-
-  const fetchPrice = async () => {
-    if (!cryptoId) return;
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch(`/api/crypto-price?id=${cryptoId}`);
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-      console.error('Error fetching crypto price:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchPrice();
-  }, [cryptoId]);
+    const fetchPrice = async () => {
+      if (!cryptoId) {
+        setLoading(false);
+        return;
+      }
 
-  const refresh = () => {
+      try {
+        const response = await fetch(`/api/crypto-price?id=${cryptoId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result.data.statistics.price);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchPrice();
-  };
+  }, [cryptoId]); // Solo se ejecuta cuando cambia cryptoId
 
   return {
     data,
     loading,
     error,
-    refresh
   };
 };
 
+// Hook específico para FLUX (ID: 3029)
 export const useFluxPrice = () => {
   return useCryptoPrice('3029');
 };
 
+// Hook específico para AKASH (ID: 7083)
 export const useAkashPrice = () => {
   return useCryptoPrice('7083');
 };
 
-
-export const getUserBalance = () => {
-  const flux = useFluxPrice();
-  const akash = useAkashPrice();
-
-  const fluxBalance = flux;
-  const akashBalance = akash.data.data.balance;
-
-  return { fluxBalance, akashBalance };
-}
