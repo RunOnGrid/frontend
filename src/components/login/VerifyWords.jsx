@@ -1,17 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import SetPassword from "@/components/login/setPassword";
 // Asumo que tienes estas dependencias importadas
-import { useRouter } from 'next/navigation'; 
-import { encrypt as passworderEncrypt } from "@metamask/browser-passworder"
+import { useRouter } from 'next/navigation';
+import { encrypt as passworderEncrypt, decrypt as passworderDecrypt } from "@metamask/browser-passworder"
 import secureLocalStorage from "react-secure-storage"
+
 import {
     deriveAkash,
     generatexPubxPriv,
     generateFluxKeyPair
-  }
+}
     from "@/lib/wallet"
+
+
 
 
 export default function VerifyWords({ seedPhrase }) {
@@ -19,14 +22,22 @@ export default function VerifyWords({ seedPhrase }) {
     const [wordInputs, setWordInputs] = useState({});
     const [walletName, setWalletName] = useState("");
     const [error, setError] = useState("");
-    
+
+
+
+
     // 1. NUEVO ESTADO: para controlar qué componente mostrar.
     const [isVerified, setIsVerified] = useState(false);
-    
-    // (Asegúrate de tener acceso al router si lo vas a usar)
-    const router = useRouter(); 
 
-    const words = seedPhrase.trim().split(" ");
+    // (Asegúrate de tener acceso al router si lo vas a usar)
+    const router = useRouter();
+    let seedPhraseString = new TextDecoder().decode(seedPhrase);
+    let words = useMemo(
+        () => seedPhraseString?.trim().split(/\s+/).filter(Boolean) ?? [],
+        [seedPhraseString]
+    )
+
+
 
     useEffect(() => {
         const totalWords = words.length;
@@ -46,9 +57,9 @@ export default function VerifyWords({ seedPhrase }) {
         setWordInputs((prev) => ({ ...prev, [pos]: value.trim().toLowerCase() }));
     };
 
-    const handleSubmit = async () => { // Hacemos la función async para usar passworder
-        setError(""); // Limpiar errores previos
-        console.log('Submitted', wordInputs, walletName);
+    const handleSubmit = async () => {
+        setError("");
+
         if (!walletName.trim()) {
             setError("Please enter a wallet name");
             return;
@@ -57,8 +68,6 @@ export default function VerifyWords({ seedPhrase }) {
         const isValid = wordPositions.every(
             (pos) => words[pos - 1] === wordInputs[pos]
         );
-        
-        console.log('isValid?', isValid);
         if (!isValid) {
             setError("The recovery words do not match");
             return;
@@ -68,35 +77,46 @@ export default function VerifyWords({ seedPhrase }) {
             "wallet",
             JSON.stringify({ name: walletName.trim() })
         );
-        
-        // 2. ACTUALIZA EL ESTADO: En lugar de retornar JSX, cambiamos el estado.
+
+
         setIsVerified(true);
     };
 
-    // Función que se pasará a SetPassword
     const handlePasswordConfirm = async (password) => {
         if (password) {
-          try {
-            console.log("Encrypting with password:", password);
+            try {
+                localStorage.clear();
+                secureLocalStorage.clear();
+                let seedphrase = new TextDecoder().decode(seedPhrase);
+                const blob = await passworderEncrypt(password, seedphrase);
+                const akashData = await deriveAkash(seedPhrase);
+                const account = await akashData.getAccounts();
 
-            const akashData = await deriveAkash(seedPhrase);
-            const account = await akashData.getAccounts();
-            const returnData = generatexPubxPriv(seedPhrase, 44, 19167, 0, '0');
-            const fluxAddress = generateFluxKeyPair(returnData.xpriv)
-            const blob = await passworderEncrypt(password, seedPhrase);
-            secureLocalStorage.setItem("walletSeed", blob);
-            localStorage.setItem("account", JSON.stringify({ "akashAddress": account[0].address, "fluxAddress": fluxAddress.address}))
-            console.log("Seed phrase encrypted and saved.");
-            router.push("/profile");
-          } catch(e) {
-            console.error("Encryption failed:", e);
-            setError("Could not encrypt and save the wallet.");
-          }
+                const returnData = generatexPubxPriv(new TextDecoder().decode(seedPhrase), 44, 19167, 0, '0');
+                console.log(returnData);
+                const fluxAddress = generateFluxKeyPair(returnData.xpriv)
+
+
+
+                secureLocalStorage.setItem('walletSeed', blob);
+
+                seedPhrase.fill(0);
+                seedphrase = null;
+                secureLocalStorage.setItem("walletSeed", blob);
+                localStorage.setItem("fluxAddress", fluxAddress.address);
+                localStorage.setItem("akashAddress", account[0].address);
+
+                router.push("/profile");
+            } catch (e) {
+                console.error("Encryption failed:", e);
+                setError("Could not encrypt and save the wallet.");
+            }
         }
     };
 
 
-    // 3. RENDERIZADO CONDICIONAL: Usamos el estado 'isVerified' para decidir qué mostrar.
+
+
     if (isVerified) {
         return <SetPassword onConfirm={handlePasswordConfirm} />;
     }

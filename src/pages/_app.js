@@ -30,6 +30,7 @@ import "../components/applications2/environment.css";
 import "../styles/logged-personal/SideNavBar.css";
 import { ThemeProvider } from "@/ThemeContext";
 import "../components/billing/billing.css";
+import "../components/account/account.css";
 import "../components/akash/akash.css";
 import "../commons/commons.css";
 import Head from "next/head";

@@ -22,61 +22,99 @@
 }
 
 .import-container {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    /* separación entre tarjetas */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 2rem;
+    row-gap: 1rem; /* Aumentar de 1rem a 2rem para más espacio */
     max-width: 800px;
-    /* límite de ancho */
     margin: 2rem auto;
-    /* centrado horizontal */
 }
 
 
 .import-card {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     border-radius: 16px;
     justify-self: center;
     background: var(--card-bg);
     border: 1px solid #00b174;
     box-shadow: var(--shadow);
-    padding: 1.5rem;
-    min-width: 300px;
-    min-height: 100px;
+    width: 350px;
+    min-height: 80px;
     /* ajusta si quieres */
+}
+
+.import-card--left {
+    grid-column:  1;
+    max-height: 100%;
+    max-width: 100% !important;
+    padding: 0.5rem;
+}
+
+.import-card--right {
+    grid-column: 2; 
+    grid-row: 1 / span 2;
+    padding: 0 0.5rem 0 0.5rem;
+    height: 100%; 
+    display: flex; /* Asegurar que sea flex */
+    flex-direction: column; /* Dirección vertical */
+    justify-content: center; /* Centrar verticalmente */
 }
 
 
 .import-card__header {
-    padding: 0.5rem 1.25rem 0.5rem;
+    padding-bottom: 0.8rem;
     text-align: center;
 }
 
 .import-card__title {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 2rem;
     font-weight: 550;
     color: var(--text);
+}
+
+.import-card__title--left {
+   font-size: 1rem;
 }
 
 .import-card__content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 56px !important;
+}
+
+.import-card__content--right {
+    justify-content: center;
+    align-items: center; /* Centrar horizontalmente */
+    text-align: center; /* Centrar el texto */
+    max-height: 56px !important;
+    height: 100%; /* Ocupar toda la altura disponible */
+    display: flex;
+    flex-direction: column;
 }
 
 .import-card__subtitle {
-    margin: 0.25rem 0 0.5rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 400;
     color: var(--text);
 }
 
+.import-card--left button {
+    margin-top: 10px !important;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 0.7rem !important; /* Tamaño consistente */
+   
+    width: 80% !important;
+    height: 25px !important;
+}
+
 .import-card button {
-    margin-top: 10px;
+    margin-top: 30px;
     border-radius: 25px;
     text-align: center;
     border: 1px solid #00b174;
@@ -85,6 +123,8 @@
     font-weight: 400;
     color: black;
 }
+
+
 
 .page-container {
     display: flex;
@@ -101,10 +141,10 @@
 }
 
 .page-container h2 {
-  font-size: 20px;
-  margin: 0 0 16px 0;
-  font-weight: 500;
-  color: white;
+    font-size: 20px;
+    margin: 0 0 16px 0;
+    font-weight: 500;
+    color: white;
 }
 
 .logo-link {
@@ -127,6 +167,7 @@
 
 .btn-with-icon {
     display: inline-flex;
+    fill: #00b174;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
@@ -134,15 +175,18 @@
     padding: 0.6rem 1rem;
 }
 
+
+
 .btn-with-icon:hover {
     font-weight: 500;
-    transition:100ms
+    transition: 100ms
 }
 
 .btn-icon {
     width: 18px;
     /* ajustá el tamaño del icono */
     height: 18px;
+    filter: brightness(0) saturate(100%) invert(67%) sepia(15%) saturate(1234%) hue-rotate(86deg) brightness(95%) contrast(89%);
 }
 
 .btn {
@@ -162,6 +206,12 @@
 .btn:active {
     transform: translateY(1px);
 }
+
+.font-size-08rem {
+    font-size: 0.7rem;
+    font-weight: 400;
+}
+
 
 
 /* ====== Responsive ====== */

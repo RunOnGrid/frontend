@@ -21,7 +21,7 @@ const AppCloudSelect = ({ onNext, methodReset }) => {
 
   return (
     <div className="cloudSelect">
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", alignItems: "center" }}>
         <h3>1.</h3>
         <span>Select the cloud of your choice</span>
       </div>

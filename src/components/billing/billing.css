@@ -1116,7 +1116,7 @@
 }
 
 /* Small Mobile Responsive */
-@media (max-width: 390px) {
+@media (max-width: 430px) {
   .billing-container {
     width: 100%;
     padding: 8px;

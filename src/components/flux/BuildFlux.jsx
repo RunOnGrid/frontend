@@ -21,7 +21,6 @@ export default function BuildFlux({
 
 }) {
   const [activeStep, setActiveStep] = useState(3);
-  const [accessToken, setAccessToken] = useState("");
   const [existingNames, setExistingNames] = useState([]);
   const servicesRef = useRef(null);
   const deployRef = useRef(null);
@@ -98,10 +97,6 @@ export default function BuildFlux({
     }
   };
 
-  useEffect(() => {
-    const emailGrid = localStorage.getItem("grid_email");
-    setEmail(emailGrid);
-  }, [email]);
 
   const getBalance = async () => {
     try {
@@ -221,11 +216,6 @@ export default function BuildFlux({
     fetchExistingNames();
   }, []);
 
-  useEffect(() => {
-    const tokens = TokenService.getTokens();
-    setAccessToken(tokens.tokens.accessToken);
-    getBalance();
-  }, [accessToken]);
 
   useEffect(() => {
     if (activeStep === 3) {

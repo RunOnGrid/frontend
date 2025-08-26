@@ -1,0 +1,164 @@
+.account-container {
+  display: flex;
+  width: 30rem;
+  height: 30%;
+  background-color: #1E2629;
+  border-radius: 10px;
+  justify-content: center;
+  margin: 30px;
+  padding: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+}
+
+.account-container-keys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-container-key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.account-container-key-icon {
+  width: 2rem;
+  height: 2rem;
+
+}
+
+.account-container-key-address {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.account-container-key-content-h4 {
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0;
+}
+
+.account-container-key-content-p {
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0;
+  color: #ffffff8c;
+}
+
+.account-container-key-address {
+  display: flex;
+  background-color: #353C3F;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  /* Alinea al inicio */
+  padding-right: 3rem;
+  /* Espacio para el botón de copiar */
+  border-radius: 20px;
+  margin-top: 0.5rem;
+  position: relative;
+  /* Para posicionamiento relativo */
+}
+
+.account-container-key-address input {
+  font-size: 1rem;
+  background-color: transparent;
+  /* Ocupa el espacio disponible */
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.showSeed-input {
+  width: 100%;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 12px 45px 12px 12px;
+  /* top right bottom left */
+  font-size: 16px;
+  background: white;
+  color: #333;
+}
+
+.showSeed-input:focus {
+  transition: all 0.5s ease;
+  border: 2px solid #00b174;
+  outline: none;
+}
+
+.eye-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #666;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.eye-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.seed-phrase-decrypted {
+  font-size: 1rem;
+  color: white;
+}
+
+.account-container-key-button {
+  background-color: transparent;
+  color: #00b174;
+  border: 1px solid #00b174;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.copy-button{
+  background-color: transparent;
+  color: white;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+  padding: 12px 24px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.seed-phrase-container{
+  background-color: #353C3F;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 10px;
+  cursor: pointer;
+  width: 100%;
+}

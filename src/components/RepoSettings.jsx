@@ -32,10 +32,10 @@ const RepositorySettings = ({
     }
   }, [gridId]);
 
-  useEffect(() => {
-    const response = TokenService.getTokens();
-    setGridId(response.tokens.gridId);
-  }, []);
+  // useEffect(() => {
+  //   const response = TokenService.getTokens();
+  //   setGridId(response.tokens.gridId);
+  // }, []);
 
   useEffect(() => {
     if (repos && repos.length > 0) {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"; // AÑADIDO: useEffect
+import { useState, useEffect, useRef } from "react"; // AÑADIDO: useEffect
 import {MoveLeft} from "lucide-react";
 
 import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core'
@@ -22,9 +22,17 @@ export default function SetPassword({ onConfirm }) {
     const [password, setPassword] = useState("")
     const [confirm, setConfirm] = useState("")
     const [error, setError] = useState("")
+    const passwordRef = useRef(null);
     
     // AÑADIDO: Nuevo estado para guardar la fortaleza de la contraseña
     const [strength, setStrength] = useState({ score: 0, feedback: null });
+
+    useEffect(() => {
+        if (passwordRef.current) {
+          passwordRef.current.focus();
+        }
+      }, []);
+    
 
     // AÑADIDO: Calcula la fortaleza cada vez que la contraseña cambia
     useEffect(() => {
@@ -50,6 +58,7 @@ export default function SetPassword({ onConfirm }) {
             setError("Passwords do not match")
         } else {
             onConfirm(password)
+            setPassword("")
         }
     }
 
@@ -69,6 +78,7 @@ export default function SetPassword({ onConfirm }) {
     };
 
     const strengthProps = getStrengthProps();
+    
 
     return (
         <div className="centered-container">
@@ -81,6 +91,7 @@ export default function SetPassword({ onConfirm }) {
 
                 <div className="sp-form">
                     <input
+                        ref={passwordRef}
                         type="password"
                         placeholder="Enter password"
                         value={password}
@@ -88,7 +99,7 @@ export default function SetPassword({ onConfirm }) {
                         className="sp-input"
                     />
 
-                    {/* AÑADIDO: Barra de progreso y texto de feedback */}
+                
                     {password && (
                         <div style={{minHeight: "30px"}}> {/* Contenedor para evitar saltos de layout */}
                             <div className="sp-strength-bar-container">

@@ -16,6 +16,7 @@
 .cloudSelect button{
   background-color: #000;
   margin: 15px 5px;
+  padding: 10px 20px;
 }
 .cloudSelect button:hover{
   background-color: #00b174;

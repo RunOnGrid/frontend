@@ -11,6 +11,7 @@ import { wordlist } from '@scure/bip39/wordlists/english';
 import { Buffer } from 'buffer';
 import { HDKey } from '@scure/bip32';
 import bs58check from "bs58check";
+import { useMemo } from 'react';
 
 
 interface xPrivXpub {
@@ -18,10 +19,6 @@ interface xPrivXpub {
     xpub: string;
 }
 
-export interface ZkIdentity {
-    mnemonic: string;
-    akashData: DirectSecp256k1HdWallet;
-}
 
 export interface Network {
     messagePrefix: string;
@@ -52,33 +49,28 @@ const BIP32 = BIP32Factory(ecc);
 export async function generateMnemonicFromGoogle(
     providerId: string,
     email: string,
-    deterministic: boolean = false
-): Promise<ZkIdentity> {
+): Promise<Uint8Array> {
     const seedMaterial = `${providerId}|${email}`;
 
-    let entropySource: Uint8Array;
-    if (deterministic) {
-        entropySource = sha256(utils.utf8ToBytes(seedMaterial));
-    } else {
-        const salt = randomBytes(32);
-        const input = utils.concatBytes(utils.utf8ToBytes(seedMaterial), salt);
-        entropySource = sha256(input);
-    }
+    const entropySource = sha256(utils.utf8ToBytes(seedMaterial));
 
     const entropy128 = entropySource.slice(0, 16);
     const mnemonic = bip39.entropyToMnemonic(Buffer.from(entropy128));
+    const mnemonicBuffer = new TextEncoder().encode(mnemonic);
 
-    const akashData = await deriveAkash(mnemonic)
-    return {
-        mnemonic,
-        akashData
-    };
+    return mnemonicBuffer;
 }
-export async function deriveAkash(mnemonic: string): Promise<DirectSecp256k1HdWallet> {
-    const akashData = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, { prefix: "akash" });
-    return akashData
+// Función original para string
+export async function deriveAkash(mnemonic: Uint8Array): Promise<DirectSecp256k1HdWallet> {
+    let seedphrase = new TextDecoder().decode(mnemonic);
+    console.log("seedphrase", seedphrase);
+    const akashData = await DirectSecp256k1HdWallet.fromMnemonic(seedphrase, { prefix: "akash" });
+    mnemonic.fill(0);
+    seedphrase = "";    
+    console.log(seedphrase)
+    return akashData;
+}
 
-}
 
 export function generatexPubxPriv(
     mnemonic: string,
@@ -116,10 +108,8 @@ export function generateFluxKeyPair(xpriv: string) {
     }
     const keyNode = BIP32.fromBase58(child.privateExtendedKey, flux);
     const wif = keyNode.toWIF();
-    console.log(wif);
 
 
-    // 3. Obtenemos la public key comprimida
     const pubKey = secp.getPublicKey(child.privateKey, true);
 
     const sha256Hash = sha256(pubKey);

@@ -99,9 +99,9 @@ const SideNavbar = ({ abierto, setAbierto }) => {
           </li>
         </Link>
 
-        <Link href="/profile">
+        <Link href="/profile/account">
           <li
-            className={`sideNavbar-li ${darkMode ? "dark" : "light"} ${isActive("/")}`}
+            className={`sideNavbar-li ${darkMode ? "dark" : "light"} ${isActive("/profile/account")}`}
           >
             Account
           </li>

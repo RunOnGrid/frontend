@@ -74,7 +74,7 @@ const MethodSelectFlux = forwardRef(
 
     return (
       <div className={`databaseSelect `}>
-        <div style={{ display: "flex" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           <h3>2.</h3>
           <div className="databaseSelect-title">
             <span>Component</span>

@@ -13,10 +13,11 @@ const NextPayment = ({ darkMode }) => {
 
   useEffect(() => {
     try {
-      const account = JSON.parse(localStorage.getItem("account"));
-      if (account) {
-        setFluxAddress(account.fluxAddress || "");
-        setAkashAddress(account.akashAddress || "");
+      const fluxAddress = localStorage.getItem("fluxAddress");
+      const akashAddress = localStorage.getItem("akashAddress");
+      if (fluxAddress) {
+        setFluxAddress(fluxAddress || "");
+        setAkashAddress(akashAddress || ""); 
       }
     } catch (error) {
       console.error('Error reading account from localStorage:', error);

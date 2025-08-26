@@ -28,10 +28,6 @@ const ComponentsTable = ({
 
   const { loadComponent, resetComponent } = useComponentFormState(setters);
 
-  useEffect(() => {
-    const tokens = TokenService.getTokens();
-    setAccessToken(tokens.tokens.accessToken);
-  }, [accessToken]);
 
   // Update workflowOverallStatus based on individual component states
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { AlertTriangle } from "lucide-react"
 
 
@@ -8,21 +8,23 @@ import { AlertTriangle } from "lucide-react"
 export default function BackupKey({ seedPhrase, onConfirm, deterministic }) {
   const [copied, setCopied] = useState(false)
 
-  const words = useMemo(
-    () => seedPhrase?.trim().split(/\s+/).filter(Boolean) ?? [],
-    [seedPhrase]
+
+  let seedPhraseString = new TextDecoder().decode(seedPhrase);
+  let words = useMemo(
+    () => seedPhraseString?.trim().split(/\s+/).filter(Boolean) ?? [],
+    [seedPhraseString]
   )
 
   const isValidCount = words.length === 12 || words.length === 24
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(seedPhrase)
+      await navigator.clipboard.writeText(seedPhraseString)
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
     } catch {}
   }
-
+  
   return (
     <div className="bk bk-center">
       <div className="bk-card" role="region" aria-labelledby="bk-title">
@@ -61,12 +63,13 @@ export default function BackupKey({ seedPhrase, onConfirm, deterministic }) {
           <AlertTriangle className="bk-warning-icon" />
           <span>Backup your seed phrase securely.</span>
         </div>
-
-        <p className="bk-muted">Anyone with your seed phrase can access your account.</p>
+      
+        <p className="bk-muted margin-top-10">Anyone with your seed phrase can access your account.</p>
 
         {deterministic ? (
-          <p className="bk-muted">
-            If you lose access to your Gmail account, the only way to recover your wallet is using your private key. Keep this in a safe place.
+          <p className="bk-muted margin-top-10">
+            If you lose access to your Gmail account, the only way to recover your wallet 
+            is using your seed phrase. Keep this in a safe place.
           </p>
         ) : (
           <p className="bk-muted">
@@ -74,7 +77,7 @@ export default function BackupKey({ seedPhrase, onConfirm, deterministic }) {
           </p>
         )}
 
-        <button className="bk-btn" type="button" onClick={onConfirm}>
+        <button className="bk-btn margin-top-10" type="button" onClick={onConfirm}>
           Got it
         </button>
       </div>
