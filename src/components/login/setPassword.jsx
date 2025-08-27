@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"; // AÑADIDO: useEffect
 import {MoveLeft} from "lucide-react";
-
+import { getFingerprint, getRandomParams } from '../../lib/sspFingerPrint';
 import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core'
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common'
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en'
@@ -57,8 +57,19 @@ export default function SetPassword({ onConfirm }) {
         } else if (password !== confirm) {
             setError("Passwords do not match")
         } else {
-            onConfirm(password)
+            // Generar parámetros aleatorios
+            let randomParams = getRandomParams(); // ej: "a1b2c3d4..."
+            
+            // Se COMBINA: contraseña + parámetros aleatorios
+            let passwordWithParams = password + randomParams;
+            // Resultado: "miContraseña123a1b2c3d4..."
+            
+            // Se guarda la contraseña COMBINADA
+            onConfirm(passwordWithParams)
+            passwordWithParams = null;
+            // Limpiar campos
             setPassword("")
+            setConfirm("")
         }
     }
 

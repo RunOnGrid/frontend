@@ -169,7 +169,7 @@ We welcome contributions! Please follow these steps:
 This project is licensed under the **GNU Affero General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
 
 ```
-Copyright (c) 2024 Grid Project Contributors
+Copyright (c) 2025 Grid Project Contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by

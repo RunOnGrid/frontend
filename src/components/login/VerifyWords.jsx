@@ -17,6 +17,7 @@ import {
     generateExternalIdentityKeypair
 }
     from "@/lib/sspFunctions"
+import { getFingerprint } from "@/lib/sspFingerPrint"
 
 
 
@@ -94,6 +95,10 @@ export default function VerifyWords({ seedPhrase }) {
                 let seedphrase = new TextDecoder().decode(seedPhrase);
                 const blob = await passworderEncrypt(password, seedphrase);
 
+                const randomParams = password.slice(-128);
+
+                const randomParamFingerprint = getFingerprint('forRandomParams');
+                const randomParamsBlob = await passworderEncrypt(randomParamFingerprint, randomParams);
 
                 const akashData = await deriveAkash(seedPhrase);
                 const account = await akashData.getAccounts();
@@ -107,16 +112,19 @@ export default function VerifyWords({ seedPhrase }) {
 
                 const blob1 = await passworderEncrypt(password, externalIdentity.privKey)
                 console.log(blob1);
+                const fingerprint = getFingerprint();
+                const pwBlob = await passworderEncrypt(fingerprint, password);
 
-
+                secureLocalStorage.setItem('randomParams', randomParamsBlob);
                 secureLocalStorage.setItem('FluxIdentity', blob1);
                 secureLocalStorage.setItem('walletSeed', blob);
+                localStorage.setItem("fluxAddress", fluxAddress.address);
+                localStorage.setItem("akashAddress", account[0].address);
 
                 seedPhrase.fill(0);
                 seedphrase = null;
                 externalIdentity = null;
-                localStorage.setItem("fluxAddress", fluxAddress.address);
-                localStorage.setItem("akashAddress", account[0].address);
+                password = null
 
                 router.push("/profile");
             } catch (e) {

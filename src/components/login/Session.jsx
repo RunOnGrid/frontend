@@ -17,7 +17,7 @@ export default function Session({ }) {
     
 
     const handleSubmit = () => {
-        setError("")
+        setError("") 
         if (!password) {
             setError("Password is required")
         }
