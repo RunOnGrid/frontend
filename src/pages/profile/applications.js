@@ -1,7 +1,7 @@
 import AppsTable from "@/components/applications2/AppsTable";
 import useAuthCheck from "@/useRefresh";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
@@ -16,7 +16,9 @@ export async function getServerSideProps() {
   };
 }
 export default function LoggedHosting() {
+
   useAuthCheck();
+ 
   return (
     <div className="logged-home-component2">
       <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>

@@ -23,8 +23,7 @@ const InformationFlux = ({ isLoading, app }) => {
   const [ipSelected, setIpSelected] = useState("");
   const router = useRouter();
 
-  const tokens = TokenService.getTokens();
-  const accessToken = tokens.tokens.accessToken;
+
   const handleModal = () => {
     setShowModal(true);
     setDeleteName(app.serviceName);

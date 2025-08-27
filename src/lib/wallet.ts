@@ -89,7 +89,7 @@ export function generatexPubxPriv(
     const externalChain = masterKey.derive(
         `m/${bip}'/${coin}'/${account}'/${type}'`,
     );
-
+    
 
     return externalChain.toJSON();
 }

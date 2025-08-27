@@ -13,6 +13,10 @@ import {
     generateFluxKeyPair
 }
     from "@/lib/wallet"
+import {
+    generateExternalIdentityKeypair
+}
+    from "@/lib/sspFunctions"
 
 
 
@@ -89,20 +93,28 @@ export default function VerifyWords({ seedPhrase }) {
                 secureLocalStorage.clear();
                 let seedphrase = new TextDecoder().decode(seedPhrase);
                 const blob = await passworderEncrypt(password, seedphrase);
+
+
                 const akashData = await deriveAkash(seedPhrase);
                 const account = await akashData.getAccounts();
 
                 const returnData = generatexPubxPriv(new TextDecoder().decode(seedPhrase), 44, 19167, 0, '0');
                 console.log(returnData);
+
+                let externalIdentity = generateExternalIdentityKeypair(returnData.xpriv)
+                console.log(externalIdentity);
                 const fluxAddress = generateFluxKeyPair(returnData.xpriv)
 
+                const blob1 = await passworderEncrypt(password, externalIdentity.privKey)
+                console.log(blob1);
 
 
+                secureLocalStorage.setItem('FluxIdentity', blob1);
                 secureLocalStorage.setItem('walletSeed', blob);
 
                 seedPhrase.fill(0);
                 seedphrase = null;
-                secureLocalStorage.setItem("walletSeed", blob);
+                externalIdentity = null;
                 localStorage.setItem("fluxAddress", fluxAddress.address);
                 localStorage.setItem("akashAddress", account[0].address);
 

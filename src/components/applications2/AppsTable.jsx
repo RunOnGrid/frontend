@@ -1,12 +1,23 @@
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState, useEffect } from "react";
+  import Link from "next/link";
 import { useTheme } from "@/ThemeContext";
+import axios from "axios";
 import AppsTableRow from "./AppsTableRow";
 import AppsTableHeader from "./AppsTableHeader";
 import MobileFooterBar from "./ProfileFooter";
 
 const AppsTable = () => {
   const { darkMode } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    getLoginPhrase()
+  }, []);
+
+  const getLoginPhrase = async () => {
+    const data = await axios.get("https://api.runonflux.io/id/loginphrase")
+    console.log(data)
+  }
 
   // Para que “It seems…” salga directo:
   const [apps] = useState([]);   // vacío

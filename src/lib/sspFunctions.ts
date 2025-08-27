@@ -53,7 +53,7 @@ export const bitcoin: Network = {
 };
 
 
-export function generateNodeIdentityKeypair(
+function generateNodeIdentityKeypair(
     xpriv: string,
 ): keyPair {
 
