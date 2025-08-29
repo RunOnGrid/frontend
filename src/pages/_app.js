@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 
 import '@/styles/globals.css';
 import '../styles/index/Index.css';
+import "../styles/login/create.css";
 import '../styles/login/Login.css';
 import '../styles/register/Register.css';
 import "../styles/logged-home/LoggedHome.css";
@@ -34,14 +35,19 @@ import "../components/account/account.css";
 import "../components/akash/akash.css";
 import "../commons/commons.css";
 import Head from "next/head";
+import { Provider } from 'react-redux';
+import { store } from '../store/passwordBlobSlice';
+
 
 export default function App({ Component, pageProps }) {
   return (
+    <Provider store={store}>
     <ThemeProvider>
       <Head>
         <link rel="icon" href="/favicon-new.ico" />
       </Head>
       <Component {...pageProps} />
     </ThemeProvider>
+    </Provider>
   );
 }

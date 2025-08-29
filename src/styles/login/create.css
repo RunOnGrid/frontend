@@ -1,0 +1,22 @@
+.centered-container-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.centered-container-login h2 {
+    color: white;
+}
+
+.login-card {
+    justify-self: center;
+    width: 400px;
+
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}

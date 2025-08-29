@@ -20,7 +20,7 @@ import back from "axios";
 
 
 
-const LoginScreen = () => {
+const Create = () => {
   const [password, setPassword] = useState("");
   const [backupconfirmed, setBackupConfirmed] = useState(false);
   const [verificationconfirmed, setVerificationConfirmed] = useState(false);
@@ -229,5 +229,5 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default Create;
 

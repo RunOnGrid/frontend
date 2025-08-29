@@ -6,6 +6,7 @@ import SetPassword from "@/components/login/setPassword";
 import { useRouter } from 'next/navigation';
 import { encrypt as passworderEncrypt, decrypt as passworderDecrypt } from "@metamask/browser-passworder"
 import secureLocalStorage from "react-secure-storage"
+import { useAppDispatch } from "@/hooks/reduxHooks";
 
 import {
     deriveAkash,
@@ -18,20 +19,30 @@ import {
 }
     from "@/lib/sspFunctions"
 import { getFingerprint } from "@/lib/sspFingerPrint"
+import { setPasswordBlob } from "@/store/passwordBlobSlice"
 
 
 
 
 export default function VerifyWords({ seedPhrase }) {
+    const dispatch = useAppDispatch();
+
+
     const [wordPositions, setWordPositions] = useState([]);
     const [wordInputs, setWordInputs] = useState({});
     const [walletName, setWalletName] = useState("");
     const [error, setError] = useState("");
+    const [browser, setBrowser] = useState(null);
+  
+
+    useEffect(() => {
+      setBrowser(window.chrome || window.browser);
+    }, []);
 
 
 
 
-    // 1. NUEVO ESTADO: para controlar qué componente mostrar.
+
     const [isVerified, setIsVerified] = useState(false);
 
     // (Asegúrate de tener acceso al router si lo vas a usar)
@@ -120,6 +131,13 @@ export default function VerifyWords({ seedPhrase }) {
                 secureLocalStorage.setItem('walletSeed', blob);
                 localStorage.setItem("fluxAddress", fluxAddress.address);
                 localStorage.setItem("akashAddress", account[0].address);
+
+                if (browser?.storage?.session) {
+                    await browser.storage.session.set({
+                        pwBlob: pwBlob,
+                    })
+                }
+                dispatch(setPasswordBlob(pwBlob));
 
                 seedPhrase.fill(0);
                 seedphrase = null;

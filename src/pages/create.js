@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import Login from "@/components/login/login";
+import createScreen from "@/components/login/CreateScreen";
 import secureLocalStorage from 'react-secure-storage';
 import { useRouter } from "next/router";
 
-export default function LoginPage() {
+export default function Login() {
 
   const alreadyMounted = useRef(false);
   const [loginVisible, setLoginVisible] = useState(true);
@@ -14,11 +14,11 @@ export default function LoginPage() {
     alreadyMounted.current = true;
     // if user exists, navigate to login
     const accPresent = secureLocalStorage.getItem('walletSeed');
-    if (!accPresent) {
-      router.push('/create');
+    if (accPresent) {
+      router.push('/login');
       return;
     }
-
+    setIsLoading(false);
   });
   return (
     <div className="login-page-container">
@@ -27,7 +27,7 @@ export default function LoginPage() {
           loginVisible ? "visible" : ""
         }`}
       >
-        <Login/>
+        <createScreen />
       </div>
     </div>
   );
