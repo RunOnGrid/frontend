@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { TokenService } from "../../../tokenHandler";
 import Image from "next/image";
 import {
   generateMnemonicFromGoogle,
@@ -14,6 +13,7 @@ import SetPassword from "./setPassword"
 import VerifyWords from "./VerifyWords";
 import BackupKey from "./BackUpKey";
 import back from "axios";
+import secureLocalStorage from "react-secure-storage";
 
 
 
@@ -32,6 +32,17 @@ const Create = () => {
   const [isDeterministic, setIsDeterministic] = useState(false)
 
   const router = useRouter();
+
+
+
+  useEffect(() => {
+    const accPresent = secureLocalStorage.getItem("walletSeed");
+
+    if(accPresent) {
+      router.push("/login");
+      return;
+    }
+  }, []);
 
   useEffect(() => {
     // Evitar múltiples ejecuciones

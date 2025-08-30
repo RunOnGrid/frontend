@@ -114,21 +114,22 @@ export default function VerifyWords({ seedPhrase }) {
                 const akashData = await deriveAkash(seedPhrase);
                 const account = await akashData.getAccounts();
 
-                const returnData = generatexPubxPriv(new TextDecoder().decode(seedPhrase), 44, 19167, 0, '0');
-                console.log(returnData);
+                let returnData = generatexPubxPriv(seedphrase, 44, 19167, 0, '0');
+                let blobXpub = await passworderEncrypt(password, returnData.xpub)
 
                 let externalIdentity = generateExternalIdentityKeypair(returnData.xpriv)
                 console.log(externalIdentity);
                 const fluxAddress = generateFluxKeyPair(returnData.xpriv)
 
-                const blob1 = await passworderEncrypt(password, externalIdentity.privKey)
-                console.log(blob1);
+                
+
                 const fingerprint = getFingerprint();
                 const pwBlob = await passworderEncrypt(fingerprint, password);
 
                 secureLocalStorage.setItem('randomParams', randomParamsBlob);
-                secureLocalStorage.setItem('FluxIdentity', blob1);
+                
                 secureLocalStorage.setItem('walletSeed', blob);
+                secureLocalStorage.setItem('xpub', blobXpub);
                 localStorage.setItem("fluxAddress", fluxAddress.address);
                 localStorage.setItem("akashAddress", account[0].address);
 
@@ -137,14 +138,15 @@ export default function VerifyWords({ seedPhrase }) {
                         pwBlob: pwBlob,
                     })
                 }
-                dispatch(setPasswordBlob(pwBlob));
-
+                dispatch(setPasswordBlob(pwBlob))
+                blobXpub = null;
+                returnData = null;
                 seedPhrase.fill(0);
                 seedphrase = null;
-                externalIdentity = null;
                 password = null
 
                 router.push("/profile");
+                return;
             } catch (e) {
                 console.error("Encryption failed:", e);
                 setError("Could not encrypt and save the wallet.");

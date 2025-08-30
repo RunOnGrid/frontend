@@ -1,8 +1,10 @@
 import dynamic from "next/dynamic";
 import AppsTable from "@/components/applications2/AppsTable";
 import useAuthCheck from "@/useRefresh";
-import authWrapper from "../../../authWrapper";
 import LoadingOverlay from "@/commons/LoadingOverlay";
+import  {useRef, useEffect} from "react";
+import secureLocalStorage from "react-secure-storage";
+import { useRouter } from "next/router";
 
 const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
   ssr: false,
@@ -10,6 +12,22 @@ const DynamicNavbar = dynamic(() => import("../../commons/SideNavbar"), {
 });
 
 export default function Applications() {
+
+  // const alreadyMounted = useRef(false);
+  // const router = useRouter();
+
+  // useEffect(() => {
+  //   if (alreadyMounted.current) return;
+  //   alreadyMounted.current = true;
+  //   // if user exists, navigate to login
+  //   const accPresent = secureLocalStorage.getItem('walletSeed');
+  //   if (!accPresent) {
+  //     router.push('/create');
+  //     return;
+  //   }
+
+  // });
+  
 
   return (
     <div className="logged-home-component2">

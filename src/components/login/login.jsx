@@ -2,13 +2,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { TokenService } from "../../../tokenHandler";
 import Image from "next/image";
 import {
   generateMnemonicFromGoogle,
   generateMnemonic
 }
   from "@/lib/wallet"
+import { decrypt as passworderDecrypt } from "@metamask/browser-passworder"
+import {
+  getFingerprint
+} from "@/lib/sspFingerPrint"
 
 import secureLocalStorage from "react-secure-storage";
 
@@ -27,34 +30,84 @@ const Login = () => {
   const [browser, setBrowser] = useState(null);
   const [password, setPassword] = useState("");
 
+  const router = useRouter();
+
+
+  useEffect(() => {
+    const accPresent = secureLocalStorage.getItem("walletSeed");
+
+    if (!accPresent) {
+      router.push("/create");
+      return;
+    }
+  }, []);
+
   useEffect(() => {
     setBrowser(window.chrome || window.browser);
   }, []);
 
   useEffect(() => {
-    if(passwordRef.current) {
+    if (passwordRef.current) {
       passwordRef.current.focus();
     }
   }, []);
 
-
-
-
-  const router = useRouter();
-
   const handleSubmit = () => {
-    
+
+    const randomParams = secureLocalStorage.getItem('randomParams');
+
+    if (randomParams &&
+      typeof randomParams === 'string' &&
+      randomParams.lenght
+    ) {
+      const randomParamsFingerPrint = getFingerprint(randomParams);
+      passworderDecrypt(randomParamsFingerPrint, password)
+        .then((decryptedParams) => {
+          setPassword(password + decryptedParams)
+        })
+        .catch((error) => {
+          setError("Login error");
+        })
+    }
+  }
+
+  const decryptWallet = () => {
+    const xpubEncrypted = secureLocalStorage.getItem('xpub');
+
+    if(!xpubEncrypted){
+      setError("Login error: Missing required data");
+      return;
+    }
+
+    if(typeof xpub === 'string'){
+      passworderDecrypt(password, xpubEncrypted)
+      .then(async (xpub) =>{
+        const fingerprint = getFingerprint();
+        const pwBlob = await passworderEncrypt(fingerprint, password);
+
+        if(browser?.storage?.session){
+          await browser.storage.session.set({
+            pwBlob: pwBlob,
+          }) 
+        }
+        dispatch(setPasswordBlob(pwBlob))
+        router.push("/profile");
+        return;
+        })
+      .catch((error) => {
+        setError("Login error");
+      })
+    }
   }
 
 
 
 
+  return (
 
-return (
-  
-  
-  <div className="centered-container-login">
-     <Link className="logo-link" href="/">
+
+    <div className="centered-container-login">
+      <Link className="logo-link" href="/">
         <img
           width={180}
           height={100}
@@ -88,7 +141,7 @@ return (
       </div>
     </div>
 
-);
+  );
 };
 
 export default Login;

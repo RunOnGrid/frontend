@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import createScreen from "@/components/login/CreateScreen";
+import Create from "@/components/login/CreateScreen";
 import secureLocalStorage from 'react-secure-storage';
 import { useRouter } from "next/router";
 
@@ -18,7 +18,7 @@ export default function Login() {
       router.push('/login');
       return;
     }
-    setIsLoading(false);
+   
   });
   return (
     <div className="login-page-container">
@@ -27,7 +27,7 @@ export default function Login() {
           loginVisible ? "visible" : ""
         }`}
       >
-        <createScreen />
+        <Create />
       </div>
     </div>
   );
